@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="Your Ultimate Job HTML Template" />
+    <meta
+      name="keywords"
+      content="Hosting, Domain, Transfer, Buy Domain, WHMCS"
+    />
+    <link rel="canonical" href="https://html.themewant.com/hostie" />
+    <meta name="robots" content="index, follow" />
+    <!-- for open graph social media -->
+    <meta property="og:title" content="Your Ultimate Job HTML Template" />
+    <meta property="og:description" content="Your Ultimate Job HTML Template" />
+    <meta property="og:image" content="https://www.example.com/image.jpg" />
+    <meta property="og:url" content="https://html.themewant.com/hostie/" />
+    <!-- for twitter sharing -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Your Ultimate Job HTML Template" />
+    <meta
+      name="twitter:description"
+      content="Your Ultimate Job HTML Template"
+    />
+    <meta
+      name="twitter:image"
+      content="https://html.themewant.com/hostie/landing/assets/images/banner/slider-img-01.webp"
+    />
+
+    <!-- fabicon -->
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+    <link
+      rel="shortcut-icon"
+      href="assets/img/favicon-16x16.png"
+      type="image/x-icon"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="assets/img/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Jobpath - Job Seeker &amp; Job Holder HTML Template</title>
+    <!-- rt icons -->
+    <link rel="stylesheet" href="assets/fonts/icon/css/rt-icons.css" />
+    <!-- fontawesome -->
+    <link
+      rel="stylesheet"
+      href="assets/fonts/fontawesome/fontawesome.min.css"
+    />
+    <!-- all plugin css -->
+    <link rel="stylesheet" href="assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <style>
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: #f8f9fb;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      .status-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 40px 30px;
+        max-width: 500px;
+        width: 100%;
+        margin: 150px auto;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      .status-icon {
+        font-size: 60px;
+        margin-bottom: 20px;
+      }
+
+      .success .status-icon {
+        color: #4caf50;
+      }
+
+      .failed .status-icon {
+        color: #f44336;
+      }
+
+      .status-title {
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .status-desc {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 25px;
+      }
+
+      .btn-home {
+        display: inline-block;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .btn-success {
+        background: #4caf50;
+        color: #fff;
+      }
+
+      .btn-success:hover {
+        background: #43a047;
+      }
+
+      .btn-failed {
+        background: #f44336;
+        color: #fff;
+      }
+
+      .btn-failed:hover {
+        background: #e53935;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="rts__section rts__header absolute__header"
+      data-include="layout/header.html"
+    ></div>
+
+    <div id="status-card" class="status-card">
+      <div id="status-icon" class="status-icon">✓</div>
+      <h1 id="title" class="status-title">
+        <span lang="en">Payment Successful</span>
+        <span lang="ar" style="display: none">تم الدفع بنجاح</span>
+      </h1>
+      <p id="description" class="status-desc">
+        <span lang="en">
+          Your transaction has been completed successfully. You will receive a
+          confirmation email shortly.
+        </span>
+        <span lang="ar" style="display: none">
+          تم إتمام معاملتك بنجاح. ستصلك رسالة تأكيد عبر البريد الإلكتروني
+          قريبًا.
+        </span>
+      </p>
+      <a id="home-btn" href="/" class="btn-home btn-success">
+        <span lang="en">Return to Home</span>
+        <span lang="ar" style="display: none">العودة إلى الرئيسية</span>
+      </a>
+    </div>
+
+    <div style="width: 100%" data-include="layout/footer.html"></div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get("status");
+      const message = urlParams.get("message");
+
+      const card = document.getElementById("status-card");
+      const icon = document.getElementById("status-icon");
+      const title = document.getElementById("title");
+      const desc = document.getElementById("description");
+      const homeBtn = document.getElementById("home-btn");
+
+      // اللغة من localStorage
+      const lang = localStorage.getItem("lang") || "en";
+
+      // دالة تعرض الترجمة حسب اللغة
+      function translateElement(el, textEn, textAr) {
+        if (lang === "ar") {
+          el.textContent = textAr;
+        } else {
+          el.textContent = textEn;
+        }
+      }
+
+      if (status === "paid" && message === "APPROVED") {
+        card.classList.add("success");
+        icon.textContent = "✓";
+
+        translateElement(title, "Payment Successful", "تم الدفع بنجاح");
+        translateElement(
+          desc,
+          "Your transaction has been completed successfully. You will receive a confirmation email shortly.",
+          "تمت عملية الدفع بنجاح. ستصلك رسالة تأكيد عبر البريد الإلكتروني قريبًا."
+        );
+        homeBtn.classList.add("btn-success");
+        translateElement(homeBtn, "Return to Home", "العودة للرئيسية");
+      } else {
+        card.classList.add("failed");
+        icon.textContent = "✗";
+
+        translateElement(title, "Payment Failed", "فشل الدفع");
+        translateElement(
+          desc,
+          "Unfortunately, your payment could not be processed. Please try again or contact support.",
+          "للأسف لم نتمكن من معالجة الدفع. برجاء المحاولة مرة أخرى أو التواصل مع الدعم."
+        );
+        homeBtn.classList.remove("btn-success");
+        homeBtn.classList.add("btn-failed");
+        translateElement(homeBtn, "Try Again", "إعادة المحاولة");
+        homeBtn.href = "/pricing.html";
+      }
+    </script>
+
+    <!-- JS template -->
+    <script src="assets/js/plugins.min.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

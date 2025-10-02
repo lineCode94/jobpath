@@ -1,0 +1,140 @@
+
+// Author card
+.rts__author__card {
+    &.style__default {
+        transition: var(--transition);
+        border: 1px solid #DCDDDF;
+        position: relative;
+        & > *{
+            position: relative;
+            z-index: 2;
+        }
+        &::before {
+            background: linear-gradient(228.34deg, #FEF2EB 0%, #F1F1F1 46.31%, #E4E0EA 100%);
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            inset: 0;
+            border-radius: inherit;
+            z-index: 1;
+            opacity: 0;
+            border: 0;
+            transition: var(--transition);
+        }
+        &:hover {
+            border-color: transparent;
+            &::before {
+                opacity: 1;
+            }
+            .job__tags{
+                a{
+                    background-color: var(--rts-white);
+                    &:hover{
+                        color: inherit;
+                    }
+                }
+            }
+            .apply__btn{
+                background-color: var(--rts-button-1);
+                color: var(--rts-white);
+                border-color: var(--rts-button-1);
+            }
+        }
+        i{
+            color: var(--rts-para);
+        }
+        .job__tags{
+
+            a{
+                padding: 5px 15px;
+                border-radius: 20px;
+            }
+        }
+
+        .apply__btn{
+            padding: 10px 16px;
+        }
+    }
+}
+
+// Author Card Style 2
+.rts__author__card__big{
+    @extend .rts__job__card__big;
+    border: 1px solid #DCDDDF;
+    box-shadow: unset !important;
+    &:hover{
+        border-color: transparent;
+        .job__tags{
+            a{
+                border-radius: 25px !important;
+            }
+            &.style__default{
+                a{
+                    border-radius: 6px !important;
+                    color: var(--rts-para);
+                }
+            }
+        }
+    }
+    .author__icon{
+        img{
+            height: 92px;
+            min-width: 92px;
+            border-radius: 10px;
+        }
+        &.small__thumb{
+            img{
+                height: 60px;
+                min-width: 60px;
+                border-radius: 6px;
+            }
+        }
+    }
+
+    .job__tags{
+        a{
+            border-radius: 25px;
+            background-color: var(--rts-gray);
+            font-weight: 500;
+        }
+        
+    }
+
+}
+
+.author__icon{
+    img{
+        height: 122px;
+        min-width: 122px;
+        border-radius: 10px;
+    }
+    &.small__thumb{
+        img{
+            height: 60px;
+            min-width: 60px;
+        }
+    }
+}
+.review__form .rating i{
+    color: var(--rts-button-2);
+}
+
+.candidate__info{
+    .grid-style{
+        grid-template-columns: repeat(3, 1fr);
+        @include mq($lg){
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @include mq($xs){
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+}
+
+// top candidate
+.top__candidate__single{
+    .apply__btn{
+        min-width: 150px;
+    }
+}

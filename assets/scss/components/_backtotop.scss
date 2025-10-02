@@ -1,0 +1,34 @@
+.rts__back__top {
+	background: var(--rts-button-1);
+	width: 45px;
+	height: 45px;
+	line-height: 45px;
+	color: #fff;
+	border-radius: 25px;
+	display: none;
+	text-align: center;
+	position: fixed;
+	z-index: 999;
+	right: 20px;
+	bottom: 0;
+	opacity: 0;
+	cursor: pointer;
+	transition: var(--transition);
+}
+.rts__back__top.show {
+	display: block;
+	bottom: 30px;
+	opacity: 1;
+}
+
+// back to top button
+.home__two{
+	.rts__back__top{
+		background: var(--rts-button-2);
+	}
+}
+.home__three{
+	.rts__back__top{
+		background: var(--rts-button-3);
+	}
+}

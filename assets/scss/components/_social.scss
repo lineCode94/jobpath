@@ -1,0 +1,24 @@
+.rts__social{
+    a{
+        display: inline-block;
+        font-size: 20px;
+        color: var(--rts-para);
+        transition: var(--transition);
+        &:hover{
+            color: var(--rts-primary);
+        }
+    }
+}
+.social__two{
+    a{
+        color: var(--rts-white);
+        &:hover{
+            color: var(--rts-button-2);
+        }
+    }
+}
+.social__three{
+    a{
+        color: var(--rts-white);
+    }
+}

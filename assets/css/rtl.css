@@ -1,0 +1,118 @@
+body {
+  direction: rtl;
+  text-align: right;
+  font-family: "Tajawal", sans-serif;
+}
+
+.hero-section {
+  flex-direction: row-reverse;
+}
+
+.text-box {
+  margin-left: 0;
+  margin-right: 20px;
+}
+
+/* أي تعديلات RTL إضافية */
+.plans {
+  text-align: right;
+  display: flex;
+}
+.switch__rtl {
+  display: flex !important;
+  flex-direction: row-reverse;
+}
+
+body.rtl .form-control {
+  text-align: right;
+}
+
+.dashboard__right {
+  margin-left: 0 !important;
+  margin-right: 360px !important;
+}
+.rts__section__title .section__mb {
+  padding-top: 20px;
+}
+/* الوضع الافتراضي (الإنجليزي LTR) */
+html[dir="rtl"] select.form-select {
+  padding-left: 1rem !important;
+  padding-right: 2.5rem !important; /* مساحة للسهم */
+  background-position: left 0.75rem center !important;
+}
+
+/* قاعدة عامة */
+select.form-select {
+  appearance: none; /* لإخفاء السهم الافتراضي */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='black' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); /* سهم سفلي */
+  background-repeat: no-repeat;
+  background-size: 12px;
+  background-position: left 0.75rem center; /* LTR */
+  padding-right: 2.5rem;
+}
+
+/* لما الصفحة تكون RTL */
+html[dir="rtl"] select.form-select {
+  background-position: left 0.75rem center;
+  padding-left: 2.5rem;
+  padding-right: 1rem;
+}
+.rts__btn.fill__btn.black-btn {
+  background-color: #000; /* أسود */
+  color: #fff; /* أبيض */
+  border-color: #000; /* نفس لون الخلفية */
+}
+
+.rts__btn.fill__btn.black-btn:hover {
+  background-color: #333; /* لون أفتح عند الهوفر */
+  border-color: #333;
+}
+
+.rts__btn.fill__btn.black-btn:disabled {
+  background-color: #555;
+  border-color: #555;
+  color: #ccc;
+  cursor: not-allowed;
+}
+.swiper-wrapper {
+  direction: ltr; /* مهم جداً للـ transform */
+}
+html[dir="rtl"] .rts__slide__next i {
+  transform: rotate(180deg);
+}
+
+html[dir="rtl"] .rts__slide__prev i {
+  transform: rotate(180deg);
+}
+.rts__slide__next,
+.rts__slide__prev {
+  display: none !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  float: right !important ;
+}
+
+/* السهم الافتراضي (لـ LTR) */
+
+/* السهم في حالة RTL */
+html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
+  content: ""; /* غير الكود هنا حسب السهم الشمال في rt-icons */
+  font-family: "rt-icons";
+  font-size: 14px;
+  padding-left: 10px;
+  padding-right: 0;
+  margin: 10px;
+  position: relative;
+  top: 4px;
+  color: var(--rts-button-1);
+  transform: rotate(180deg) !important;
+  margin-right: 10px;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  top: 4px;
+  color: var(--rts-button-1);
+  transform: rotate(180deg) !important;
+  margin-right: 10px;
+}

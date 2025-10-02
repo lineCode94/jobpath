@@ -1,0 +1,124 @@
+/* ==== Job Cta Card ==== */
+.job__cta__card {
+    background-color: var(--rts-gray);
+    position: relative;
+    overflow: hidden;
+
+    .cta__content {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        width: 55%;
+        color: var(--rts-white);
+
+        @include mq($md) {
+            width: 100%;
+            height: auto;
+            padding: 30px 0;
+        }
+
+        &::after {
+            position: absolute;
+            content: '';
+            height: 100%;
+            width: 100%;
+            right: -10px;
+            background-image: url('../img/hom-4/cta__shape.svg');
+            top: 0;
+            z-index: -1;
+            @extend %background;
+
+            @include mq($xl) {
+                width: 105%;
+            }
+
+            @include mq($lg) {
+                width: 125%;
+            }
+
+            @include mq($md) {
+                width: 110%;
+                right: auto;
+                left: -5%;
+            }
+
+            @include mq($sm) {
+                width: 130%;
+                right: auto;
+                left: -10%;
+            }
+        }
+
+        margin-left: 50px;
+
+        @include mq($lg) {
+            margin-left: 0;
+        }
+
+        .ml-100 {
+            @include mq($xl) {
+                margin-left: 50px;
+            }
+
+            @include mq($lg) {
+                margin-left: 0;
+            }
+
+            @include mq($md) {
+                margin-left: 50px;
+            }
+
+            @include mq($sm) {
+                margin-left: 25px;
+            }
+        }
+
+        .max-500 {
+            @include mq($md) {
+                max-width: 100%;
+            }
+        }
+
+        .h3 {
+            @include mq($lg) {
+                font-size: 40px;
+            }
+
+            @include mq($md) {
+                font-size: 30px;
+            }
+        }
+    }
+
+    .fill__btn {
+        padding: 18px 20px;
+        border-radius: 0;
+        background-color: var(--rts-gray);
+        border: 0;
+        color: var(--rts-button-1);
+        font-weight: 500;
+        margin-top: 30px;
+        text-transform: capitalize;
+        transition: var(--transition);
+
+        &:hover {
+            background-color: var(--rts-heading);
+            color: var(--rts-white);
+        }
+    }
+}
+/* ==== App Section ==== */
+.app__content__section{
+    .app__title{
+        @include mq($lg){
+            font-size: 40px;
+            line-height: 1.2;
+        }
+        @include mq($xs){
+            font-size: 30px;
+            line-height: 1.2;
+        }
+    }
+}

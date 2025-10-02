@@ -1,0 +1,78 @@
+// mobile menu
+.offcanvas{
+    padding: 30px;
+}
+.mean-container{
+    .mean-bar{
+        a.meanmenu-reveal{
+            display: none !important;
+        }
+        background: transparent;
+        .mean-nav{
+            margin-top: 0;
+            ul.list-unstyled {
+                display: block !important;
+            }
+            background: transparent;
+            .navigation__menu--item{
+                margin: 0;
+                &::before{
+                    display: none;
+                }
+            }
+            .navigation__menu--item ul.submenu, .navigation__menu--item .sub__style {
+                position: unset;
+                top: inherit;
+                min-width: inherit;
+                background: unset;
+                z-index: unset;
+                display: inherit;
+                opacity: unset;
+                padding: inherit;
+                transform: inherit;
+                transform-origin: inherit;
+                visibility: unset;
+                transition: unset;
+                left: inherit;
+                box-shadow: unset;
+                margin-left: 5px;
+                .has-arrow{
+                    .mean-expand{
+                        display: block;
+                        margin: 0 auto;
+                    }
+                }
+            }
+            .navigation__menu--item ul.submenu li a::before, .navigation__menu--item .sub__style li a::before,
+            .navigation__menu--item .sub__style li.has-arrow::before{
+                position: unset;
+                content: unset;
+            }
+            ul ul li{
+                border-top: 1px solid rgba(#7D8087, $alpha: 0.3);
+                width: 90%;
+                margin: 0;
+                padding: 0 15px;
+                a{
+                    padding: 0;
+                    margin: 5px 0;
+                }
+            }
+        }
+    }
+}
+.mean-container .mean-nav ul li a{
+    
+    border-color: rgba(#7D8087, $alpha: 0.3);
+    padding: 10px 15px;
+    text-transform: capitalize;
+    color: var(--rts-heading);
+    &.mean-expand{
+        width: 30px;
+        height: auto;
+        padding: 5px 15px  !important;
+        border: unset !important;
+        background: unset !important;
+        font-weight: normal !important;
+    }
+}

@@ -1,0 +1,717 @@
+/*======= Banner Home One =======*/
+.home__one__banner {
+    position: relative;
+    overflow: hidden;
+    @include mq($md){
+        padding-top: 150px;
+    }
+    .rts__banner__background {
+        background-image: url('../img/home-1/banner/header__background.svg');
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        @extend %background;
+
+        .__first {
+            position: absolute;
+            left: -3%;
+            top: 0;
+        }
+
+        .__second {
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+    }
+
+    .rts__banner__content {
+        position: relative;
+        z-index: 1;
+        max-width: 675px;
+
+        .rts__banner__title {
+            letter-spacing: -1px;
+
+            @include mq($xl) {
+                font-size: 75px;
+            }
+
+            @include mq($lg) {
+                font-size: 55px;
+                line-height: 1.2;
+            }
+            @include mq($xs){
+                text-align: center;
+                font-size: 40px;
+                line-height: 1.2;
+            }
+
+            span {
+                color: var(--rts-button-1);
+            }
+        }
+        .rts__banner__desc{
+            @include mq($xs){
+                text-align: center;
+            }
+        }
+    }
+
+    .rts__banner__wrapper {
+        @include mq($md) {
+            flex-wrap: wrap;
+            gap: 180px !important;
+        }
+    }
+
+    .rts__banner__image {
+        margin-top: -90px;
+        z-index: 1;
+
+        .banner__image__shape {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            @include mq($xs){
+                display: none;
+            }
+            .facebook {
+                height: 62px;
+                width: 62px;
+                border-radius: 6px;
+                background-color: var(--rts-white);
+                font-size: 30px;
+                display: grid;
+                place-items: center;
+                color: rgba(119, 99, 229, 1);
+                position: absolute;
+                top: 0;
+                left: 25%;
+                box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
+
+            }
+
+            .twitter {
+                @extend .facebook;
+                color: var(--rts-button-1);
+                position: absolute;
+                top: 22%;
+                left: 5%;
+            }
+
+            .linkedin {
+                @extend .facebook;
+                color: var(--rts-button-3);
+                position: absolute;
+                top: 28%;
+                left: 88%;
+            }
+        }
+    }
+}
+
+.rts__job__search {
+    background: #FFFFFF;
+    box-shadow: 0px 30px 30px rgba(175, 175, 175, 0.16);
+    border-radius: 16px;
+    padding: 22px 20px;
+    position: relative;
+    z-index: 99;
+    .single__input {
+        min-width: 190px;
+
+        @include mq($xl) {
+            min-width: 170px;
+        }
+        @include mq($sm){
+            min-width: 100%;
+        }
+
+        label {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--rts-heading);
+            margin-bottom: 15px;
+            text-transform: capitalize;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .nice-select {
+            border: none;
+            padding: 0;
+            font-size: 18px;
+            height: auto;
+            line-height: 1;
+
+            &.open {
+                &::before {
+                    content: "\f077";
+                    font-family: var(--fontawesome-pro);
+                    transition: var(--transition);
+                }
+            }
+
+            &::after {
+                border-bottom: 0;
+                border-right: 0;
+            }
+
+            &::before {
+                position: absolute;
+                content: "\f078";
+                font-family: var(--fontawesome-pro);
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
+                color: var(--rts-heading);
+                font-size: 12px;
+                transition: var(--transition);
+            }
+
+
+
+        }
+    }
+
+    .job__search {
+        min-width: 160px;
+        height: 60px;
+        text-align: center;
+        border-radius: 10px;
+        @include mq($sm){
+            height: 55px;
+        }
+    }
+}
+
+/*======= Banner Home Two =======*/
+.home__two__banner {
+    position: relative;
+    background-image: url('../img/home-2/header.webp');
+    padding-bottom: 250px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    @include mq($md){
+        padding-top: 200px;
+        padding-bottom: 150px;
+    }
+    .rts__job__search {
+        padding-top: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        padding-left: 30px;
+        @include mq($sm){
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+        &.rounded-50{
+            @include mq($sm){
+                border-radius: 25px !important;
+            }
+        }
+    }
+    .rts__banner__title{
+        @include mq($sm){
+            font-size: 50px;
+            line-height: 1.2;
+        }
+        @include mq($xs){
+            font-size: 40px;
+            line-height: 1.3;
+        }
+    }
+}
+
+/*======= Banner Home Three =======*/
+.home__three__banner {
+    background-image: url('../img/home-3/banner/home_three.png');
+    @extend %background;
+    padding-bottom: 140px;
+    padding-top: 130px;
+    @include mq($sm){
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+    .rts__banner__title {
+        color: var(--rts-white);
+        letter-spacing: -3px;
+        @include mq($xs){
+            font-size: 40px;
+            line-height: 1.2;
+            letter-spacing: 0;
+        }
+    }
+
+    p {
+        color: var(--rts-white);
+    }
+
+    .rts__banner__image {
+        z-index: 1;
+
+        .banner__image__shape {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+
+            .facebook {
+                height: 62px;
+                width: 62px;
+                border-radius: 6px;
+                background-color: var(--rts-white);
+                font-size: 30px;
+                display: grid;
+                place-items: center;
+                color: rgba(119, 99, 229, 1);
+                position: absolute;
+                top: 5%;
+                left: 18%;
+                box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
+                @include mq($sm){
+                    height: 55px;
+                    width: 55px;
+                    font-size: 25px;
+                }
+            }
+
+            .twitter {
+                @extend .facebook;
+                color: var(--rts-button-1);
+                position: absolute;
+                top: 38%;
+                left: 5%;
+            }
+
+            .linkedin {
+                @extend .facebook;
+                color: var(--rts-button-3);
+                position: absolute;
+                top: 30%;
+                left: 80%;
+            }
+        }
+    }
+
+
+}
+
+// current job field
+.current__job {
+    background-color: var(--rts-white);
+    border-radius: 10px;
+    padding: 15px 20px;
+    max-width: max-content;
+    align-items: center;
+    position: absolute;
+    bottom: 50px;
+    right: -50px;
+    @include mq($xs){
+        right: 0;
+    }
+}
+
+.rts__icon {
+    height: 64px;
+    width: 64px;
+    background-color: #F4F6F5;
+    display: grid;
+    place-items: center;
+    border-radius: 4px;
+
+}
+
+.rts__text {
+    span {
+        color: var(--rts-button-3);
+        display: block;
+    }
+}
+
+
+.rts__job__search.form-2 {
+    background: #FFFFFF;
+    box-shadow: unset;
+    border-radius: 16px;
+    padding: 10px 20px;
+    box-shadow: 0px 30px 30px rgba(20, 22, 55, 0.1);
+    @include mq($lg){
+        padding: 20px;
+    }
+    .single__input {
+        max-width: 230px;
+        min-width: 230px;
+        @include mq($sm){
+            min-width: 100%;
+        }
+        input {
+            padding: 12px 20px 12px 40px;
+            border-radius: 6px;
+            background: var(--rts-gray);
+            border: none;
+            line-height: 1;
+            @include mq($sm){
+                font-size: 16px;
+            }
+        }
+
+        .search__icon,
+        .location__icon {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: var(--rts-heading);
+        }
+
+        .nice-select {
+            padding: 14px 20px 14px 40px;
+            border-radius: 6px;
+            background: var(--rts-gray);
+            border: none;
+            line-height: 1;
+            font-size: 18px;
+            @include mq($sm){
+                font-size: 16px;
+            }            
+            
+            &.open {
+                &::before {
+                    content: "\f077";
+                    font-family: var(--fontawesome-pro);
+                    transition: var(--transition);
+                }
+            }
+
+            &::after {
+                border-bottom: 0;
+                border-right: 0;
+            }
+
+            &::before {
+                position: absolute;
+                content: "\f078";
+                font-family: var(--fontawesome-pro);
+                top: 50%;
+                right: 15px;
+                transform: translateY(-50%);
+                color: var(--rts-heading);
+                font-size: 12px;
+                transition: var(--transition);
+            }
+
+
+
+        }
+    }
+
+    .job__search {
+        min-width: 160px;
+        height: 50px;
+        text-align: center;
+        border-radius: 10px;
+    }
+}
+
+/* ======= Banner Home Four =======*/
+.home__four__banner {
+    background-color: var(--rts-gray);
+    background-image: url('../img/hom-4/banner/header__four__bg.svg');
+    .rts__banner__wrapper{
+        &.pb-200{
+            @include mq($md){
+                padding-bottom: 100px;
+            }
+        }
+    }
+    .rts__banner__content {
+        min-width: 730px;
+        @include mq($xl){
+            min-width: 670px;
+        }
+        @include mq($lg){
+            min-width: 500px;
+        }
+        @include mq($md){
+            min-width: 100%;
+        }
+    }
+    .rts__banner__title{
+        @include mq($xl){
+            font-size: 75px;
+        }
+        @include mq($lg){
+            font-size: 55px;
+            line-height: 1.2;
+        }
+        @include mq($xs){
+            font-size: 45px;
+        }
+    }
+
+    .rts__banner__image {
+        figure.banner__image {
+            height: 530px;
+            width: 730px;
+            @include mq($xl){
+                width: 670px;
+            }
+            @include mq($md){
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+.rts__job__search.form-4 {
+    max-width: 665px;
+    border-radius: 0;
+    padding: 15px 20px;
+
+    input {
+        width: 100%;
+        border: 0;
+        padding-right: 15px;
+    }
+
+    .job__search {
+        border-radius: 0;
+        height: 50px;
+        min-width: 130px;
+    }
+}
+
+/* ======= Banner Home Five =======*/
+.home__five__banner {
+    background-image: url('../img/home-5/banner/banner__background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-bottom-left-radius: 160px;
+    @include mq($lg){
+        border-bottom-left-radius: 0;
+    }
+    .pt-150{
+        @include mq($lg){
+            padding-top: 100px;
+        }
+    }
+    .rts__banner__content {
+        min-width: 750px;
+        @include mq($md){
+            min-width: 100%;
+        }
+    }
+    .rts__banner__title{
+        @include mq($lg){
+            margin-bottom: 40px;
+        }
+        @include mq($md){
+            font-size: 60px;
+        }
+        @include mq($sm){
+            margin-bottom: 30px;
+        }
+        @include mq($xs){
+            font-size: 45px;
+            line-height: 1.2;
+        }
+    }
+    .rts__banner__desc {
+        color: var(--rts-gray);
+        @include mq($xl){
+            max-width: 700px;
+        }
+    }
+
+    .rts__job__search.form-2 {
+        box-shadow: 0px 30px 30px rgba(20, 22, 55, 0.1);
+        padding: 15px;
+    }
+    .rts__banner__wrapper{
+        @include mq($lg){
+            margin-bottom: 80px;
+        }
+    }
+    .rts__banner__image {
+        margin-bottom: -160px;
+        margin-top: -35px;
+
+        img {
+            max-width: 900px;
+            height: 600px;
+            border-radius: 16px;
+            border-bottom-right-radius: 140px;
+            
+            @include mq($xl){
+                max-width: 850px;
+                object-fit: cover;
+            }
+            @include mq($lg){
+                max-width: 100%;
+                border-bottom-right-radius: 16px;
+            }
+            @include mq($md){
+                height: 450px;
+            }
+        }
+    }
+
+    .applicant {
+        bottom: 50px;
+        @include mq($lg){
+            position: relative !important;
+            bottom: 0;
+            margin-top: 50px;
+        }
+    }
+
+    .rts__banner__shape {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+
+        .shape__one,
+        .shape__two {
+            height: 68px;
+            width: 68px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #58D379 0%, #44B964 100%);
+        }
+
+        .shape__one {
+            position: absolute;
+            left: -10%;
+            bottom: 40%;
+        }
+
+        .shape__two {
+            position: absolute;
+            right: 25%;
+            top: 15%;
+        }
+
+        .shape__three {
+            position: absolute;
+            bottom: 20%;
+            left: 15%;
+            @include mq($xl){
+                left: 10%;
+            }
+            @include mq($lg){
+                display: none;
+            }
+        }
+    }
+}
+
+
+/* ====== Banner Home Six ======= */
+.home__six__banner {
+    padding-top: 180px;
+    padding-bottom: 150px;
+    background-image: url('../img/home-6/banner/banner__bg.png');
+    @extend %background;
+    margin: 0 65px;
+    position: relative;
+    @include mq($md){
+        margin: 0;
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+    @include mq($sm){
+        padding-top: 70px;
+    }
+
+    & *> {
+        position: relative;
+        z-index: 1;
+    }
+
+    .rounded-full {
+        border-radius: 125px;
+        position: relative;
+        top: -30px;
+        @include mq($xs){
+            top: 0;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+    }
+
+    .rts__banner__shape {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+
+        .shape {
+            height: 60px;
+            width: 60px;
+            place-items: center;
+            display: grid;
+            box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            background-color: var(--rts-white);
+            @include mq($md){
+                display: none;
+            }
+        }
+
+        .shape__one {
+            position: absolute;
+            left: 35%;
+            top: 6%;
+        }
+
+        .shape__two {
+            position: absolute;
+            right: 40%;
+            top: 6%;
+        }
+
+        .shape__three {
+            position: absolute;
+            left: 35%;
+            bottom: 25%;
+        }
+
+        .shape__four {
+            position: absolute;
+            right: 40%;
+            bottom: 25%;
+        }
+
+        .shape__five {
+            position: absolute;
+            left: 10%;
+            top: 30%;
+        }
+
+        .shape__six {
+            position: absolute;
+            right: 10%;
+            top: 30%;
+        }
+    }
+    .rts__banner__title{
+        @include mq($sm){
+            font-size: 55px;
+            line-height: 1.2;
+        }
+        @include mq($xs){
+            font-size: 35px;
+            line-height: 1.2;
+        }
+    }
+
+}

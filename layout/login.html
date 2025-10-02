@@ -1,0 +1,136 @@
+<div class="modal similar__modal fade" id="loginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="max-content similar__form form__padding">
+        <div class="d-flex mb-3 align-items-center justify-content-between">
+          <h6
+            class="mb-0"
+            data-en="Login To Jobpath"
+            data-ar="تسجيل الدخول إلى جوب باث"
+          >
+            Login To Jobpath
+          </h6>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-regular fa-xmark text-primary"></i>
+          </button>
+        </div>
+
+        <div class="d-block has__line text-center">
+          <p data-en="Choose your Account Type" data-ar="اختر نوع حسابك">
+            Choose your Account Type
+          </p>
+        </div>
+
+        <div class="tab-content" id=""></div>
+        <form method="post" id="loginForm" class="d-flex flex-column gap-3">
+          <div class="form-group">
+            <label
+              for="phone"
+              class="fw-medium text-dark mb-3"
+              data-en="Your phone"
+              data-ar="رقم الهاتف"
+              >Your phone</label
+            >
+            <div class="position-relative">
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                value=""
+                data-en="Enter
+              your phone"
+                data-ar="ادخل الهاتف"
+                required
+              />
+              <i class="fa-light fa-phone icon"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label
+              for="password"
+              class="fw-medium text-dark mb-3"
+              data-en="Password"
+              data-ar="كلمة المرور"
+              >Password</label
+            >
+            <div class="position-relative">
+              <input
+                type="password"
+                name="password"
+                value=""
+                id="password"
+                placeholder="Enter your password"
+                data-en="Enter your password"
+                data-ar="ادخل كلمة المرور"
+                required
+              />
+              <i class="fa-light fa-lock icon"></i>
+            </div>
+          </div>
+
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-center fw-medium"
+          >
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label
+                class="form-check-label"
+                for="flexCheckDefault"
+                data-en="Remember me"
+                data-ar="تذكرني"
+                >Remember me</label
+              >
+            </div>
+            <a
+              href="#"
+              class="forgot__password text-para"
+              data-bs-toggle="modal"
+              data-bs-target="#forgotModal"
+              data-en="Forgot Password?"
+              data-ar="هل نسيت كلمة المرور؟"
+              >Forgot Password?</a
+            >
+          </div>
+
+          <div class="form-group my-3">
+            <button
+              class="rts__btn w-100 fill__btn"
+              data-en="Login"
+              data-ar="تسجيل الدخول"
+              type="submit"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+
+        <!-- <div class="d-block has__line text-center">
+              <p data-en="Or" data-ar="أو">Or</p>
+            </div>
+
+            <span
+              class="d-block text-center fw-medium"
+              data-en="Don't have an account?"
+              data-ar="ليس لديك حساب؟"
+            >
+              Don`t have an account?
+              <a
+                href="#"
+                data-bs-target="#signupModal"
+                data-bs-toggle="modal"
+                class="text-primary"
+                data-en="Sign Up"
+                data-ar="إنشاء حساب"
+                >Sign Up</a
+              >
+            </span> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+.cta__h5__bg{
+    background-color: var(--rts-button-1);
+}
+.rts__cta__content{
+    padding: 75px 0;
+    .cta__content{
+        max-width: 720px;
+        margin: 0 auto;
+        @include mq($md){
+            padding: 0 30px;
+        }
+    }
+    .cta__shape{
+        left: 50%;
+        top: 50%;
+        width: 100%;
+        @include mq($md){
+            display: none;
+        }
+        img{
+            @include mq($xl){
+                width: 80%;
+            }
+            @include mq($lg){
+                width: 70%;
+            }
+        }
+    }
+    .newsletter{
+        max-width: 490px;
+        margin: 0 auto;
+        @include mq($sm){
+            max-width: 100%;
+        }
+        input[type="email"]{
+            padding: 20px 45px;
+        }
+    }
+}
+
+
+.swiper-slide {
+    transform: none;
+  }

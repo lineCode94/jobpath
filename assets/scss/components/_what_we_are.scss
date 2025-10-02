@@ -1,0 +1,31 @@
+.rts__image__section{
+    background-image: url(../img/home-1/we-are/image__bg.svg);
+    @extend %background;
+    border-radius: 10px;
+    padding-top: 25px;
+    padding-left: 40px;
+    padding-right: 30px;
+}
+.rts__content__section{
+    max-width: 600px;
+}
+.rts__listing{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    @include mq($xs){
+        grid-template-columns: repeat(1,1fr);
+    }
+}
+.single__listing{
+    .icon{
+        height: 22px;
+        width: 22px;
+        border-radius: 50%;
+        background-color: var(--rts-button-1);
+        display: grid;
+        place-items: center;
+        font-size: 16px;
+        color: var(--rts-white);
+    }
+}

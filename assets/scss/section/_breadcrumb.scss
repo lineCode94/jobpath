@@ -1,0 +1,138 @@
+.breadcrumb__background {
+    background-image: url('../img/breadcrumb/breadcrumb.png');
+    @extend %background;
+    min-height: 450px;
+    @include mq($md){
+        min-height: 100%;
+    }
+}
+.breadcrumb-title{
+    @include mq($xs){
+        text-align: center;
+    }
+}
+
+.breadcrumb__padding {
+    padding: 210px 0 130px;
+    @include mq($md){
+        padding: 150px 0 130px;
+    }
+    @include mq($sm){
+        padding: 150px 0 80px;
+    }
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    content: '\e803';
+    font-family: 'rt-icons';
+    font-size: 14px;
+    padding-right: 10px;
+    position: relative;
+    top: 3px;
+    color: var(--rts-button-1);
+}
+
+.breadcrumb {
+    li {
+        a {
+            color: var(--rts-para);
+        }
+
+        &.active {
+            color: var(--rts-button-1);
+        }
+    }
+
+}
+
+.breadcrumb__area__shape {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    right: 10%;
+    top: 60%;
+
+    @include mq($md) {
+        right: 0;
+    }
+
+    @include mq($xs) {
+        display: none !important;
+    }
+
+    transform: translate(0, -50%);
+
+    .shape__one {
+        right: 25%;
+        position: absolute;
+
+        @include mq($md) {
+            display: none;
+        }
+    }
+}
+
+
+// breadcrumb two style
+.breadcrumb__area {
+    @include mq($sm){
+        margin: 0 auto;
+    }
+    .rts__job__card__big {
+        .job__tags {
+            a {
+                background-color: var(--rts-white);
+            }
+        }
+    }
+    .breadcrumb__apply{
+        position: absolute;
+        right: 0;
+        top: 52%;
+        @include mq($lg){
+            margin-top: 30px;
+            position: relative;
+        }
+        @include mq($sm){
+            margin: 0 auto;
+            padding-top: 30px;
+        }
+
+    }
+    .apply__btn {
+        color: var(--rts-white);
+        font-weight: 500;
+        padding: 20px 30px;
+        position: relative;
+        z-index: 1;
+        @include mq($sm){
+            padding: 15px 20px;
+            font-size: 16px;
+        }
+        &.no__fill__btn{
+            color: var(--rts-heading);
+            background-color: transparent;
+            &:hover{
+                color: var(--rts-white);
+                background-color: var(--rts-button-1);
+                border-color: var(--rts-button-1);
+            }
+        }
+    }
+}
+// breadcrumb four style
+.breadcrumb__area__shape{
+    &.breadcrumb__style__four{
+        .shape__one{
+            left: 10%;
+        }
+    }
+}
+
+// full width map
+
+.full__map{
+    iframe{
+        width: 100%;
+    }
+}

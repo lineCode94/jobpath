@@ -1,0 +1,68 @@
+// slider control
+.rts__slider__control {
+    .slider__btn {
+        height: 43px;
+        width: 40px;
+        background-color: var(--rts-white);
+        border-radius: 6px;
+        display: grid;
+        place-items: center;
+        font-size: 14px;
+        transition: var(--transition);
+
+        &:hover {
+            background-color: var(--rts-button-1);
+            color: var(--rts-white);
+        }
+    }
+}
+
+// dot sytle slider control
+.rts__slider__control {
+    &.dot__style {}
+
+    .rts__pagination {
+        max-width: max-content;
+        margin: 0 auto;
+
+        .swiper-pagination-bullet {
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            background-color: var(--rts-para);
+            transition: var(--transition);
+
+            &-active {
+                background-color: var(--rts-button-3);
+                width: 45px;
+                border-radius: 5px;
+            }
+        }
+    }
+    &.style__two{
+        .rts__pagination{
+            .swiper-pagination-bullet{
+                background-color: var(--rts-para);
+                &-active{
+                    background-color: var(--rts-button-2);
+                }
+            }
+        }
+    }
+}
+
+
+.style-gray {
+    .slider__btn {
+        background-color: var(--rts-gray);
+    }
+}
+
+// control style two
+.style__two__control{
+    .slider__btn{
+        &:hover{
+            background-color: var(--rts-button-2);
+        }
+    }
+}

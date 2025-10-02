@@ -1,0 +1,45 @@
+.timeline {
+    position: relative;
+
+    li {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 30px;
+        &:before {
+            position: absolute;
+            left: 0;
+            top: 8px;
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            background-color: var(--rts-button-1);
+            content: '';
+        }
+
+        &::after {
+            position: absolute;
+            left: 4.5px;
+            top: 15px;
+            height: 110%;
+            width: 1px;
+            z-index: -1;
+            background-color: rgba(#7D8087, $alpha: 0.3);
+            content: "";
+        }
+        &:last-child{
+            &::after{
+                display: none;
+            }
+        }
+        .timeline__title{
+            color: var(--rts-button-1);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .timeline__subtitle{
+            font-size: 16px;
+            font-style: italic;
+            font-weight: 400;
+        }
+    }
+}

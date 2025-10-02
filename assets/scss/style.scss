@@ -1,0 +1,35 @@
+/** This is main css file of template. You can customize this file with your own
+ * styles. To learn more about SASS variables visit http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html
+ */
+
+
+ //  default scss files
+ @import 'default/serialize';
+ @import 'default/variables';
+ @import 'default/reset';
+ @import 'mixin/mixin';
+ @import 'default/typography';
+ @import 'default/spacing';
+ @import 'default/loader';
+ @import 'default/animation';
+ @import 'default/common';
+ @import 'default/animation';
+ @import 'default/input';
+
+// mixin files
+
+// section
+@import 'section/section';
+
+// components
+@import 'components/components';
+
+// pages
+@import 'pages/home-four';
+@import 'pages/home-five';
+@import 'pages/job-details';
+@import 'pages/employer-details';
+@import 'pages/candidate';
+
+// dashboard
+@import 'dashboard/dashboard';

@@ -1,0 +1,104 @@
+.rts__single__counter {
+    position: relative;
+    @include mq($md){
+        text-align: center;
+    }
+    // .counter__round {
+    //     height: 40px;
+    //     width: 40px;
+    //     border-radius: 50%;
+    //     background: linear-gradient(228.34deg, #FEF2EB 0%, #F1F1F1 46.31%, #E4E0EA 100%);
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     z-index: -1;
+    // }
+    .heading__color {
+        position: relative;
+        z-index: 2;
+        max-width: max-content;
+        margin: 0 auto;
+        padding-bottom: 10px;
+        &::before {
+            content: '';
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            background: linear-gradient(228.34deg, #FEF2EB 0%, #F1F1F1 46.31%, #E4E0EA 100%);
+            position: absolute;
+            top: 0;
+            left: -20px;
+            z-index: -1;
+        }
+        &.__noround{
+            &::before{
+                display: none;
+            }
+        }
+    }
+
+    .heading__color {
+        color: var(--rts-button-1);
+    }
+
+    p {
+        color: var(--rts-para);
+    }
+
+
+}
+
+// funfact__bg two
+.funfact__bg {
+    background-image: url('../img/home-3/funfact__bg.png');
+    @extend %background;
+
+}
+
+.funfact__style__two {
+    .rts__single__counter {
+        text-align: center;
+    }
+
+    p {
+
+        color: var(--rts-white);
+    }
+
+    .heading__color {
+        color: var(--rts-white);
+    }
+
+}
+
+// funfact style two
+.rts__single__counter {
+    &.style__two {
+        background-color: var(--rts-gray);
+        text-align: center;
+        padding: 50px;
+        border-radius: 6px;
+        @include mq($lg){
+            padding: 40px 5px;
+        }
+        .heading__color {
+            color: var(--rts-button-2);
+            position: relative;
+            z-index: 2;
+            max-width: max-content;
+            margin: 0 auto;
+            padding-bottom: 10px;
+            &::before {
+                content: '';
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                background: linear-gradient(226.53deg, #F1F1F1 21.32%, #F9AB00 100%);
+                position: absolute;
+                top: 0;
+                left: -20px;
+                z-index: -1;
+            }
+        }
+    }
+}

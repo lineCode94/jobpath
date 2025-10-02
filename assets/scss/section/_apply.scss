@@ -1,0 +1,39 @@
+// apply area css
+.apply__area__bg{
+    background-color: #F5F3EA;
+    border-radius: 16px;
+    padding: 95px 60px;
+    @include mq($sm){
+        padding: 50px;
+        text-align: center;
+    }
+    @include mq($xs){
+        padding: 40px 30px;
+    }
+}
+.apply__area__img{
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    @include mq($lg){
+        left: -80px;
+    }
+    img{
+        max-height: 305px;
+        @include mq($md){
+            max-height: 340px;
+        }
+    }
+    @include mq($md){
+        position: relative;
+    }
+}
+.shape__image__six {
+	position: absolute;
+	left: 35%;
+	top: 0;
+    @include mq($md){
+        top: 25%;
+        left: 30%;
+    }
+}

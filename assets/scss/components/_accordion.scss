@@ -1,0 +1,26 @@
+
+
+.style__one{
+    .accordion-button:not(.collapsed) {
+        color: var(--bs-accordion-active-color);
+        background-color: var(--rts-gray);
+        box-shadow: none;
+        border-color: var(--rts-gray) !important;
+        &::after{
+            content: '\f068';
+            font-family: var(--fontawesome-pro);
+            background-image: none;
+            transform: none;
+            font-size: 16px;
+        }
+    }
+    .accordion-button{
+        &::after{
+            content: '\2b';
+            font-family: var(--fontawesome-pro);
+            background-image: none;
+            font-size: 16px;
+        }
+    }
+
+}

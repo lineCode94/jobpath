@@ -1,0 +1,68 @@
+.single__destination__item{
+    max-width: 305px;
+    position: relative;
+    &.is__full__width{
+        max-width: 100%;
+    }
+    .destination__thumb{
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        &::before{
+            content: '';
+            position: absolute;
+            inset: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(102, 102, 102, 0) 100%);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+        img{
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+        }
+    }
+    .destination__meta{
+        transition: var(--transition);
+        position: absolute;
+        width: 100%;
+        bottom: 30px;
+        color: var(--rts-white);
+        left: 50%;
+        transform: translate(-50%, 0);
+        a{
+            color: var(--rts-white);
+        }
+    }
+    &:hover{
+        .destination__meta{
+            transform: translate(-50%, -200%);
+        }
+    }
+    
+}
+
+// explore job slider two
+.explore__slider{
+    .single__destination__item{
+        max-width: 100%;
+    }
+    .swiper-slide{
+        &.long__item{
+            width: 50% !important;
+            .single__destination__item{
+                max-width: 100%;
+            }
+        }
+    }
+
+}
+
+// single destination style two
+.single__destination__item{
+    &.style__two{
+        max-width: 100%;
+    }
+}

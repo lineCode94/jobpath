@@ -1,0 +1,186 @@
+/* ==== Cat Slider ==== */
+
+.cat__slider__bg {
+    position: relative;
+    background-color: var(--rts-gray);
+    background-image: url('../img/home-1/cat/background.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.single__cat {
+    padding: 22px 30px;
+    border-radius: 10px;
+    background-color: var(--rts-white);
+    max-width: max-content;
+    min-width: 305px;
+    @include mq($md){
+        width: 100%;
+        min-width: auto;
+        max-width: 100%;
+    }
+    transition: var(--transition);
+    &:hover {
+        box-shadow: 0px 4px 40px rgba(73, 73, 73, 0.1);
+    }
+    &__icon {
+        height: 60px;
+        width: 60px;
+        display: grid;
+        place-items: center;
+        border-radius: 6px;
+        background-color: var(--rts-gray);
+
+    }
+
+    &__link {
+        gap: 6px;
+        a {
+            font-size: 24px;
+            color: var(--rts-heading);
+            font-weight: 600;
+            transition: var(--transition);
+            &:hover{
+                color: var(--rts-button-1);
+            }
+            @include mq($sm){
+                font-size: 20px;
+            }
+        }
+
+        span {
+            margin-top: 5px;
+            font-weight: 500;
+            line-height: 1;
+        }
+    }
+}
+
+
+.cat__style__two {
+    .single__cat {
+        @extend .single__cat;
+        border: 1px solid rgba(#7D8087, $alpha: .3);
+        background-color: transparent;
+        transition: var(--transition);
+        margin: 2px 0;
+
+        &:hover {
+            background: var(--rts-white);
+            box-shadow: 0px 4px 40px rgba(73, 73, 73, 0.1);
+            border-color: var(--rts-white);
+        }
+    }
+}
+
+
+// job category home five
+.single__cat {
+    &.style__five {
+        align-items: center;
+        transition: var(--transition);
+        padding: 15px 20px;
+        background-color: rgba(#f1f1f1, $alpha: 0.3);
+        box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
+        @include mq($xl){
+            min-width: 100%;
+        }
+        .single__cat__icon {
+            height: 70px;
+            width: 70px;
+        }
+
+        &:hover {
+            background-color: var(--rts-button-1);
+            .single__cat__link a {
+                color: var(--rts-white);
+            }
+
+            span {
+                color: var(--rts-white);
+            }
+        }
+    }
+}
+
+// job category home six
+.single__cat {
+    &.style__six {
+        .single__cat__icon{
+            height: 70px;
+            min-width: 70px;
+            display: grid;
+            place-items: center;
+            background-color: var(--rts-gray);
+            border-radius: 10px;
+        }
+        padding: 15px 20px;
+        max-width: 100%;
+        background: var(--rts-white);
+        box-shadow: 0px 4px 40px rgba(166, 166, 166, 0.16);
+        border-radius: 10px;
+        transition: var(--transition);
+        &:hover{
+            background: #0B0D28;
+            .single__cat__link a{
+                color: var(--rts-white);
+            }
+            span{
+                color: var(--rts-white);
+            }
+        }
+    }
+}
+
+// cat slider two
+.single__cat{
+    &.style__two{
+        padding-top: 30px;
+        padding-bottom: 35px;
+        background: var(--rts-gray);
+        transition: var(--transition);
+        &:hover{
+            background: var(--rts-button-2);
+            .single__cat__link{
+                a, span{
+                    color: var(--rts-white);
+                }
+            }
+        }
+    }
+}
+.style__two__control{
+    .slider__btn{
+        &:hover{
+            background-color: var(--rts-button-2);
+        }
+    }
+}
+
+.position-lg-absolute{
+    @include mq($lg){
+        position: absolute !important;
+    }
+    @include mq($sm){
+        position: static !important;
+    }
+}
+.position-md-absolute{
+    @include mq($md){
+        position: absolute !important;
+    }
+    @include mq($sm){
+        position: static !important;
+    }
+}
+.right-md-0{
+    @include mq($lg){
+        right: 0;
+    }
+}
+.bottom-md-0{
+    @include mq($lg){
+        bottom: 0;
+    }
+}

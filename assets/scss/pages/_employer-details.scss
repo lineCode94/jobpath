@@ -1,0 +1,65 @@
+// employer style
+.rts__single__employer {
+    &.employer__style__two {
+        padding: 30px;
+        position: relative;
+        border-radius: 6px;
+
+        .apply__btn.style__two {
+            padding: 12px 20px;
+            line-height: inherit;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        &::before {
+            position: absolute;
+            content: "";
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+            background: linear-gradient(228.26deg, #FEF2EB 0%, #F1F1F1 46.25%, #E4E0EA 99.86%);
+            border-radius: 10px;
+        }
+
+        &:hover {
+            box-shadow: none;
+            background-color: unset;
+
+            &::before {
+                opacity: 1;
+            }
+
+            .apply__btn {
+                background-color: var(--rts-button-1);
+                color: var(--rts-white);
+            }
+
+            .icon {
+                background-color: var(--rts-white);
+            }
+        }
+
+    }
+}
+
+// review style
+.review__card {
+    background-color: var(--rts-white);
+    padding: 25px 30px;
+    box-shadow: 0px 4px 40px rgba(166, 166, 166, 0.16);
+    border-radius: 10px;
+    .author__thumb{
+        height: 60px;
+        width: 60px;
+        border-radius: 6px;
+    }
+    .rating i{
+        color: var(--rts-button-2);
+        font-size: 16px;
+    }
+}

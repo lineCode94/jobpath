@@ -1,0 +1,14 @@
+// feature job section
+
+.featured__bg{
+    background-color: var(--rts-button-3);
+}
+.featured__job{
+    color: var(--rts-white);
+    .rts__section__title{
+        color: var(--rts-white);
+        @include mq($sm){
+            font-size: 35px;
+        }
+    }
+}

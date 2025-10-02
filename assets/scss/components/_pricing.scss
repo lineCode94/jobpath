@@ -1,0 +1,108 @@
+.rts__pricing__box {
+    padding: 30px;
+    border: 1px solid rgba($color: #7D8087, $alpha: 0.3);
+    border-radius: 10px;
+    transition: var(--transition);
+    position: relative;
+    z-index: 1;
+    &::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        inset: 0;
+        border-radius: inherit;
+        z-index: -1;
+        opacity: 0;
+        transition: var(--transition);
+        background: linear-gradient(228.34deg, #FEF2EB 0%, #F1F1F1 46.31%, #E4E0EA 100%);
+    }
+    &:hover {
+        border-color: transparent;
+        &::before {
+            opacity: 1;
+        }
+        .pricing__btn{
+            background-color: var(--rts-button-1);
+            color: var(--rts-white);
+        }
+    }
+}
+.plan__feature {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    li {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+
+        i {
+            color: var(--rts-primary);
+            font-size: 14px;
+        }
+    }
+}
+
+// active class
+.monthly__pricing, .yearly__pricing {
+   display: none;
+   transition: var(--transition);
+    &.active{
+        display: block;
+    }
+}
+
+// pricing style three
+.pricing__style__three{
+    .plan__feature li{
+        i{
+            color: var(--rts-primary);
+            font-size: 20px;
+        }
+    }
+    .pricing__btn{
+        border-color: #7D8087;
+    }
+    &:hover{
+        background-color: var(--rts-button-3);
+        color: var(--rts-white);
+        .pricing__btn{
+            background-color: var(--rts-white);
+            color: var(--rts-button-3);
+            border-color: var(--rts-white);
+        }
+        .plan__price span.h4{
+            color: var(--rts-white);
+        }
+        .plan__feature li i{
+            color: var(--rts-white);
+        }
+        .text-dark{
+            color: var(--rts-white) !important;
+        }
+    }
+}
+
+// pricing style three tab
+.rts__pricing__tab{
+    .nav-link{
+        background-color: var(--rts-gray);
+        padding: 15px 20px;
+        border-radius: 6px;
+        color: var(--rts-button-3);
+        &.active{
+            background-color: var(--rts-button-3);
+            color: var(--rts-white);
+        }
+    }
+}
+
+.rts__pricing__box{
+    &.pricing__style__three{
+        &::before{
+            display: none;;
+        }
+    }
+}

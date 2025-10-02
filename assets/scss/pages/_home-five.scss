@@ -1,0 +1,86 @@
+// top candidate css
+.top__candidate__bg{
+    background-image: url('../img/home-5/banner/banner__background.png');
+    border-bottom-right-radius: 160px;
+    @include mq($md){
+        border-bottom-right-radius: 0;
+    }
+    .rts__banner__shape {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        .shape__one,
+        .shape__two {
+            height: 68px;
+            width: 68px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #58D379 0%, #44B964 100%);
+        }
+
+        .shape__one {
+            position: absolute;
+            left: 5%;
+            bottom: 40%;
+        }
+
+        .shape__two {
+            position: absolute;
+            right: 5%;
+            top: 15%;
+        }
+    }
+}
+
+.top__candidate__single{
+    @include mq($sm){
+        padding: 25px !important;
+    }
+    .author{
+        img{
+            height: 60px;
+            width: 60px;
+        }
+    }
+    .meta{
+        i{
+            color: var(--rts-button-1);
+        }
+    }
+    .job__tags{
+        a{
+            background-color: var(--rts-gray);
+            padding: 10px;
+            border-radius: 6px;
+            line-height: 1;
+            color: var(--rts-para);
+            @include mq($md){
+                font-size: 16px;
+            }
+        }
+    }
+    .apply__btn{
+        &:hover{
+            background-color: var(--rts-button-1);
+        }
+    }
+}
+.rts__section__content.text-white{
+    .rts__section__title{
+        color: var(--rts-white) !important;
+    }
+}
+
+// about section
+.about__image{
+    img{
+        @include mq($lg){
+            width: 100%;
+            border-radius: 16px;
+        }
+    }
+    &.is__home__5{
+        @include mq($lg){
+            position: relative !important;
+        }
+    }
+}

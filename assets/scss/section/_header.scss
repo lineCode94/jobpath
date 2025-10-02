@@ -1,0 +1,109 @@
+/* ====== Header ====== */
+.rts__menu__background{
+    background-color: var(--rts-white);
+    max-width: 1410px;
+    padding: 0 45px;
+    border-radius: 0 0 30px 30px;
+    margin: 0 auto;
+    @include mq($lg){
+        padding: 0 20px;
+        border-radius: 0;
+    }
+    @include mq($md){
+        padding: 20px 15px;
+        border-radius: 0;
+    }
+}
+
+.header__right__btn{
+    button{
+        padding: 8px 20px;
+        border: 1px solid var(--rts-button-1);
+        border-radius: 4px;
+        transition: var(--transition);
+        &:hover{
+            background: var(--rts-button-1);
+            color: var(--rts-white);
+        }
+    }
+    button i{
+        font-size: 20px;
+    }
+    &.gap-30{
+        @include mq($lg){
+            gap: 20px;
+        }
+    }
+}
+.absolute__header{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9;
+}
+
+// header two style
+.header__style__two{
+    background-color: var(--rts-white);
+    margin: 30px 60px;
+    border-radius: 50px;
+    width: 94%;
+    @include mq($md){
+        padding: 30px 0;
+    }
+}
+
+// sticky header
+.rts__header{
+    transition: all 0.3s ease;
+    &.sticky{
+        position: fixed;
+        animation: stickyanimations 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        transition: padding 1s;
+        box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
+        background: var(--rts-white);
+        z-index: 999;
+        width: inherit;
+        .navigation__menu--item__link{
+            padding: 30px 0;
+        }
+    }
+}
+@keyframes stickyanimations {
+    0% {
+      -webkit-transform: translateY(-100px);
+      transform: translateY(-100px);
+    }
+    100% {
+      -webkit-transform: translateY(0px);
+      transform: translateY(0px);
+    }
+}
+
+// header style two
+.header__style__two{
+    @media screen and (min-width: 1400px) and (max-width: 1670px) {
+        margin: 30px 40px;
+    }
+    @include mq($xl){
+        margin: 30px 30px;
+    }
+    @include mq($sm){
+        margin: 0 auto;
+        width: 100%;
+        border-radius: 0;
+    }
+    &.sticky{
+        width: 94%;
+        @include mq($sm){
+            width: 100%;
+        }
+    }
+}
+
+.notification__btn{
+    @include mq($xs){
+        display: none;
+    }
+}
