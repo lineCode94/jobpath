@@ -12605,3 +12605,7 @@ input::placeholder {
   font-weight: 600;
 }
 /*# sourceMappingURL=../maps/style.css.map */
+/* hidden logout */
+.log-toggle{
+  display: none!important;
+}

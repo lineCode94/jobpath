@@ -43,6 +43,34 @@ export const verifyOtp = (phone, otp) => {
 export const updateProfile = (data) => {
   return api.patch("/users/complete-profile", data);
 };
+//login
+// login request
+export async function loginUser(phone, password) {
+  const res = await api.post("/users/sign-in", { phone, password });
+  return res.data;
+}
+
+// logout request
+export async function logoutUser() {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("No token found!");
+
+  const res = await api.post(
+    "/users/logout",
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  // لو السيرفر بيرجع success
+  localStorage.removeItem("token");
+  return res.data;
+}
+
+export default api;
 //get plans
 export async function getPlans() {
   try {

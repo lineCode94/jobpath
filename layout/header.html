@@ -111,20 +111,33 @@
             <div class="header__right__btn d-flex gap-3">
               <a
                 href="#"
+                id="login"
                 class="small__btn d-none d-sm-flex no__fill__btn border-6 font-xs"
                 aria-label="Login Button"
                 data-bs-toggle="modal"
                 data-bs-target="#loginModal"
               >
                 <i class="rt-login"></i
-                ><span data-en="Sign In" data-ar="تسجيل الدخول">Sign In</span>
+                ><span id="authText" data-en="Sign In" data-ar="تسجيل الدخول"
+                  >Sign In</span
+                >
               </a>
-
+              <a
+                href="#"
+                id="logout"
+                class="small__btn hidden-logout d-sm-flex no__fill__btn border-6 font-xs"
+                aria-label="Login Button"
+                data-bs-toggle="modal"
+                data-bs-target="#logoutModal"
+              >
+                <i class="rt-login"></i
+                ><span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+              </a>
               <!-- زر تغيير اللغة -->
               <a
                 style="cursor: pointer"
                 id="lang-btn"
-                class="small__btn d-none d-sm-flex no__fill__btn border-6 font-xs"
+                class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
               >
                 Arabic
               </a>

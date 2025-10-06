@@ -1,5 +1,5 @@
 /*=== Javascript function indexing ===*/
-
+import { loginUser, logoutUser } from "./api.js";
 (function ($) {
   "use strict";
   let device_width = window.innerWidth;
@@ -619,49 +619,82 @@
   rtsJs.m();
 })(jQuery, window);
 // new js edits
-// login functionality
+// login logout functionality
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginForm");
+  const loginBtn = document.getElementById("login");
+  const logoutBtn = document.getElementById("logout");
 
-  if (!loginForm) return; // لو الفورم مش موجود في الصفحة
+  // Login
+  if (loginForm) {
+    loginForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-  loginForm.addEventListener("submit", async function (e) {
-    e.preventDefault(); // يمنع الريفريش
+      const phone = document.getElementById("phone").value.trim();
+      const password = document.getElementById("password").value.trim();
 
-    const phone = document.getElementById("phone").value.trim();
-    const password = document.getElementById("password").value.trim();
+      try {
+        const data = await loginUser(phone, password);
 
-    try {
-      const res = await fetch("http://localhost:3000/users/sign-in", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ phone, password }),
-      });
+        if (data.token) {
+          localStorage.setItem("authToken", data.token); // ✅統一 الاسم
+        }
+        updateUI();
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.message || "Login failed!");
-        return;
+        window.location.href = "index.html";
+      } catch (err) {
+        alert(err.response?.data?.message || err.message);
       }
+    });
+  }
 
-      console.log("Login Success:", data);
-
-      if (data.token) {
-        localStorage.setItem("token", data.token);
+  // Logout
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", async function () {
+      try {
+        localStorage.removeItem("authToken"); // ✅ امسح التوكين
+        alert("Logged out successfully!");
+        location.reload();
+      } catch (err) {
+        alert(err.response?.data?.message || err.message);
       }
+    });
+  }
+  function updateUI() {
+    const token = localStorage.getItem("authToken");
 
-      window.location.href = "employer-dash-profile.html";
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong!");
+    if (token) {
+      // Login hidden
+      if (loginBtn) loginBtn.classList.add("log-toggle");
+      // Logout visible
+      if (logoutBtn) logoutBtn.classList.remove("log-toggle");
+      // Profile visible
+      if (profileMenu) profileMenu.style.display = "block";
+    } else {
+      // Login visible
+      if (loginBtn) loginBtn.classList.remove("log-toggle");
+      // Logout hidden
+      if (logoutBtn) logoutBtn.classList.add("log-toggle");
+      // Profile hidden
+      if (profileMenu) profileMenu.style.display = "none";
     }
-  });
+  }
+
+  // ===== عند فتح الصفحة شغل check =====
+  updateUI();
 });
 
-//end login
+// ✅ check لو فيه توكين
+document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("authToken");
+  const profileMenu = document.getElementById("profileMenu");
+
+  if (token && profileMenu) {
+    profileMenu.style.display = "block";
+  }
+});
+
+//end login&logout functionality
 // header and footer layout fetch
 
 // end header and footer layout fetch
