@@ -637,7 +637,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const data = await loginUser(phone, password);
 
         if (data.token) {
-          localStorage.setItem("authToken", data.token); // ✅統一 الاسم
+          localStorage.setItem("authToken", data.token); //
         }
         updateUI();
 
@@ -652,7 +652,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (logoutBtn) {
     logoutBtn.addEventListener("click", async function () {
       try {
-        localStorage.removeItem("authToken"); // ✅ امسح التوكين
+        localStorage.removeItem("authToken"); //
         alert("Logged out successfully!");
         location.reload();
       } catch (err) {
@@ -680,11 +680,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ===== عند فتح الصفحة شغل check =====
+  // =====           =====
   updateUI();
 });
 
-// ✅ check لو فيه توكين
+// check token
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("authToken");
   const profileMenu = document.getElementById("profileMenu");

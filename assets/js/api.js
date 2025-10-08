@@ -1,7 +1,7 @@
 // api.js
 import axios from "https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm";
 
-const API_BASE = "http://173.225.102.24:9000/api/v1";
+const API_BASE = "http://209.159.154.60:9000/api/v1";
 
 export const api = axios.create({
   baseURL: API_BASE,
