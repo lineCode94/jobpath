@@ -180,8 +180,8 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("userId", res?.data?.id);
           showToast(
             document.documentElement.lang === "ar"
-              ? "🎉 تم التحقق من الرمز بنجاح!"
-              : "🎉 Verification successful!",
+              ? "  تم التحقق من الرمز بنجاح!"
+              : "  Verification successful!",
             "success"
           );
           window.location.reload();

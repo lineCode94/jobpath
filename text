@@ -1,0 +1,348 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="Your Ultimate Job HTML Template" />
+    <meta name="keywords" content="Hosting, Domain, Transfer, Buy Domain, WHMCS" />
+    <link rel="canonical" href="https://html.themewant.com/hostie" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- for open graph social media -->
+    <meta property="og:title" content="Your Ultimate Job HTML Template" />
+    <meta property="og:description" content="Your Ultimate Job HTML Template" />
+    <meta property="og:image" content="https://www.example.com/image.jpg" />
+    <meta property="og:url" content="https://html.themewant.com/hostie/" />
+
+    <!-- for twitter sharing -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Your Ultimate Job HTML Template" />
+    <meta name="twitter:description" content="Your Ultimate Job HTML Template" />
+    <meta name="twitter:image" content="https://html.themewant.com/hostie/landing/assets/images/banner/slider-img-01.webp" />
+
+    <!-- favicon -->
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet" />
+
+    <title>Jobpath - Job Seeker &amp; Job Holder HTML Template</title>
+
+    <!-- icons & styles -->
+    <link rel="stylesheet" href="assets/fonts/icon/css/rt-icons.css" />
+    <link rel="stylesheet" href="assets/fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <!-- header -->
+    <header class="rts__section rts__header absolute__header">
+      <div class="container-none">
+        <div class="rts__menu__background">
+          <div class="row">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="rts__logo">
+                <a href="index.html">
+                  <img class="logo__image" src="assets/img/logo/header__one.svg" width="160" height="40" alt="logo" />
+                </a>
+              </div>
+              <div class="rts__menu d-flex gap-5 gap-lg-4 gap-xl-5 align-items-center">
+                <div class="navigation d-none d-lg-block">
+                  <nav class="navigation__menu" id="offcanvas__menu">
+                    <ul class="list-unstyled">
+                      <li class="navigation__menu--item">
+                        <a href="index.html" class="navigation__menu--item__link" data-en="Home" data-ar="الرئيسية">Home</a>
+                      </li>
+                      <li class="navigation__menu--item">
+                        <a class="navigation__menu--item__link" href="pricing.html" data-en="Pricing" data-ar="الأسعار">Pricing</a>
+                      </li>
+                      <li class="navigation__menu--item has-child has-arrow">
+                        <a href="#" class="navigation__menu--item__link" data-en="Policies & Support" data-ar="السياسات والدعم">Policies & Support</a>
+                        <ul class="submenu sub__style" role="menu">
+                          <li role="menuitem"><a href="about.html">About</a></li>
+                          <li role="menuitem"><a href="privacy.html">Privacy</a></li>
+                          <li role="menuitem"><a href="faq.html">Faq</a></li>
+                          <li role="menuitem"><a href="tos.html">Tos</a></li>
+                          <li role="menuitem"><a href="contact-1.html">Contact us</a></li>
+                        </ul>
+                      </li>
+                      <li class="navigation__menu--item">
+                        <a href="blog-1.html" class="navigation__menu--item__link" data-en="Blog" data-ar="المدونة">Blog</a>
+                      </li>
+                      <li id="profileMenu" class="navigation__menu--item">
+                        <a href="employer-dash-profile.html" class="navigation__menu--item__link" data-en="User Profile" data-ar="الملف الشخصي">User Profile</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+
+                <div class="header__right__btn d-flex gap-3">
+                  <a
+                    href="#"
+                    id="login"
+                    class="small__btn d-none d-sm-flex no__fill__btn border-6 font-xs"
+                    aria-label="Login Button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                  >
+                    <i class="rt-login"></i>
+                    <span id="authText" data-en="Sign In" data-ar="تسجيل الدخول">Sign In</span>
+                  </a>
+
+                  <a
+                    href="#"
+                    id="logout"
+                    class="small__btn hidden-logout d-sm-flex no__fill__btn border-6 font-xs"
+                    aria-label="Logout Button"
+                  >
+                    <i class="rt-login"></i>
+                    <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+                  </a>
+
+                  <a style="cursor: pointer" id="lang-btn" class="small__btn d-sm-flex no__fill__btn border-6 font-xs">Arabic</a>
+
+                  <button class="d-md-block d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+                    <i class="fa-sharp fa-regular fa-bars"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- breadcrumb area -->
+    <div class="rts__section breadcrumb__background">
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-lg-12 position-relative d-flex justify-content-center align-items-center"
+          >
+            <div class="breadcrumb__area max-content breadcrumb__padding z-2">
+              <h1
+                class="breadcrumb-title h3 mb-3"
+                data-en="Privacy Policy"
+                data-ar="سياسة الخصوصية"
+              >
+                Privacy Policy
+              </h1>
+              <nav class="mx-auto max-content">
+                <ul class="breadcrumb m-0 lh-1">
+                  <li class="breadcrumb-item">
+                    <a href="index.html" data-en="Home" data-ar="الرئيسية">
+                      Home
+                    </a>
+                  </li>
+                  <li
+                    class="breadcrumb-item active"
+                    aria-current="page"
+                    data-en="Privacy Policy"
+                    data-ar="سياسة الخصوصية"
+                  >
+                    Privacy Policy
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div
+              class="breadcrumb__area__shape breadcrumb__style__four d-flex gap-4 justify-content-end align-items-center"
+            >
+              <div class="shape__one common"></div>
+              <div class="shape__two common">
+                <img src="assets/img/breadcrumb/shape-2.svg" alt="" />
+              </div>
+              <div class="shape__three common">
+                <img src="assets/img/breadcrumb/shape-3.svg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- breadcrumb area end -->
+
+    <!-- privacy section -->
+     <!-- tos -->
+    <div class="rts__section section__padding">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="privacy__content fw-medium d-flex gap-30 flex-column">
+              <div class="has__item">
+                <h6
+                  class="fw-semibold mb-3"
+                  data-en="Privacy Policy"
+                  data-ar="سياسة الخصوصية"
+                >
+                  Privacy Policy
+                </h6>
+                <p
+                  data-en="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ..."
+                  data-ar="من المعروف منذ زمن طويل أن القارئ سيتشتت بسبب المحتوى المقروء لصفحة ما عند النظر إلى تصميمها..."
+                >
+                  It is a long established fact that a reader will be distracted
+                  ...
+                </p>
+              </div>
+
+              <div class="has__item">
+                <h6
+                  class="fw-semibold mb-3"
+                  data-en="Determination of personal information of users"
+                  data-ar="تحديد المعلومات الشخصية للمستخدمين"
+                >
+                  Determination of personal information of users
+                </h6>
+                <ul class="list__style__dot">
+                  <li
+                    data-en="All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks..."
+                    data-ar="جميع مولدات لوريم إيبسوم على الإنترنت تميل إلى تكرار مقاطع محددة مسبقًا..."
+                  >
+                    All the Lorem Ipsum generators on the Internet tend to
+                    repeat predefined chunks...
+                  </li>
+                  <li
+                    data-en="It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures..."
+                    data-ar="يستخدم قاموسًا يضم أكثر من 200 كلمة لاتينية مع عدد من تراكيب الجمل النموذجية..."
+                  >
+                    It uses a dictionary of over 200 Latin words...
+                  </li>
+                  <li
+                    data-en="There are many variations of passages of Lorem Ipsum available..."
+                    data-ar="توجد العديد من الاختلافات في مقاطع لوريم إيبسوم المتاحة..."
+                  >
+                    There are many variations of passages of Lorem Ipsum
+                    available...
+                  </li>
+                </ul>
+              </div>
+
+              <div class="has__item">
+                <h6
+                  class="fw-semibold mb-3"
+                  data-en="Reasons for collecting and processing user personal information"
+                  data-ar="أسباب جمع ومعالجة المعلومات الشخصية للمستخدم"
+                >
+                  Reasons for collecting and processing user personal
+                  information
+                </h6>
+                <ul class="number__style__dot">
+                  <li
+                    data-en="It is a long established fact that a reader will be distracted by the readable content..."
+                    data-ar="من المعروف منذ زمن طويل أن القارئ سيتشتت بسبب المحتوى المقروء..."
+                  >
+                    It is a long established fact that a reader will be
+                    distracted...
+                  </li>
+                  <li
+                    data-en="All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks..."
+                    data-ar="جميع مولدات لوريم إيبسوم على الإنترنت تميل إلى تكرار المقاطع المحددة مسبقًا..."
+                  >
+                    All the Lorem Ipsum generators on the Internet tend to
+                    repeat predefined chunks...
+                  </li>
+                  <li
+                    data-en="It has survived not only five centuries, but also the leap into electronic typesetting..."
+                    data-ar="لقد صمد لأكثر من خمسة قرون، وكذلك بعد الانتقال إلى الطباعة الإلكترونية..."
+                  >
+                    It has survived not only five centuries, but also the leap
+                    into electronic typesetting...
+                  </li>
+                </ul>
+              </div>
+
+              <p
+                data-en="All generators on the Internet tend to repeat predefined chunks as necessary..."
+                data-ar="جميع المولدات على الإنترنت تميل إلى تكرار المقاطع المحددة مسبقًا حسب الحاجة..."
+              >
+                All generators on the Internet tend to repeat predefined chunks
+                as necessary...
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- tos end -->
+
+    <!-- footer include -->
+    <div data-include="layout/footer.html"></div>
+
+    <!-- Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+      <div class="offcanvas-header p-0 mb-5 mt-4">
+        <a href="index.html" class="offcanvas-title" id="offcanvasLabel">
+          <img src="assets/img/logo/header__one.svg" alt="logo" />
+        </a>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <div class="rts__offcanvas__menu overflow-hidden">
+          <div class="offcanvas__menu"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4 rounded-4">
+          <div class="modal-header border-0">
+            <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" id="loginForm" class="d-flex flex-column gap-3">
+              <div class="form-group">
+                <label for="phone" class="fw-medium text-dark mb-3">Your phone</label>
+                <div class="position-relative">
+                  <input type="tel" name="phone" id="phone" placeholder="Enter your phone" required />
+                  <i class="fa-light fa-phone icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="password" class="fw-medium text-dark mb-3">Password</label>
+                <div class="position-relative">
+                  <input type="password" name="password" id="password" placeholder="Enter your password" required />
+                  <i class="fa-light fa-lock icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group my-3">
+                <button class="rts__btn w-100 fill__btn" type="submit">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- loader -->
+    <div class="loader-wrapper">
+      <div class="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+
+    <button type="button" class="rts__back__top" id="rts-back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JS files -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="assets/js/plugins.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="assets/js/login.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script defer src="assets/js/include.js"></script>
+  </body>
+</html>
+

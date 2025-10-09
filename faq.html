@@ -61,10 +61,167 @@
   </head>
   <body>
     <!-- header area -->
-    <div
-      class="rts__section rts__header absolute__header"
-      data-include="layout/header.html"
-    ></div>
+<header class="rts__section rts__header absolute__header">
+  <div class="container-none">
+    <div class="rts__menu__background">
+      <div class="row">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="rts__logo">
+            <a href="index.html">
+              <img
+                class="logo__image"
+                src="assets/img/logo/header__one.svg"
+                width="160"
+                height="40"
+                alt="logo"
+              />
+            </a>
+          </div>
+          <div
+            class="rts__menu d-flex gap-5 gap-lg-4 gap-xl-5 align-items-center"
+          >
+            <div class="navigation d-none d-lg-block">
+              <nav class="navigation__menu" id="offcanvas__menu">
+                <ul class="list-unstyled">
+                  <li class="navigation__menu--item">
+                    <a
+                      href="index.html"
+                      class="navigation__menu--item__link"
+                      data-en="Home"
+                      data-ar="الرئيسية"
+                      >Home</a
+                    >
+                  </li>
+
+                  <li class="navigation__menu--item">
+                    <a
+                      class="navigation__menu--item__link"
+                      href="pricing.html"
+                      data-en="Pricing"
+                      data-ar="الأسعار"
+                      >Pricing</a
+                    >
+                  </li>
+
+                  <li class="navigation__menu--item has-child has-arrow">
+                    <a
+                      href="#"
+                      class="navigation__menu--item__link"
+                      data-en="Policies & Support"
+                      data-ar="السياسات والدعم"
+                      >Policies & Support</a
+                    >
+                    <ul class="submenu sub__style" role="menu">
+                      <li role="menuitem">
+                        <a href="about.html" data-en="About" data-ar="من نحن"
+                          >About</a
+                        >
+                      </li>
+                      <li role="menuitem">
+                        <a
+                          href="privacy.html"
+                          data-en="Privacy"
+                          data-ar="الخصوصية"
+                          >Privacy</a
+                        >
+                      </li>
+                      <li role="menuitem">
+                        <a
+                          href="faq.html"
+                          data-en="Faq"
+                          data-ar="الأسئلة الشائعة"
+                          >Faq</a
+                        >
+                      </li>
+                      <li role="menuitem">
+                        <a href="tos.html" data-en="Tos" data-ar="الشروط"
+                          >Tos</a
+                        >
+                      </li>
+                      <li role="menuitem">
+                        <a
+                          href="contact-1.html"
+                          data-en="Contact us"
+                          data-ar="اتصل بنا"
+                          >Contact us</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="navigation__menu--item">
+                    <a
+                      href="blog-1.html"
+                      class="navigation__menu--item__link"
+                      data-en="Blog"
+                      data-ar="المدونة"
+                      >Blog</a
+                    >
+                  </li>
+                  <li id="profileMenu" class="navigation__menu--item">
+                    <a
+                      href="employer-dash-profile.html"
+                      class="navigation__menu--item__link"
+                      data-en="User Profile"
+                      data-ar="الملف الشخصي"
+                      >User Profile</a
+                    >
+                  </li>
+                </ul>
+              </nav>
+            </div>
+
+            <div class="header__right__btn d-flex gap-3">
+              <a
+                href="#"
+                id="login"
+                class="small__btn d-none d-sm-flex no__fill__btn border-6 font-xs"
+                aria-label="Login Button"
+                data-bs-toggle="modal"
+                data-bs-target="#loginModal"
+              >
+                <i class="rt-login"></i
+                ><span id="authText" data-en="Sign In" data-ar="تسجيل الدخول"
+                  >Sign In</span
+                >
+              </a>
+              <a
+                href="#"
+                id="logout"
+                class="small__btn hidden-logout d-sm-flex no__fill__btn border-6 font-xs"
+                aria-label="Login Button"
+                data-bs-toggle="modal"
+                data-bs-target="#logoutModal"
+              >
+                <i class="rt-login"></i
+                ><span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+              </a>
+              <!-- زر تغيير اللغة -->
+              <a
+                style="cursor: pointer"
+                id="lang-btn"
+                class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+              >
+                Arabic
+              </a>
+
+              <button
+                class="d-md-block d-lg-none"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvas"
+                aria-controls="offcanvas"
+              >
+                <i class="fa-sharp fa-regular fa-bars"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header> 
+
 
     <!-- breadcrumb area -->
     <div class="rts__section breadcrumb__background">
@@ -329,7 +486,143 @@
     <!-- faq section end -->
     <!-- faq section end -->
 
-    <div data-include="layout/login.html"></div>
+  <div class="modal similar__modal fade" id="loginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="max-content similar__form form__padding">
+        <div class="d-flex mb-3 align-items-center justify-content-between">
+          <h6
+            class="mb-0"
+            data-en="Login To Jobpath"
+            data-ar="تسجيل الدخول إلى جوب باث"
+          >
+            Login To Jobpath
+          </h6>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-regular fa-xmark text-primary"></i>
+          </button>
+        </div>
+
+        <div class="d-block has__line text-center">
+          <p data-en="Choose your Account Type" data-ar="اختر نوع حسابك">
+            Choose your Account Type
+          </p>
+        </div>
+
+        <div class="tab-content" id=""></div>
+        <form method="post" id="loginForm" class="d-flex flex-column gap-3">
+          <div class="form-group">
+            <label
+              for="phone"
+              class="fw-medium text-dark mb-3"
+              data-en="Your phone"
+              data-ar="رقم الهاتف"
+              >Your phone</label
+            >
+            <div class="position-relative">
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                value=""
+                data-en="Enter
+              your phone"
+                data-ar="ادخل الهاتف"
+                required
+              />
+              <i class="fa-light fa-phone icon"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label
+              for="password"
+              class="fw-medium text-dark mb-3"
+              data-en="Password"
+              data-ar="كلمة المرور"
+              >Password</label
+            >
+            <div class="position-relative">
+              <input
+                type="password"
+                name="password"
+                value=""
+                id="password"
+                placeholder="Enter your password"
+                data-en="Enter your password"
+                data-ar="ادخل كلمة المرور"
+                required
+              />
+              <i class="fa-light fa-lock icon"></i>
+            </div>
+          </div>
+
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-center fw-medium"
+          >
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label
+                class="form-check-label"
+                for="flexCheckDefault"
+                data-en="Remember me"
+                data-ar="تذكرني"
+                >Remember me</label
+              >
+            </div>
+            <a
+              href="#"
+              class="forgot__password text-para"
+              data-bs-toggle="modal"
+              data-bs-target="#forgotModal"
+              data-en="Forgot Password?"
+              data-ar="هل نسيت كلمة المرور؟"
+              >Forgot Password?</a
+            >
+          </div>
+
+          <div class="form-group my-3">
+            <button
+              class="rts__btn w-100 fill__btn"
+              data-en="Login"
+              data-ar="تسجيل الدخول"
+              type="submit"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+
+        <!-- <div class="d-block has__line text-center">
+              <p data-en="Or" data-ar="أو">Or</p>
+            </div>
+
+            <span
+              class="d-block text-center fw-medium"
+              data-en="Don't have an account?"
+              data-ar="ليس لديك حساب؟"
+            >
+              Don`t have an account?
+              <a
+                href="#"
+                data-bs-target="#signupModal"
+                data-bs-toggle="modal"
+                class="text-primary"
+                data-en="Sign Up"
+                data-ar="إنشاء حساب"
+                >Sign Up</a
+              >
+            </span> -->
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <!-- signup form -->
     <div class="modal similar__modal fade" id="signupModal">
@@ -568,7 +861,10 @@
       <i class="fas fa-arrow-up"></i>
     </button>
     <!-- all plugin js -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
     <script src="assets/js/plugins.min.js"></script>
-    <script defer type="module" src="assets/js/main.js"></script>
+    <script type ="module" src="assets/js/login.js"></script>
+    <script  src="assets/js/main.js"></script>
   </body>
 </html>

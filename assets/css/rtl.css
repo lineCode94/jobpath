@@ -116,3 +116,10 @@ html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
   transform: rotate(180deg) !important;
   margin-right: 10px;
 }
+.list__style__dot li::before{
+  right: -26px;
+    top: 57%;
+}
+.d-flex .mb-3 .align-items-center .justify-content-between{
+  flex-direction: row-reverse;
+}

@@ -1,5 +1,5 @@
 /*=== Javascript function indexing ===*/
-import { loginUser, logoutUser } from "./api.js";
+// import { loginUser, logoutUser } from "./api.js";
 (function ($) {
   "use strict";
   let device_width = window.innerWidth;
@@ -620,79 +620,6 @@ import { loginUser, logoutUser } from "./api.js";
 })(jQuery, window);
 // new js edits
 // login logout functionality
-document.addEventListener("DOMContentLoaded", function () {
-  const loginForm = document.getElementById("loginForm");
-  const loginBtn = document.getElementById("login");
-  const logoutBtn = document.getElementById("logout");
-
-  // Login
-  if (loginForm) {
-    loginForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const phone = document.getElementById("phone").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      try {
-        const data = await loginUser(phone, password);
-
-        if (data.token) {
-          localStorage.setItem("authToken", data.token); //
-        }
-        updateUI();
-
-        window.location.href = "index.html";
-      } catch (err) {
-        alert(err.response?.data?.message || err.message);
-      }
-    });
-  }
-
-  // Logout
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", async function () {
-      try {
-        localStorage.removeItem("authToken"); //
-        alert("Logged out successfully!");
-        location.reload();
-      } catch (err) {
-        alert(err.response?.data?.message || err.message);
-      }
-    });
-  }
-  function updateUI() {
-    const token = localStorage.getItem("authToken");
-
-    if (token) {
-      // Login hidden
-      if (loginBtn) loginBtn.classList.add("log-toggle");
-      // Logout visible
-      if (logoutBtn) logoutBtn.classList.remove("log-toggle");
-      // Profile visible
-      if (profileMenu) profileMenu.style.display = "block";
-    } else {
-      // Login visible
-      if (loginBtn) loginBtn.classList.remove("log-toggle");
-      // Logout hidden
-      if (logoutBtn) logoutBtn.classList.add("log-toggle");
-      // Profile hidden
-      if (profileMenu) profileMenu.style.display = "none";
-    }
-  }
-
-  // =====           =====
-  updateUI();
-});
-
-// check token
-document.addEventListener("DOMContentLoaded", () => {
-  const token = localStorage.getItem("authToken");
-  const profileMenu = document.getElementById("profileMenu");
-
-  if (token && profileMenu) {
-    profileMenu.style.display = "block";
-  }
-});
 
 //end login&logout functionality
 // header and footer layout fetch
