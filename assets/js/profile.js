@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           const cvPreview = document.getElementById("cvPreview");
           if (cvPreview) {
             const fileName = user.cvPath.split("/").pop();
-            cvPreview.innerHTML = `<a href="${user.cvPath}" target="_blank"><i class="fa-solid fa-file-pdf"></i> ${fileName}</a>`;
+            cvPreview.innerHTML = `<a class="cv-link" href="${user.cvPath}" target="_blank"><i class="fa-solid fa-file-pdf"></i> ${fileName}</a>`;
           }
         }
 
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (cvInput && cvInput.files.length > 0 && userId) {
           const cvFormData = new FormData();
           cvFormData.append("cv", cvInput.files[0]);
-          const cvRes = await uploadCv(userId, cvFormData);
+          const cvRes = await uploadCv( cvFormData);
           if (cvRes.data?.cvPath) {
             const cvPreview = document.getElementById("cvPreview");
             if (cvPreview) {

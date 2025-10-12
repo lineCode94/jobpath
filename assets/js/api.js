@@ -95,10 +95,10 @@ export const getAllCourses = () => api.get("/users/get-user-courses");
 export const getJobNames = () => api.get("/users/get-user-job-names");
 export const getUserDetails = () => api.get("/users/get-user-details");
 export const getAllJobs = () => api.get("/users/get-all-jobs");
-export const uploadCv = (userId, formData) => {
-  alert(userId);
+export const uploadCv = ( formData) => {
+  // alert(userId);
 
-  return api.patch(`/users/edit-cv/${userId}`, formData, {
+  return api.patch(`/users/edit-cv`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 };

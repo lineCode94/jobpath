@@ -1,3 +1,5 @@
+ import { loginUser, logoutUser } from "./api.js";
+
 // login logout functionality
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginForm");
@@ -56,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
           window.location.href = "index.html";
         }, 800);
       } catch (err) {
+        console.log(err);
         showToast(
           err.response?.data?.message || "❌ Login failed, please try again",
           "error"
