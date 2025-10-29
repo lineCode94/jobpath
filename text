@@ -58,7 +58,7 @@
                         <a href="index.html" class="navigation__menu--item__link" data-en="Home" data-ar="الرئيسية">Home</a>
                       </li>
                       <li class="navigation__menu--item">
-                        <a class="navigation__menu--item__link" href="pricing.html" data-en="Pricing" data-ar="الأسعار">Pricing</a>
+                        <a class="navigation__menu--item__link" href="pricing.html" data-en="Pricing" data-ar="الأشتراكات">Pricing</a>
                       </li>
                       <li class="navigation__menu--item has-child has-arrow">
                         <a href="#" class="navigation__menu--item__link" data-en="Policies & Support" data-ar="السياسات والدعم">Policies & Support</a>
