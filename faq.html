@@ -224,29 +224,42 @@
 
 
     <!-- breadcrumb area -->
-    <div class="rts__section breadcrumb__background">
+       <div class="rts__section breadcrumb__background">
       <div class="container">
         <div class="row">
           <div
-            class="col-lg-12 position-relative d-flex justify-content-between align-items-center"
+            class="col-lg-12 position-relative d-flex justify-content-center align-items-center"
           >
             <div class="breadcrumb__area max-content breadcrumb__padding z-2">
-              <h1 class="breadcrumb-title h3 mb-3">Faq</h1>
-              <nav>
+              <h1
+                class="breadcrumb-title h3 mb-3"
+                data-en="FAQ  "
+                data-ar="  الأسئلة الشائعة"
+              >
+                FAQ
+              </h1>
+              <nav class="mx-auto max-content">
                 <ul class="breadcrumb m-0 lh-1">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">
-                    Faq
+                  <li class="breadcrumb-item">
+                    <a href="index.html" data-en="Home" data-ar="الرئيسية">
+                      Home
+                    </a>
+                  </li>
+                  <li
+                    class="breadcrumb-item active"
+                    aria-current="page"
+                    data-en="FAQ  "
+                    data-ar=" الأسئلة الشائعة"
+                  >
+                  FAQ
                   </li>
                 </ul>
               </nav>
             </div>
             <div
-              class="breadcrumb__area__shape d-flex gap-4 justify-content-end align-items-center"
+              class="breadcrumb__area__shape breadcrumb__style__four d-flex gap-4 justify-content-end align-items-center"
             >
-              <div class="shape__one common">
-                <img src="assets/img/breadcrumb/shape-1.svg" alt="" />
-              </div>
+              <div class="shape__one common"></div>
               <div class="shape__two common">
                 <img src="assets/img/breadcrumb/shape-2.svg" alt="" />
               </div>
@@ -262,226 +275,387 @@
 
     <!-- faq section -->
     <!-- faq section -->
-    <section class="rts__section section__padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-6 col-lg-10">
-            <div class="rts__section__content mb-60 wow animated fadeInUp">
-              <h3
-                class="rts__section__title section__mb"
-                data-en="Frequently Asked Questions"
-                data-ar="الأسئلة الشائعة"
-              >
-                Frequently Asked Questions
-              </h3>
-              <p
-                class="rts__section__desc"
-                data-en="Looking for your next career opportunity. Look no further"
-                data-ar="تبحث عن فرصة عمل جديدة؟ لا داعي للبحث أكثر!"
-              >
-                Looking for your next career opportunity. Look no further
-              </p>
-            </div>
-          </div>
+ <section class="rts__section section__padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-6 col-lg-10">
+        <div class="rts__section__content mb-60 wow animated fadeInUp">
+          <h3
+            class="rts__section__title section__mb"
+            data-en="Frequently Asked Questions"
+            data-ar="الأسئلة الشائعة"
+          >
+            Frequently Asked Questions
+          </h3>
+          <p
+            class="rts__section__desc"
+            data-en="Here are the most common questions about JobsAI and how it helps you advance your career."
+            data-ar="إليك أكثر الأسئلة شيوعًا حول منصة JobsAI وكيف تساعدك في تطوير مسيرتك المهنية."
+          >
+            Here are the most common questions about JobsAI and how it helps you advance your career.
+          </p>
         </div>
-        <div class="row g-4">
-          <div class="col-lg-6">
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Left Column -->
+      <div class="col-lg-6">
+        <div class="accordion accordion-flush d-flex flex-column gap-4 style__one" id="rts__accordion">
+          
+          <!-- 1 -->
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button p-4 fw-medium border font-20 focus-none"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq_one"
+                aria-expanded="true"
+                aria-controls="faq_one"
+                data-en="What is JobsAI?"
+                data-ar="ما هي منصة Jobs AI؟"
+              >
+                What is JobsAI?
+              </button>
+            </h2>
             <div
-              class="accordion accordion-flush d-flex flex-column gap-4 style__one"
-              id="rts__accordion"
+              id="faq_one"
+              class="accordion-collapse border mt-3 collapse show"
+              data-bs-parent="#rts__accordion"
             >
-              <div class="accordion-item border-0">
-                <h2 class="accordion-header">
-                  <button
-                    class="accordion-button p-4 fw-medium border font-20 focus-none"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#item_one"
-                    aria-expanded="true"
-                    aria-controls="item_one"
-                    data-en="Why should I subscribe to Jobpath Pro?"
-                    data-ar="لماذا يجب أن أشترك في Jobpath Pro؟"
-                  >
-                    Why should I subscribe to Jobpath Pro?
-                  </button>
-                </h2>
-                <div
-                  id="item_one"
-                  class="accordion-collapse border mt-3 collapse show"
-                  data-bs-parent="#rts__accordion"
-                >
-                  <div
-                    class="accordion-body"
-                    data-en="We provide the best tools to help you find the right job quickly and easily."
-                    data-ar="نقدم لك أفضل الأدوات للعثور على الوظيفة المناسبة بسرعة وسهولة."
-                  >
-                    We provide the best tools to help you find the right job
-                    quickly and easily.
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item border-0">
-                <h2 class="accordion-header">
-                  <button
-                    class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#item_two"
-                    aria-expanded="false"
-                    aria-controls="item_two"
-                    data-en="What payment methods do you accept?"
-                    data-ar="ما طرق الدفع التي تقبلونها؟"
-                  >
-                    What payment methods do you accept?
-                  </button>
-                </h2>
-                <div
-                  id="item_two"
-                  class="accordion-collapse border mt-3 collapse"
-                  data-bs-parent="#rts__accordion"
-                >
-                  <div
-                    class="accordion-body"
-                    data-en="We accept all major credit cards, PayPal, and bank transfers."
-                    data-ar="نقبل جميع بطاقات الائتمان الرئيسية و PayPal والتحويلات البنكية."
-                  >
-                    We accept all major credit cards, PayPal, and bank
-                    transfers.
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item border-0">
-                <h2 class="accordion-header">
-                  <button
-                    class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#item_three"
-                    aria-expanded="false"
-                    aria-controls="item_three"
-                    data-en="Can I cancel anytime?"
-                    data-ar="هل يمكنني الإلغاء في أي وقت؟"
-                  >
-                    Can I cancel anytime?
-                  </button>
-                </h2>
-                <div
-                  id="item_three"
-                  class="accordion-collapse border mt-3 collapse"
-                  data-bs-parent="#rts__accordion"
-                >
-                  <div
-                    class="accordion-body"
-                    data-en="Yes, you can cancel your subscription at any time from your dashboard."
-                    data-ar="نعم، يمكنك إلغاء اشتراكك في أي وقت من خلال لوحة التحكم الخاصة بك."
-                  >
-                    Yes, you can cancel your subscription at any time from your
-                    dashboard.
-                  </div>
-                </div>
+              <div
+                class="accordion-body"
+                data-en="JobsAI is a smart recruitment platform that guides you step-by-step in your career journey. It offers personalized hiring plans tailored to your experience, goals, and field. Combining AI tools with human expertise, we help you improve your CV and connect with the best local and global employers."
+                data-ar="نحن منصة توظيف ذكية، تدعمك خطوة بخطوة في مسيرتك المهنية. نعتمد على خطط توظيف مخصصة لتناسب طبيعتك، مستوى خبرتك، طموحك الوظيفي، ومجال عملك. نستخدم أحدث أدوات الذكاء الاصطناعي مع خبراء في التوظيف والتسويق الشخصي لتطوير سيرتك الذاتية واختيار أفضل الفرص المحلية والعالمية."
+              >
+                JobsAI is a smart recruitment platform that guides you step-by-step in your career journey...
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
+
+          <!-- 2 -->
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq_two"
+                aria-expanded="false"
+                aria-controls="faq_two"
+                data-en="How many companies receive my CV?"
+                data-ar="كم عدد الشركات التي يتم إرسال سيرتي الذاتية إليها؟"
+              >
+                How many companies receive my CV?
+              </button>
+            </h2>
             <div
-              class="accordion accordion-flush d-flex flex-column gap-4 style__one"
-              id="rts__accordion2"
+              id="faq_two"
+              class="accordion-collapse border mt-3 collapse"
+              data-bs-parent="#rts__accordion"
             >
-              <div class="accordion-item border-0">
-                <h2 class="accordion-header">
-                  <button
-                    class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#item_four"
-                    aria-expanded="false"
-                    aria-controls="item_four"
-                    data-en="Is Jobpath Pro available worldwide?"
-                    data-ar="هل Jobpath Pro متاح عالميًا؟"
-                  >
-                    Is Jobpath Pro available worldwide?
-                  </button>
-                </h2>
-                <div
-                  id="item_four"
-                  class="accordion-collapse border mt-3 collapse"
-                  data-bs-parent="#rts__accordion2"
-                >
-                  <div
-                    class="accordion-body"
-                    data-en="Yes, our services are accessible from anywhere around the globe."
-                    data-ar="نعم، خدماتنا متاحة من أي مكان في العالم."
-                  >
-                    Yes, our services are accessible from anywhere around the
-                    globe.
-                  </div>
-                </div>
+              <div
+                class="accordion-body"
+                data-en="The number of companies we contact depends on your selected package and subscription plan."
+                data-ar="يعتمد عدد الشركات التي نتواصل معها على باقتك ونظام اشتراكك المختار."
+              >
+                The number of companies we contact depends on your selected package and subscription plan.
               </div>
-              <div class="accordion-item border-0">
-                <h2 class="accordion-header">
-                  <button
-                    class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#item_five"
-                    aria-expanded="false"
-                    aria-controls="item_five"
-                    data-en="How do I contact support?"
-                    data-ar="كيف يمكنني التواصل مع الدعم؟"
-                  >
-                    How do I contact support?
-                  </button>
-                </h2>
-                <div
-                  id="item_five"
-                  class="accordion-collapse border mt-3 collapse"
-                  data-bs-parent="#rts__accordion2"
-                >
-                  <div
-                    class="accordion-body"
-                    data-en="You can reach out to our support team via the contact form or email."
-                    data-ar="يمكنك التواصل مع فريق الدعم لدينا من خلال نموذج الاتصال أو البريد الإلكتروني."
-                  >
-                    You can reach out to our support team via the contact form
-                    or email.
-                  </div>
-                </div>
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq_three"
+                aria-expanded="false"
+                aria-controls="faq_three"
+                data-en="How do I upload my CV to the website?"
+                data-ar="كيف أشارك سيرتي الذاتية على الموقع؟"
+              >
+                How do I upload my CV to the website?
+              </button>
+            </h2>
+            <div
+              id="faq_three"
+              class="accordion-collapse border mt-3 collapse"
+              data-bs-parent="#rts__accordion"
+            >
+              <div
+                class="accordion-body"
+                data-en="Register on our website, fill in your personal details, upload your CV, choose your job preferences, and select your plan."
+                data-ar="ادخل على الرابط، سجل بياناتك الشخصية، أرفق سيرتك الذاتية أثناء التسجيل، اختر مجالك وموقع وطبيعة الوظيفة التي تبحث عنها، ثم اختر باقتك المناسبة."
+              >
+                Register, fill in your personal details, upload your CV, choose your preferences, and select your plan.
               </div>
-              <div class="accordion-item border-0">
-                <h2 class="accordion-header">
-                  <button
-                    class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#item_six"
-                    aria-expanded="false"
-                    aria-controls="item_six"
-                    data-en="Do you offer corporate packages?"
-                    data-ar="هل تقدمون باقات للشركات؟"
-                  >
-                    Do you offer corporate packages?
-                  </button>
-                </h2>
-                <div
-                  id="item_six"
-                  class="accordion-collapse border mt-3 collapse"
-                  data-bs-parent="#rts__accordion2"
-                >
-                  <div
-                    class="accordion-body"
-                    data-en="Yes, we offer tailored packages for companies. Please contact us for more details."
-                    data-ar="نعم، نقدم باقات مخصصة للشركات. يرجى التواصل معنا لمزيد من التفاصيل."
-                  >
-                    Yes, we offer tailored packages for companies. Please
-                    contact us for more details.
-                  </div>
-                </div>
+            </div>
+          </div>
+
+          <!-- 4 -->
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq_four"
+                aria-expanded="false"
+                aria-controls="faq_four"
+                data-en="How can I ensure my CV reaches employers?"
+                data-ar="كيف أضمن وصول سيرتي الذاتية لجهات التوظيف؟"
+              >
+                How can I ensure my CV reaches employers?
+              </button>
+            </h2>
+            <div
+              id="faq_four"
+              class="accordion-collapse border mt-3 collapse"
+              data-bs-parent="#rts__accordion"
+            >
+              <div
+                class="accordion-body"
+                data-en="Once you subscribe, we send your CV to employers via email and keep you updated with detailed reports."
+                data-ar="بمجرد اشتراكك بأحد الباقات، نبدأ في إرسال سيرتك الذاتية على البريد الإلكتروني الخاص بتلك الجهات ونرسل إليك تقارير بالتحديثات حول ملفك."
+              >
+                Once you subscribe, we send your CV to employers and keep you updated.
+              </div>
+            </div>
+          </div>
+
+          <!-- 5 -->
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq_five"
+                aria-expanded="false"
+                aria-controls="faq_five"
+                data-en="Are there any free plans?"
+                data-ar="هل هناك اشتراكات مجانية؟"
+              >
+                Are there any free plans?
+              </button>
+            </h2>
+            <div
+              id="faq_five"
+              class="accordion-collapse border mt-3 collapse"
+              data-bs-parent="#rts__accordion"
+            >
+              <div
+                class="accordion-body"
+                data-en="Currently, all our plans are paid, offering different levels of service and support."
+                data-ar="في الوقت الحالي، جميع الباقات مدفوعة وتختلف حسب مستوى الخدمة والدعم."
+              >
+                Currently, all our plans are paid, offering different levels of service and support.
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+
+      <!-- Right Column -->
+      <div class="col-lg-6">
+        <div class="accordion accordion-flush d-flex flex-column gap-4 style__one" id="rts__accordion2">
+
+          <!-- 6 -->
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq_six"
+                aria-expanded="false"
+                aria-controls="faq_six"
+                data-en="When does JobsAI start sending my CV?"
+                data-ar="متى يبدأ JobsAI في إرسال سيرتي الذاتية؟"
+              >
+                When does JobsAI start sending my CV?
+              </button>
+            </h2>
+            <div
+              id="faq_six"
+              class="accordion-collapse border mt-3 collapse"
+              data-bs-parent="#rts__accordion2"
+            >
+              <div
+                class="accordion-body"
+                data-en="Once your account is created and CV uploaded, we review it within a short period before sending it to the right employers based on your subscription."
+                data-ar="بمجرد تسجيل حسابك ورفع سيرتك الذاتية، نقوم بالمراجعة لمدة قصيرة ثم نبدأ بإرسالها لجهات التوظيف المناسبة حسب اشتراكك."
+              >
+                Once your account is created and CV uploaded, we review and send it according to your plan.
+              </div>
+            </div>
+          </div>
+
+          <!-- 7 -->
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq_seven"
+                aria-expanded="false"
+                aria-controls="faq_seven"
+                data-en="Does JobsAI rely entirely on Artificial Intelligence?"
+                data-ar="هل يعتمد JobsAI على الذكاء الاصطناعي بشكل كامل؟"
+              >
+                Does JobsAI rely entirely on Artificial Intelligence?
+              </button>
+            </h2>
+            <div
+              id="faq_seven"
+              class="accordion-collapse border mt-3 collapse"
+              data-bs-parent="#rts__accordion2"
+            >
+              <div
+                class="accordion-body"
+                data-en="No, JobsAI combines AI technology with human expertise to guide and improve the recruitment process."
+                data-ar="لا. في JobsAI ندمج بين الذكاء الاصطناعي والخبرة البشرية لتوجيه وتطوير أدوات الذكاء الاصطناعي."
+              >
+                No, JobsAI combines AI technology with human expertise.
+              </div>
+            </div>
+          </div>
+
+          <!-- 8 -->
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq_eight"
+                aria-expanded="false"
+                aria-controls="faq_eight"
+                data-en="Do you offer installment payments?"
+                data-ar="هل هناك نظام تقسيط للباقات؟"
+              >
+                Do you offer installment payments?
+              </button>
+            </h2>
+            <div
+              id="faq_eight"
+              class="accordion-collapse border mt-3 collapse"
+              data-bs-parent="#rts__accordion2"
+            >
+              <div
+                class="accordion-body"
+                data-en="No, but multiple payment methods are available."
+                data-ar="لا، ولكن هناك طرق دفع مختلفة متاحة."
+              >
+                No, but multiple payment methods are available.
+              </div>
+            </div>
+          </div>
+
+          <!-- 9 -->
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq_nine"
+                aria-expanded="false"
+                aria-controls="faq_nine"
+                data-en="What payment methods are available?"
+                data-ar="ما هي طرق الدفع المتاحة؟"
+              >
+                What payment methods are available?
+              </button>
+            </h2>
+            <div
+              id="faq_nine"
+              class="accordion-collapse border mt-3 collapse"
+              data-bs-parent="#rts__accordion2"
+            >
+              <div
+                class="accordion-body"
+                data-en="We offer several options including credit card and Apple Pay."
+                data-ar="لدينا طرق دفع مختلفة؛ بالكارت و Apple Pay وغيرها."
+              >
+                We offer several options including credit card and Apple Pay.
+              </div>
+            </div>
+          </div>
+
+          <!-- 10 -->
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq_ten"
+                aria-expanded="false"
+                aria-controls="faq_ten"
+                data-en="Do you offer international job opportunities?"
+                data-ar="هل تعرضون وظائف خارج المملكة؟"
+              >
+                Do you offer international job opportunities?
+              </button>
+            </h2>
+            <div
+              id="faq_ten"
+              class="accordion-collapse border mt-3 collapse"
+              data-bs-parent="#rts__accordion2"
+            >
+              <div
+                class="accordion-body"
+                data-en="Yes, we feature global job opportunities from international employers."
+                data-ar="نعم، هناك فرص عمل عالمية ومن جهات دولية نعرضها هنا في JobsAI."
+              >
+                Yes, we feature global job opportunities from international employers.
+              </div>
+            </div>
+          </div>
+
+          <!-- 11 -->
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button p-4 fw-medium border font-20 focus-none collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq_eleven"
+                aria-expanded="false"
+                aria-controls="faq_eleven"
+                data-en="Are your services limited to Saudi citizens only?"
+                data-ar="هل تقتصر خدماتكم على المواطنين السعوديين فقط؟"
+              >
+                Are your services limited to Saudi citizens only?
+              </button>
+            </h2>
+            <div
+              id="faq_eleven"
+              class="accordion-collapse border mt-3 collapse"
+              data-bs-parent="#rts__accordion2"
+            >
+              <div
+                class="accordion-body"
+                data-en="No, our services are available to all residents and job seekers inside or outside the Kingdom."
+                data-ar="لا، خدماتنا تناسب المواطن والمقيم وكل من يبحث عن عمل داخل المملكة وأحيانًا خارجها."
+              >
+                No, our services are available to all residents and job seekers inside or outside the Kingdom.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <!-- faq section end -->
     <!-- faq section end -->

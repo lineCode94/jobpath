@@ -18,6 +18,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     container.innerHTML = `
       <div class="row justify-content-center">
+      <h6 class="rts__banner__desc my-40 wow  fadeInUp animated">
+
+      تبحث عن وظيفة؟ 
+اختر خطة التوظيف اللي تناسبك من باقاتنا المتنوعة!
+
+     </h6>
         ${plans
           .map(
             (plan) => `
