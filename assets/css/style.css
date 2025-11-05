@@ -12609,3 +12609,7 @@ input::placeholder {
 .log-toggle{
   display: none!important;
 }
+.rts__logo{
+  height: 100px;
+margin-top: -50px;
+}
