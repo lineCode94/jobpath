@@ -327,7 +327,7 @@
       const urlParams = new URLSearchParams(window.location.search);
       const planId = urlParams.get("planId");
       const amount = urlParams.get("amount");
-      const finalAmount = amount * 100;
+      const finalAmount = amount ;
 
       // ✅ اللغة من localStorage
       const lang = localStorage.getItem("lang") || "en";
@@ -343,7 +343,7 @@
         currency: "SAR",
         description: description, // ✅ مترجم حسب اللغة
         publishable_api_key: "pk_test_UePDryuCKsGTU6ckJ693j5wN5ovtw9EJWkjurNz4",
-        callback_url: "http://localhost:5500/thanks.html",
+        callback_url: "https://jobzai.net/thanks.html",
         methods: ["creditcard"],
         manual: false,
         credit_card: {
