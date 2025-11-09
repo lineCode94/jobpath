@@ -177,7 +177,10 @@ document.addEventListener("DOMContentLoaded", async () => {
           const cvPreview = document.getElementById("cvPreview");
           if (cvPreview) {
             const fileName = user.cvPath.split("/").pop();
-            cvPreview.innerHTML = `<a class="cv-link" href="${user.cvPath}" target="_blank"><i class="fa-solid fa-file-pdf"></i> ${fileName}</a>`;
+           cvPreview.innerHTML = `
+        <a href="${user.path}" target="_blank">
+          <i class="fa-solid fa-download me-1"></i> Download existing CV
+        </a>`;
           }
         }
 
