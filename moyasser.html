@@ -327,7 +327,8 @@
       const urlParams = new URLSearchParams(window.location.search);
       const planId = urlParams.get("planId");
       const amount = urlParams.get("amount");
-      const finalAmount = amount ;
+      console.log(amount)
+      const finalAmount = amount *100;
 
       // ✅ اللغة من localStorage
       const lang = localStorage.getItem("lang") || "en";
