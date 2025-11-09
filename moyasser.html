@@ -327,8 +327,10 @@
       const urlParams = new URLSearchParams(window.location.search);
       const planId = urlParams.get("planId");
       const amount = urlParams.get("amount");
-      console.log(amount)
-      const finalAmount = amount *100;
+      const finalPlanId = Number(planId);
+      const finalUserId = Number(userId)
+      const finalAmount = Number(amount)  ;
+      console.log(typeof finalAmount);
 
       // ✅ اللغة من localStorage
       const lang = localStorage.getItem("lang") || "en";
@@ -351,8 +353,8 @@
           save_card: true,
         },
         metadata: {
-          userId: userId,
-          planId: planId,
+          userId: finalUserId,
+          planId: finalPlanId,
           lang: lang, // ✅ خزنا كمان اللغة في الميتاداتا
         },
         locale: lang === "ar" ? "ar" : "en",

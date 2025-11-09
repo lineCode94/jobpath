@@ -72,25 +72,15 @@
 
   export default api;
   //get plans
-  export async function getPlans() {
-    try {
-      const res = await fetch(`${API_BASE}/payments/get-plans`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
+  export const getPlans = () => {
+    return api.get("/payments/get-plans", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
-      if (!res.ok) throw new Error("Failed to fetch plans");
-
-      const data = await res.json();
-      return data.plansWithAmount || [];
-    } catch (err) {
-      console.error("Error fetching plans:", err);
-      return [];
-    }
-  }
   export const getAllCourses = () => api.get("/users/get-user-courses");
   export const getJobNames = () => api.get("/users/get-user-job-names");
   export const getUserDetails = () => api.get("/users/get-user-details");

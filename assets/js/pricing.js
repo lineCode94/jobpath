@@ -1,5 +1,9 @@
 import { getPlans } from "./api.js";
 
+
+ 
+
+
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.querySelector(".mysr-form");
 
@@ -7,8 +11,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const lang = localStorage.getItem("lang") || "en";
 
   try {
-    const plans = await getPlans();
-
+    const data = await getPlans();
+    const plans = data.data.plansWithAmount;
+console.log(plans)
     if (!plans || plans.length === 0) {
       container.innerHTML = `<p class="text-center">${
         lang === "en" ? "No plans available." : "لا توجد باقات متاحة"
