@@ -1,13 +1,21 @@
- import { loginUser, logoutUser } from "./api.js";
+import { sendOtp, verifyOtp, loginUser } from "./api.js";
 
-// login logout functionality
 document.addEventListener("DOMContentLoaded", function () {
-  const loginForm = document.getElementById("loginForm");
+  const loginFormPhone = document.getElementById("loginFormPhone");
+  const loginFormMail = document.getElementById("loginFormMail");
   const loginBtn = document.getElementById("login");
   const logoutBtn = document.getElementById("logout");
   const profileMenu = document.getElementById("profileMenu");
 
-  // 🔹 دالة التوست
+  const phoneInput = document.getElementById("phone");
+  const otpSection = document.getElementById("otpSection");
+  const otpInput = document.getElementById("otp");
+  const sendBtn = document.getElementById("sendOtpBtnLogin");
+
+  let step = "send";
+  let savedPhone = "";
+
+  // ✅ Toast helper
   function showToast(message, type = "info") {
     Toastify({
       text: message,
@@ -31,64 +39,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }).showToast();
   }
 
-  // Login
-  if (loginForm) {
-    loginForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const phone = document.getElementById("phone").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      if (!phone || !password) {
-        showToast("⚠️ Please enter phone and password", "warning");
-        return;
-      }
-
-      try {
-        const data = await loginUser(phone, password);
-
-        if (data.token) {
-          localStorage.setItem("authToken", data.token);
-          showToast("✅ Login successful!", "success");
-        }
-
-        updateUI();
-
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 800);
-      } catch (err) {
-        console.log(err);
-        showToast(
-          err.response?.data?.message || "❌ Login failed, please try again",
-          "error"
-        );
-      }
-    });
-  }
-
-  // Logout
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", function () {
-      try {
-        localStorage.removeItem("authToken");
-        showToast("  Logged out successfully!", "success");
-        setTimeout(() => {
-          location.reload();
-        }, 800);
-      } catch (err) {
-        showToast(
-          err.response?.data?.message || "❌ Something went wrong",
-          "error"
-        );
-      }
-    });
-  }
-
-  // Update UI
+  // ✅ تحديث الواجهة
   function updateUI() {
     const token = localStorage.getItem("authToken");
-
     if (token) {
       if (loginBtn) loginBtn.classList.add("log-toggle");
       if (logoutBtn) logoutBtn.classList.remove("log-toggle");
@@ -100,14 +53,120 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Initialize
   updateUI();
 
-  // Check token and show profile
-  const token = localStorage.getItem("authToken");
-  if (token && profileMenu) {
-    profileMenu.style.display = "block";
+  // ---------------- PHONE LOGIN (OTP) ----------------
+  if (loginFormPhone && sendBtn) {
+    sendBtn.addEventListener("click", async () => {
+      if (step === "verify") {
+        // تحقق من الكود
+        const otp = otpInput.value.trim();
+        if (!otp) {
+          showToast("⚠️ Please enter the verification code", "warning");
+          return;
+        }
+
+        showToast("⏳ Verifying code...", "info");
+        sendBtn.disabled = true;
+
+        try {
+          const res = await verifyOtp(savedPhone, otp);
+          const token = res?.data?.token || res?.data?.access_token;
+
+          if (token) {
+            localStorage.setItem("authToken", token);
+            showToast("✅ Login successful!", "success");
+            updateUI();
+
+            const modal = bootstrap.Modal.getInstance(
+              document.getElementById("loginModal")
+            );
+            if (modal) modal.hide();
+          }
+        } catch (err) {
+          showToast("❌ Invalid verification code", "error");
+        } finally {
+          sendBtn.disabled = false;
+        }
+      } else {
+        // إرسال الكود
+        const phone = phoneInput.value.trim();
+        if (!phone) {
+          showToast("⚠️ Please enter your phone number", "warning");
+          return;
+        }
+
+        showToast("⏳ Sending verification code...", "info");
+        sendBtn.disabled = true;
+
+        try {
+          await sendOtp(phone);
+          savedPhone = phone;
+          localStorage.setItem("phoneNumber", phone);
+
+          showToast("✅ Code sent successfully!", "success");
+          otpSection.classList.remove("d-none");
+          phoneInput.parentElement.parentElement.classList.add("d-none");
+
+          sendBtn.textContent = "Verify Code";
+          step = "verify";
+        } catch (err) {
+          showToast("❌ Failed to send code", "error");
+        } finally {
+          sendBtn.disabled = false;
+        }
+      }
+    });
+  }
+
+  // ---------------- EMAIL OR PHONE + PASSWORD LOGIN ----------------
+  if (loginFormMail) {
+    loginFormMail.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const identifier = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+alert(identifier)
+      if (!identifier || !password) {
+        showToast("⚠️ Please fill all fields", "warning");
+        return;
+      }
+
+      showToast("⏳ Logging in...", "info");
+
+      try {
+        const res = await loginUser(identifier, password);
+        const token = res?.token || res?.access_token;
+        console.log(res)
+        if (token) {
+          localStorage.setItem("authToken", token);
+          showToast("✅ Login successful!", "success");
+          updateUI();
+
+          const modal = bootstrap.Modal.getInstance(
+            document.getElementById("loginModal")
+          );
+          if (modal) modal.hide();
+        } else {
+          showToast("❌ Invalid response from server", "error");
+        }
+      } catch (err) {
+        showToast(
+          err.response?.data?.message || "❌ Incorrect email/phone or password",
+          "error"
+        );
+      }
+    });
+  }
+
+  // ---------------- LOGOUT ----------------
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+      localStorage.removeItem("authToken");
+      showToast("✅ Logged out successfully!", "success");
+      window.location.reload();
+      window.location.href = "index.html";
+      updateUI();
+    });
   }
 });
-
-//end login&logout functionality

@@ -26,14 +26,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // عناصر الفورم الأساسية
   const nameInput = document.getElementById("name");
-  const emailInput = document.getElementById("email");
-  const phoneInput = document.getElementById("phone");
+  const emailInput = document.getElementById("emailUser");
+  const phoneInput = document.getElementById("phoneUser");
   const jobInput = document.getElementById("job");
   const citySelect = document.getElementById("City");
   const cvInput = document.getElementById("cv");
   const form = document.getElementById("profileForm");
   const oldPasswordInput = document.getElementById("oldPassword");
-  const passwordInput = document.getElementById("password");
+  const passwordInput = document.getElementById("passwordUser");
   const passwordLabel = document.querySelector("#password-wrapper label");
 
   // Toast helper

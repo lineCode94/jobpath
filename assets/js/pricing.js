@@ -1,19 +1,38 @@
 import { getPlans } from "./api.js";
 
-
- 
-
-
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.querySelector(".mysr-form");
-
-  // ✅ اللغة من localStorage أو افتراضي EN
   const lang = localStorage.getItem("lang") || "en";
+
+  // ✅ Toast helper
+  function showToast(message, type = "info") {
+    Toastify({
+      text: message,
+      duration: 3000,
+      gravity: "top",
+      position: "center",
+      style: {
+        background:
+          type === "success"
+            ? "linear-gradient(to right, #00b09b, #96c93d)"
+            : type === "error"
+            ? "linear-gradient(to right, #e52d27, #b31217)"
+            : type === "warning"
+            ? "linear-gradient(to right, #f7971e, #ffd200)"
+            : "linear-gradient(to right, #283c86, #45a247)",
+        color: "#fff",
+        fontSize: "14px",
+        borderRadius: "8px",
+        padding: "10px 20px",
+      },
+    }).showToast();
+  }
 
   try {
     const data = await getPlans();
     const plans = data.data.plansWithAmount;
-console.log(plans)
+    console.log(plans);
+
     if (!plans || plans.length === 0) {
       container.innerHTML = `<p class="text-center">${
         lang === "en" ? "No plans available." : "لا توجد باقات متاحة"
@@ -23,12 +42,10 @@ console.log(plans)
 
     container.innerHTML = `
       <div class="row justify-content-center">
-      <h6 class="rts__banner__desc my-40 wow  fadeInUp animated">
-
-      تبحث عن وظيفة؟ 
-اختر خطة التوظيف اللي تناسبك من باقاتنا المتنوعة!
-
-     </h6>
+        <h6 class="rts__banner__desc my-40 wow fadeInUp animated">
+          تبحث عن وظيفة؟ 
+          اختر خطة التوظيف اللي تناسبك من باقاتنا المتنوعة!
+        </h6>
         ${plans
           .map(
             (plan) => `
@@ -60,6 +77,7 @@ console.log(plans)
                   class="rts__btn pricing__btn choose-plan-btn no__fill__btn mt-40" 
                   data-plan-id="${plan.id}"
                   data-price="${plan.price}"
+                  data-plan-name="${lang === "ar" ? plan.ar_name : plan.name}"
                 >
                   ${lang === "en" ? "Choose Plan" : "اختر الباقة"}
                 </button>
@@ -72,14 +90,36 @@ console.log(plans)
       </div>
     `;
 
-    // Attach events to buttons بعد ما الـ innerHTML يتعمل
+    // ✅ Attach events after rendering
     document.querySelectorAll(".choose-plan-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+          // 🔒 User not logged in
+          showToast(
+            lang === "en"
+              ? "⚠️ Please log in before choosing a plan."
+              : "⚠️ يرجى تسجيل الدخول قبل اختيار الباقة.",
+            "warning"
+          );
+
+          // Try to open login modal if it exists
+          const loginModalEl = document.getElementById("loginModal");
+          if (loginModalEl) {
+            const loginModal = new bootstrap.Modal(loginModalEl);
+            loginModal.show();
+          }
+
+          return;
+        }
+
+        // ✅ User logged in → go to payment page
         const planId = e.target.getAttribute("data-plan-id");
         const price = e.target.getAttribute("data-price");
+        const planName = e.target.getAttribute("data-plan-name");
 
-        // هنا هتعمل redirect لصفحة الدفع بالـ params كلها
-        window.location.href = `moyasser.html?planId=${planId}&amount=${price}`;
+        window.location.href = `payment-choose.html?planId=${planId}&amount=${price}&planName=${planName}`;
       });
     });
   } catch (err) {

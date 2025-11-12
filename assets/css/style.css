@@ -12613,3 +12613,16 @@ input::placeholder {
   height: 100px;
 margin-top: -50px;
 }
+  /* لون أيقونات السكشن */
+  .single__cat__icon i {
+    color: #4da6ff; /* أزرق فاتح مائل لللبني */
+    font-size: 30px; /* حجم الأيقونة */
+    font-weight: medium;
+  }
+
+  /* لو عايز تأثير hover */
+  .single__cat__icon i:hover {
+    color: #3399ff; /* أزرق أغمق عند المرور */
+    transition: color 0.3s;
+
+  }

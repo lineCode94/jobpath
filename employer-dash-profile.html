@@ -65,7 +65,7 @@
   </head>
   <body class="template-dashboard">
     <!-- header area -->
-       <header class="rts__section rts__header absolute__header">
+        <header class="rts__section rts__header absolute__header">
       <div class="container-none">
         <div class="rts__menu__background">
           <div class="row">
@@ -172,7 +172,7 @@
                           data-en="User Profile"
                           data-ar="الملف الشخصي"
                           id="userName"
-                          > </a
+                          >User Profile</a
                         >
                       </li>
                     </ul>
@@ -287,7 +287,7 @@
       </div>
       <div class="rt-input-group">
         <label for="email" data-en="Email" data-ar="البريد الإلكتروني">Email</label>
-        <input type="email" id="email" name="email"  />
+        <input type="email" id="emailUser" name="email"  />
       </div>
     </div>
 
@@ -295,11 +295,11 @@
       <div id="password-wrapper" class="rt-input-group">
         <label for="password" data-en="Password" data-ar='كلمة المرور'  >Password </label>
 
-        <input type="password" id="password" class="form-control mt-2" placeholder="Password">
+        <input type="password" id="passwordUser" class="form-control mt-2" placeholder="Password">
       </div>
       <div class="rt-input-group">
         <label for="phone" data-en="Phone" data-ar="الهاتف">Phone</label>
-        <input type="text" id="phone" name="phone"  />
+        <input type="text" id="phoneUser" name="phone"  />
       </div>
     </div>
 
@@ -570,6 +570,126 @@
         ></button>
       </div>
       <!-- login offcanvas -->
+     <!-- LOGIN MODAL -->
+<div class="modal similar__modal fade" id="loginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="max-content similar__form form__padding">
+        <div class="d-flex mb-3 align-items-center justify-content-between">
+          <h6 class="mb-0">Login To JobsAI</h6>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-regular fa-xmark text-primary"></i>
+          </button>
+        </div>
+
+        <div class="d-block has__line text-center">
+          <p>Choose your login method</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tab__switch flex-wrap flex-sm-nowrap nav-tab mt-30 mb-30" role="tablist">
+          <button
+            class="rts__btn nav-link active"
+            id="phone-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#phoneTab"
+            type="button"
+            role="tab"
+          >
+            <i class="fa-light fa-phone"></i> Phone
+          </button>
+          <button
+            class="rts__btn nav-link"
+            id="mail-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#mailTab"
+            type="button"
+            role="tab"
+          >
+            <i class="fa-light fa-envelope"></i> Mail
+          </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <!-- PHONE LOGIN -->
+          <div class="tab-pane fade show active" id="phoneTab" role="tabpanel" aria-labelledby="phone-tab">
+            <form method="post" id="loginFormPhone" class="d-flex flex-column gap-3">
+              <div class="form-group">
+                <label for="phone" class="fw-medium text-dark mb-3">Your Phone</label>
+                <div class="position-relative">
+                  <input type="tel" name="phone" id="phone" placeholder="Enter your phone" required />
+                  <i class="fa-light fa-phone icon"></i>
+                </div>
+              </div>
+
+              <!-- OTP Section -->
+              <div class="form-group d-none" id="otpSection">
+                <label for="otp" class="fw-medium text-dark mb-3">Enter OTP</label>
+                <div class="position-relative">
+                  <input type="text" name="otp" id="otp" placeholder="Enter OTP" maxlength="6" />
+                  <i class="fa-light fa-shield icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group my-3">
+                <button class="rts__btn w-100 fill__btn" type="button" id="sendOtpBtnLogin">Send OTP</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- EMAIL OR PHONE + PASSWORD LOGIN -->
+          <div class="tab-pane fade" id="mailTab" role="tabpanel" aria-labelledby="mail-tab">
+            <form method="post" id="loginFormMail" class="d-flex flex-column gap-3">
+              <div class="form-group">
+                <label for="email" class="fw-medium text-dark mb-3">Email or Phone</label>
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="Enter your phone or email"
+                    required
+                  />
+                  <i class="fa-light fa-user icon"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password" class="fw-medium text-dark mb-3">Password</label>
+                <div class="position-relative">
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                  />
+                  <i class="fa-light fa-lock icon"></i>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-between align-items-center fw-medium">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="flexCheckDefault" />
+                  <label class="form-check-label" for="flexCheckDefault">Remember me</label>
+                </div>
+                <a href="#" class="forgot__password text-para" data-bs-toggle="modal" data-bs-target="#forgotModal">
+                  Forgot Password?
+                </a>
+              </div>
+
+              <div class="form-group my-3">
+                <button class="rts__btn w-100 fill__btn" type="submit">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
       <div class="mb-4 d-block d-sm-none">
         <div class="header__right__btn d-flex justify-content-center gap-3">
           <a
@@ -628,6 +748,7 @@
       <i class="fas fa-arrow-up"></i>
     </button>
     <!-- all plugin js -->
+     <script type="module" src="assets/js/login.js"></script>
     <script src="assets/js/plugins.min.js"></script>
     <script type="module" src="assets/js/profile.js"></script>
     <script defer type="module" src="assets/js/main.js"></script>
