@@ -5,13 +5,12 @@ import {
   uploadCv,
   getAllCourses,
   getJobNames,
+  getUserReports,
 } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // const suggestedCourses = document.getElementById("suggestedCourses");
-  // alert("suggestedCourses", suggestedCourses);
   const socialForm = document.getElementById("socialForm");
-  // اللغة
+
   const currentLang = localStorage.getItem("lang") || "en";
   const translations = {
     en: {
@@ -24,19 +23,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     },
   };
 
-  // عناصر الفورم الأساسية
   const nameInput = document.getElementById("name");
   const emailInput = document.getElementById("emailUser");
   const phoneInput = document.getElementById("phoneUser");
   const jobInput = document.getElementById("job");
   const citySelect = document.getElementById("City");
-  const cvInput = document.getElementById("cv");
   const form = document.getElementById("profileForm");
   const oldPasswordInput = document.getElementById("oldPassword");
   const passwordInput = document.getElementById("passwordUser");
   const passwordLabel = document.querySelector("#password-wrapper label");
 
-  // Toast helper
   const showToast = (msg, type = "info") => {
     Toastify({
       text: msg,
@@ -60,7 +56,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }).showToast();
   };
 
-  // Mock data
   const saudiCities = [
     { id: 9429, name: "Riyadh" },
     { id: 9430, name: "Jeddah" },
@@ -99,9 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // user
   const token = localStorage.getItem("authToken");
-  let userId = null;
   let user = null;
 
   if (token) {
@@ -117,35 +110,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       jobNamesList.innerHTML = "";
       suggestedCoursesList.innerHTML = "";
 
-      // هات اللغة من localStorage
       const lang = localStorage.getItem("lang") || "en";
 
       suggestedCourses.forEach((course) => {
-        // لو اللغة عربي اعرض ar_name غير كدا اعرض en_name
         const courseName = lang === "ar" ? course.ar_name : course.en_name;
-
         suggestedCoursesList.innerHTML += `
-    <li>
-      <a href="${course.url}" target="_blank">${courseName}</a>
-    </li>
-  `;
+          <li><a href="${course.url}" target="_blank">${courseName}</a></li>`;
       });
+
       jobNames.forEach((name) => {
-        // لو اللغة عربي اعرض ar_name غير كدا اعرض en_name
         const jobname = lang === "ar" ? name.ar_name : name.en_name;
-
-        jobNamesList.innerHTML += `
-    <li>
-    ${jobname}
-    </li>
-  `;
+        jobNamesList.innerHTML += `<li>${jobname}</li>`;
       });
-      // console.log("courses", res);
-      user = response.data?.currentUser;
-      // console.log(user);
-      if (user) {
-        userId = user.id ?? null;
 
+      user = response.data?.currentUser;
+
+      if (user) {
         if (user.havePassword !== undefined && passwordInput && passwordLabel) {
           if (user.havePassword) {
             passwordLabel.innerText = translations[currentLang].updatePassword;
@@ -176,11 +156,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (user.cvPath) {
           const cvPreview = document.getElementById("cvPreview");
           if (cvPreview) {
-            const fileName = user.cvPath.split("/").pop();
-           cvPreview.innerHTML = `
-        <a href="${user.path}" target="_blank">
-          <i class="fa-solid fa-download me-1"></i> Download existing CV
-        </a>`;
+            cvPreview.innerHTML = `
+              <div style="margin-top: 8px; text-align: left;">
+                <a href="${user.cvPath}" target="_blank" class="text-primary fw-semibold">
+                  <i class="fa-solid fa-download me-1"></i> Download existing CV
+                </a>
+              </div>`;
           }
         }
 
@@ -188,40 +169,52 @@ document.addEventListener("DOMContentLoaded", async () => {
         populateSelect(jobInput, jobs, user.jobId, "id", "title");
       }
     } catch (err) {
-      console.error("error fetching user details:", err);
+      console.error("Error fetching user details:", err);
     }
   }
+  const reportsContainer = document.getElementById("reports");
+   if (reportsContainer) {
+        try {
+          const reportRes = await getUserReports();
+          if (reportRes.status && reportRes.last_report) {
+            reportsContainer.innerHTML = `
+              <div class="p-3 text-center">
+                <a href="${reportRes.last_report}" target="_blank" class="btn btn-primary">
+                  <i class="fa-solid fa-download me-2"></i>
+                  <span data-en="Download Job Report" data-ar="تحميل تقرير الوظائف">
+                    Download Job Report
+                  </span>
+                </a>
+              </div>`;
+          } else {
+            reportsContainer.innerHTML = `
+              <div class="p-3 text-center text-muted">
+                <i class="fa-regular fa-file me-2"></i>
+                <span data-en="No job reports found" data-ar="لا توجد تقارير وظائف">
+                  No job reports found
+                </span>
+              </div>`;
+          }
+        } catch (err) {
+          console.error("Error fetching user reports:", err);
+        }}
 
   // حفظ البيانات الأساسية
   if (form) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (!token) {
-        showToast("⚠️ لم يتم تسجيل الدخول. برجاء التحقق.", "warning");
-        return;
-      }
-      try {
-        if (cvInput && cvInput.files.length > 0 && userId) {
-          const cvFormData = new FormData();
-          cvFormData.append("cv", cvInput.files[0]);
-          const cvRes = await uploadCv( cvFormData);
-          if (cvRes.data?.cvPath) {
-            const cvPreview = document.getElementById("cvPreview");
-            if (cvPreview) {
-              cvPreview.innerHTML = `<a href="${cvRes.data.cvPath}" target="_blank">📄 ${cvInput.files[0].name}</a>`;
-            }
-          }
-        }
+      if (!token) return showToast("⚠️ لم يتم تسجيل الدخول.", "warning");
 
+      try {
         const payload = {};
         if (nameInput.value.trim()) payload.name = nameInput.value.trim();
         if (emailInput.value.trim()) payload.email = emailInput.value.trim();
         if (phoneInput.value.trim()) payload.phone = phoneInput.value.trim();
         if (citySelect.value) payload.cityId = parseInt(citySelect.value, 10);
         if (jobInput.value) payload.jobId = parseInt(jobInput.value, 10);
-        if (passwordInput && passwordInput.value.trim()) {
+        if (passwordInput.value.trim()) {
           payload.newPassword = passwordInput.value.trim();
-          if (oldPasswordInput?.value.trim())
+          if (oldPasswordInput.value.trim())
             payload.oldPassword = oldPasswordInput.value.trim();
         }
 
@@ -245,10 +238,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (socialForm) {
     socialForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (!token) {
-        showToast("⚠️ لم يتم تسجيل الدخول. برجاء التحقق.", "warning");
-        return;
-      }
+      if (!token) return showToast("⚠️ لم يتم تسجيل الدخول.", "warning");
+
       try {
         const payload = {
           facebook: document.getElementById("Facebook").value.trim() || null,
@@ -258,12 +249,57 @@ document.addEventListener("DOMContentLoaded", async () => {
           portfolio: document.getElementById("Portfolio").value.trim() || null,
         };
 
-        const res = await updateProfile(payload, false);
+        await updateProfile(payload, false);
         showToast("✅ تم حفظ روابط التواصل بنجاح!", "success");
       } catch (err) {
         console.error(err);
         showToast(
           `⚠️ فشل حفظ الروابط: ${err.response?.data?.msg || err.message}`,
+          "error"
+        );
+      }
+    });
+  }
+
+  // رفع السيرة الذاتية
+  const cvForm = document.getElementById("cvForm");
+  const cvInputNew = document.getElementById("cv");
+  const cvPreview = document.getElementById("cvPreview");
+
+  if (cvForm) {
+    cvForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!token) return showToast("⚠️ لم يتم تسجيل الدخول.", "warning");
+      if (!cvInputNew.files?.length)
+        return showToast("⚠️ اختر ملف السيرة الذاتية أولًا.", "warning");
+
+      try {
+        const cvFormData = new FormData();
+        cvFormData.append("cv", cvInputNew.files[0]);
+
+        const cvRes = await uploadCv(cvFormData);
+        console.log(cvRes);
+
+        const downloadUrl = cvRes?.data?.urlInfo?.downloadUrl;
+        const msg = cvRes?.data?.msg || "تم رفع السيرة الذاتية بنجاح!";
+
+        if (downloadUrl) {
+          cvPreview.innerHTML = `
+            <div style="margin-top: 8px; text-align: left;">
+              <a href="${downloadUrl}" target="_blank" class="text-primary fw-semibold">
+                <i class="fa-solid fa-download me-1"></i> Download CV
+              </a>
+            </div>`;
+          showToast(`✅ ${msg}`, "success");
+        } else {
+          showToast("⚠️ فشل رفع السيرة الذاتية، حاول مجددًا.", "error");
+        }
+      } catch (err) {
+        console.error("Upload error:", err);
+        showToast(
+          `⚠️ حدث خطأ أثناء رفع السيرة الذاتية: ${
+            err?.response?.data?.msg || err?.message || "حدث خطأ غير متوقع"
+          }`,
           "error"
         );
       }

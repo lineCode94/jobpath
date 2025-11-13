@@ -180,9 +180,30 @@ export const getUserDetails = () => api.get("/users/get-user-details");
 export const getAllJobs = () => api.get("/users/get-all-jobs");
 
 export const uploadCv = (formData) => {
+  const token = localStorage.getItem("authToken"); // جلب التوكن من التخزين المحلي
+
   return api.patch(`/users/edit-cv`, formData, {
-    headers: { "Content-Type": "multipart/form-data" },
+    headers: {
+      "Content-Type": "multipart/form-data",
+      ...(token && { Authorization: `Bearer ${token}` }), // ✅ نضيف التوكن لو موجود
+    },
   });
 };
+
+
+// Get user reports
+export const getUserReports = () => {
+  const token = localStorage.getItem("authToken"); // ✅ المفتاح الصحيح
+  console.log("📦 Token used for reports:", token);
+  return api.get("/reports/get-all-reports-by-user", {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+};
+
+
 
 export default api;

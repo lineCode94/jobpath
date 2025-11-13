@@ -260,10 +260,10 @@
 
             <div class="my__details" id="info">
           <div class="info__top">
-  <div class="author__image">
+  <!-- <div class="author__image">
     <img class="p-4" src="assets/img/icon/google.svg" alt="" />
-  </div>
-  <div class="select__image">
+  </div> -->
+  <!-- <div class="select__image">
     <label for="file" class="file-upload__label" data-en="Upload New Photo" data-ar="تحميل صورة جديدة">
       Upload New Photo
     </label>
@@ -272,10 +272,10 @@
       class="file-upload__input"
       id="file"
     />
-  </div>
-  <div class="delete__data" title="Delete" data-en="Delete" data-ar="حذف">
+  </div> -->
+  <!-- <div class="delete__data" title="Delete" data-en="Delete" data-ar="حذف">
     <i class="fa-light fa-trash-can"></i>
-  </div>
+  </div> -->
 </div>
 <form id="profileForm">
   <div class="info__field">
@@ -327,14 +327,7 @@
       </div>
     </div>
 
-    <div class="row row-cols-sm-2 row-cols-1 g-3">
- 
-      <div class="rt-input-group">
-        <label for="cv" data-en="CV" data-ar="السيرة الذاتية">CV</label>
-        <input type="file" id="cv" name="cv" class="form-control" />
-        <div style="font-size: 14px;" id="cvPreview"></div>
-      </div>
-    </div>
+    
 
     <!-- زر الحفظ -->
     <div class="row">
@@ -348,9 +341,31 @@
   </div>
 </form>
 
-
             </div>
           </div>
+<!-- upload cv -->
+ 
+<section>
+  <h6 class="fw-medium mt-4 mb-4" data-en="Upload Cv" data-ar="تحميل السيرة الذاتية">Upload Cv</h6>
+
+  <div class="social__links p-30 radius-16 bg-white"  >
+    <form id="cvForm">
+      <div class="row g-3 align-items-center">
+        <div class="col-md-8">
+          <input type="file" id="cv" name="cv" class="form-control" />
+          <div id="cvPreview" style="margin-top: 8px; text-align: left;"></div>
+        </div>
+        <div class="col-md-4 d-flex align-items-center">
+          <button style="margin-bottom: 38px; padding: 15px; border-radius: 8px;" id="UploadCV" data-ar="رفع السيرة الذاتية" data-en="Upload CV"
+            type="submit" class="rts__btn fill__btn w-100">
+            Upload CV
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
 
           <!-- social links -->
            <form class="" id="socialForm" 
