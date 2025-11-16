@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // حفظ السوشيال لينكس
+  // save social links
   if (socialForm) {
     socialForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // رفع السيرة الذاتية مع تحميل آمن
+  //  upload cv  
   const cvForm = document.getElementById("cvForm");
   const cvInputNew = document.getElementById("cv");
   const cvPreview = document.getElementById("cvPreview");
@@ -241,7 +241,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const cvRes = await uploadCv(cvFormData);
         const downloadUrl = cvRes?.data?.urlInfo?.downloadUrl; // استخدام downloadUrl مباشرة
         const msg = cvRes?.data?.msg || "تم رفع السيرة الذاتية بنجاح!";
-
+        console.log(downloadUrl)
         if (downloadUrl) {
           cvPreview.innerHTML = `
             <div style="margin-top: 8px; text-align: left;">
@@ -260,7 +260,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                   method: "GET",
                   headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
                   },
                 });
 
