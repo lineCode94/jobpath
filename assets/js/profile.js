@@ -114,8 +114,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       suggestedCourses.forEach((course) => {
         const courseName = lang === "ar" ? course.ar_name : course.en_name;
-        suggestedCoursesList.innerHTML += `
-          <li><a href="${course.url}" target="_blank">${courseName}</a></li>`;
+        suggestedCoursesList.innerHTML += `<li><a href="${course.url}" target="_blank">${courseName}</a></li>`;
       });
 
       jobNames.forEach((name) => {
@@ -153,18 +152,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (user.portfolio)
           document.getElementById("Portfolio").value = user.portfolio;
 
-        if (user.cvPath) {
-          const cvPreview = document.getElementById("cvPreview");
-          if (cvPreview) {
-            cvPreview.innerHTML = `
-              <div style="margin-top: 8px; text-align: left;">
-                <a href="${user.cvPath}" target="_blank" class="text-primary fw-semibold">
-                  <i class="fa-solid fa-download me-1"></i> Download existing CV
-                </a>
-              </div>`;
-          }
-        }
-
         populateSelect(citySelect, saudiCities, user.cityId, "id", "name");
         populateSelect(jobInput, jobs, user.jobId, "id", "title");
       }
@@ -172,32 +159,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Error fetching user details:", err);
     }
   }
-  const reportsContainer = document.getElementById("reports");
-   if (reportsContainer) {
-        try {
-          const reportRes = await getUserReports();
-          if (reportRes.status && reportRes.last_report) {
-            reportsContainer.innerHTML = `
-              <div class="p-3 text-center">
-                <a href="${reportRes.last_report}" target="_blank" class="btn btn-primary">
-                  <i class="fa-solid fa-download me-2"></i>
-                  <span data-en="Download Job Report" data-ar="تحميل تقرير الوظائف">
-                    Download Job Report
-                  </span>
-                </a>
-              </div>`;
-          } else {
-            reportsContainer.innerHTML = `
-              <div class="p-3 text-center text-muted">
-                <i class="fa-regular fa-file me-2"></i>
-                <span data-en="No job reports found" data-ar="لا توجد تقارير وظائف">
-                  No job reports found
-                </span>
-              </div>`;
-          }
-        } catch (err) {
-          console.error("Error fetching user reports:", err);
-        }}
 
   // حفظ البيانات الأساسية
   if (form) {
@@ -261,7 +222,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // رفع السيرة الذاتية
+  // رفع السيرة الذاتية مع تحميل آمن
   const cvForm = document.getElementById("cvForm");
   const cvInputNew = document.getElementById("cv");
   const cvPreview = document.getElementById("cvPreview");
@@ -278,18 +239,48 @@ document.addEventListener("DOMContentLoaded", async () => {
         cvFormData.append("cv", cvInputNew.files[0]);
 
         const cvRes = await uploadCv(cvFormData);
-        console.log(cvRes);
-
-        const downloadUrl = cvRes?.data?.urlInfo?.downloadUrl;
+        const downloadUrl = cvRes?.data?.urlInfo?.downloadUrl; // استخدام downloadUrl مباشرة
         const msg = cvRes?.data?.msg || "تم رفع السيرة الذاتية بنجاح!";
 
         if (downloadUrl) {
           cvPreview.innerHTML = `
             <div style="margin-top: 8px; text-align: left;">
-              <a href="${downloadUrl}" target="_blank" class="text-primary fw-semibold">
+              <a href="#" id="downloadCVBtn" class="text-primary fw-semibold">
                 <i class="fa-solid fa-download me-1"></i> Download CV
               </a>
             </div>`;
+
+          document
+            .getElementById("downloadCVBtn")
+            .addEventListener("click", async (e) => {
+              e.preventDefault();
+              try {
+                const token = localStorage.getItem("authToken");
+                const res = await fetch(downloadUrl, {
+                  method: "GET",
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                  },
+                });
+
+                if (!res.ok) throw new Error("Unauthorized or file not found");
+
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = cvInputNew.files[0].name;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(url);
+              } catch (err) {
+                console.error("Download failed:", err);
+                showToast("⚠️ لا يمكنك تحميل الملف الآن.", "error");
+              }
+            });
+
           showToast(`✅ ${msg}`, "success");
         } else {
           showToast("⚠️ فشل رفع السيرة الذاتية، حاول مجددًا.", "error");
