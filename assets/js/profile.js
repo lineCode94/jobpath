@@ -10,6 +10,7 @@ import {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const socialForm = document.getElementById("socialForm");
+  const form = document.getElementById("profileForm");
 
   const currentLang = localStorage.getItem("lang") || "en";
   const translations = {
@@ -23,15 +24,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     },
   };
 
+  // DOM elements
   const nameInput = document.getElementById("name");
   const emailInput = document.getElementById("emailUser");
   const phoneInput = document.getElementById("phoneUser");
   const jobInput = document.getElementById("job");
   const citySelect = document.getElementById("City");
-  const form = document.getElementById("profileForm");
   const oldPasswordInput = document.getElementById("oldPassword");
   const passwordInput = document.getElementById("passwordUser");
   const passwordLabel = document.querySelector("#password-wrapper label");
+
+  // CV elements
+  const cvForm = document.getElementById("cvForm");
+  const cvInput = document.getElementById("cv");
+  const cvDownloadDiv = document.getElementById("cvDownloadDiv");
+  const cvUploadingDiv = document.getElementById("cvUploadingDiv");
+  const cvPreviewDiv = document.getElementById("cvPreviewDiv");
 
   const showToast = (msg, type = "info") => {
     Toastify({
@@ -65,6 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     { id: 9434, name: "Khobar" },
     { id: 9435, name: "Abha" },
   ];
+
   const jobs = [
     { id: 1, title: "Software engineer" },
     { id: 2, title: "Back end developer" },
@@ -94,6 +103,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
+  // --------- SECURE CV DOWNLOAD ----------
+  async function secureDownload(url) {
+    try {
+      const token = localStorage.getItem("authToken");
+      const res = await fetch(url, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) {
+        showToast("⚠️ فشل تحميل السيرة الذاتية", "error");
+        return;
+      }
+      const blob = await res.blob();
+      const downloadUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = downloadUrl;
+      a.download = "cv.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(downloadUrl);
+    } catch (err) {
+      console.error(err);
+      showToast("⚠️ حدث خطأ أثناء تحميل السيرة الذاتية", "error");
+    }
+  }
+
+  // --------- FETCH USER DETAILS ----------
   const token = localStorage.getItem("authToken");
   let user = null;
 
@@ -105,10 +142,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       const jobNames = jobsNamesRes.data.jobNames;
       const res = await getAllCourses();
       const suggestedCourses = res.data.courses;
+
       const suggestedCoursesList = document.getElementById("suggestedCourses");
       const jobNamesList = document.getElementById("jobNames");
-      jobNamesList.innerHTML = "";
       suggestedCoursesList.innerHTML = "";
+      jobNamesList.innerHTML = "";
 
       const lang = localStorage.getItem("lang") || "en";
 
@@ -154,13 +192,101 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         populateSelect(citySelect, saudiCities, user.cityId, "id", "name");
         populateSelect(jobInput, jobs, user.jobId, "id", "title");
+
+        // --------- RENDER CV BUTTONS ----------
+        renderCvButtons(user.cvPath || null);
       }
     } catch (err) {
       console.error("Error fetching user details:", err);
     }
   }
 
-  // حفظ البيانات الأساسية
+  // --------- RENDER CV BUTTONS FUNCTION ----------
+  function renderCvButtons(cvPath = null) {
+    if (!cvDownloadDiv || !cvUploadingDiv || !cvPreviewDiv) return;
+
+    cvDownloadDiv.innerHTML = `
+      <button id="downloadCvBtn" class="rts__btn fill__btn w-100" ${
+        !cvPath ? "disabled" : ""
+      } style="border-radius:8px;padding:12px 0;font-size:16px;font-weight:600;background:#28a745;color:#fff;border:none;display:flex;justify-content:center;align-items:center;gap:8px;cursor:pointer;">
+        <i class="fa-solid fa-download"></i>    
+      </button>
+    `;
+
+    cvUploadingDiv.innerHTML = `
+      <button id="uploadCvBtn" type="submit" class="rts__btn fill__btn w-100" style="border-radius:8px;padding:12px 0;font-size:16px;font-weight:600;background:#4a6cf7;color:#fff;border:none;display:flex;justify-content:center;align-items:center;gap:8px;cursor:pointer;">
+        <i class="fa-solid fa-upload"></i>    
+      </button>
+    `;
+
+    cvPreviewDiv.innerHTML = `
+      <button id="previewCvBtn" class="rts__btn fill__btn w-100  " style="border-radius:8px;padding:12px 0;font-size:16px;font-weight:600;background:#17a2b8;color:#fff;border:none;display:flex;justify-content:center;align-items:center;gap:8px;cursor:pointer;">
+        <i class="fa-solid fa-eye"></i>    
+      </button>
+    `;
+
+    const downloadBtn = document.getElementById("downloadCvBtn");
+    if (cvPath && downloadBtn) {
+      downloadBtn.addEventListener("click", () => secureDownload(cvPath));
+    }
+
+    const previewBtn = document.getElementById("previewCvBtn");
+    if (previewBtn) {
+      previewBtn.addEventListener("click", async () => {
+        try {
+          const token = localStorage.getItem("authToken");
+          const res = await fetch(
+            `https://api.jobzai.net/api/v1/users/get-user-cv`,
+            {
+              method: "GET",
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+          if (!res.ok) throw new Error("Failed to fetch CV file");
+          const blob = await res.blob();
+          const fileURL = URL.createObjectURL(blob);
+          window.open(fileURL, "_blank");
+        } catch (err) {
+          console.error(err);
+          showToast("⚠️ خطأ أثناء معاينة السيرة الذاتية", "error");
+        }
+      });
+    }
+  }
+
+  // --------- CV FORM SUBMIT ----------
+  if (cvForm) {
+    cvForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!token) return showToast("⚠️ لم يتم تسجيل الدخول.", "warning");
+
+      const clickedBtn = e.submitter; // الزر اللي ضغط عليه
+      if (clickedBtn.id === "uploadCvBtn") {
+        if (!cvInput.files?.length)
+          return showToast("⚠️ اختر ملف السيرة الذاتية أولًا.", "warning");
+
+        try {
+          const formData = new FormData();
+          formData.append("cv", cvInput.files[0]);
+          const cvRes = await uploadCv(formData);
+          const downloadUrl = cvRes?.data?.urlInfo?.downloadUrl;
+          const msg = cvRes?.data?.msg || "تم رفع السيرة الذاتية بنجاح!";
+          if (downloadUrl) renderCvButtons(downloadUrl);
+          showToast(`✅ ${msg}`, "success");
+        } catch (err) {
+          console.error("Upload error:", err);
+          showToast(
+            `⚠️ حدث خطأ أثناء رفع السيرة الذاتية: ${
+              err?.response?.data?.msg || err?.message
+            }`,
+            "error"
+          );
+        }
+      }
+    });
+  }
+
+  // --------- UPDATE PROFILE FORM ----------
   if (form) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -178,9 +304,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           if (oldPasswordInput.value.trim())
             payload.oldPassword = oldPasswordInput.value.trim();
         }
-
         const res = await updateProfile(payload, false);
         showToast("✅ تم حفظ البيانات بنجاح!", "success");
+
         if (res.data?.isPhoneChanged) {
           localStorage.removeItem("authToken");
           window.location.href = "/index.html";
@@ -195,7 +321,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // save social links
+  // --------- SOCIAL LINKS FORM ----------
   if (socialForm) {
     socialForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -209,87 +335,12 @@ document.addEventListener("DOMContentLoaded", async () => {
           twitter: document.getElementById("Twitter").value.trim() || null,
           portfolio: document.getElementById("Portfolio").value.trim() || null,
         };
-
         await updateProfile(payload, false);
         showToast("✅ تم حفظ روابط التواصل بنجاح!", "success");
       } catch (err) {
         console.error(err);
         showToast(
           `⚠️ فشل حفظ الروابط: ${err.response?.data?.msg || err.message}`,
-          "error"
-        );
-      }
-    });
-  }
-
-  //  upload cv  
-  const cvForm = document.getElementById("cvForm");
-  const cvInputNew = document.getElementById("cv");
-  const cvPreview = document.getElementById("cvPreview");
-
-  if (cvForm) {
-    cvForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!token) return showToast("⚠️ لم يتم تسجيل الدخول.", "warning");
-      if (!cvInputNew.files?.length)
-        return showToast("⚠️ اختر ملف السيرة الذاتية أولًا.", "warning");
-
-      try {
-        const cvFormData = new FormData();
-        cvFormData.append("cv", cvInputNew.files[0]);
-
-        const cvRes = await uploadCv(cvFormData);
-        const downloadUrl = cvRes?.data?.urlInfo?.downloadUrl; // استخدام downloadUrl مباشرة
-        const msg = cvRes?.data?.msg || "تم رفع السيرة الذاتية بنجاح!";
-        console.log(downloadUrl)
-        if (downloadUrl) {
-          cvPreview.innerHTML = `
-            <div style="margin-top: 8px; text-align: left;">
-              <a href="#" id="downloadCVBtn" class="text-primary fw-semibold">
-                <i class="fa-solid fa-download me-1"></i> Download CV
-              </a>
-            </div>`;
-
-          document
-            .getElementById("downloadCVBtn")
-            .addEventListener("click", async (e) => {
-              e.preventDefault();
-              try {
-                const token = localStorage.getItem("authToken");
-                const res = await fetch(downloadUrl, {
-                  method: "GET",
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                  },
-                });
-
-                if (!res.ok) throw new Error("Unauthorized or file not found");
-
-                const blob = await res.blob();
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = cvInputNew.files[0].name;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                URL.revokeObjectURL(url);
-              } catch (err) {
-                console.error("Download failed:", err);
-                showToast("⚠️ لا يمكنك تحميل الملف الآن.", "error");
-              }
-            });
-
-          showToast(`✅ ${msg}`, "success");
-        } else {
-          showToast("⚠️ فشل رفع السيرة الذاتية، حاول مجددًا.", "error");
-        }
-      } catch (err) {
-        console.error("Upload error:", err);
-        showToast(
-          `⚠️ حدث خطأ أثناء رفع السيرة الذاتية: ${
-            err?.response?.data?.msg || err?.message || "حدث خطأ غير متوقع"
-          }`,
           "error"
         );
       }
