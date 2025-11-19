@@ -194,7 +194,7 @@ export const uploadCv = (formData) => {
 // Get user reports
 export const getUserReports = () => {
   const token = localStorage.getItem("authToken"); // ✅ المفتاح الصحيح
-  console.log("📦 Token used for reports:", token);
+  // console.log("📦 Token used for reports:", token);
   return api.get("/reports/get-all-reports-by-user", {
     headers: {
       Accept: "application/json",
@@ -205,5 +205,14 @@ export const getUserReports = () => {
 };
 
 
-
+export const getCvMeta = () => {
+  const token = localStorage.getItem("authToken"); // ✅ المفتاح الصحيح
+  return api.get("/users/get-user-cv-metadata", {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+};
 export default api;

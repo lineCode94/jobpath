@@ -123,3 +123,9 @@ html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
 .d-flex .mb-3 .align-items-center .justify-content-between{
   flex-direction: row-reverse;
 }
+.cv-actions{
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}

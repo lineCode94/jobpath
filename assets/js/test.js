@@ -135,7 +135,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ---------------- helpers: filename / date formatting ----------------
   function filenameFromPath(path) {
-    
     if (!path) return "";
     try {
       const u = new URL(path);
@@ -164,176 +163,101 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // ---------------- render CV UI (download / preview / meta) ----------------
- function renderCvUI(cvPath = null, meta = {}) {
-  console.log("meta render cv",meta)
-   if (!cvDownloadDiv || !cvUploadingDiv || !cvPreviewDiv) return;
+  function renderCvUI(cvPath = null, meta = {}) {
+    // clear
+    if (!cvDownloadDiv || !cvUploadingDiv || !cvPreviewDiv) return;
+    cvDownloadDiv.innerHTML = "";
+    cvUploadingDiv.innerHTML = "";
+    cvPreviewDiv.innerHTML = "";
 
-   cvDownloadDiv.innerHTML = "";
-   cvUploadingDiv.innerHTML = "";
-   cvPreviewDiv.innerHTML = "";
+    // Download button (circle icon) — enabled only when cvPath exists
+    const downloadBtn = document.createElement("button");
+    downloadBtn.type = "button";
+    downloadBtn.className = "rts__btn fill__btn";
+    downloadBtn.style.cssText =
+      "border-radius:50%;padding:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;";
+    downloadBtn.innerHTML = `<i class="fa-solid fa-download"></i>`;
 
-   // -----------------------
-   // Align buttons to the right
-   // -----------------------
-   cvDownloadDiv.style.display = "flex";
-   cvDownloadDiv.style.justifyContent = "flex-end";
-   cvDownloadDiv.style.gap = "10px";
+    if (!cvPath) {
+      downloadBtn.disabled = true;
+      downloadBtn.title = currentLang === "ar" ? "لا يوجد سيرة ذاتية" : "No CV";
+      downloadBtn.style.opacity = "0.45";
+    } else {
+      downloadBtn.title =
+        currentLang === "ar" ? "تحميل السيرة الذاتية" : "Download CV";
+      downloadBtn.addEventListener("click", () => {
+        // suggest filename from path or meta.filename
+        const suggestedName =
+          meta.filename || filenameFromPath(cvPath) || "cv.pdf";
+        secureDownload(cvPath, suggestedName);
+      });
+    }
+    cvDownloadDiv.appendChild(downloadBtn);
 
-   // -----------------------
-   // Helpers
-   // -----------------------
-   const arabicMonths = {
-     يناير: "January",
-     فبراير: "February",
-     مارس: "March",
-     أبريل: "April",
-     ابريل: "April",
-     مايو: "May",
-     يونيو: "June",
-     يوليو: "July",
-     أغسطس: "August",
-     اغسطس: "August",
-     سبتمبر: "September",
-     أكتوبر: "October",
-     اكتوبر: "October",
-     نوفمبر: "November",
-     ديسمبر: "December",
-   };
+    // Preview button (circle icon)
+    const previewBtn = document.createElement("button");
+    previewBtn.type = "button";
+    previewBtn.className = "rts__btn fill__btn";
+    previewBtn.style.cssText =
+      "border-radius:50%;padding:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center; ";
+    previewBtn.innerHTML = `<i class="fa-solid fa-eye"></i>`;
 
-   const arabicToEnglishDigits = (str) =>
-     str.replace(/[٠-٩]/g, (d) => "0123456789"[d.charCodeAt(0) - 0x0660]);
+    if (!cvPath) {
+      previewBtn.disabled = true;
+      previewBtn.style.opacity = "0.45";
+      previewBtn.title = currentLang === "ar" ? "لا يوجد معاينة" : "No preview";
+    } else {
+      previewBtn.title =
+        currentLang === "ar" ? "معاينة السيرة الذاتية" : "Preview CV";
+      previewBtn.addEventListener("click", async () => {
+        try {
+          // fetch via token and open blob in new tab
+          const token = localStorage.getItem("authToken");
+          const res = await fetch(cvPath, {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          if (!res.ok) {
+            showToast("⚠️ فشل جلب الملف للمعاينة", "error");
+            return;
+          }
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
+          window.open(url, "_blank");
+          // note: we don't revoke immediately so new tab can load; browser will clear later.
+        } catch (err) {
+          console.error(err);
+          showToast("⚠️ خطأ أثناء المعاينة", "error");
+        }
+      });
+    }
+    cvPreviewDiv.appendChild(previewBtn);
 
-   const normalizeArabicDate = (dateStr) => {
-     let s = arabicToEnglishDigits(dateStr.trim());
+    // Meta area (filename + updatedAt) — show as small pill
+    const metaWrap = document.createElement("div");
+    metaWrap.style.cssText =
+      "margin-left:12px;display:flex;flex-direction:column;justify-content:center;gap:6px;min-width:180px;";
+    const fileNameText = document.createElement("div");
+    fileNameText.style.cssText =
+      "font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;";
+    fileNameText.textContent =
+      meta.filename ||
+      (cvPath
+        ? filenameFromPath(cvPath)
+        : currentLang === "ar"
+        ? "لا يوجد ملف"
+        : "No file");
 
-     // استبدال الشهر العربي بالشهر الإنجليزي
-     for (const [ar, en] of Object.entries(arabicMonths)) {
-       const regex = new RegExp(ar, "g");
-       s = s.replace(regex, en);
-     }
+    const dateText = document.createElement("div");
+    dateText.style.cssText = "font-size:12px;color:#6b6b6b;";
+    dateText.textContent = meta.updatedAt ? formatDate(meta.updatedAt) : "";
 
-     return s;
-   };
+    metaWrap.appendChild(fileNameText);
+    metaWrap.appendChild(dateText);
 
-   const formatDate = (dateStr) => {
-     if (!dateStr) return currentLang === "ar" ? "تاريخ غير متاح" : "No date";
-
-     const normalized = normalizeArabicDate(dateStr);
-     const d = new Date(normalized);
-
-     if (isNaN(d)) return currentLang === "ar" ? "تاريخ غير متاح" : "No date";
-
-     return d.toLocaleDateString(currentLang === "ar" ? "ar-EG" : "en-US", {
-       day: "numeric",
-       month: "long",
-       year: "numeric",
-     });
-   };
-
-   // -----------------------
-   // Build final filename safely
-   // -----------------------
-   const user = meta?.username || "cv";
-   console.log("user",user)
-   const ext = meta?.fileExtension || ".pdf";
-   const finalFileName = `${user}${ext}`;
-
-   console.log("finalFileName:", finalFileName);
-
-   const finalDateFormatted = formatDate(meta?.date);
-console.log(finalDateFormatted);
-
-   // -----------------------
-   // Download button
-   // -----------------------
-   const downloadBtn = document.createElement("button");
-   downloadBtn.type = "button";
-   downloadBtn.className = "rts__btn fill__btn";
-   downloadBtn.style.cssText =
-     "border-radius:50%;padding:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;";
-   downloadBtn.innerHTML = `<i class="fa-solid fa-download"></i>`;
-
-   if (!cvPath) {
-     downloadBtn.disabled = true;
-     downloadBtn.title = currentLang === "ar" ? "لا يوجد سيرة ذاتية" : "No CV";
-     downloadBtn.style.opacity = "0.45";
-   } else {
-     downloadBtn.title =
-       currentLang === "ar" ? "تحميل السيرة الذاتية" : "Download CV";
-     downloadBtn.addEventListener("click", () => {
-       alert(finalFileName);
-       secureDownload(cvPath, finalFileName);
-     });
-   }
-
-   cvDownloadDiv.appendChild(downloadBtn);
-
-   // -----------------------
-   // Preview button
-   // -----------------------
-   const previewBtn = document.createElement("button");
-   previewBtn.type = "button";
-   previewBtn.className = "rts__btn fill__btn";
-   previewBtn.style.cssText =
-     "border-radius:50%;padding:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;";
-   previewBtn.innerHTML = `<i class="fa-solid fa-eye"></i>`;
-
-   if (!cvPath) {
-     previewBtn.disabled = true;
-     previewBtn.style.opacity = "0.45";
-     previewBtn.title = currentLang === "ar" ? "لا يوجد معاينة" : "No preview";
-   } else {
-     previewBtn.title =
-       currentLang === "ar" ? "معاينة السيرة الذاتية" : "Preview CV";
-     previewBtn.addEventListener("click", async () => {
-       try {
-         const token = localStorage.getItem("authToken");
-         const res = await fetch(cvPath, {
-           method: "GET",
-           headers: { Authorization: `Bearer ${token}` },
-         });
-         if (!res.ok) {
-           showToast("⚠️ فشل جلب الملف للمعاينة", "error");
-           return;
-         }
-         const blob = await res.blob();
-         const url = URL.createObjectURL(blob);
-         window.open(url, "_blank");
-       } catch (err) {
-         console.error(err);
-         showToast("⚠️ خطأ أثناء المعاينة", "error");
-       }
-     });
-   }
-
-   cvDownloadDiv.appendChild(previewBtn);
-
-   // -----------------------
-   // Meta display
-   // -----------------------
-   const metaWrap = document.createElement("div");
-   metaWrap.classList.add("meta-text");
-
-   const fileNameText = document.createElement("div");
-   fileNameText.style.cssText =
-     "font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;";
-   fileNameText.textContent = finalFileName;
-
-   const dateText = document.createElement("div");
-   dateText.style.cssText = "font-size:12px;color:#6b6b6b;";
-   dateText.textContent =
-     (currentLang === "ar" ? "تم الرفع في: " : "Uploaded at: ") +
-     finalDateFormatted;
-
-   metaWrap.appendChild(fileNameText);
-   metaWrap.appendChild(dateText);
-
-   cvPreviewDiv.appendChild(metaWrap);
- }
-
-
-
-
+    // Place meta next to preview (if you want different placement adjust in HTML/CSS)
+    cvPreviewDiv.appendChild(metaWrap);
+  }
 
   // ---------------- Auto upload on file select ----------------
   async function handleAutoUpload(file) {
@@ -386,38 +310,38 @@ console.log(finalDateFormatted);
           ? "تم رفع السيرة الذاتية بنجاح!"
           : "CV uploaded successfully!");
 
-     if (downloadUrl) {
-       // بعد الرفع
-       try {
-         // 1) جيب الميتاداتا الحقيقي من الاندبوينت
-         const metaData = await getCvMeta();
-         const meta = metaData?.metadata || {};
+      if (downloadUrl) {
+        // If backend returns downloadUrl, re-render UI with that path.
+        // Try to extract filename & updatedAt (if returned)
+        const filename =
+          res?.data?.urlInfo?.filename ||
+          res?.data?.fileName ||
+          filenameFromPath(downloadUrl);
+        const updatedAt =
+          res?.data?.updatedAt ||
+          res?.data?.urlInfo?.updatedAt ||
+          new Date().toISOString();
 
-         // 2) اعمل render بناء على البيانات الصح اللي من الباك
-         renderCvUI(downloadUrl, meta);
-
-         showToast(`✅ ${msg}`, "success");
-         window.location.reload();
-       } catch (err) {
-         console.error(err);
-         showToast("⚠️ فشل جلب بيانات الملف بعد الرفع", "error");
-       }
-     } else {
-       // fallback لو السيرفر رجعش لينك
-       try {
-         const refreshed = await getCvMeta();
-         const meta = refreshed?.metadata || {};
-
-         const newCv = refreshed?.metadata?.downloadUrl || null;
-
-         renderCvUI(newCv, meta);
-         showToast(`✅ ${msg}`, "success");
-       } catch {
-         renderCvUI(null, {});
-         showToast(`✅ ${msg}`, "success");
-       }
-     }
-
+        renderCvUI(downloadUrl, { filename, updatedAt });
+        showToast(`✅ ${msg}`, "success");
+      } else {
+        // fallback: refresh user details to get cvPath
+        try {
+          const refreshed = await getUserDetails();
+          const newCv = refreshed?.data?.currentUser?.cvPath || null;
+          const updatedAt =
+            refreshed?.data?.currentUser?.updatedAt ||
+            refreshed?.data?.currentUser?.createdAt ||
+            new Date().toISOString();
+          const filename = filenameFromPath(newCv);
+          renderCvUI(newCv, { filename, updatedAt });
+          showToast(`✅ ${msg}`, "success");
+        } catch (err) {
+          // if refresh fails, still notify success if server said so
+          renderCvUI(null, {});
+          showToast(`✅ ${msg}`, "success");
+        }
+      }
     } catch (err) {
       console.error("Upload error:", err);
       const errMsg =
@@ -447,38 +371,19 @@ console.log(finalDateFormatted);
   // ---------------- FETCH USER & INITIALIZE CV UI ----------------
   const token = localStorage.getItem("authToken");
   let user = null;
+
   if (token) {
     setAuthToken(token);
     try {
       const response = await getUserDetails();
- const metaData = await getCvMeta();
- const date = metaData.data.metadata.date;
- const correctDate = new Date(date);
- const theLang = localStorage.getItem("lang") || "en";
- const formattedDate =
-   theLang === "ar"
-     ? correctDate.toLocaleDateString("ar-EG", {
-         day: "numeric",
-         month: "long",
-         year: "numeric",
-       })
-     : correctDate.toLocaleDateString("en-US", {
-         day: "numeric",
-         month: "long",
-         year: "numeric",
-       });
-//  const fileExtension = metaData.data.metadata.fileExtension;
 
-
- console.log(metaData.data.metadata);
       user = response?.data?.currentUser || null;
   const res = await getAllCourses();
       const jobsNamesRes = await getJobNames();
       const jobNames = jobsNamesRes.data.jobNames;
 
     const suggestedCourses = res.data.courses;
-    const suggestedCoursesList = document.getElementById("suggestedCourses");
-
+    const suggestedCoursesList = document.getElementById;
     const jobNamesList = document.getElementById("jobNames");
     jobNamesList.innerHTML = "";
     suggestedCoursesList.innerHTML = "";
@@ -554,9 +459,8 @@ console.log(finalDateFormatted);
       // initial render CV section
       const initCvPath = user?.cvPath || null;
       const meta = {
-        username: metaData.data.metadata.username,
-        fileExtension: metaData.data.metadata.fileExtension,
-        date: formattedDate,
+        filename: user ? filenameFromPath(user.cvPath) : null,
+        updatedAt: user?.updatedAt || user?.createdAt || null,
       };
       renderCvUI(initCvPath, meta);
     } catch (err) {

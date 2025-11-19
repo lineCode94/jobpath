@@ -62,6 +62,146 @@
     <!-- all plugin css -->
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+     .cv-file-box {
+    position: relative;
+    min-height: 60px;
+}
+
+/* الأكشنز — يمين */
+/ 
+
+
+/* النص — شمال */
+.meta-text {
+    position: absolute;
+    left: 15px; /* النص شمال */
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: left;
+    max-width: 70%;
+}
+.cv-actions{
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);}
+
+
+
+      .cv-upload-wrapper {
+  max-width: 900px;
+  margin: auto;
+}
+
+.upload-flex {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.cv-dropzone {
+  width: 200px;
+  height: 170px;
+  border: 2px dashed #bfcdd9;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cv-dropzone i {
+  color: #58c16b;
+  margin-bottom: 10px;
+}
+
+.cv-main {
+  font-weight: 600;
+}
+
+.cv-dropzone:hover {
+  background: #f3fbf5;
+  border-color: #58c16b;
+}
+
+.cv-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cv-title {
+  font-weight: 600;
+}
+
+.cv-sub {
+  font-size: 13px;
+  color: #6f7a85;
+}
+
+#cv {
+  display: none;
+}
+
+/* Uploaded file box */
+.cv-file-box {
+  margin-top: 25px;
+  padding: 18px 20px;
+  background: #e8f9e8;
+  border: 1px solid #d1f1d1;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cv-file-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.cv-file-name {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.cv-file-date {
+  font-size: 13px;
+  color: #6f7a85;
+}
+
+.cv-file-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.cv-circle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  color: #3a7f4a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 17px;
+  transition: 0.2s;
+}
+
+.cv-circle-btn:hover {
+  background: #d7f3d7;
+}
+
+.hide {
+  display: none;
+}
+
+    </style>
   </head>
   <body class="template-dashboard">
     <!-- header area -->
@@ -346,27 +486,57 @@
 <!-- upload cv -->
  
 <section>
-  <h6 class="fw-medium mt-4 mb-4" data-en="Upload Cv" data-ar="تحميل السيرة الذاتية">Upload Cv</h6>
+  <h6 class="fw-medium mt-4 mb-4" data-en="Upload CV" data-ar="تحميل السيرة الذاتية">
+    Upload CV
+  </h6>
 
-  <div class="social__links p-30 radius-16 bg-white"  >
-   <form id="cvForm">
-  <div class="row g-3 align-items-center">
-    <div class="col-md-6">
-      <input type="file" id="cv" name="cv" class="form-control" />
-    </div>
-    <div id="cvDownloadDiv" class="col-md-1 d-flex align-items-center">
-       
-    </div>
-    
-    <div id="cvUploadingDiv" class="col-md-1 d-flex align-items-center">
-       
-    </div>
-  <div  class="col-md-1 d-flex align-items-center" id="cvPreviewDiv"></div>
-  </div>
-</form>
+  <div class="cv-upload-wrapper p-30 radius-16 bg-white">
+
+    <form id="cvForm">
+      <div class="upload-flex">
+
+        <!-- Upload Zone (left) -->
+        <label for="cv" class="cv-dropzone">
+          <i class="fa-solid fa-cloud-arrow-up fa-2x"></i>
+          <span class="cv-main">Click to browse</span>
+        </label>
+
+        <!-- Right Text -->
+        <div class="cv-info">
+          <p class="cv-title">  Click the box to upload.</p>
+          <p class="cv-sub">Accepted formats: PDF, DOC, DOCX. Maximum size: 5 MB.</p>
+
+          <!-- Real input -->
+          <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" />
+        </div>
+
+      </div>
+
+      <!-- The uploaded CV box (green) -->
+      <div id="cvFileBox" class="cv-file-box" style="margin-top: 25px;  ">
+        
+        <!-- The container required by renderCvUI -->
+        <div class="cv-actions" ">
+
+          <!-- Download button goes here -->
+          <!-- Uploading / loading -->
+          <div id="cvDownloadDiv"></div>
+          <div style="justify-content: center; display: flex;" id="cvUploadingDiv"></div>
+
+          <!-- Preview button + file name + date -->
+        </div>
+
+        <div id="cvPreviewDiv"  >
+
+        </div>
+
+      </div>
+    </form>
 
   </div>
 </section>
+
+
 
 
           <!-- social links -->
@@ -766,6 +936,7 @@
     </button>
     <!-- all plugin js -->
      <script type="module" src="assets/js/login.js"></script>
+     <!-- <script type="module" src="assets/js/cv.js"></script> -->
     <script src="assets/js/plugins.min.js"></script>
     <script type="module" src="assets/js/profile.js"></script>
     <script defer type="module" src="assets/js/main.js"></script>
