@@ -3,19 +3,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const planId = urlParams.get("planId");
   const planPrice = urlParams.get("amount");
+  const finalPrice = planPrice / 100;
   const planName = urlParams.get("planName") || "Pro Plan";
   const userId = localStorage.getItem("userId") || null;
 
   // ---------- Update UI ----------
   const planNameEl = document.getElementById("planName");
   const planPriceEl = document.getElementById("planPrice");
+
   if (planNameEl && planPriceEl) {
     planNameEl.textContent = planName || `No Plan`;
-    planPriceEl.textContent = planPrice
-      ? `SAR ${Number(planPrice).toLocaleString()}`
+    planPriceEl.textContent = finalPrice
+      ? `SAR ${Number(finalPrice).toLocaleString()}`
       : "No Price Found";
-  } else {
-    console.error("❌ Elements not found in DOM!");
   }
 
   // ---------- Payment selection ----------
@@ -25,19 +25,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   methods.forEach((method) => {
     method.addEventListener("click", () => {
-      // reset
+      // reset active
       methods.forEach((m) => m.classList.remove("active"));
       method.classList.add("active");
+
       selectedMethod = method.dataset.method;
       proceedBtn.disabled = false;
 
-      // update button look
-      if (selectedMethod === "apple") {
-        proceedBtn.className = "apple";
-        proceedBtn.innerHTML = `<img src="assets/img/apple-white.png" alt="Apple" /> دفع باستخدام Apple Pay`;
-      } else if (selectedMethod === "moyasser") {
-        proceedBtn.className = "moyasser";
-        proceedBtn.innerHTML = `<img src="assets/img/moyasar.png" alt="Moyasar" /> الدفع عبر Moyasar`;
+      // update button UI based on selected method
+      const lang =localStorage.getItem("lang")
+      switch (selectedMethod) {
+        
+        case "apple":
+          proceedBtn.className = "apple";
+          proceedBtn.innerHTML = `${
+            lang === "ar"
+              ? ` <img src="assets/img/apple-white.png" alt="Apple" />
+            ادفع باستخدام Apple Pay`
+              : ` <img src="assets/img/apple-white.png" alt="Apple" />
+            Pay with Apple Pay`
+          }`;
+          break;
+
+        case "visa":
+          proceedBtn.className = "moyasser";
+          proceedBtn.innerHTML = `      ${
+            lang === "ar" ? "        الدفع بإستخدام فيزا / ماستركارد" : "Pay with Visa/Mastercard"
+          }  `;
+          break;
+
+        case "mada":
+          proceedBtn.className = "moyasser";
+          proceedBtn.innerHTML = `${
+            lang === "ar" ? "الدفع بإستخدام مدى" : "Pay with Mada"
+          } `;
+          break;
+
+        case "bank":
+          proceedBtn.className = "moyasser";
+          proceedBtn.innerHTML = `${
+            lang === "ar" ? " تحويل بنكي" : " Bank Transfer"
+          } `;
+          break;
       }
     });
   });
@@ -49,15 +78,18 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // ✅ تحديد الصفحة بناءً على طريقة الدفع
     let targetPage = "";
+
+    // ❌ Apple Pay → صفحة Apple Pay
     if (selectedMethod === "apple") {
       targetPage = "apple-pay.html";
-    } else if (selectedMethod === "moyasser") {
+    }
+
+    // ✔ كل الطرق الأخرى → صفحة ميسر
+    else {
       targetPage = "moyaser.html";
     }
 
-    // ✅ تمرير البيانات في الـ URL
     const query = `?planId=${encodeURIComponent(
       planId
     )}&amount=${encodeURIComponent(planPrice)}&planName=${encodeURIComponent(

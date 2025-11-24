@@ -76,9 +76,12 @@ html[dir="rtl"] select.form-select {
   color: #ccc;
   cursor: not-allowed;
 }
+
 .swiper-wrapper {
-  direction: ltr; /* مهم جداً للـ transform */
+  direction: ltr !important;
 }
+ 
+
 html[dir="rtl"] .rts__slide__next i {
   transform: rotate(180deg);
 }

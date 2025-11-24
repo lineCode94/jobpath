@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }</p>`;
       return;
     }
+  
 
     container.innerHTML = `
       <div class="row justify-content-center">
@@ -46,14 +47,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         ${plans
           .map(
             (plan) => `
+ 
+
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="rts__pricing__box style-1 rounded-3 h-100">
               <div class="py-4">
-                <h3 class="h6 fw-medium lh-1 mb-2 text-primary">
+                <h3 style="text-transform: capitalize;" class="h6 fw-medium lh-1  mb-2 text-primary">
                   ${lang === "ar" ? plan.ar_name : plan.name}
                 </h3>
                 <div class="plan__price lh-1 mb-40">
-                  <span class="h2 mb-0 me-1">${plan.price} ${
+                  <span class="h2 mb-0 me-1">${plan.price / 100}  ${
               plan.currency
             }</span>
                   <small class="text-muted d-block">

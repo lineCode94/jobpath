@@ -73,16 +73,12 @@
     }
     body {
       background: #f8fafc;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+     
       height: 100vh;
-      margin: 0;
-      padding: 20px;
-      direction: rtl;
     }
     .payment-container {
       background: #fff;
+      margin: 150px auto;
       width: 100%;
       max-width: 480px;
       padding: 2rem;
@@ -337,32 +333,57 @@
     </div>
   </div>
 </header>  
-  <div class="payment-container">
-<h2 class="payment-title" style="display: flex; align-items: center; gap: 6px;">
-<img style="width: 24px; height: 24px;" src="assets/img/money.svg" alt="">
+<div style="display: flex; justify-content: center; align-items: center;">
 
-  <span data-en="Payment Method" data-ar="طريقة الدفع">طريقة الدفع</span>
-</h2>
+  <div  class="payment-container mt-20">
+ 
+   <h2 class="payment-title" style="display: flex; align-items: center; gap: 6px;">
+     <img style="width: 24px; height: 24px;" src="assets/img/money.svg" alt="">
+     <span data-en="Payment Method" data-ar="طريقة الدفع">طريقة الدفع</span>
+   </h2>
+ 
+   <div class="plan-box">
+     <div style="text-transform: capitalize;" class="plan-name" id="planName"></div>
+     <div class="plan-price" id="planPrice"></div>
+   </div>
+ 
+   <div class="payment-methods">
+ 
+     <!-- Visa / MasterCard -->
+     <div class="method" data-method="visa">
+       <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" style="width:55px" />
+       <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" style="width:55px" />
+        
+     </div>
+ 
+     <!-- MADA -->
+     <div class="method" data-method="mada">
+       <img src="assets/img/mada2.png" style="width:80px;margin-top: 10px;" />
+     </div>
+ 
+     <!-- Bank Transfer -->
+     <div class="method" data-method="bank">
+       <img src="assets/img/bank.svg" style="width:45px" />
+       <div>تحويل بنكي</div>
+     </div>
+ 
+     <!-- Apple Pay -->
+     <div class="method" data-method="apple">
+       <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" style="width:45px" />
+       <div>Apple Pay</div>
+     </div>
+ 
+   </div>
+ 
+   <button id="proceedBtn" disabled>
+     اختر طريقة الدفع
+   </button>
+ 
+ </div>
+</div>
 
-    <div class="plan-box">
-      <div style="text-transform: capitalize;" class="plan-name" id="planName"></div>
-      <div class="plan-price" id="planPrice"></div>
-    </div>
 
-    <div class="payment-methods">
-      <div class="method" data-method="apple">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Pay" />
-        <div>Apple Pay</div>
-      </div>
-      <div class="method" data-method="moyasser">
-        <img src="assets/img/moyasar.png" alt="Moyasar" />
-        <div>Moyasar</div>
-      </div>
-    </div>
-
-    <button data-en="Choose Payment Method" data-ar=" اختر طريقة الدفع" id="proceedBtn" disabled>اختر طريقة الدفع</button>
-  </div>
-
+    <div data-include="layout/footer.html"></div>
  
  
 
@@ -370,7 +391,7 @@
   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="assets/js/plugins.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="assets/js/api.js"></script>
+    <script type="module" src="assets/js/api.js"></script>
     <script type ="module" src="assets/js/login.js"></script>
     <script defer src="assets/js/main.js"></script>
     <script src="assets/js/choosePayment.js"></script>

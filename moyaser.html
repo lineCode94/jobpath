@@ -327,13 +327,10 @@
       const urlParams = new URLSearchParams(window.location.search);
       const planId = urlParams.get("planId");
       const amount = urlParams.get("amount");
-      console.log(typeof userId)
-      console.log(typeof planId)
-      console.log(typeof amount)
+       
       const finalPlanId = Number(planId);
       const finalUserId = Number(userId)
       const finalAmount = Number(amount)  ;
-      console.log(typeof finalAmount);
 
       // ✅ اللغة من localStorage
       const lang = localStorage.getItem("lang") || "en";

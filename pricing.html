@@ -63,6 +63,94 @@
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
+  <style>
+    .pricing-section {
+  background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 60%, #ffffff 100%);
+  padding: 80px 0;
+  position: relative;
+}
+
+.pricing-section:before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  opacity: 0.07;
+  pointer-events: none;
+}
+.rts__pricing__box {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+.rts__pricing__box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  /* border-color: #2563eb; */
+}
+
+/* Title */
+.rts__pricing__box h3 {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #1e293b;
+}
+
+/* Price */
+.rts__pricing__box .plan__price span {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.rts__pricing__box small {
+  color: #6b7280 !important;
+}
+
+/* Trial badge */
+.rts__pricing__box .badge {
+  font-size: 0.85rem;
+  padding: 6px 10px;
+}
+
+/* Footer button */
+.pricing__btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.05rem;
+  border-radius: 12px;
+  /* border: 2px solid #2563eb !important; */
+  /* color: #2563eb !important; */
+  transition: 0.3s ease;
+  font-weight: 600;
+}
+
+.pricing__btn:hover {
+  background: #2563eb !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+}
+
+/* Cool top highlight */
+.rts__pricing__box:after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 6px;
+ background: linear-gradient(90deg, #16a34a, #4ade80);
+
+  opacity: 0.8;
+}
+
+  </style>
   <body>
     <!-- header area -->
    <header class="rts__section rts__header absolute__header">
@@ -292,13 +380,19 @@
 
     <!-- pricing home  -->
     <!-- <div style="display: flex" id="plans-container"></div> -->
-      <div class="row justify-content-center container">
-            <h6 style="margin: auto 10px; min-width: 700px;"
-             data-en="Looking for a job? Choose the recruitment plan that best suits you from our diverse packages!" data-ar="تبحث عن وظيفة؟ اختر خطة التوظيف اللي تناسبك من باقاتنا المتنوعة!" class="rts__banner__desc my-40 wow fadeInUp animated">
-          تبحث عن وظيفة؟ 
-          اختر خطة التوظيف اللي تناسبك من باقاتنا المتنوعة!
-        </h6>
+      <div class="row justify-content-center  ">
+        <div    style=" display: flex ;justify-content: center;"  >
+
+          <h6 style="display: block;" data-en="Looking for a job?" data-ar="تبحث عن فرصة عمل؟">Looking for a job?</h6>
+              <h6 style="margin: auto 10px; min-width: 700px; font-size: 20px;  "
+               data-en="Pick your ideal employment plan from our variable packages!
+  " data-ar="      اختر خطة التوظيف اللي تناسبك من باقاتنا المتنوعة!" class="rts__banner__desc my-40 wow fadeInUp animated">
+               
+  Pick your ideal employment plan from our variable packages! 
+  </h6>
         </div>
+        </div>
+        
     <div class="mysr-form container my-5">
  
           </div>
