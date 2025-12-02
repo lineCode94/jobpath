@@ -215,4 +215,14 @@ export const getCvMeta = () => {
     },
   });
 };
+// Get jobs list with lang
+export const getJobsList = (lang = "en") => {
+  return api.get(`/jobs/list?lang=${lang}`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+};
+
 export default api;
