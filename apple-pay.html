@@ -72,7 +72,25 @@
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <!-- <link rel="stylesheet" href="assets/css/rtl.css" /> -->
- 
+ <style>
+  /* Center Apple Pay */
+.apple-pay-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh; /* يخليها في وسط الصفحة بشكل مثالي */
+}
+
+/* تنسيق الزر نفسه */
+apple-pay-button {
+  --apple-pay-button-width: 260px;
+  --apple-pay-button-height: 48px;
+  --apple-pay-button-border-radius: 10px;
+
+  display: block;
+}
+
+ </style>
 
     <!-- Remove duplicate CSS imports -->
     <link
@@ -263,17 +281,20 @@
       </div>
     </header>
 
-    <h1 style="margin-top: 100px;" class="">Payment Test</h1>
+ 
 
     <!-- Apple Pay Button -->
-    <apple-pay-button
-      type="plain"
-      buttonstyle="black"
-      locale="en-US"
-      id="apple-pay-button"
-      onclick="onApplePayButtonClicked()"
-    >
-    </apple-pay-button>
+     <div class="apple-pay-wrapper">
+
+       <apple-pay-button
+         type="plain"
+         buttonstyle="black"
+         locale="en-US"
+         id="apple-pay-button"
+         onclick="onApplePayButtonClicked()"
+       >
+       </apple-pay-button>
+    </div>
 
     <div id="payment-result"></div>
 
