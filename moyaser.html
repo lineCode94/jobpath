@@ -322,63 +322,69 @@
 
     <div data-include="layout/footer.html"></div>
 
-    <script>
-      const userId = localStorage.getItem("userId") || null;
-      const urlParams = new URLSearchParams(window.location.search);
-      const planId = urlParams.get("planId");
-      const amount = urlParams.get("amount");
-       
-      const finalPlanId = Number(planId);
-      const finalUserId = Number(userId)
-      const finalAmount = Number(amount)  ;
+<script type="module">
+  import { getMoyassarKey } from "./assets/js/api.js";
 
-      // ✅ اللغة من localStorage
-      const lang = localStorage.getItem("lang") || "en";
+  const userId = localStorage.getItem("userId") || null;
+  const urlParams = new URLSearchParams(window.location.search);
+  const planId = urlParams.get("planId");
+  const amount = urlParams.get("amount");
 
-      // ✅ الوصف حسب اللغة
-      const description =
-        lang === "ar" ? "طلب اشتراك جديد" : "New Subscription Order";
+  // 🔥 اجلب المفتاح من الـ API
+  const res = await getMoyassarKey();
+  console.log("Keys API:", res);
 
-      Moyasar.init({
-        element: ".mysr-form",
-        // Amount in the smallest currency unit.
-        amount: finalAmount, // مثال: 200 SAR → 20000 Halalas
-        currency: "SAR",
-        description: description, // ✅ مترجم حسب اللغة
-        publishable_api_key: "pk_live_Ab9y7F5oBTHFiFqDQN5eioQ3Kv2j36MhYhXfPJN4",
-        callback_url: "https://jobzai.net/thanks.html",
-        methods: ["creditcard"],
-        manual: false,
-        credit_card: {
-          save_card: true,
-        },
-        metadata: {
-          userId: finalUserId,
-          planId: finalPlanId,
-          lang: lang, // ✅ خزنا كمان اللغة في الميتاداتا
-        },
-        locale: lang === "ar" ? "ar" : "en",
-      });
-      // alert(lang);
-      document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(() => {
-          if (lang === "ar") {
-            document.querySelectorAll(".mysr-form label").forEach((label) => {
-              if (label.textContent.includes("Card Number"))
-                label.textContent = "رقم البطاقة";
-              if (label.textContent.includes("Expiry Date"))
-                label.textContent = "تاريخ الانتهاء";
-              if (label.textContent.includes("CVV"))
-                label.textContent = "رمز التحقق (CVV)";
-            });
+  const finalPlanId = Number(planId);
+  const finalUserId = Number(userId);
+  const finalAmount = Number(amount);
 
-            // زر الدفع
-            const btn = document.querySelector(".mysr-form button");
-            if (btn) btn.textContent = "ادفع الآن";
-          }
-        }, 500); // ✅ نستنى شوية لحد ما الفورم يترندر
-      });
-    </script>
+  // اللغة
+  const lang = localStorage.getItem("lang") || "en";
+
+  // الوصف حسب اللغة
+  const description =
+    lang === "ar" ? "طلب اشتراك جديد" : "New Subscription Order";
+
+  // 🔥 استخدم الـ key اللي جاي من API
+  Moyasar.init({
+    element: ".mysr-form",
+    amount: finalAmount,
+    currency: "SAR",
+    description: description,
+    publishable_api_key: res?.data?.moyasarPublishKey, // ← هنا التغيير
+    callback_url: "https://jobzai.net/thanks.html",
+    methods: ["creditcard"],
+    manual: false,
+    credit_card: {
+      save_card: true,
+    },
+    metadata: {
+      userId: finalUserId,
+      planId: finalPlanId,
+      lang: lang,
+    },
+    locale: lang === "ar" ? "ar" : "en",
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      if (lang === "ar") {
+        document.querySelectorAll(".mysr-form label").forEach((label) => {
+          if (label.textContent.includes("Card Number"))
+            label.textContent = "رقم البطاقة";
+          if (label.textContent.includes("Expiry Date"))
+            label.textContent = "تاريخ الانتهاء";
+          if (label.textContent.includes("CVV"))
+            label.textContent = "رمز التحقق (CVV)";
+        });
+
+        const btn = document.querySelector(".mysr-form button");
+        if (btn) btn.textContent = "ادفع الآن";
+      }
+    }, 500);
+  });
+</script>
+
     <script type="module" src="assets/js/login.js" ></script>
 
     <script src="assets/js/plugins.min.js"></script>

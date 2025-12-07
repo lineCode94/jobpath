@@ -203,7 +203,17 @@ export const getUserReports = () => {
     },
   });
 };
-
+export const getMoyassarKey = () => {
+  const token = localStorage.getItem("authToken"); // ✅ المفتاح الصحيح
+  console.log(token)
+  return api.get("/admin/get-keys", {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+};
 
 export const getCvMeta = () => {
   const token = localStorage.getItem("authToken"); // ✅ المفتاح الصحيح

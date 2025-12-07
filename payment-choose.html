@@ -127,6 +127,7 @@
       cursor: pointer;
       transition: 0.3s;
       background: #fff;
+      height: 130px;
     }
     .method:hover {
       border-color: #2563eb;
@@ -298,16 +299,16 @@
                 >
               </a>
               <a
-                href="#"
-                id="logout"
-                class="small__btn hidden-logout d-sm-flex no__fill__btn border-6 font-xs"
-                aria-label="Login Button"
-                data-bs-toggle="modal"
-                data-bs-target="#logoutModal"
-              >
-                <i class="rt-login"></i
-                ><span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
-              </a>
+                    href="#"
+                    id="logout"
+                    class="small__btn log-toggle d-sm-flex no__fill__btn border-6 font-xs"
+                    aria-label="Login Button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#logoutModal"
+                  >
+                    <i class="fa-solid fa-right-from-bracket"></i>
+<span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+                  </a>
               <!-- زر تغيير اللغة -->
               <a
                 style="cursor: pointer"
@@ -335,52 +336,56 @@
 </header>  
 <div style="display: flex; justify-content: center; align-items: center;">
 
-  <div  class="payment-container mt-20">
- 
-   <h2 class="payment-title" style="display: flex; align-items: center; gap: 6px;">
-     <img style="width: 24px; height: 24px;" src="assets/img/money.svg" alt="">
-     <span data-en="Payment Method" data-ar="طريقة الدفع">طريقة الدفع</span>
-   </h2>
- 
-   <div class="plan-box">
-     <div style="text-transform: capitalize;" class="plan-name" id="planName"></div>
-     <div class="plan-price" id="planPrice"></div>
-   </div>
- 
-   <div class="payment-methods">
- 
-     <!-- Visa / MasterCard -->
-     <div class="method" data-method="visa">
-       <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" style="width:55px" />
-       <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" style="width:55px" />
-        
-     </div>
- 
-     <!-- MADA -->
-     <div class="method" data-method="mada">
-       <img src="assets/img/mada2.png" style="width:80px;margin-top: 10px;" />
-     </div>
- 
-     <!-- Bank Transfer -->
-     <div class="method" data-method="bank">
-       <img src="assets/img/bank.svg" style="width:45px" />
-       <div>تحويل بنكي</div>
-     </div>
- 
-     <!-- Apple Pay -->
-     <div class="method" data-method="apple">
-       <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" style="width:45px" />
-       <div>Apple Pay</div>
-     </div>
- 
-   </div>
- 
-   <button id="proceedBtn" disabled>
-     اختر طريقة الدفع
-   </button>
- 
- </div>
+  <div class="payment-container mt-20">
+
+    <h2 class="payment-title" style="display: flex; align-items: center; gap: 6px;">
+      <img style="width: 24px; height: 24px;" src="assets/img/money.svg" alt="">
+      <span data-en="Payment Method" data-ar="طريقة الدفع">طريقة الدفع</span>
+    </h2>
+
+    <div class="plan-box">
+      <div style="text-transform: capitalize;" class="plan-name" id="planName"></div>
+      <div class="plan-price" id="planPrice"></div>
+    </div>
+
+    <!-- Payment Methods -->
+    <div class="payment-methods"
+         style="
+           display:flex;
+           flex-wrap: nowrap;
+           gap:25px;
+           justify-content:center;
+           align-items:center;
+           margin-top:20px;
+         ">
+
+      <!-- Visa / MasterCard -->
+      <div class="method" data-method="visa" style="display:flex; flex-direction:column; align-items:center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" style="width:55px" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" style="width:55px; margin-top:8px;" />
+      </div>
+
+      <!-- MADA -->
+      <div class="method" data-method="mada" style="display:flex; flex-direction:column; align-items:center;justify-content: center;">
+        <img src="assets/img/mada2.png" style="width:75px;" />
+      </div>
+
+      <!-- Apple Pay -->
+      <div class="method" data-method="apple" style="display:flex; flex-direction:column; align-items:center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" style="width:45px;" />
+        <div style="margin-top:6px;">Apple Pay</div>
+      </div>
+
+    </div>
+
+    <button id="proceedBtn" disabled style="margin-top:20px;">
+      اختر طريقة الدفع
+    </button>
+
+  </div>
 </div>
+
+
 
 
     <div data-include="layout/footer.html"></div>
