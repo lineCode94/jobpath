@@ -15,62 +15,66 @@ document.addEventListener("DOMContentLoaded", function () {
   let step = "send";
   let savedPhone = "";
 
-  // ✅ Toast helper
-function showToast(message, type = "info") {
-  const styles = {
-    success: {
-      icon: '<i class="fa-solid fa-circle-check"></i>',
-      bg: "linear-gradient(135deg, #28a745, #6fdc8d)",
-    },
-    error: {
-      icon: '<i class="fa-solid fa-circle-xmark"></i>',
-      bg: "linear-gradient(135deg, #dc3545, #ff6b81)",
-    },
-    warning: {
-      icon: '<i class="fa-solid fa-triangle-exclamation"></i>',
-      bg: "linear-gradient(135deg, #ffc107, #ffd861)",
-    },
-    info: {
-      icon: '<i class="fa-solid fa-circle-info"></i>',
-      bg: "linear-gradient(135deg, #007bff, #6bb6ff)",
-    },
-  };
+  // 🌐 Helper لتحديد اللغة
+  function t(ar, en) {
+    const lang = localStorage.getItem("lang") || "en";
+    return lang === "ar" ? ar : en;
+  }
 
-  Toastify({
-    text: `${styles[type].icon} <span style="margin-left:8px">${message}</span>`,
-    duration: 3500,
-    gravity: "bottom", // يظهر تحت
-    position: "left", // شمال
-    close: true,
-    escapeMarkup: false, // 👈 مهم عشان يسمح بعرض HTML داخل التوست
-    offset: { x: 20, y: 20 },
-    style: {
-      background: styles[type].bg,
-      color: "#fff",
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-      fontSize: "15px",
-      fontWeight: "600",
-      borderRadius: "10px",
-      padding: "12px 18px",
-      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-    },
-  }).showToast();
-}
+  // ✅ Toast Helper
+  function showToast(message, type = "info") {
+    const styles = {
+      success: {
+        icon: '<i class="fa-solid fa-circle-check"></i>',
+        bg: "linear-gradient(135deg, #28a745, #6fdc8d)",
+      },
+      error: {
+        icon: '<i class="fa-solid fa-circle-xmark"></i>',
+        bg: "linear-gradient(135deg, #dc3545, #ff6b81)",
+      },
+      warning: {
+        icon: '<i class="fa-solid fa-triangle-exclamation"></i>',
+        bg: "linear-gradient(135deg, #ffc107, #ffd861)",
+      },
+      info: {
+        icon: '<i class="fa-solid fa-circle-info"></i>',
+        bg: "linear-gradient(135deg, #007bff, #6bb6ff)",
+      },
+    };
 
-
+    Toastify({
+      text: `${styles[type].icon} <span style="margin-left:8px">${message}</span>`,
+      duration: 3500,
+      gravity: "bottom",
+      position: "left",
+      close: true,
+      escapeMarkup: false,
+      offset: { x: 20, y: 20 },
+      style: {
+        background: styles[type].bg,
+        color: "#fff",
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+        fontSize: "15px",
+        fontWeight: "600",
+        borderRadius: "10px",
+        padding: "12px 18px",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+      },
+    }).showToast();
+  }
 
   // ✅ تحديث الواجهة
   function updateUI() {
     const token = localStorage.getItem("authToken");
     if (token) {
-      if (loginBtn) loginBtn.classList.add("log-toggle");
-      if (logoutBtn) logoutBtn.classList.remove("log-toggle");
+      loginBtn?.classList.add("log-toggle");
+      logoutBtn?.classList.remove("log-toggle");
       if (profileMenu) profileMenu.style.display = "block";
     } else {
-      if (loginBtn) loginBtn.classList.remove("log-toggle");
-      if (logoutBtn) logoutBtn.classList.add("log-toggle");
+      loginBtn?.classList.remove("log-toggle");
+      logoutBtn?.classList.add("log-toggle");
       if (profileMenu) profileMenu.style.display = "none";
     }
   }
@@ -81,14 +85,16 @@ function showToast(message, type = "info") {
   if (loginFormPhone && sendBtn) {
     sendBtn.addEventListener("click", async () => {
       if (step === "verify") {
-        // تحقق من الكود
         const otp = otpInput.value.trim();
         if (!otp) {
-          showToast(" Please enter the verification code", "warning");
+          showToast(
+            t("من فضلك ادخل كود التحقق", "Please enter the verification code"),
+            "warning"
+          );
           return;
         }
 
-        showToast(" Verifying code...", "info");
+        showToast(t("جاري التحقق من الكود...", "Verifying code..."), "info");
         sendBtn.disabled = true;
 
         try {
@@ -97,43 +103,58 @@ function showToast(message, type = "info") {
 
           if (token) {
             localStorage.setItem("authToken", token);
-            showToast("Login successful!", "success");
+
+            showToast(
+              t("تم تسجيل الدخول بنجاح", "Login successful!"),
+              "success"
+            );
             updateUI();
 
             const modal = bootstrap.Modal.getInstance(
               document.getElementById("loginModal")
             );
-            if (modal) modal.hide();
+            modal?.hide();
           }
-        } catch (err) {
-          showToast(" Invalid verification code", "error");
+        } catch {
+          showToast(
+            t("كود التحقق غير صحيح", "Invalid verification code"),
+            "error"
+          );
         } finally {
           sendBtn.disabled = false;
         }
       } else {
-        // إرسال الكود
         const phone = phoneInput.value.trim();
         if (!phone) {
-          showToast(" Please enter your phone number", "warning");
+          showToast(
+            t("من فضلك ادخل رقم الهاتف", "Please enter your phone number"),
+            "warning"
+          );
           return;
         }
 
-        showToast(" Sending verification code...", "info");
+        showToast(
+          t("جاري ارسال كود التحقق...", "Sending verification code..."),
+          "info"
+        );
         sendBtn.disabled = true;
 
         try {
           await sendOtp(phone);
           savedPhone = phone;
-          localStorage.setItem("phoneNumber", phone);
 
-          showToast(" Code sent successfully!", "success");
+          showToast(
+            t("تم ارسال الكود بنجاح", "Code sent successfully"),
+            "success"
+          );
+
           otpSection.classList.remove("d-none");
           phoneInput.parentElement.parentElement.classList.add("d-none");
 
-          sendBtn.textContent = "Verify Code";
+          sendBtn.textContent = t("تحقق من الكود", "Verify Code");
           step = "verify";
-        } catch (err) {
-          showToast(" Failed to send code", "error");
+        } catch {
+          showToast(t("فشل في ارسال الكود", "Failed to send code"), "error");
         } finally {
           sendBtn.disabled = false;
         }
@@ -141,40 +162,50 @@ function showToast(message, type = "info") {
     });
   }
 
-  // ---------------- EMAIL OR PHONE + PASSWORD LOGIN ----------------
+  // ---------------- EMAIL / PHONE + PASSWORD LOGIN ----------------
   if (loginFormMail) {
     loginFormMail.addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const identifier = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value.trim();
-alert(identifier)
+
       if (!identifier || !password) {
-        showToast(" Please fill all fields", "warning");
+        showToast(
+          t("من فضلك املأ جميع الحقول", "Please fill all fields"),
+          "warning"
+        );
         return;
       }
 
-      showToast(" Logging in...", "info");
+      showToast(t("جاري تسجيل الدخول...", "Logging in..."), "info");
 
       try {
         const res = await loginUser(identifier, password);
         const token = res?.token || res?.access_token;
-        console.log(res)
+
         if (token) {
           localStorage.setItem("authToken", token);
-          showToast(" Login successful!", "success");
+          showToast(
+            t("تم تسجيل الدخول بنجاح!", "Login successful!"),
+            "success"
+          );
           updateUI();
 
           const modal = bootstrap.Modal.getInstance(
             document.getElementById("loginModal")
           );
-          if (modal) modal.hide();
+          modal?.hide();
         } else {
-          showToast(" Invalid response from server", "error");
+          showToast(
+            t("استجابة غير صالحة من السيرفر", "Invalid response from server"),
+            "error"
+          );
         }
       } catch (err) {
         showToast(
-          err.response?.data?.message || "❌ Incorrect email/phone or password",
+          err.response?.data?.message ||
+            t("بيانات الدخول غير صحيحة", "Incorrect email/phone or password"),
           "error"
         );
       }
@@ -185,10 +216,11 @@ alert(identifier)
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
       localStorage.removeItem("authToken");
-      showToast(" Logged out successfully!", "success");
-      window.location.reload();
+      showToast(
+        t("تم تسجيل الخروج بنجاح", "Logged out successfully!"),
+        "success"
+      );
       window.location.href = "index.html";
-      updateUI();
     });
   }
 });

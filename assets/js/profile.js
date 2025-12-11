@@ -44,28 +44,48 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // small area to show filename + timestamp (we'll inject it into cvPreviewDiv)
   // showToast helper
-  const showToast = (msg, type = "info") => {
-    Toastify({
-      text: msg,
-      duration: 3000,
-      gravity: "top",
-      position: "center",
-      style: {
-        background:
-          type === "success"
-            ? "linear-gradient(to right, #00b09b, #96c93d)"
-            : type === "error"
-            ? "linear-gradient(to right, #e52d27, #b31217)"
-            : type === "warning"
-            ? "linear-gradient(to right, #f7971e, #ffd200)"
-            : "linear-gradient(to right, #283c86, #45a247)",
-        color: "#fff",
-        fontSize: "14px",
-        borderRadius: "8px",
-        padding: "10px 20px",
-      },
-    }).showToast();
+function showToast(message, type = "info") {
+  const styles = {
+    success: {
+      icon: '<i class="fa-solid fa-circle-check"></i>',
+      bg: "linear-gradient(135deg, #28a745, #6fdc8d)",
+    },
+    error: {
+      icon: '<i class="fa-solid fa-circle-xmark"></i>',
+      bg: "linear-gradient(135deg, #dc3545, #ff6b81)",
+    },
+    warning: {
+      icon: '<i class="fa-solid fa-triangle-exclamation"></i>',
+      bg: "linear-gradient(135deg, #ffc107, #ffd861)",
+    },
+    info: {
+      icon: '<i class="fa-solid fa-circle-info"></i>',
+      bg: "linear-gradient(135deg, #007bff, #6bb6ff)",
+    },
   };
+
+  Toastify({
+    text: `${styles[type].icon} <span style="margin-left:8px">${message}</span>`,
+    duration: 3500,
+    gravity: "bottom", // يظهر تحت
+    position: "left", // شمال
+    close: true,
+    escapeMarkup: false, // 👈 مهم عشان يسمح بعرض HTML داخل التوست
+    offset: { x: 20, y: 20 },
+    style: {
+      background: styles[type].bg,
+      color: "#fff",
+      display: "flex",
+      alignItems: "center",
+      gap: "8px",
+      fontSize: "15px",
+      fontWeight: "600",
+      borderRadius: "10px",
+      padding: "12px 18px",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+    },
+  }).showToast();
+}
 
   const saudiCities = [
     { id: 9429, name: "Riyadh" },
@@ -396,7 +416,7 @@ console.log(finalDateFormatted);
          // 2) اعمل render بناء على البيانات الصح اللي من الباك
          renderCvUI(downloadUrl, meta);
 
-         showToast(`✅ ${msg}`, "success");
+         showToast(`  ${msg}`, "success");
          window.location.reload();
        } catch (err) {
          console.error(err);
@@ -411,10 +431,10 @@ console.log(finalDateFormatted);
          const newCv = refreshed?.metadata?.downloadUrl || null;
 
          renderCvUI(newCv, meta);
-         showToast(`✅ ${msg}`, "success");
+         showToast(`  ${msg}`, "success");
        } catch {
          renderCvUI(null, {});
-         showToast(`✅ ${msg}`, "success");
+         showToast(`  ${msg}`, "success");
        }
      }
 
@@ -424,7 +444,7 @@ console.log(finalDateFormatted);
         err?.response?.data?.msg ||
         err?.message ||
         (currentLang === "ar" ? "حدث خطأ أثناء الرفع" : "Upload error");
-      showToast(`⚠️ ${errMsg}`, "error");
+      showToast(`  ${errMsg}`, "error");
       renderCvUI(null, {});
     } finally {
       // clear uploading indicator
@@ -451,6 +471,7 @@ console.log(finalDateFormatted);
     setAuthToken(token);
     try {
       const response = await getUserDetails();
+      console.log(response)
  const metaData = await getCvMeta();
  const date = metaData.data.metadata.date;
  const correctDate = new Date(date);
@@ -589,7 +610,7 @@ console.log(finalDateFormatted);
         }
 
         const res = await updateProfile(payload, false);
-        showToast("✅ تم حفظ البيانات بنجاح!", "success");
+        showToast("  تم حفظ البيانات بنجاح!", "success");
 
         if (res.data?.isPhoneChanged) {
           localStorage.removeItem("authToken");
@@ -621,11 +642,11 @@ console.log(finalDateFormatted);
         };
 
         await updateProfile(payload, false);
-        showToast("✅ تم حفظ روابط التواصل بنجاح!", "success");
+        showToast("  تم حفظ روابط التواصل بنجاح!", "success");
       } catch (err) {
         console.error(err);
         showToast(
-          `⚠️ فشل حفظ الروابط: ${err.response?.data?.msg || err.message}`,
+          `  فشل حفظ الروابط: ${err.response?.data?.msg || err.message}`,
           "error"
         );
       }

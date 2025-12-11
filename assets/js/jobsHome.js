@@ -61,8 +61,8 @@ async function loadJobs() {
 
             <div class="d-flex gap-1 align-items-center">
               <i class="fa-light fa-briefcase"></i>
-              <span>${
-                job.employmentTypeAR || job.employmentTypeEN || "—"
+              <span class="text-capitalize">${
+                job.employmentType || "—"
               }</span>
             </div>
           </div>
