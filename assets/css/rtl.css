@@ -132,3 +132,22 @@ html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
   top: 50%;
   transform: translateY(-50%);
 }
+.input-login-phone{
+  direction: rtl;
+}
+ 
+
+/* ضابط زر التقديم في breadcrumb */
+.breadcrumb__area.max-content .breadcrumb__apply {
+    position: absolute !important; /* نجبره يكون absolute */
+    left: 0 !important;            /* ثابت على اليسار */
+    right: auto !important;        /* نتأكد إن right ما يأثرش */
+    top: 50%;                      /* مكانه رأسي وسط العنصر */
+    transform: translateY(-50%);   /* للتوسيط العمودي تمام */
+    z-index: 10;                   /* للتأكد إنه فوق كل العناصر */
+}
+
+/* اختياري: تضيف padding أو margin حسب الشكل */
+.breadcrumb__apply .rts__btn {
+    padding: 10px 20px;
+}

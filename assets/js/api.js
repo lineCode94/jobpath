@@ -214,6 +214,32 @@ export const getMoyassarKey = () => {
     },
   });
 };
+// api.js (أضف هذا في نهاية الملف)
+
+// 🔹 Get single job details by ID & lang
+// Get single job details by ID & lang
+export const getSingleJob = async (id, lang = "en") => {
+  if (!id) return null;
+
+  try {
+    const token = localStorage.getItem("authToken");
+    const res = await api.get(`/jobs/get-single-job/${id}?lang=${lang}`, {
+      headers: {
+      
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+    });
+    console.log("✅ Single Job Response:", res.data); // <<== هنا تشوف الرد
+    return res.data.status ? res.data.job : null;
+  } catch (err) {
+    console.error("Error fetching single job:", err);
+    return null;
+  }
+};
+
+
 
 export const getCvMeta = () => {
   const token = localStorage.getItem("authToken"); // ✅ المفتاح الصحيح
@@ -225,8 +251,38 @@ export const getCvMeta = () => {
     },
   });
 };
+export const getAllBlogs = () => {
+  const token = localStorage.getItem("authToken"); // ✅ المفتاح الصحيح
+  return api.get("/users/get-all-blogs", {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+};
+// get single blog
+export const getSingleBlog = async (id) => {
+  try {
+    const token = localStorage.getItem("authToken");
+    const res = await api.get(`/users/get-blog-by-id/${id}`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+    });
+    console.log("✅ Single Blog Response:", res.data);
+  return res.data.status ? res.data.blog : null;
+
+  } catch (err) {
+    console.error("Error fetching single blog:", err);
+    return null;
+  }
+};
+
 // Get jobs list with lang
-export const getJobsList = (lang = "en") => {
+export const getJobsList = (lang ) => {
   return api.get(`/jobs/list?lang=${lang}`, {
     headers: {
       Accept: "application/json",

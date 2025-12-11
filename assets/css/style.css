@@ -7156,7 +7156,9 @@ input::placeholder {
   color: var(--rts-heading);
   transition: var(--transition);
 }
-
+.rts__workprocess__box.is__contact{
+  min-height: 350px!important;
+}
 .rts__workprocess__box .work__readmore a:hover {
   color: var(--rts-button-1);
 }

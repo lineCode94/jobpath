@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes">
+
     <meta name="description" content="Your Ultimate Job HTML Template" />
     <meta
       name="keywords"
@@ -27,6 +28,10 @@
       name="twitter:image"
       content="https://html.themewant.com/hostie/landing/assets/images/banner/slider-img-01.webp"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- fabicon -->
     <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
@@ -43,6 +48,14 @@
       rel="stylesheet"
     />
     <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <link
       rel="shortcut icon"
       href="assets/img/favicon.ico"
       type="image/x-icon"
@@ -51,17 +64,31 @@
     <!-- rt icons -->
     <link rel="stylesheet" href="assets/fonts/icon/css/rt-icons.css" />
     <!-- fontawesome -->
+    <!-- Font Awesome CDN -->
+   <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+   />
+   
+   
+   <!-- Font Awesome CDN -->
+   <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+   />
     <link
       rel="stylesheet"
       href="assets/fonts/fontawesome/fontawesome.min.css"
     />
+
     <!-- all plugin css -->
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- <link rel="stylesheet" href="assets/css/rtl.css" /> -->
   </head>
   <body>
     <!-- header area -->
-  <header class="rts__section rts__header absolute__header">
+    <header class="rts__section rts__header absolute__header">
       <div class="container-none">
         <div class="rts__menu__background">
           <div class="row">
@@ -374,37 +401,10 @@
                 is your trusted guide to help you navigate the ever-evolving
                 landscape of the job market.
               </p>
-
-              <blockquote class="rts__blockquote my-30">
-                <h6 class="fw-semibold fst-italic">
-                  Contrary to popular belief, Lorem Ipsum is not simply random
-                  text. It has roots in a piece of classical Latin literature
-                  from 45 BC, making it over 2000 years old. Richard McClintock,
-                  a Latin professor at Hampden-Sydney College is more then best
-                  in Virginia
-                </h6>
-              </blockquote>
-              <p>
-                At Career Compass, we understand that finding the right career
-                path can be daunting. That's why we offer a wealth of resources
-                to empower you on your journey. From resume writing tips and
-                interview techniques to networking advice and skill-building
-                strategies, our expert contributors share their knowledge and
-                expertise to equip you with the tools you need to succeed.
-              </p>
-              <h6 class="mt-30 mb-20 font-20 fw-medium">Tags</h6>
-              <div
-                class="job__tags is__blog__details mb-30 d-flex flex-wrap gap-3"
-              >
-                <a href="#">Course</a>
-                <a href="#">Design</a>
-                <a href="#">Web Development</a>
-                <a href="#">Business</a>
-                <a href="#">UI/UX</a>
-              </div>
+ 
 
               <!-- share -->
-              <div class="d-flex gap-4 mb-20 align-items-center">
+              <!-- <div class="d-flex gap-4 mb-20 align-items-center">
                 <h6 class="fw-semibold">Share</h6>
                 <div class="rts__social d-flex gap-3">
                   <a href="https://facebook.com" aria-label="facebook">
@@ -423,7 +423,7 @@
                     <i class="fa-brands fa-youtube"></i>
                   </a>
                 </div>
-              </div>
+              </div> -->
               <!-- share end -->
 
               <!-- comment list -->
@@ -485,7 +485,7 @@
               <!-- comment list end -->
 
               <!-- comment form -->
-              <div class="review__form job__contact mt-40">
+              <!-- <div class="review__form job__contact mt-40">
                 <h6 class="fw-semibold mb-30">Leave a Comment</h6>
                 <form action="#" class="d-flex flex-column gap-4">
                   <div class="row row-cols-lg-2 row-cols-1 gap-3 gap-lg-0">
@@ -536,7 +536,7 @@
                     Submit Comment
                   </button>
                 </form>
-              </div>
+              </div> -->
               <!-- comment form end -->
             </div>
           </div>
@@ -547,7 +547,7 @@
 
     <!-- app center -->
 
-    <div class="rts__section pb-120">
+    <!-- <div class="rts__section pb-120">
       <div class="container">
         <div class="row">
           <div class="rts__appcenter">
@@ -603,7 +603,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- app center end -->
 
@@ -721,7 +721,7 @@
     </div>
 
     <!-- forgot password form -->
-    <div class="modal similar__modal fade" id="forgotModal">
+    <!-- <div class="modal similar__modal fade" id="forgotModal">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="max-content similar__form form__padding">
@@ -766,7 +766,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div data-include="layout/footer.html"></div>
 
@@ -840,15 +840,18 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="max-content similar__form form__padding">
+
         <div class="d-flex mb-3 align-items-center justify-content-between">
-          <h6 class="mb-0">Login To JobsAI</h6>
+          <h6 class="mb-0" data-en="Login To JobsAI" data-ar="تسجيل الدخول إلى JobsAI">
+            Login To JobsAI
+          </h6>
           <button type="button" data-bs-dismiss="modal" aria-label="Close">
             <i class="fa-regular fa-xmark text-primary"></i>
           </button>
         </div>
 
         <div class="d-block has__line text-center">
-          <p>Choose your login method</p>
+          <p data-en="Choose your login method" data-ar="اختر طريقة تسجيل الدخول">Choose your login method</p>
         </div>
 
         <!-- Tabs -->
@@ -856,6 +859,8 @@
           <button
             class="rts__btn nav-link active"
             id="phone-tab"
+            data-en="Phone"
+            data-ar="الهاتف"
             data-bs-toggle="tab"
             data-bs-target="#phoneTab"
             type="button"
@@ -866,6 +871,8 @@
           <button
             class="rts__btn nav-link"
             id="mail-tab"
+            data-ar="البريد"
+            data-en="Mail"
             data-bs-toggle="tab"
             data-bs-target="#mailTab"
             type="button"
@@ -877,28 +884,63 @@
 
         <!-- Tab Content -->
         <div class="tab-content">
+
           <!-- PHONE LOGIN -->
           <div class="tab-pane fade show active" id="phoneTab" role="tabpanel" aria-labelledby="phone-tab">
             <form method="post" id="loginFormPhone" class="d-flex flex-column gap-3">
+              
               <div class="form-group">
-                <label for="phone" class="fw-medium text-dark mb-3">Your Phone</label>
+                <label for="phone" class="fw-medium text-dark mb-3"
+                  data-en="Your Phone"
+                  data-ar="رقم هاتفك"
+                >Your Phone</label>
+
                 <div class="position-relative">
-                  <input type="tel" name="phone" id="phone" placeholder="Enter your phone" required />
+                  <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    class="input-login-phone"
+                    placeholder="Enter your phone"
+                    data-en="Enter your phone"
+                    data-ar="أدخل رقم هاتفك"
+                    required
+                  />
                   <i class="fa-light fa-phone icon"></i>
                 </div>
               </div>
 
               <!-- OTP Section -->
               <div class="form-group d-none" id="otpSection">
-                <label for="otp" class="fw-medium text-dark mb-3">Enter OTP</label>
+                <label for="otp" class="fw-medium text-dark mb-3"
+                  data-en="Enter OTP"
+                  data-ar="أدخل رمز التحقق"
+                >Enter OTP</label>
+
                 <div class="position-relative">
-                  <input type="text" name="otp" id="otp" placeholder="Enter OTP" maxlength="6" />
+                  <input
+                    type="text"
+                    name="otp"
+                    id="otp"
+                    placeholder="Enter OTP"
+                    data-en="Enter OTP"
+                    data-ar="أدخل رمز التحقق"
+                    maxlength="6"
+                  />
                   <i class="fa-light fa-shield icon"></i>
                 </div>
               </div>
 
               <div class="form-group my-3">
-                <button class="rts__btn w-100 fill__btn" type="button" id="sendOtpBtnLogin">Send OTP</button>
+                <button
+                  class="rts__btn w-100 fill__btn"
+                  type="button"
+                  id="sendOtpBtnLogin"
+                  data-en="Send OTP"
+                  data-ar="إرسال رمز التحقق"
+                >
+                  Send OTP
+                </button>
               </div>
             </form>
           </div>
@@ -906,27 +948,41 @@
           <!-- EMAIL OR PHONE + PASSWORD LOGIN -->
           <div class="tab-pane fade" id="mailTab" role="tabpanel" aria-labelledby="mail-tab">
             <form method="post" id="loginFormMail" class="d-flex flex-column gap-3">
+
               <div class="form-group">
-                <label for="email" class="fw-medium text-dark mb-3">Email or Phone</label>
+                <label for="email" class="fw-medium text-dark mb-3"
+                  data-en="Email or Phone"
+                  data-ar="البريد الإلكتروني أو الهاتف"
+                >Email or Phone</label>
+
                 <div class="position-relative">
                   <input
                     type="text"
                     name="email"
                     id="email"
                     placeholder="Enter your phone or email"
+                    data-en="Enter your phone or email"
+                    data-ar="أدخل رقم هاتفك أو بريدك الإلكتروني"
                     required
                   />
                   <i class="fa-light fa-user icon"></i>
                 </div>
               </div>
+
               <div class="form-group">
-                <label for="password" class="fw-medium text-dark mb-3">Password</label>
+                <label for="password" class="fw-medium text-dark mb-3"
+                  data-en="Password"
+                  data-ar="كلمة المرور"
+                >Password</label>
+
                 <div class="position-relative">
                   <input
                     type="password"
                     name="password"
                     id="password"
                     placeholder="Enter your password"
+                    data-en="Enter your password"
+                    data-ar="أدخل كلمة المرور"
                     required
                   />
                   <i class="fa-light fa-lock icon"></i>
@@ -934,21 +990,48 @@
               </div>
 
               <div class="d-flex flex-wrap justify-content-between align-items-center fw-medium">
+<!-- 
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="flexCheckDefault" />
-                  <label class="form-check-label" for="flexCheckDefault">Remember me</label>
-                </div>
-                <a href="#" class="forgot__password text-para" data-bs-toggle="modal" data-bs-target="#forgotModal">
+                  <label
+                    class="form-check-label"
+                    for="flexCheckDefault"
+                    data-en="Remember me"
+                    data-ar="تذكرني"
+                  >
+                    Remember me
+                  </label>
+                </div> -->
+
+                <!-- <a
+                  href="#"
+                  class="forgot__password text-para"
+                  data-bs-toggle="modal"
+                  data-bs-target="#forgotModal"
+                  data-en="Forgot Password?"
+                  data-ar="هل نسيت كلمة المرور؟"
+                >
                   Forgot Password?
-                </a>
+                </a> -->
+
               </div>
 
               <div class="form-group my-3">
-                <button class="rts__btn w-100 fill__btn" type="submit">Login</button>
+                <button
+                  class="rts__btn w-100 fill__btn"
+                  type="submit"
+                  data-en="Login"
+                  data-ar="تسجيل الدخول"
+                >
+                  Login
+                </button>
               </div>
+
             </form>
           </div>
+
         </div>
+
       </div>
     </div>
   </div>
@@ -965,7 +1048,12 @@
       <i class="fas fa-arrow-up"></i>
     </button>
     <!-- all plugin js -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="assets/js/plugins.min.js"></script>
-    <script defer type="module" src="assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="assets/js/singleBlog.js"></script>
+ 
+    <script type ="module" src="assets/js/login.js"></script>
+    <script   src="assets/js/main.js"></script>
   </body>
 </html>
