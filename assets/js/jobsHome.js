@@ -3,14 +3,14 @@ import { getJobsList } from "./api.js";
 // ========== Render Jobs on Home Page ==========
 async function loadJobs() {
   const lang = localStorage.getItem("lang") || "en";
-  console.log("Language:", lang);
+  // console.log("Language:", lang);
 
   const jobsContainer = document.getElementById("jobsContainer");
 
   try {
     const res = await getJobsList(lang);
 
-    console.log("API Response:", res.data);
+    // console.log("API Response:", res.data);
 
     // ----- Pick correct jobs array -----
     let jobs = [];

@@ -17,7 +17,7 @@ export const setAuthToken = (token) => {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   } else {
     delete api.defaults.headers.common["Authorization"];
-    console.log("⚠️ Token removed from headers");
+    // console.log("⚠️ Token removed from headers");
   }
 };
 
@@ -205,7 +205,7 @@ export const getUserReports = () => {
 };
 export const getMoyassarKey = () => {
   const token = localStorage.getItem("authToken"); // ✅ المفتاح الصحيح
-  console.log(token)
+  // console.log(token)
   return api.get("/admin/get-keys", {
     headers: {
       Accept: "application/json",
@@ -231,7 +231,7 @@ export const getSingleJob = async (id, lang = "en") => {
         ...(token && { Authorization: `Bearer ${token}` }),
       },
     });
-    console.log("✅ Single Job Response:", res.data); // <<== هنا تشوف الرد
+    // console.log("✅ Single Job Response:", res.data); // <<== هنا تشوف الرد
     return res.data.status ? res.data.job : null;
   } catch (err) {
     console.error("Error fetching single job:", err);
@@ -272,7 +272,7 @@ export const getSingleBlog = async (id) => {
         ...(token && { Authorization: `Bearer ${token}` }),
       },
     });
-    console.log("✅ Single Blog Response:", res.data);
+    // console.log("✅ Single Blog Response:", res.data);
   return res.data.status ? res.data.blog : null;
 
   } catch (err) {

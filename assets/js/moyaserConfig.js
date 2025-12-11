@@ -6,8 +6,8 @@
       const planId = urlParams.get("planId");
       const amount = urlParams.get("amount");
       const response = await getMoyassarKey();
-      console.log(response)
-      alert(1)
+      // console.log(response)
+      // alert(1)
       const finalPlanId = Number(planId);
       const finalUserId = Number(userId)
       const finalAmount = Number(amount)  ;

@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  console.log("Loaded job object:", job); // يظهر object كما في console عندك
+  // console.log("Loaded job object:", job); // يظهر object كما في console عندك
 
   // ----- HEADER fields (logo, title, location, type, salary, date) -----
   const logoEl = el("companyLogo", "companyLogoImg");
@@ -223,5 +223,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  console.log("✅ Job details rendered.");
+  // console.log("✅ Job details rendered.");
 });

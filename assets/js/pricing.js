@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const data = await getPlans();
     const plans = data.data.plansWithAmount;
-    console.log(plans);
+    // console.log(plans);
 
     if (!plans || plans.length === 0) {
       container.innerHTML = `<p class="text-center">${

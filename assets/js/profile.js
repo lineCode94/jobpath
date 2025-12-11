@@ -281,7 +281,7 @@ console.log(finalDateFormatted);
      downloadBtn.title =
        currentLang === "ar" ? "تحميل السيرة الذاتية" : "Download CV";
      downloadBtn.addEventListener("click", () => {
-       alert(finalFileName);
+      //  alert(finalFileName);
        secureDownload(cvPath, finalFileName);
      });
    }
