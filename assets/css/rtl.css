@@ -151,3 +151,14 @@ html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
 .breadcrumb__apply .rts__btn {
     padding: 10px 20px;
 }
+.rts__workprocess__box {
+  min-height: 400px;
+  background: linear-gradient(
+    226.58deg,
+    #fef2eb 1.52%,
+    #f1f1f1 47.05%,
+    #e4e0ea 99.84%
+  );
+  padding: 30px 42px;
+  text-align: center;
+}
