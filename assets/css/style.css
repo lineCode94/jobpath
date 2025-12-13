@@ -12628,4 +12628,26 @@ margin-top: -50px;
     color: #3399ff; /* أزرق أغمق عند المرور */
     transition: color 0.3s;
 
-  }
+  }/* اجعل كل الكروت بنفس الارتفاع داخل الأعمدة */
+#jobsContainer .col-lg-6,
+#jobsContainer .col-xl-4,
+#jobsContainer .col-md-6 {
+  display: flex;
+}
+.rts__job__card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.rts__job__card {
+  width: 100%;       /* يأخد عرض العمود فقط */
+  max-width: 440px;  /* حجم ثابت ومناسب */
+  margin: auto;      /* يوسّط كل الكروت */
+}
+#jobsContainer .col-lg-6,
+#jobsContainer .col-xl-4,
+#jobsContainer .col-md-6 {
+  margin-bottom: 25px;
+}
+
