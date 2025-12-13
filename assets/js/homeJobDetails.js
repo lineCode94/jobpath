@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const response = await getSingleJob(jobId, lang);
   // getSingleJob sometimes returns job object directly or wrapped { job: {...} }
   const job = response && response.job ? response.job : response;
-
+ 
   if (!job) {
     const detailsEl = document.querySelector(".rts__job__details");
     if (detailsEl) detailsEl.innerHTML = "<p>Job not found.</p>";

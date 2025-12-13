@@ -42,9 +42,7 @@ async function loadJobs() {
           
           <div class="d-flex align-items-center justify-content-between">
             <div class="company__icon">
-              <img src="${
-                "assets/img/home-1/company/google.svg"
-              }" 
+              <img src="${"assets/img/home-1/company/google.svg"}" 
                    alt="${job.companyNameEN || job.companyNameAR || ""}" />
             </div>
 
@@ -62,7 +60,7 @@ async function loadJobs() {
             <div class="d-flex gap-1 align-items-center">
               <i class="fa-light fa-briefcase"></i>
               <span class="text-capitalize">${
-                job.employmentType || "—"
+                lang === "ar" ? job.employmentType : job.employmentTypeEN || "—"
               }</span>
             </div>
           </div>
