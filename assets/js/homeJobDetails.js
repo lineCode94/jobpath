@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const response = await getSingleJob(jobId, lang);
   // getSingleJob sometimes returns job object directly or wrapped { job: {...} }
   const job = response && response.job ? response.job : response;
- 
+
   if (!job) {
     const detailsEl = document.querySelector(".rts__job__details");
     if (detailsEl) detailsEl.innerHTML = "<p>Job not found.</p>";
@@ -222,6 +222,38 @@ document.addEventListener("DOMContentLoaded", async () => {
       textSpan.textContent = ` ${job.gender ?? "Both"}`;
     }
   });
+  // ---------- APPLY JOB (MAILTO) ----------
+  const applyBtn = document.getElementById("applyJobBtn");
+
+  if (applyBtn) {
+    applyBtn.addEventListener("click", () => {
+      const email = job.applyEmail || job.companyEmail || "hr@company.com"; // fallback
+
+      const subject =
+        lang === "ar"
+          ? `التقدم لوظيفة ${titleVal}`
+          : `Applying for ${titleVal}`;
+
+      const body =
+        lang === "ar"
+          ? `السلام عليكم،
+
+أرغب في التقدم لوظيفة ${titleVal}.
+
+شكراً لكم.`
+          : `Hello,
+
+I would like to apply for the position of ${titleVal}.
+
+Thank you.`;
+
+      const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
+
+      window.location.href = mailtoLink;
+    });
+  }
 
   // console.log("✅ Job details rendered.");
 });
