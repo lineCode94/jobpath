@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return lang === "ar" ? ar : en;
   }
 
-  // ✅ Toast Helper
+  // ✅ Toast Helper (زي ما هو)
   function showToast(message, type = "info") {
     const styles = {
       success: {
@@ -81,6 +81,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateUI();
 
+  // ⏱ AUTO LOGOUT AFTER 2 HOURS (الإضافة الوحيدة)
+  function checkAutoLogout() {
+    const token = localStorage.getItem("authToken");
+    const loginTime = localStorage.getItem("loginTime");
+    if (!token || !loginTime) return;
+
+    const TWO_HOURS = 2 * 60 * 60 * 1000;
+    if (Date.now() - loginTime >= TWO_HOURS) {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("loginTime");
+      window.location.href = "index.html";
+    }
+  }
+
+  checkAutoLogout();
+  setInterval(checkAutoLogout, 60 * 1000);
+
   // ---------------- PHONE LOGIN (OTP) ----------------
   if (loginFormPhone && sendBtn) {
     sendBtn.addEventListener("click", async () => {
@@ -103,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           if (token) {
             localStorage.setItem("authToken", token);
+            localStorage.setItem("loginTime", Date.now());
 
             showToast(
               t("تم تسجيل الدخول بنجاح", "Login successful!"),
@@ -186,6 +204,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (token) {
           localStorage.setItem("authToken", token);
+          localStorage.setItem("loginTime", Date.now());
+
           showToast(
             t("تم تسجيل الدخول بنجاح!", "Login successful!"),
             "success"
@@ -216,6 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
       localStorage.removeItem("authToken");
+      localStorage.removeItem("loginTime");
       showToast(
         t("تم تسجيل الخروج بنجاح", "Logged out successfully!"),
         "success"
