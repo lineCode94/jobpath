@@ -232,10 +232,10 @@
                   </a>
                   <!-- زر تغيير اللغة -->
                   <a
-                    style="display: none;  background-color: transparent; font-size: 1px; color: #fff; border:none"
+                     
                     id="lang-btn"
 
-                    class="small__btn d-sm-flex no__fill__btn border-6 font-xs "
+                    class="small__btn d-sm-flex no__fill__btn border-6 font-xs fake-lang-btn  "
                   >
                     Arabic
                   </a>
@@ -505,39 +505,11 @@
     </div>
 
     <!-- Related Jobs -->
-    <div class="recent__post">
-        <h6 class="fw-semibold mb-30" data-en="Related Jobs" data-ar="وظائف ذات صلة">
-            Related Jobs
-        </h6>
+  <div class="related__jobs">
+  <h5 id="relatedJobsTitle">Related Jobs</h5>
+  <div id="relatedJobsContainer"></div>
+</div>
 
-        <div class="d-flex flex-column gap-30">
-
-            <div class="d-flex gap-4 align-items-center flex-sm-row flex-column mx-auto mx-sm-0">
-                <div class="company__icon recent__post">
-                    <img src="assets/img/home-1/company/apple.svg" alt="">
-                </div>
-
-                <div class="job__meta w-100 d-flex text-center text-sm-start flex-column gap-2">
-                    <a href="#" class="job__title h6 fw-semibold mb-0" data-en="Senior UI Designer, Apple" data-ar="مصمم واجهة مستخدم أول، آبل">
-                        Senior UI Designer, Apple
-                    </a>
-
-                    <div class="d-flex gap-3 justify-content-center justify-content-sm-start flex-wrap">
-
-                        <div class="d-flex gap-2 align-items-center" data-en="New York, USA" data-ar="نيويورك، الولايات المتحدة">
-                            <i class="fa-light fa-location-dot"></i> Newyork, USA
-                        </div>
-
-                        <div class="d-flex gap-2 align-items-center" data-en="Full Time" data-ar="دوام كامل">
-                            <i class="fa-light rt-briefcase"></i> Full Time
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
 </div>
 
         </div>
@@ -953,6 +925,7 @@
     <i class="fas fa-arrow-up"></i>
 </button>
 <!-- all plugin js -->
+ 
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="assets/js/plugins.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

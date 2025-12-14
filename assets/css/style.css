@@ -12673,3 +12673,32 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.fake-lang-btn {
+  opacity: 0;              /* مش متشاف */
+  pointer-events: none;    /* مينفعش يتداس */
+  background-color: transparent;
+  font-size: 1px;
+  border: none;
+}
+.fake-lang-btn {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+.related-job-card {
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.related-job-card h6 {
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+.related-job-card a {
+  font-size: 13px;
+  color: #0066ff;
+}

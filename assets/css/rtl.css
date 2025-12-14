@@ -162,3 +162,15 @@ html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
   padding: 30px 42px;
   text-align: center;
 }
+.fake-lang-btn {
+  opacity: 0;              /* مش متشاف */
+  pointer-events: none;    /* مينفعش يتداس */
+  background-color: transparent;
+  font-size: 1px;
+  border: none;
+}
+.fake-lang-btn {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}

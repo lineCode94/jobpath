@@ -254,6 +254,61 @@ Thank you.`;
       window.location.href = mailtoLink;
     });
   }
+  // ================= RELATED JOBS =================
+  const relatedContainer = document.getElementById("relatedJobsContainer");
+  const relatedTitle = document.getElementById("relatedJobsTitle");
+
+  if (relatedTitle) {
+    relatedTitle.textContent = lang === "ar" ? "وظائف مشابهة" : "Related Jobs";
+  }
+
+  if (relatedContainer) {
+    relatedContainer.innerHTML = "";
+
+    const related = job.relatedJobs;
+
+    // ❌ لا يوجد وظائف مشابهة
+    if (
+      !related ||
+      (typeof related === "string" && related.trim() !== "") ||
+      (Array.isArray(related) && related.length === 0)
+    ) {
+      const p = document.createElement("p");
+      p.textContent =
+        lang === "ar" ? "لا يوجد وظائف مشابهة" : "No related jobs available";
+      relatedContainer.appendChild(p);
+    }
+
+    // ✅ Array of related jobs
+    else if (Array.isArray(related)) {
+      related.forEach((rJob) => {
+        const card = document.createElement("div");
+        card.className = "related-job-card";
+
+        const title =
+          pick(rJob, "titleEN", "titleAR") ||
+          rJob.titleEN ||
+          rJob.titleAR ||
+          "";
+
+        const location =
+          pick(rJob, "locationEN", "locationAR") ||
+          rJob.locationEN ||
+          rJob.locationAR ||
+          "";
+
+        card.innerHTML = `
+        <h6>${title}</h6>
+        <span>${location}</span>
+        <a href="job-details-2.html?id=${rJob.jobId}">
+          ${lang === "ar" ? "عرض التفاصيل" : "View Details"}
+        </a>
+      `;
+
+        relatedContainer.appendChild(card);
+      });
+    }
+  }
 
   // console.log("✅ Job details rendered.");
 });
