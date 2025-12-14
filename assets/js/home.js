@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // عناصر مرحلة التحقق
   const otpInput = document.createElement("input");
-  otpInput.type = "text";
+  otpInput.type = "number";
   otpInput.id = "otpInput";
   otpInput.placeholder =
     document.documentElement.lang === "ar"
