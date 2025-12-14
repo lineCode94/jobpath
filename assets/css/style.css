@@ -12651,3 +12651,14 @@ margin-top: -50px;
   margin-bottom: 25px;
 }
 
+/* Chrome, Safari, Edge, Opera */
+#otp::-webkit-outer-spin-button,
+#otp::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+#otp {
+  -moz-appearance: textfield;
+}

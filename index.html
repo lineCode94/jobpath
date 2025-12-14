@@ -1628,8 +1628,10 @@
 
                 <div class="position-relative">
                   <input
-                    type="text"
-                    name="otp"
+                    type="number"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    autocomplete="one-time-code"
                     id="otp"
                     placeholder="Enter OTP"
                     data-en="Enter OTP"
@@ -1891,10 +1893,9 @@
     <!-- <script src="assets/js/api.js"></script> -->
     <script type="module" src="assets/js/home.js"></script>
     <script type="module" src="assets/js/plansHome.js"></script>
-
     <script type="module" src="assets/js/jobsHome.js"></script>
     <script type ="module" src="assets/js/login.js"></script>
     <script   src="assets/js/main.js"></script>
-    <!-- <script defer src="assets/js/include.js"></script> -->
+ 
   </body>
 </html>

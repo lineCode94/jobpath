@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes">
+
     <meta name="description" content="Your Ultimate Job HTML Template" />
     <meta
       name="keywords"
@@ -63,10 +64,23 @@
     <!-- rt icons -->
     <link rel="stylesheet" href="assets/fonts/icon/css/rt-icons.css" />
     <!-- fontawesome -->
+    <!-- Font Awesome CDN -->
+   <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+   />
+   
+   
+   <!-- Font Awesome CDN -->
+   <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+   />
     <link
       rel="stylesheet"
       href="assets/fonts/fontawesome/fontawesome.min.css"
     />
+
     <!-- all plugin css -->
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
@@ -825,26 +839,17 @@
     <!-- top employer end -->
 
     <!-- testimonial section -->
- <div class="rts__section section__padding rts__testimonial__background">
+ 
+<div class="rts__section section__padding rts__testimonial__background">
   <div class="container position-relative">
     <div class="row justify-content-center">
       <div class="col-xl-6 col-lg-10">
-        <div
-          class="rts__section__content text-center wow animated fadeInUp mb-60"
-        >
-          <h3
-            class="rts__section__title section__mb"
-            data-en="Our Clients’ Testimonials"
-            data-ar="آراء عملائنا"
-          >
-            Our Clients’ Testimonials
+        <div class="rts__section__content text-center wow animated fadeInUp mb-60">
+          <h3 class="rts__section__title section__mb" data-en="What Our Customers Are Saying" data-ar="آراء عملائنا">
+            What Our Customers Are Saying
           </h3>
-          <p
-            class="rts__section__desc"
-            data-en="Looking for your next career opportunity? You’ve come to the right place."
-            data-ar="هل تبحث عن فرصة العمل القادمة؟ لا داعي للبحث أكثر"
-          >
-            Looking for your next career opportunity? You’ve come to the right place.
+          <p class="rts__section__desc" data-en="Looking for your next career opportunity? Look no further" data-ar="هل تبحث عن فرصة العمل القادمة؟ لا داعي للبحث أكثر">
+            Looking for your next career opportunity? Look no further
           </p>
         </div>
       </div>
@@ -852,35 +857,24 @@
 
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div
-          class="rts__testimonial__active overflow-hidden swiper-data"
-          data-swiper='{
-            "slidesPerView": 1,
-            "autoplay": true,
-            "loop": true,
-            "navigation": {
-                "nextEl": ".rts__slide__next",
-                "prevEl": ".rts__slide__prev"
-            }
-          }'
-        >
+        <div class="rts__testimonial__active overflow-hidden swiper-data"
+             data-swiper='{"slidesPerView":1,"autoplay":true,"loop":true,"navigation":{"nextEl":".rts__slide__next","prevEl":".rts__slide__prev"}}'>
           <div class="swiper-wrapper">
+
             <!-- Testimonial 1 -->
             <div class="swiper-slide">
               <div class="rts__single__testimonial text-center">
                 <div class="rts__quote mb-40">
-                  <img class="opacity-50" src="assets/img/icon/quote.svg" alt="quote icon" />
+                  <img class="opacity-50" src="assets/img/icon/quote.svg" alt="" />
                 </div>
-                <div
-                  class="testimonial__text h6"
-                  data-en="I had been looking for a suitable job for a year. A friend recommended this platform to me — there may be many job sites out there, but what truly makes them stand out is how they combine real human expertise with AI tools that many companies rely on to accept or reject CVs in the first place."
-                  data-ar="صارلي سنة ابحث عن وظيفة تناسبني. رشح لي صديقي هذه المنصة...يمكن في منصات توظيف كثيرة، لكن صراحة أهم ما يميزهم يجمعون بين الخبرة البشرية وأدوات الذكاء الاصطناعي اللي يعتمد عليها الكثير في قبول ورفض السيرة الذاتية من الأساس."
-                >
-                  I had been looking for a suitable job for a year. A friend recommended this platform to me — there may be many job sites out there, but what truly makes them stand out is how they combine real human expertise with AI tools that many companies rely on to accept or reject CVs in the first place.
+                <div class="testimonial__text h6"
+                     data-en="I searched for a suitable job for a year. A friend recommended this platform. What sets them apart is the combination of human expertise and AI tools widely used to screen CVs."
+                     data-ar="صارلي سنة ابحث عن وظيفة تناسبني. رشح لي صديقي هذه المنصة...يمكن في منصات توظيف كثيرة، لكن صراحة أهم ما يميزهم يجمعون بين الخبرة البشرية وأدوات الذكاء الاصطناعي اللي يعتمد عليها الكثير في قبول ورفض السيرة الذاتية من الأساس.">
+                  I searched for a suitable job for a year. A friend recommended this platform...
                 </div>
                 <div class="d-flex align-items-center justify-content-center mx-auto gap-3 pt-40 max-content">
                   <div class="author__image">
-                    <img src="assets/img/home-1/testimonial/author.jpg" alt="client" />
+                    <img src="assets/img/home-1/testimonial/author.jpg" alt="" />
                   </div>
                   <div class="author__content text-start">
                     <span class="h6" data-en="Client 1" data-ar="عميل.١">Client 1</span>
@@ -894,19 +888,16 @@
             <div class="swiper-slide">
               <div class="rts__single__testimonial text-center">
                 <div class="rts__quote mb-40">
-                  <img class="opacity-50" src="assets/img/icon/quote.svg" alt="quote icon" />
+                  <img class="opacity-50" src="assets/img/icon/quote.svg" alt="" />
                 </div>
-                <div
-                  class="testimonial__text h6"
-                  data-en="I got my current job through this platform. They sent my CV to many openings in my field. I applied for several positions and attended multiple interviews before finally landing the job I truly wanted."
-                  data-ar="حصلت على وظيفتي الحالية عن طريق المنصة 
-الحقيقة ارسلوا سيرتي لفرص شاغرة كتير بمجالي. قدمت كثييير وكان في مقابلات توظيف كمان كثيرة بس بديت معهم. واليوم أخيرًا وصلت للوظيفة اللي ترضيني."
-                >
-                  I got my current job through this platform. They sent my CV to many openings in my field. I applied for several positions and attended multiple interviews before finally landing the job I truly wanted.
+                <div class="testimonial__text h6"
+                     data-en="I got my current job through the platform. They sent my CV to multiple opportunities in my field, and after several interviews, I finally got the job I wanted."
+                     data-ar="حصلت على وظيفتي الحالية عن طريق المنصة. الحقيقة ارسلوا سيرتي لفرص شاغرة كتير بمجالي. قدمت كثييير وكان في مقابلات توظيف كمان كثيرة بس بديت معهم. واليوم أخيرًا وصلت للوظيفة اللي ترضيني.">
+                  I got my current job through the platform...
                 </div>
                 <div class="d-flex align-items-center justify-content-center mx-auto gap-3 pt-40 max-content">
                   <div class="author__image">
-                    <img src="assets/img/home-1/testimonial/author.jpg" alt="client" />
+                    <img src="assets/img/home-1/testimonial/author.jpg" alt="" />
                   </div>
                   <div class="author__content text-start">
                     <span class="h6" data-en="Client 2" data-ar="عميل.٢">Client 2</span>
@@ -920,18 +911,16 @@
             <div class="swiper-slide">
               <div class="rts__single__testimonial text-center">
                 <div class="rts__quote mb-40">
-                  <img class="opacity-50" src="assets/img/icon/quote.svg" alt="quote icon" />
+                  <img class="opacity-50" src="assets/img/icon/quote.svg" alt="" />
                 </div>
-                <div
-                  class="testimonial__text h6"
-                  data-en="It’s not easy to find a job that truly matches your skills. I started with Job AI by improving my CV — once I optimized it and highlighted my unique experience and abilities, following the experts’ advice here, I began receiving stronger opportunities until I landed my current job."
-                  data-ar="مو سهل تلقى وظيفة تناسب إمكانياتك. بدأت مع Job AI بتحسين سيرتي الذاتية، لما عدلتها وركزت على خبرتي وقدراتي الخاصة، وما شاء الله اتّبعت نصائح الخبراء هنا، قدرت احصل على فرص أقوى لين وصلت لوظيفتي الحالية."
-                >
-                  It’s not easy to find a job that truly matches your skills. I started with Job AI by improving my CV — once I optimized it and highlighted my unique experience and abilities, following the experts’ advice here, I began receiving stronger opportunities until I landed my current job.
+                <div class="testimonial__text h6"
+                     data-en="It’s not easy to find a job that fits your skills. Job AI helped me improve my CV, follow expert advice, and land a better opportunity."
+                     data-ar="مو سهل تلقى وظيفة تناسب إمكانياتك. بدأت مع Job AI بتحسين سيرتي الذاتية، لما عدلتها وركزت على خبرتي وقدراتي الخاصة، وما شاء الله اتّبعت نصائح الخبراء هنا، قدرت احصل على فرص أقوى لين وصلت لوظيفتي الحالية.">
+                  It’s not easy to find a job that fits your skills...
                 </div>
                 <div class="d-flex align-items-center justify-content-center mx-auto gap-3 pt-40 max-content">
                   <div class="author__image">
-                    <img src="assets/img/home-1/testimonial/author.jpg" alt="client" />
+                    <img src="assets/img/home-1/testimonial/author.jpg" alt="" />
                   </div>
                   <div class="author__content text-start">
                     <span class="h6" data-en="Client 3" data-ar="عميل.٣">Client 3</span>
@@ -945,19 +934,16 @@
             <div class="swiper-slide">
               <div class="rts__single__testimonial text-center">
                 <div class="rts__quote mb-40">
-                  <img class="opacity-50" src="assets/img/icon/quote.svg" alt="quote icon" />
+                  <img class="opacity-50" src="assets/img/icon/quote.svg" alt="" />
                 </div>
-                <div
-                  class="testimonial__text h6"
-                  data-en="I found my current job through this platform. They forwarded my CV to several companies in my field, and after many applications and interviews, I finally landed the job that truly satisfies me."
-                  data-ar="حصلت على وظيفتي الحالية عن طريق المنصة 
-الحقيقة ارسلوا سيرتي لفرص شاغرة كتير بمجالي. قدمت كثييير وكان في مقابلات توظيف كمان كثيرة بس بديت معهم. واليوم أخيرًا وصلت للوظيفة اللي ترضيني."
-                >
-                  I found my current job through this platform. They forwarded my CV to several companies in my field, and after many applications and interviews, I finally landed the job that truly satisfies me.
+                <div class="testimonial__text h6"
+                     data-en="I got my current job through the platform. They sent my CV to multiple opportunities in my field, and after several interviews, I finally got the job I wanted."
+                     data-ar="حصلت على وظيفتي الحالية عن طريق المنصة. الحقيقة ارسلوا سيرتي لفرص شاغرة كتير بمجالي. قدمت كثييير وكان في مقابلات توظيف كمان كثيرة بس بديت معهم. واليوم أخيرًا وصلت للوظيفة اللي ترضيني.">
+                  I got my current job through the platform...
                 </div>
                 <div class="d-flex align-items-center justify-content-center mx-auto gap-3 pt-40 max-content">
                   <div class="author__image">
-                    <img src="assets/img/home-1/testimonial/author.jpg" alt="client" />
+                    <img src="assets/img/home-1/testimonial/author.jpg" alt="" />
                   </div>
                   <div class="author__content text-start">
                     <span class="h6" data-en="Client 4" data-ar="عميل.٤">Client 4</span>
@@ -966,14 +952,13 @@
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
 
       <!-- Navigation Buttons -->
-      <div
-        class="rts__slider__control d-lg-flex justify-content-between g-0 position-absolute top-50 translate-middle-y d-none"
-      >
+      <div class="rts__slider__control d-lg-flex justify-content-between g-0 position-absolute top-50 translate-middle-y d-none">
         <div class="rts__slide__next slider__btn">
           <i class="fa-sharp fa-solid fa-chevron-left"></i>
         </div>
@@ -984,7 +969,6 @@
     </div>
   </div>
 </div>
-
     <!-- testimonial section end -->
 
     <!-- brand area -->
@@ -1595,13 +1579,11 @@
       <i class="fas fa-arrow-up"></i>
     </button>
     <!-- all plugin js -->
-  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="assets/js/plugins.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- <script src="assets/js/api.js"></script> -->
-    <script type="module" src="assets/js/home.js"></script>
-    <script type="module" src="assets/js/jobsHome.js"></script>
-    <script type ="module" src="assets/js/login.js"></script>
-    <script   src="assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="assets/js/plugins.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="assets/js/login.js"></script>
+<script src="assets/js/main.js"></script> <!-- هنا RTL + Swiper init -->
+
   </body>
 </html>

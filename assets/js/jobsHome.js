@@ -23,7 +23,7 @@ async function loadJobs() {
 
   try {
     const res = await getJobsList(lang);
-
+console.log(res)
     let jobs = [];
 
     if (lang === "ar") {
@@ -68,8 +68,8 @@ async function loadJobs() {
                 <span class="text-capitalize">
                   ${
                     lang === "ar"
-                      ? job.employmentTypeAR || job.employmentTypeEN || "—"
-                      : job.employmentTypeEN || job.employmentTypeAR || "—"
+                      ? job.employmentType || job.employmentTypeEN || "—"
+                      : job.employmentTypeEN || job.employmentType || "—"
                   }
                 </span>
               </div>
