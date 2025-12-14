@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const container = document.querySelector(".mysr-form");
   const lang = localStorage.getItem("lang") || "en";
 
-  // ✅ Toast helper
+  if (!container) return;
+
   function showToast(message, type = "info") {
     Toastify({
       text: message,
@@ -29,9 +30,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const data = await getPlans();
-    const plans = data.data.plansWithAmount;
-    // console.log(plans);
+    const response = await getPlans();
+    const plans = response.data?.plansWithAmount;
 
     if (!plans || plans.length === 0) {
       container.innerHTML = `<p class="text-center">${
@@ -39,42 +39,47 @@ document.addEventListener("DOMContentLoaded", async () => {
       }</p>`;
       return;
     }
-  
 
     container.innerHTML = `
       <div class="row justify-content-center">
- 
         ${plans
           .map(
             (plan) => `
- 
-
           <div class="col-md-6 col-lg-4 mb-4">
-            <div class="rts__pricing__box style-1 rounded-3 h-100">
-              <div class="py-4">
-                <h3 style="text-transform: capitalize;" class="h6 fw-medium lh-1  mb-2 text-primary">
+            <div class="rts__pricing__box style-1 rounded-3 h-100 d-flex flex-column">
+              <div class="py-4 flex-grow-1">
+                <h3 class="h6 fw-medium lh-1 mb-2 text-primary" style="text-transform: capitalize;">
                   ${lang === "ar" ? plan.ar_name : plan.name}
                 </h3>
-                <div class="plan__price lh-1 mb-40">
-                  <span class="h2 mb-0 me-1">${plan.price / 100}  ${
+                <div class="plan__price lh-1 mb-3">
+                  <span class="h2 mb-0 me-1">${plan.price / 100} ${
               plan.currency
             }</span>
                   <small class="text-muted d-block">
-                    ${lang === "en" ? "Duration" : "المدة"}: ${plan.duration} 
-                    ${lang === "en" ? "days" : "يوم"}
+                    ${lang === "en" ? "Duration" : "المدة"}: ${plan.duration} ${
+              lang === "en" ? "days" : "يوم"
+            }
                   </small>
                 </div>
                 ${
                   plan.isTrial
-                    ? `<span class="badge bg-success">${
+                    ? `<span class="badge bg-success mb-3">${
                         lang === "en" ? "Trial" : "تجريبي"
                       }</span>`
                     : ""
                 }
+                <ul class="plan__feature mt-3">
+                  ${(plan[lang === "ar" ? "ar_features" : "features"] || [])
+                    .map(
+                      (f) =>
+                        `<li><i class="fa-sharp fa-solid fa-check"></i> ${f}</li>`
+                    )
+                    .join("")}
+                </ul>
               </div>
-              <div class="pricing-footer p-3">
+              <div class="pricing-footer mt-auto p-3">
                 <button 
-                  class="rts__btn pricing__btn choose-plan-btn no__fill__btn mt-40" 
+                  class="rts__btn pricing__btn choose-plan-btn no__fill__btn mt-3" 
                   data-plan-id="${plan.id}"
                   data-price="${plan.price}"
                   data-plan-name="${lang === "ar" ? plan.ar_name : plan.name}"
@@ -90,13 +95,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>
     `;
 
-    // ✅ Attach events after rendering
     document.querySelectorAll(".choose-plan-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const token = localStorage.getItem("authToken");
 
         if (!token) {
-          // 🔒 User not logged in
           showToast(
             lang === "en"
               ? "⚠️ Please log in before choosing a plan."
@@ -104,17 +107,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             "warning"
           );
 
-          // Try to open login modal if it exists
           const loginModalEl = document.getElementById("loginModal");
           if (loginModalEl) {
             const loginModal = new bootstrap.Modal(loginModalEl);
             loginModal.show();
           }
-
           return;
         }
 
-        // ✅ User logged in → go to payment page
         const planId = e.target.getAttribute("data-plan-id");
         const price = e.target.getAttribute("data-price");
         const planName = e.target.getAttribute("data-plan-name");
