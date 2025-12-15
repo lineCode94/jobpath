@@ -1,6 +1,8 @@
+
 <!DOCTYPE html>
-<html lang="ar">
-  <head>
+<html lang="en">
+<head>
+  
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -47,6 +49,11 @@
       href="assets/img/favicon.ico"
       type="image/x-icon"
     />
+     <link
+      rel="stylesheet"
+      href="https://unpkg.com/moyasar-payment-form@2.0.16/dist/moyasar.css"
+    />
+    <script src="https://unpkg.com/moyasar-payment-form@2.0.16/dist/moyasar.umd.js"></script>
     <title>Jobs AI- Job Seeker &amp; Job Holder HTML Template</title>
     <!-- rt icons -->
     <link rel="stylesheet" href="assets/fonts/icon/css/rt-icons.css" />
@@ -129,6 +136,14 @@
       background: #fff;
       height: 130px;
     }
+    @media (max-width: 480px) {
+  .method{
+  height: 107px!important;
+  font-size: 10px!important;
+  padding: 10px 4px;
+  }
+ 
+}
     .method:hover {
       border-color: #2563eb;
       transform: translateY(-2px);
@@ -171,10 +186,237 @@
       opacity: 0.6;
       cursor: not-allowed;
     }
+    
   </style>
-  </head>
-  <body>
-<header class="rts__section rts__header absolute__header">
+ 
+ 
+    <title>Secure Payment - Moyasar</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/moyasar-payment-form@2.0.16/dist/moyasar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+       
+
+        .payment-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,.2);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+        }
+
+        .logo { text-align: center; margin-bottom: 25px; }
+        .logo h1 { color: #333; font-size: 28px; font-weight: 700; }
+        .logo p { color: #666; margin-top: 5px; }
+
+        .order-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        .summary-item { display:flex; justify-content:space-between; margin-bottom:10px; color:#555; }
+        .summary-item.total {
+            border-top: 1px solid #dee2e6;
+            padding-top: 10px;
+            margin-top: 10px;
+            font-weight: 700;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .payment-methods { margin-bottom: 25px; }
+        .payment-methods h3 { margin-bottom: 15px; color: #333; font-size: 16px; }
+
+        .method-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .method-btn{
+            appearance:none;
+            -webkit-appearance:none;
+            border:2px solid #e0e0e0;
+            background:#fff;
+            border-radius:12px;
+            padding:15px 10px;
+            cursor:pointer;
+            transition:all .2s ease;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            width:100%;
+            user-select:none;
+            position:relative;
+            z-index: 1;
+        }
+
+        .method-btn * { pointer-events: none; }
+
+        .method-btn:hover { border-color:#667eea; transform:translateY(-2px); }
+        .method-btn.active{
+            border-color:#667eea;
+            background:#f0f4ff;
+            box-shadow:0 5px 15px rgba(102,126,234,.12);
+        }
+        .method-btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; box-shadow:none; }
+
+        .method-btn i{ font-size:32px; margin-bottom:8px; }
+        .mada-btn i{ color:#34a853; }
+        .visa-btn i{ color:#1a1a6b; }
+        .apple-btn i{ color:#000; }
+        .method-btn span{ font-size:14px; color:#555; font-weight:600; }
+
+        .pay-button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        .pay-button:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(102,126,234,.35); }
+        .pay-button:disabled { background: #cccccc; cursor: not-allowed; transform:none; box-shadow:none; }
+        .pay-button i { margin-right: 10px; }
+.pay-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  direction: ltr; /* الافتراضي */
+}
+
+/* لما الصفحة عربي */
+html[dir="rtl"] .pay-button {
+  direction: rtl;
+}
+
+/* نخلي الأيقونة في المكان الصح */
+html[dir="rtl"] .pay-button i {
+  order: 2; /* الأيقونة بعد النص */
+}
+
+html[dir="ltr"] .pay-button i {
+  order: 0; /* الأيقونة قبل النص */
+}
+
+        .error-message {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c00;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+        .error-message.show { display: block; }
+
+        .back-btn {
+            background:#6c757d; color:#fff;
+            border:none; border-radius:8px;
+            padding:10px 16px;
+            cursor:pointer;
+            margin-top:15px;
+            display:inline-flex; align-items:center; gap:8px;
+            font-size:14px;
+        }
+
+        .loading {
+            display:inline-block;
+            width:20px; height:20px;
+            border:3px solid rgba(255,255,255,.3);
+            border-top-color:#fff;
+            border-radius:50%;
+            animation:spin 1s linear infinite;
+            margin-right:10px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 480px) {
+            .payment-container { padding:20px; }
+            .method-btn { padding:12px 6px; }
+            .method-btn i { font-size:24px; }
+        }
+
+      
+        .sheet-overlay{
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,.55);
+            display:none;
+            z-index:999;
+        }
+        .sheet-overlay.active{ display:block; }
+
+        .bottom-sheet{
+            position:fixed;
+            left:0; right:0;
+            bottom:-100%;
+            height:50vh;                 
+            background:#fff;
+            border-radius:18px 18px 0 0;
+            box-shadow:0 -12px 30px rgba(0,0,0,.25);
+            transition:bottom .32s ease;
+            z-index:1000;
+            display:flex;
+            flex-direction:column;
+        }
+        .bottom-sheet.active{ bottom:0; }
+
+        .sheet-header{
+            padding:14px 18px;
+            border-bottom:1px solid #eee;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+        .sheet-header h3{
+            margin:0;
+            font-size:16px;
+            font-weight:800;
+            color:#111827;
+        }
+        .sheet-close{
+            width:36px; height:36px;
+            border:none;
+            background:#f1f5f9;
+            border-radius:10px;
+            cursor:pointer;
+            font-size:20px;
+            line-height:1;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .sheet-close:hover{ background:#e2e8f0; }
+
+        .sheet-body{
+            padding:14px 18px;
+            overflow-y:auto;
+            -webkit-overflow-scrolling:touch;
+            flex:1;
+        }
+
+        body.sheet-open{
+            overflow:hidden;
+            touch-action:none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="rts__section rts__header absolute__header">
   <div class="container-none">
     <div class="rts__menu__background">
       <div class="row">
@@ -334,71 +576,358 @@
     </div>
   </div>
 </header>  
-<div style="display: flex; justify-content: center; align-items: center;">
-
-  <div class="payment-container mt-20">
-
-    <h2 class="payment-title" style="display: flex; align-items: center; gap: 6px;">
-      <img style="width: 24px; height: 24px;" src="assets/img/money.svg" alt="">
-      <span data-en="Payment Method" data-ar="طريقة الدفع">طريقة الدفع</span>
-    </h2>
-
-    <div class="plan-box">
-      <div style="text-transform: capitalize;" class="plan-name" id="planName"></div>
-      <div class="plan-price" id="planPrice"></div>
-    </div>
-
-    <!-- Payment Methods -->
-    <div class="payment-methods"
-         style="
-           display:flex;
-           flex-wrap: nowrap;
-           gap:25px;
-           justify-content:center;
-           align-items:center;
-           margin-top:20px;
-         ">
-
-      <!-- Visa / MasterCard -->
-      <div class="method" data-method="visa" style="display:flex; flex-direction:column; align-items:center;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" style="width:55px" />
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" style="width:55px; margin-top:8px;" />
-      </div>
-
-      <!-- MADA -->
-      <div class="method" data-method="mada" style="display:flex; flex-direction:column; align-items:center;justify-content: center;">
-        <img src="assets/img/mada2.png" style="width:75px;" />
-      </div>
-
-      <!-- Apple Pay -->
-      <div class="method" data-method="apple" style="display:flex; flex-direction:column; align-items:center;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" style="width:45px;" />
-        <div style="margin-top:6px;">Apple Pay</div>
-      </div>
-
-    </div>
-
-    <button id="proceedBtn" disabled style="margin-top:20px;">
-      اختر طريقة الدفع
-    </button>
-
+<div class="payment-container">
+  <div class="logo">
+    <h1>
+      <i class="fas fa-lock"></i>
+      <span data-en="Secure Payment" data-ar="دفع آمن">Secure Payment</span>
+    </h1>
+    <p
+      data-en="Complete your purchase safely"
+      data-ar="أكمل عملية الشراء بأمان"
+    >
+      Complete your purchase safely
+    </p>
   </div>
+
+  <div class="order-summary">
+    <div class="summary-item">
+      <span data-en="Product:" data-ar="المنتج:">Product:</span>
+      <span data-en="Premium Service" data-ar="خدمة مميزة">Premium Service</span>
+    </div>
+
+    <!-- <div class="summary-item">
+      <span data-en="Quantity:" data-ar="الكمية:">Quantity:</span>
+      <span>1</span>
+    </div> -->
+
+    <div class="summary-item">
+      <span data-en="Subtotal:" data-ar="المجموع الفرعي:">Subtotal:</span>
+      <span>SAR 100.00</span>
+    </div>
+
+    <div class="summary-item">
+      <span data-en="VAT (15%):" data-ar="ضريبة القيمة المضافة (15%):">
+        VAT (15%):
+      </span>
+      <span>SAR 15.00</span>
+    </div>
+
+    <div class="summary-item total">
+      <span data-en="Total Amount:" data-ar="الإجمالي:">Total Amount:</span>
+      <span>SAR 115.00</span>
+    </div>
+  </div>
+
+  <div class="payment-methods" id="paymentMethods">
+    <h3 data-en="Select Payment Method" data-ar="اختر طريقة الدفع">
+      Select Payment Method
+    </h3>
+
+    <div class="method-options" id="methodOptions">
+      <button
+        type="button"
+        class="method-btn mada-btn"
+        data-method="creditcard"
+        data-source="mada"
+      >
+         
+      <img src="assets/img/mada2.png" style="width:75px;" />
+        <span style="opacity: 0;" data-en="mada" data-ar="مدى">
+            مدى
+ </span>
+      </button>
+
+      <button
+        type="button"
+        class="method-btn visa-btn"
+        data-method="creditcard"
+        data-source="visa_mastercard"
+      >
+        <i class="fab fa-cc-visa"></i>
+        <span data-en="Visa / Mastercard" data-ar="فيزا / ماستركارد">
+          Visa / Mastercard
+        </span>
+      </button>
+
+      <button
+        type="button"
+        class="method-btn apple-btn"
+        id="appleBtn"
+        data-method="applepay"
+      >
+        <i class="fab fa-cc-apple-pay"></i>
+        <span data-en="Apple Pay" data-ar="آبل باي">Apple Pay</span>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="error-message"
+    id="errorMessage"
+    data-en="An error occurred, please try again."
+    data-ar="حدث خطأ، حاول مرة أخرى."
+  ></div>
+
+  <button
+    type="button"
+    class="pay-button"
+    id="payButton"
+    disabled
+  >
+    <i class="fas fa-lock"></i>
+    <span data-en="Proceed to Payment" data-ar="المتابعة للدفع">
+      Proceed to Payment
+    </span>
+  </button>
 </div>
 
 
+<!-- Popup from bottom) -->
+<div class="sheet-overlay" id="sheetOverlay"></div>
 
-
+<div class="bottom-sheet" id="paymentSheet" aria-hidden="true">
+    <div class="sheet-header">
+        <h3 id="sheetTitle">Complete Payment</h3>
+        <button type="button" class="sheet-close" id="closeSheet" aria-label="Close">&times;</button>
+    </div>
+    <div class="sheet-body">
+        <!-- Moyasar mounts here -->
+        <div id="moyasarContainer"></div>
+    </div>
+</div>
     <div data-include="layout/footer.html"></div>
- 
- 
+
+<script src="https://unpkg.com/moyasar-payment-form@2.0.16/dist/moyasar.umd.js"></script>
+
+<script type="module">
+import { getMoyassarKey } from "./assets/js/api.js";
+
+const userId = localStorage.getItem("userId") || null;
+const urlParams = new URLSearchParams(window.location.search);
+const planId = urlParams.get("planId");
+const planName = urlParams.get("planName") || "Premium Service";
+const amount = urlParams.get("amount");
+
+const finalPlanId = Number(planId);
+const finalUserId = Number(userId);
+const finalAmount = Number(amount);
+
+let MOYASAR_PUBLISHABLE_KEY = '';
+const AMOUNT = finalAmount;
+const ORDER_ID = 'ORD-' + Date.now();
+
+document.addEventListener('DOMContentLoaded', async function () {
+
+  /* ==================== GET MOYASAR KEY ==================== */
+  try {
+    const res = await getMoyassarKey();
+    MOYASAR_PUBLISHABLE_KEY = res?.data?.moyasarPublishKey || '';
+
+    if (!MOYASAR_PUBLISHABLE_KEY) {
+      console.error("❌ Moyasar publishable key is missing");
+    } else {
+      console.log("✅ Moyasar key loaded");
+    }
+  } catch (err) {
+    console.error("❌ Failed to fetch Moyasar key", err);
+  }
+
+  /* ==================== UPDATE ORDER SUMMARY ==================== */
+  const orderAmount = finalAmount || 0;
+  const vatAmount = +(orderAmount * 0.15).toFixed(2); // 15% VAT
+  const totalAmount = +(orderAmount + vatAmount).toFixed(2);
+
+  const productSpan = document.querySelector('.order-summary .summary-item:nth-child(1) span:nth-child(2)');
+  const subtotalSpan = document.querySelector('.order-summary .summary-item:nth-child(3) span:nth-child(2)');
+  const vatSpan = document.querySelector('.order-summary .summary-item:nth-child(4) span:nth-child(2)');
+  const totalSpan = document.querySelector('.order-summary .summary-item.total span:nth-child(2)');
+
+  if (productSpan) productSpan.textContent = planName;
+  if (subtotalSpan) subtotalSpan.textContent = `SAR ${orderAmount.toFixed(2)}`;
+  if (vatSpan) vatSpan.textContent = `SAR ${vatAmount.toFixed(2)}`;
+  if (totalSpan) totalSpan.textContent = `SAR ${totalAmount.toFixed(2)}`;
+
+  /* ==================== ELEMENTS ==================== */
+  const methodOptions = document.getElementById('methodOptions');
+  const methodButtons = Array.from(document.querySelectorAll('.method-btn'));
+  const payButton = document.getElementById('payButton');
+  const errorMessage = document.getElementById('errorMessage');
+  const appleBtn = document.getElementById('appleBtn');
+  const sheetOverlay = document.getElementById('sheetOverlay');
+  const paymentSheet = document.getElementById('paymentSheet');
+  const closeSheetBtn = document.getElementById('closeSheet');
+  const sheetTitle = document.getElementById('sheetTitle');
+  const moyasarContainer = document.getElementById('moyasarContainer');
+
+  let selectedMethod = null;
+  let selectedSource = null;
+  let isInitializing = false;
+  let initToken = 0;
+
+  /* ==================== HELPERS ==================== */
+  function openSheet(title) {
+    sheetTitle.textContent = title || 'Complete Payment';
+    paymentSheet.classList.add('active');
+    sheetOverlay.classList.add('active');
+    document.body.classList.add('sheet-open');
+  }
+
+  function closeSheet() {
+    paymentSheet.classList.remove('active');
+    sheetOverlay.classList.remove('active');
+    document.body.classList.remove('sheet-open');
+    resetForm();
+  }
+
+  function hideError() {
+    errorMessage.classList.remove('show');
+    errorMessage.textContent = '';
+  }
+
+  function showError(msg) {
+    errorMessage.textContent = msg || 'Something went wrong.';
+    errorMessage.classList.add('show');
+    payButton.disabled = false;
+  }
+
+  function isApplePaySupported() {
+    try {
+      return !!window.ApplePaySession && ApplePaySession.canMakePayments();
+    } catch {
+      return false;
+    }
+  }
+
+  if (!isApplePaySupported()) appleBtn.disabled = true;
+
+  /* ==================== EVENTS ==================== */
+  methodOptions.addEventListener('click', function (e) {
+    const btn = e.target.closest('.method-btn');
+    if (!btn || btn.disabled) return;
+
+    methodButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    selectedMethod = btn.dataset.method;
+    selectedSource = btn.dataset.source;
+
+    if (MOYASAR_PUBLISHABLE_KEY) {
+      payButton.disabled = false;
+      payButton.innerHTML = `
+        <i class="fas fa-lock"></i>
+        <span>Pay with ${btn.querySelector('span').textContent}</span>
+      `;
+    }
+
+    hideError();
+  });
+
+  payButton.addEventListener('click', function () {
+    if (!selectedMethod || !MOYASAR_PUBLISHABLE_KEY || isInitializing) return;
+
+    isInitializing = true;
+    payButton.disabled = true;
+    payButton.innerHTML = `<span class="loading"></span> Opening...`;
+
+    const activeBtn = document.querySelector('.method-btn.active');
+    openSheet(activeBtn?.querySelector('span')?.textContent);
+
+    setTimeout(() => initMoyasarForm(selectedMethod, selectedSource), 150);
+  });
+
+  closeSheetBtn.addEventListener('click', closeSheet);
+  sheetOverlay.addEventListener('click', closeSheet);
+
+  /* ==================== RESET ==================== */
+  function resetForm() {
+    initToken++;
+    isInitializing = false;
+    moyasarContainer.innerHTML = '';
+    payButton.disabled = !selectedMethod;
+  }
+
+  /* ==================== MOYASAR ==================== */
+  function initMoyasarForm(method, source) {
+    if (typeof Moyasar === 'undefined') {
+      showError('Moyasar failed to load');
+      return;
+    }
+
+    moyasarContainer.innerHTML = '';
+    const mount = document.createElement('div');
+    mount.id = 'moyasarFormMount';
+    mount.style.visibility = 'hidden';
+    moyasarContainer.appendChild(mount);
+
+    const myToken = ++initToken;
+
+    let config = {
+      element: '#moyasarFormMount',
+      amount: AMOUNT,
+      currency: 'SAR',
+      publishable_api_key: MOYASAR_PUBLISHABLE_KEY,
+      description: `${planName} - ${ORDER_ID}`,
+      callback_url: "https://jobzai.net/thanks.html",
+      metadata: { order_id: ORDER_ID },
+
+      on_completed: async function(payment) {
+        console.log('Payment completed', payment);
+        moyasarContainer.innerHTML = `
+          <div style="text-align:center; padding:18px;">
+            <div class="loading" style="width:40px;height:40px;margin:0 auto 14px;"></div>
+            <h3 style="color:#28a745;margin-bottom:6px;">Processing...</h3>
+            <p>Please wait...</p>
+            <p style="font-size:13px;color:#666;margin-top:12px;">Payment ID: ${payment?.id || ''}</p>
+          </div>
+        `;
+        setTimeout(() => {
+          window.location.href = `thanks.html?order=${encodeURIComponent(ORDER_ID)}`;
+        }, 800);
+        return Promise.resolve();
+      },
+
+      on_failed: async function(payment) {
+        console.log('Payment failed', payment);
+        showError(payment?.message || 'Payment failed. Try again.');
+        return Promise.resolve();
+      }
+    };
+
+    if (method === 'creditcard') {
+      config.methods = ['creditcard'];
+      config.supported_networks =
+        source === 'mada' ? ['mada'] : ['visa', 'mastercard', 'amex'];
+    }
+
+    if (method === 'applepay') {
+      config.methods = ['applepay'];
+      config.apple_pay = {
+        country: 'SA',
+        currency: 'SAR',
+        label: planName,
+        amount: AMOUNT
+      };
+    }
+
+    Moyasar.init(config);
+    mount.style.visibility = 'visible';
+    isInitializing = false;
+  }
+
+});
+</script>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="assets/js/plugins.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="module" src="assets/js/api.js"></script>
+    <!-- <script src="assets/js/api.js"></script> -->
+ 
     <script type ="module" src="assets/js/login.js"></script>
-    <script defer src="assets/js/main.js"></script>
-    <script src="assets/js/choosePayment.js"></script>
+    <script   src="assets/js/main.js"></script>
 </body>
 </html>

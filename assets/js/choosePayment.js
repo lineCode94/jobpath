@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   // ---------- Get params from URL ----------
   const urlParams = new URLSearchParams(window.location.search);
   const planId = urlParams.get("planId");
@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const finalPrice = planPrice / 100;
   const planName = urlParams.get("planName") || "Pro Plan";
   const userId = localStorage.getItem("userId") || null;
+  const lang = localStorage.getItem("lang") || "en";
 
   // ---------- Update UI ----------
   const planNameEl = document.getElementById("planName");
@@ -20,82 +21,93 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ---------- Payment selection ----------
   const methods = document.querySelectorAll(".method");
-  const proceedBtn = document.getElementById("proceedBtn");
   let selectedMethod = null;
 
   methods.forEach((method) => {
-    method.addEventListener("click", () => {
+    method.addEventListener("click", async () => {
       // reset active
       methods.forEach((m) => m.classList.remove("active"));
       method.classList.add("active");
 
       selectedMethod = method.dataset.method;
-      proceedBtn.disabled = false;
 
-      // update button UI based on selected method
-      const lang =localStorage.getItem("lang")
-      switch (selectedMethod) {
-        
-        case "apple":
-          proceedBtn.className = "apple";
-          proceedBtn.innerHTML = `${
-            lang === "ar"
-              ? ` <img src="assets/img/apple-white.png" alt="Apple" />
-            ادفع باستخدام Apple Pay`
-              : ` <img src="assets/img/apple-white.png" alt="Apple" />
-            Pay with Apple Pay`
-          }`;
-          break;
+      const formsContainer = document.getElementById("paymentForms");
+      formsContainer.style.display = "block";
 
-        case "visa":
-          proceedBtn.className = "moyasser";
-          proceedBtn.innerHTML = `      ${
-            lang === "ar" ? "        الدفع بإستخدام فيزا / ماستركارد" : "Pay with Visa/Mastercard"
-          }  `;
-          break;
+      // hide all forms first
+      document.querySelectorAll(".payment-form").forEach((f) => {
+        f.style.display = "none";
+        f.style.maxHeight = null;
+        f.style.transition = null;
+      });
 
-        case "mada":
-          proceedBtn.className = "moyasser";
-          proceedBtn.innerHTML = `${
-            lang === "ar" ? "الدفع بإستخدام مدى" : "Pay with Mada"
-          } `;
-          break;
+      if (selectedMethod === "apple") {
+        // show Apple Pay placeholder
+        const appleForm = document.getElementById("appleForm");
+        appleForm.style.display = "block";
+        appleForm.style.overflow = "hidden";
+        appleForm.style.maxHeight = "0px";
+        appleForm.style.transition = "max-height 0.5s ease";
+        appleForm.offsetHeight;
+        appleForm.style.maxHeight = appleForm.scrollHeight + "px";
+      } else {
+        // show Moyasar form
+        const moyForm = document.getElementById("moyasarForm");
+        moyForm.style.display = "block";
+        moyForm.style.overflow = "hidden";
+        moyForm.style.maxHeight = "0px";
+        moyForm.style.transition = "max-height 0.5s ease";
+        moyForm.offsetHeight;
+        moyForm.style.maxHeight = moyForm.scrollHeight + "px";
 
-        case "bank":
-          proceedBtn.className = "moyasser";
-          proceedBtn.innerHTML = `${
-            lang === "ar" ? " تحويل بنكي" : " Bank Transfer"
-          } `;
-          break;
+        // 🔥 Initialize Moyasar Payment Form
+        import("./assets/js/api.js").then(({ getMoyassarKey }) => {
+          getMoyassarKey().then((res) => {
+            const finalPlanId = Number(planId);
+            const finalUserId = Number(userId);
+            const finalAmount = Number(planPrice);
+
+            const description =
+              lang === "ar" ? "طلب اشتراك جديد" : "New Subscription Order";
+
+            Moyasar.init({
+              element: ".mysr-form",
+              amount: finalAmount,
+              currency: "SAR",
+              description: description,
+              publishable_api_key: res?.data?.moyasarPublishKey,
+              callback_url: "https://jobzai.net/thanks.html",
+              methods: ["creditcard"],
+              manual: false,
+              credit_card: { save_card: true },
+              metadata: {
+                userId: finalUserId,
+                planId: finalPlanId,
+                lang: lang,
+              },
+              locale: lang === "ar" ? "ar" : "en",
+            });
+
+            // Translate labels if Arabic
+            if (lang === "ar") {
+              setTimeout(() => {
+                document
+                  .querySelectorAll(".mysr-form label")
+                  .forEach((label) => {
+                    if (label.textContent.includes("Card Number"))
+                      label.textContent = "رقم البطاقة";
+                    if (label.textContent.includes("Expiry Date"))
+                      label.textContent = "تاريخ الانتهاء";
+                    if (label.textContent.includes("CVV"))
+                      label.textContent = "رمز التحقق (CVV)";
+                  });
+                const btn = document.querySelector(".mysr-form button");
+                if (btn) btn.textContent = "ادفع الآن";
+              }, 500);
+            }
+          });
+        });
       }
     });
-  });
-
-  // ---------- Redirect based on selection ----------
-  proceedBtn.addEventListener("click", () => {
-    if (!selectedMethod || !planId || !planPrice) {
-      alert("البيانات غير مكتملة، حاول مرة أخرى.");
-      return;
-    }
-
-    let targetPage = "";
-
-    // ❌ Apple Pay → صفحة Apple Pay
-    if (selectedMethod === "apple") {
-      targetPage = "apple-pay.html";
-    }
-
-    // ✔ كل الطرق الأخرى → صفحة ميسر
-    else {
-      targetPage = "moyaser.html";
-    }
-
-    const query = `?planId=${encodeURIComponent(
-      planId
-    )}&amount=${encodeURIComponent(planPrice)}&planName=${encodeURIComponent(
-      planName
-    )}`;
-
-    window.location.href = `${targetPage}${query}`;
   });
 });

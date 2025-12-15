@@ -12612,6 +12612,9 @@ input::placeholder {
 .log-toggle{
   display: none!important;
 }
+.log-toggle-canvas{
+  display: none!important;
+}
 .rts__logo{
   height: 100px;
 margin-top: -50px;

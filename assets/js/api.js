@@ -179,7 +179,13 @@ export const getPlans = () => api.get("/payments/get-plans");
 
 export const getUserReports = () => api.get("/reports/get-all-reports-by-user");
 
-export const getMoyassarKey = () => api.get("/admin/get-keys");
+export const getMoyassarKey = () =>
+  api.get("/admin/get-keys", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+    },
+  });
+
 
 // ==================== UPLOAD ====================
 export const uploadCv = (formData) =>
