@@ -66,18 +66,24 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ✅ تحديث الواجهة
-  function updateUI() {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      loginBtn?.classList.add("log-toggle");
-      logoutBtn?.classList.remove("log-toggle");
-      if (profileMenu) profileMenu.style.display = "block";
-    } else {
-      loginBtn?.classList.remove("log-toggle");
-      logoutBtn?.classList.add("log-toggle");
-      if (profileMenu) profileMenu.style.display = "none";
-    }
+function updateUI() {
+  const token = localStorage.getItem("authToken");
+
+  // buttons
+  if (token) {
+    loginBtn?.classList.add("log-toggle");
+    logoutBtn?.classList.remove("log-toggle");
+  } else {
+    loginBtn?.classList.remove("log-toggle");
+    logoutBtn?.classList.add("log-toggle");
   }
+
+  // 👇 كل نسخ profile (navbar + offcanvas)
+  document.querySelectorAll(".profile-menu").forEach((menu) => {
+    menu.style.display = token ? "block" : "none";
+  });
+}
+
 
   updateUI();
 
