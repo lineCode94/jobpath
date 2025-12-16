@@ -711,7 +711,7 @@ const amount = urlParams.get("amount");
 
 const finalPlanId = Number(planId);
 const finalUserId = Number(userId);
-const finalAmount = Number(amount/100) ; // تحويل من هللة إلى ريال
+const finalAmount = Number(amount) ; // تحويل من هللة إلى ريال
 
 let MOYASAR_PUBLISHABLE_KEY = '';
 const AMOUNT = finalAmount;
@@ -734,7 +734,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   /* ==================== UPDATE ORDER SUMMARY ==================== */
-  const orderAmount = finalAmount || 0;
+  const orderAmount = (finalAmount/100) || 0;
   const vatAmount = +(orderAmount * 0.15).toFixed(2); // 15% VAT
   const totalAmount = +(orderAmount + vatAmount).toFixed(2);
 
