@@ -870,7 +870,11 @@ document.addEventListener('DOMContentLoaded', async function () {
       publishable_api_key: MOYASAR_PUBLISHABLE_KEY,
       description: `${planName} - ${ORDER_ID}`,
       callback_url: "https://jobzai.net/thanks.html",
-      metadata: { order_id: ORDER_ID },
+       metadata: {
+    userId: finalUserId,
+    planId: finalPlanId,
+    lang: lang,
+  },
 
       on_completed: async function(payment) {
         console.log('Payment completed', payment);
@@ -901,15 +905,22 @@ document.addEventListener('DOMContentLoaded', async function () {
         source === 'mada' ? ['mada'] : ['visa', 'mastercard', 'amex'];
     }
 
-    if (method === 'applepay') {
-      config.methods = ['applepay'];
-      config.apple_pay = {
-        country: 'SA',
-        currency: 'SAR',
-        label: planName,
-        amount: AMOUNT
-      };
+  if (method === 'applepay') {
+  config.methods = ['applepay'];
+  config.apple_pay = {
+    country: 'SA',
+    currency: 'SAR',
+    label: planName,
+    amount: AMOUNT,
+    metadata: {
+      userId:finalUserId,
+      planId: finalPlanId
+,
     }
+  };
+ 
+}
+
 
     Moyasar.init(config);
     mount.style.visibility = 'visible';
