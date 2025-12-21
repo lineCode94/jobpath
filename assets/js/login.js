@@ -41,12 +41,12 @@ document.addEventListener("DOMContentLoaded", function () {
         bg: "linear-gradient(135deg, #007bff, #6bb6ff)",
       },
     };
-
+const lang = localStorage.getItem("lang") || "en";
     Toastify({
       text: `${styles[type].icon} <span style="margin-left:8px">${message}</span>`,
       duration: 3500,
       gravity: "bottom",
-      position: "left",
+      position: `${lang === "ar" ? "right" : "left"}`,
       close: true,
       escapeMarkup: false,
       offset: { x: 20, y: 20 },
@@ -56,11 +56,12 @@ document.addEventListener("DOMContentLoaded", function () {
         display: "flex",
         alignItems: "center",
         gap: "8px",
-        fontSize: "15px",
+        fontSize: "12px",
         fontWeight: "600",
         borderRadius: "10px",
         padding: "12px 18px",
         boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+        whiteSpace: "nowrap",
       },
     }).showToast();
   }

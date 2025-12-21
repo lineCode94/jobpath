@@ -269,9 +269,10 @@
 
                 <div class="header__right__btn d-flex gap-3">
                   <a
+                  style="white-space: nowrap;"
                     href="#"
                     id="login"
-                    class="small__btn d-none d-sm-flex no__fill__btn border-6 font-xs"
+                    class="small__btn  d-sm-flex no__fill__btn border-6 font-xs"
                     aria-label="Login Button"
                     data-bs-toggle="modal"
                     data-bs-target="#loginModal"
@@ -293,7 +294,7 @@
                     data-bs-target="#logoutModal"
                   >
                     <i class="fa-solid fa-right-from-bracket"></i>
-<span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+<span style="white-space: nowrap;" data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
                   </a>
                   <!-- زر تغيير اللغة -->
                   <a
@@ -304,7 +305,7 @@
                     Arabic
                   </a>
 
-                  <button
+             <button
                     class="d-md-block d-lg-none"
                     type="button"
                     data-bs-toggle="offcanvas"
@@ -381,16 +382,31 @@
     <!-- pricing home  -->
     <!-- <div style="display: flex" id="plans-container"></div> -->
       <div class="row justify-content-center  ">
-        <div    style=" display: flex ;justify-content: center;"  >
-
-          <h6 style="display: block;" data-en="Looking for a job?" data-ar="تبحث عن فرصة عمل؟">Looking for a job?</h6>
-              <h6 style="margin: auto 10px; min-width: 700px; font-size: 20px;  "
-               data-en="Pick your ideal employment plan from our variable packages!
-  " data-ar="      اختر خطة التوظيف اللي تناسبك من باقاتنا المتنوعة!" class="rts__banner__desc my-40 wow fadeInUp animated">
-               
-  Pick your ideal employment plan from our variable packages! 
+     <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; max-width: 800px; margin: 0 auto; padding: 20px;">
+  
+  <!-- العنوان الرئيسي -->
+  <h6 
+    data-en="Looking for a job?" 
+    data-ar="تبحث عن فرصة عمل؟"
+    style="font-size: 22px; font-weight: 600; margin: 0;"
+  >
+    Looking for a job?
   </h6>
-        </div>
+
+  <!-- الوصف -->
+  <div style="font-size: 16px; line-height: 1.5;">
+    <h6 
+      data-en="Pick your ideal employment plan from our variable packages!"
+      data-ar="اختر خطة التوظيف اللي تناسبك من باقاتنا المتنوعة!"
+      class="rts__banner__desc wow fadeInUp animated"
+      style="margin: 0;"
+    >
+      Pick your ideal employment plan from our variable packages!
+    </h6>
+  </div>
+
+</div>
+
         </div>
         
     <div class="mysr-form container my-5">
@@ -1125,10 +1141,12 @@
       <i class="fas fa-arrow-up"></i>
     </button>
     <!-- all plugin js -->
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script type="module" src="assets/js/login.js" ></script>
-    <script type="module" src="assets/js/pricing.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="assets/js/plugins.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  
+    <script type="module" src="assets/js/pricing.js"></script>
+    <script type ="module" src="assets/js/login.js"></script>
     <script   src="assets/js/main.js"></script>
   </body>
 </html>
