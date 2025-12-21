@@ -12,6 +12,12 @@ export const api = axios.create({
     Accept: "application/json",
   },
 });
+// ==================== INIT TOKEN FROM STORAGE ====================
+const storedToken = localStorage.getItem("authToken");
+
+if (storedToken) {
+  api.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`;
+}
 
 // ==================== TOAST ====================
 function showToast(message, type = "info") {
@@ -88,19 +94,19 @@ api.interceptors.response.use(
     const status = error?.response?.status;
     const msg = error?.response?.data?.msg || error?.response?.data?.message;
 
-    if (status === 401 || status === 403 || msg === "Token not provided") {
-      console.warn("🚫 Unauthorized – redirecting to login");
+    // if (status === 401 || status === 403 || msg === "Token not provided") {
+    //   console.warn("🚫 Unauthorized – redirecting to login");
 
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("tokenExpiry");
-      setAuthToken(null);
+    //   localStorage.removeItem("authToken");
+    //   localStorage.removeItem("tokenExpiry");
+    //   setAuthToken(null);
 
-      showToast("⚠️ Please login again", "warning");
+    //   showToast("⚠️ Please login again", "warning");
 
-      setTimeout(() => {
-        window.location.href = "index.html";
-      }, 1500);
-    }
+    //   setTimeout(() => {
+    //     window.location.href = "index.html";
+    //   }, 1500);
+    // }
 
     return Promise.reject(error);
   }
@@ -152,19 +158,9 @@ export const getJobsList = (lang = "en") => api.get(`/jobs/list?lang=${lang}`);
 export const getSingleJob = async (id, lang = "en") => {
   if (!id) return null;
 
-  const token = localStorage.getItem("authToken"); // الاسم الصحيح
-  console.log("Token:", token); // للتأكد
-
-  const res = await api.get(`/jobs/get-single-job/${id}?lang=${lang}`, {
-    headers: {
-      Authorization: token ? `Bearer ${token}` : "",
-    },
-  });
-
+  const res = await api.get(`/jobs/get-single-job/${id}?lang=${lang}`);
   return res.data?.status ? res.data.job : null;
 };
-
-
 
 // ==================== BLOGS ====================
 export const getAllBlogs = () => api.get("/users/get-all-blogs");
@@ -179,13 +175,7 @@ export const getPlans = () => api.get("/payments/get-plans");
 
 export const getUserReports = () => api.get("/reports/get-all-reports-by-user");
 
-export const getMoyassarKey = () =>
-  api.get("/admin/get-keys", {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    },
-  });
-
+export const getMoyassarKey = () => api.get("/admin/get-keys");
 
 // ==================== UPLOAD ====================
 export const uploadCv = (formData) =>

@@ -49,11 +49,10 @@
       href="assets/img/favicon.ico"
       type="image/x-icon"
     />
-     <link
+<link
       rel="stylesheet"
-      href="https://unpkg.com/moyasar-payment-form@2.0.16/dist/moyasar.css"
+      href="https://unpkg.com/moyasar-payment-form@2.2.3/dist/moyasar.css"
     />
-    <script src="https://unpkg.com/moyasar-payment-form@2.0.16/dist/moyasar.umd.js"></script>
     <title>Jobs AI- Job Seeker &amp; Job Holder HTML Template</title>
     <!-- rt icons -->
     <link rel="stylesheet" href="assets/fonts/icon/css/rt-icons.css" />
@@ -67,11 +66,7 @@
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <title>Payment Test</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/moyasar-payment-form@2.0.16/dist/moyasar.css"
-    />
-    <script src="https://unpkg.com/moyasar-payment-form@2.0.16/dist/moyasar.umd.js"></script>
+ 
     <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
   <style>
     * {
@@ -192,7 +187,7 @@
  
     <title>Secure Payment - Moyasar</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/moyasar-payment-form@2.0.16/dist/moyasar.css" />
+ 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -698,233 +693,137 @@ html[dir="ltr"] .pay-button i {
 </div>
     <div data-include="layout/footer.html"></div>
 
-<script src="https://unpkg.com/moyasar-payment-form@2.0.16/dist/moyasar.umd.js"></script>
-
+    <script src="https://unpkg.com/moyasar-payment-form@2.2.3/dist/moyasar.umd.js"></script>
 <script type="module">
 import { getMoyassarKey } from "./assets/js/api.js";
 
-const userId = localStorage.getItem("userId") || null;
+const userId = Number(localStorage.getItem("userId"));
 const urlParams = new URLSearchParams(window.location.search);
-const planId = urlParams.get("planId");
-const planName = urlParams.get("planName") || "Premium Service";
-const amount = urlParams.get("amount");
+const planId   = Number(urlParams.get("planId"));
+const planName = urlParams.get("planName") || "Pro Plan";
+const amount   = Number(urlParams.get("amount")); // amount in halalas
+const ORDER_ID = "ORD-" + Date.now();
 
-const finalPlanId = Number(planId);
-const finalUserId = Number(userId);
-const finalAmount = Number(amount) ; // تحويل من هللة إلى ريال
+document.addEventListener("DOMContentLoaded", async () => {
 
-let MOYASAR_PUBLISHABLE_KEY = '';
-const AMOUNT = finalAmount;
-const ORDER_ID = 'ORD-' + Date.now();
-
-document.addEventListener('DOMContentLoaded', async function () {
-
-  /* ==================== GET MOYASAR KEY ==================== */
-  try {
-    const res = await getMoyassarKey();
-    MOYASAR_PUBLISHABLE_KEY = res?.data?.moyasarPublishKey || '';
-
-    if (!MOYASAR_PUBLISHABLE_KEY) {
-      console.error("❌ Moyasar publishable key is missing");
-    } else {
-      console.log("✅ Moyasar key loaded");
-    }
-  } catch (err) {
-    console.error("❌ Failed to fetch Moyasar key", err);
-  }
-
-  /* ==================== UPDATE ORDER SUMMARY ==================== */
-  const orderAmount = (finalAmount/100) || 0;
-  const vatAmount = +(orderAmount * 0.15).toFixed(2); // 15% VAT
-  const totalAmount = +(orderAmount + vatAmount).toFixed(2);
-
-  // استخدام data-en لتحديد العناصر بدلاً من nth-child
-  const productSpan = document.querySelector('.order-summary span[data-en="Product:"]')?.nextElementSibling;
-  const subtotalSpan = document.querySelector('.order-summary span[data-en="Subtotal:"]')?.nextElementSibling;
-  const vatSpan = document.querySelector('.order-summary span[data-en="VAT (15%):"]')?.nextElementSibling;
-  const totalSpan = document.querySelector('.order-summary .summary-item.total span:nth-child(2)');
-
-  if (productSpan) productSpan.textContent = planName;
-  if (subtotalSpan) subtotalSpan.textContent = `SAR ${orderAmount.toFixed(2)}`;
-  if (vatSpan) vatSpan.textContent = `SAR ${vatAmount.toFixed(2)}`;
-  if (totalSpan) totalSpan.textContent = `SAR ${totalAmount.toFixed(2)}`;
-
-  /* ==================== ELEMENTS ==================== */
-  const methodOptions = document.getElementById('methodOptions');
-  const methodButtons = Array.from(document.querySelectorAll('.method-btn'));
-  const payButton = document.getElementById('payButton');
-  const errorMessage = document.getElementById('errorMessage');
-  const appleBtn = document.getElementById('appleBtn');
-  const sheetOverlay = document.getElementById('sheetOverlay');
-  const paymentSheet = document.getElementById('paymentSheet');
-  const closeSheetBtn = document.getElementById('closeSheet');
-  const sheetTitle = document.getElementById('sheetTitle');
-  const moyasarContainer = document.getElementById('moyasarContainer');
+  const payButton = document.getElementById("payButton");
+  const errorMessage = document.getElementById("errorMessage");
+  const moyasarContainer = document.getElementById("moyasarContainer");
+  const sheet = document.getElementById("paymentSheet");
+  const overlay = document.getElementById("sheetOverlay");
+  const closeSheet = document.getElementById("closeSheet");
+  const methodButtons = document.querySelectorAll(".method-btn");
 
   let selectedMethod = null;
   let selectedSource = null;
-  let isInitializing = false;
-  let initToken = 0;
+  let MOYASAR_PUBLISHABLE_KEY = "";
 
-  /* ==================== HELPERS ==================== */
-  function openSheet(title) {
-    sheetTitle.textContent = title || 'Complete Payment';
-    paymentSheet.classList.add('active');
-    sheetOverlay.classList.add('active');
-    document.body.classList.add('sheet-open');
+  // 🔑 جلب مفتاح Moyasar
+  try {
+    const res = await getMoyassarKey();
+    MOYASAR_PUBLISHABLE_KEY = res?.data?.moyasarPublishKey || "";
+    if (!MOYASAR_PUBLISHABLE_KEY) throw new Error("Missing Moyasar key");
+  } catch (err) {
+    console.error("❌ Error getting Moyasar key:", err);
+    showError("Payment system unavailable");
+    return;
   }
 
-  function closeSheet() {
-    paymentSheet.classList.remove('active');
-    sheetOverlay.classList.remove('active');
-    document.body.classList.remove('sheet-open');
-    resetForm();
-  }
+  // اقفل زر الدفع في البداية
+  payButton.disabled = true;
 
-  function hideError() {
-    errorMessage.classList.remove('show');
-    errorMessage.textContent = '';
-  }
+  // اختيار طريقة الدفع
+  methodButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      methodButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
 
+      selectedMethod = btn.dataset.method;
+      selectedSource = btn.dataset.source || null;
+      payButton.disabled = false;
+    });
+  });
+
+  // اغلاق الـ bottom sheet
+  closeSheet.onclick = () => {
+    sheet.classList.remove("active");
+    overlay.classList.remove("active");
+    document.body.classList.remove("sheet-open");
+  };
+
+  overlay.onclick = closeSheet.onclick;
+
+  // عرض الأخطاء
   function showError(msg) {
-    errorMessage.textContent = msg || 'Something went wrong.';
-    errorMessage.classList.add('show');
+    errorMessage.textContent = msg;
+    errorMessage.classList.add("show");
     payButton.disabled = false;
   }
 
-  function isApplePaySupported() {
-    try {
-      return !!window.ApplePaySession && ApplePaySession.canMakePayments();
-    } catch {
-      return false;
-    }
+  // فتح الـ bottom sheet
+  function openSheet() {
+    sheet.classList.add("active");
+    overlay.classList.add("active");
+    document.body.classList.add("sheet-open");
   }
 
-  if (!isApplePaySupported()) appleBtn.disabled = true;
-
-  /* ==================== EVENTS ==================== */
-  methodOptions.addEventListener('click', function (e) {
-    const btn = e.target.closest('.method-btn');
-    if (!btn || btn.disabled) return;
-
-    methodButtons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    selectedMethod = btn.dataset.method;
-    selectedSource = btn.dataset.source;
-
-    if (MOYASAR_PUBLISHABLE_KEY) {
-      payButton.disabled = false;
-      payButton.innerHTML = `
-        <i class="fas fa-lock"></i>
-        <span>Pay with ${btn.querySelector('span').textContent}</span>
-      `;
-    }
-
-    hideError();
-  });
-
-  payButton.addEventListener('click', function () {
-    if (!selectedMethod || !MOYASAR_PUBLISHABLE_KEY || isInitializing) return;
-
-    isInitializing = true;
-    payButton.disabled = true;
-    payButton.innerHTML = `<span class="loading"></span> Opening...`;
-
-    const activeBtn = document.querySelector('.method-btn.active');
-    openSheet(activeBtn?.querySelector('span')?.textContent);
-
-    setTimeout(() => initMoyasarForm(selectedMethod, selectedSource), 150);
-  });
-
-  closeSheetBtn.addEventListener('click', closeSheet);
-  sheetOverlay.addEventListener('click', closeSheet);
-
-  /* ==================== RESET ==================== */
-  function resetForm() {
-    initToken++;
-    isInitializing = false;
-    moyasarContainer.innerHTML = '';
-    payButton.disabled = !selectedMethod;
-  }
-
-  /* ==================== MOYASAR ==================== */
-  function initMoyasarForm(method, source) {
-    if (typeof Moyasar === 'undefined') {
-      showError('Moyasar failed to load');
+  // تهيئة الدفع
+  function initPayment() {
+    if (!selectedMethod) {
+      showError("Please select payment method");
       return;
     }
 
-    moyasarContainer.innerHTML = '';
-    const mount = document.createElement('div');
-    mount.id = 'moyasarFormMount';
-    mount.style.visibility = 'hidden';
-    moyasarContainer.appendChild(mount);
+    moyasarContainer.innerHTML = `<div id="moyasar-form"></div>`;
+    openSheet();
 
-    const myToken = ++initToken;
-
-    let config = {
-      element: '#moyasarFormMount',
-      amount: AMOUNT,
-      currency: 'SAR',
-      publishable_api_key: MOYASAR_PUBLISHABLE_KEY,
+    const config = {
+      element: "#moyasar-form",
+      amount,
+      currency: "SAR",
       description: `${planName} - ${ORDER_ID}`,
-      callback_url: "https://jobzai.net/thanks.html",
-       metadata: {
-    userId: finalUserId,
-    planId: finalPlanId,
-  },
+      publishable_api_key: MOYASAR_PUBLISHABLE_KEY,
+      tokenize: true,
+      metadata: { userId, planId, orderId: ORDER_ID },
 
-      on_completed: async function(payment) {
-        console.log('Payment completed', payment);
-        moyasarContainer.innerHTML = `
-          <div style="text-align:center; padding:18px;">
-            <div class="loading" style="width:40px;height:40px;margin:0 auto 14px;"></div>
-            <h3 style="color:#28a745;margin-bottom:6px;">Processing...</h3>
-            <p>Please wait...</p>
-            <p style="font-size:13px;color:#666;margin-top:12px;">Payment ID: ${payment?.id || ''}</p>
-          </div>
-        `;
-        setTimeout(() => {
-          window.location.href = `thanks.html?order=${encodeURIComponent(ORDER_ID)}`;
-        }, 800);
-        return Promise.resolve();
+      onCompleted(payment) {
+        window.location.href =
+          `thanks.html?paymentId=${payment.id}&order=${ORDER_ID}`;
       },
 
-      on_failed: async function(payment) {
-        console.log('Payment failed', payment);
-        showError(payment?.message || 'Payment failed. Try again.');
-        return Promise.resolve();
+      onError(error) {
+        showError(error?.message || "Payment failed");
       }
     };
 
-    if (method === 'creditcard') {
-      config.methods = ['creditcard'];
-      config.supported_networks =
-        source === 'mada' ? ['mada'] : ['visa', 'mastercard', 'amex'];
+    // 💳 Credit Card / Mada
+    if (selectedMethod === "creditcard") {
+      config.methods = ["creditcard"];
+      if (selectedSource === "mada") config.supported_networks = ["mada"];
     }
 
-  if (method === 'applepay') {
-  config.methods = ['applepay'];
-  config.apple_pay = {
-    country: 'SA',
-    currency: 'SAR',
-    label: planName,
-    amount: AMOUNT,
-    metadata: {
-      userId:finalUserId,
-      planId: finalPlanId
-,
+    // 🍎 Apple Pay
+    if (selectedMethod === "applepay") {
+      config.methods = ["applepay"];
+      config.apple_pay = {
+        country: "SA",
+        currency: "SAR",
+        label: planName,
+        amount
+      };
     }
-  };
- 
-}
 
+    // init Moyasar
+    if (typeof Moyasar === "undefined") {
+      showError("Payment gateway failed to load");
+      return;
+    }
 
     Moyasar.init(config);
-    mount.style.visibility = 'visible';
-    isInitializing = false;
   }
+
+  // ربط الزر
+  payButton.onclick = initPayment;
 
 });
 </script>
