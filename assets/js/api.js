@@ -94,19 +94,19 @@ api.interceptors.response.use(
     const status = error?.response?.status;
     const msg = error?.response?.data?.msg || error?.response?.data?.message;
 
-    // if (status === 401 || status === 403 || msg === "Token not provided") {
-    //   console.warn("🚫 Unauthorized – redirecting to login");
+    if (status === 401 || status === 403 || msg === "Token not provided") {
+      console.warn("🚫 Unauthorized – redirecting to login");
 
-    //   localStorage.removeItem("authToken");
-    //   localStorage.removeItem("tokenExpiry");
-    //   setAuthToken(null);
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("tokenExpiry");
+      setAuthToken(null);
 
-    //   showToast("⚠️ Please login again", "warning");
+      showToast("⚠️ Please login again", "warning");
 
-    //   setTimeout(() => {
-    //     window.location.href = "index.html";
-    //   }, 1500);
-    // }
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1500);
+    }
 
     return Promise.reject(error);
   }
