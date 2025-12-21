@@ -697,13 +697,17 @@ html[dir="ltr"] .pay-button i {
 <script type="module">
 import { getMoyassarKey } from "./assets/js/api.js";
 
+// ======= إعداد البيانات من URL =======
 const userId = Number(localStorage.getItem("userId"));
 const urlParams = new URLSearchParams(window.location.search);
-const planId   = Number(urlParams.get("planId"));
+const planId = Number(urlParams.get("planId"));
 const planName = urlParams.get("planName") || "Pro Plan";
-const amount   = Number(urlParams.get("amount")); // amount in halalas
+const urlAmount = Number(urlParams.get("amount")) || 0; // amount in halalas
+const displayAmount = urlAmount / 100; // للعرض بالريال
+const VAT_RATE = 0.15;
 const ORDER_ID = "ORD-" + Date.now();
 
+// ======= تحديث الـ DOM =======
 document.addEventListener("DOMContentLoaded", async () => {
 
   const payButton = document.getElementById("payButton");
@@ -713,26 +717,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   const overlay = document.getElementById("sheetOverlay");
   const closeSheet = document.getElementById("closeSheet");
   const methodButtons = document.querySelectorAll(".method-btn");
+  const orderSummary = document.querySelector(".order-summary");
 
-  let selectedMethod = null;
-  let selectedSource = null;
-  let MOYASAR_PUBLISHABLE_KEY = "";
+  // ===== تحديث بيانات الطلب =====
+  if(orderSummary) {
+    const productName = orderSummary.querySelector(".summary-item span:nth-child(2)");
+    if(productName) productName.textContent = planName;
+
+    const subtotalEl = orderSummary.querySelector(".summary-item:nth-child(2) span:nth-child(2)");
+    if(subtotalEl) subtotalEl.textContent = `SAR ${displayAmount.toFixed(2)}`;
+
+    const vatEl = orderSummary.querySelector(".summary-item:nth-child(3) span:nth-child(2)");
+    const vatAmount = displayAmount * VAT_RATE;
+    if(vatEl) vatEl.textContent = `SAR ${vatAmount.toFixed(2)}`;
+
+    const totalEl = orderSummary.querySelector(".summary-item.total span:nth-child(2)");
+    if(totalEl) totalEl.textContent = `SAR ${(displayAmount + vatAmount).toFixed(2)}`;
+  }
 
   // 🔑 جلب مفتاح Moyasar
+  let MOYASAR_PUBLISHABLE_KEY = "";
   try {
     const res = await getMoyassarKey();
     MOYASAR_PUBLISHABLE_KEY = res?.data?.moyasarPublishKey || "";
-    if (!MOYASAR_PUBLISHABLE_KEY) throw new Error("Missing Moyasar key");
-  } catch (err) {
+    if(!MOYASAR_PUBLISHABLE_KEY) throw new Error("Missing Moyasar key");
+  } catch(err) {
     console.error("❌ Error getting Moyasar key:", err);
     showError("Payment system unavailable");
     return;
   }
 
-  // اقفل زر الدفع في البداية
-  payButton.disabled = true;
+  payButton.disabled = true; // اقفل الزر في البداية
 
-  // اختيار طريقة الدفع
+  // ===== اختيار طريقة الدفع =====
+  let selectedMethod = null;
+  let selectedSource = null;
+
   methodButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       methodButtons.forEach(b => b.classList.remove("active"));
@@ -744,32 +764,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
-  // اغلاق الـ bottom sheet
-  closeSheet.onclick = () => {
+  // ===== اغلاق الـ bottom sheet =====
+  const closeSheetHandler = () => {
     sheet.classList.remove("active");
     overlay.classList.remove("active");
     document.body.classList.remove("sheet-open");
   };
+  closeSheet.onclick = closeSheetHandler;
+  overlay.onclick = closeSheetHandler;
 
-  overlay.onclick = closeSheet.onclick;
-
-  // عرض الأخطاء
+  // ===== عرض الأخطاء =====
   function showError(msg) {
     errorMessage.textContent = msg;
     errorMessage.classList.add("show");
     payButton.disabled = false;
   }
 
-  // فتح الـ bottom sheet
+  // ===== فتح الـ bottom sheet =====
   function openSheet() {
     sheet.classList.add("active");
     overlay.classList.add("active");
     document.body.classList.add("sheet-open");
   }
 
-  // تهيئة الدفع
+  // ===== تهيئة الدفع =====
   function initPayment() {
-    if (!selectedMethod) {
+    if(!selectedMethod) {
       showError("Please select payment method");
       return;
     }
@@ -779,7 +799,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const config = {
       element: "#moyasar-form",
-      amount,
+      amount: urlAmount, // نرسل المبلغ كما هو بالهللة
       currency: "SAR",
       description: `${planName} - ${ORDER_ID}`,
       publishable_api_key: MOYASAR_PUBLISHABLE_KEY,
@@ -787,8 +807,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       metadata: { userId, planId, orderId: ORDER_ID },
 
       onCompleted(payment) {
-        window.location.href =
-          `thanks.html?paymentId=${payment.id}&order=${ORDER_ID}`;
+        window.location.href = `thanks.html?paymentId=${payment.id}&order=${ORDER_ID}`;
       },
 
       onError(error) {
@@ -797,24 +816,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     // 💳 Credit Card / Mada
-    if (selectedMethod === "creditcard") {
+    if(selectedMethod === "creditcard") {
       config.methods = ["creditcard"];
-      if (selectedSource === "mada") config.supported_networks = ["mada"];
+      if(selectedSource === "mada") config.supported_networks = ["mada"];
     }
 
     // 🍎 Apple Pay
-    if (selectedMethod === "applepay") {
+    if(selectedMethod === "applepay") {
       config.methods = ["applepay"];
       config.apple_pay = {
         country: "SA",
         currency: "SAR",
         label: planName,
-        amount
+        amount: urlAmount // تبقى بالهللة
       };
     }
 
     // init Moyasar
-    if (typeof Moyasar === "undefined") {
+    if(typeof Moyasar === "undefined") {
       showError("Payment gateway failed to load");
       return;
     }
@@ -822,11 +841,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     Moyasar.init(config);
   }
 
-  // ربط الزر
   payButton.onclick = initPayment;
 
 });
 </script>
+
 
 
 
