@@ -845,13 +845,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   currency: "SAR",
   description: `${planName} - ${ORDER_ID}`,
   publishable_api_key: MOYASAR_PUBLISHABLE_KEY,
-  tokenize: true,
   metadata: { userId, planId, orderId: ORDER_ID },
   callback_url: `https://jobzai.net/thanks.html`, // ← هنا ضع رابطك
-  onCompleted(payment) {
+  on_completed(payment) {
     window.location.href = `thanks.html?paymentId=${payment.id}&order=${ORDER_ID}`;
   },
-  onError(error) {
+  on_failure(error) {
     showError(error?.message || "Payment failed");
   }
 };
@@ -865,12 +864,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 🍎 Apple Pay
     if(selectedMethod === "applepay") {
       config.methods = ["applepay"];
-      config.apple_pay = {
-        country: "SA",
-        currency: "SAR",
-        label: planName,
-        amount: urlAmount // تبقى بالهللة
-      };
+    config.apple_pay = {
+            country: "SA",
+            currency: "SAR",
+            label: planName,
+            amount: urlAmount,
+
+            validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate",
+
+            save_card: true
+          }
     }
 
     // init Moyasar

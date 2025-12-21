@@ -48,19 +48,20 @@ document.addEventListener("DOMContentLoaded", async () => {
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="rts__pricing__box style-1 rounded-3 h-100 d-flex flex-column">
               <div class="py-4 flex-grow-1">
-                <h3 class="h6 fw-medium lh-1 mb-2 text-primary" style="text-transform: capitalize;">
+                <h3 class="h6 fw-medium lh-1 mb-2 text-primary">
                   ${lang === "ar" ? plan.ar_name : plan.name}
                 </h3>
+
                 <div class="plan__price lh-1 mb-3">
                   <span class="h2 mb-0 me-1">${plan.price / 100} ${
               plan.currency
             }</span>
                   <small class="text-muted d-block">
-                    ${lang === "en" ? "Duration" : "المدة"}: ${plan.duration} ${
-              lang === "en" ? "days" : "يوم"
-            }
+                    ${lang === "en" ? "Duration" : "المدة"}:
+                    ${plan.duration} ${lang === "en" ? "days" : "يوم"}
                   </small>
                 </div>
+
                 ${
                   plan.isTrial
                     ? `<span class="badge bg-success mb-3">${
@@ -68,6 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                       }</span>`
                     : ""
                 }
+
                 <ul class="plan__feature mt-3">
                   ${(plan[lang === "ar" ? "ar_features" : "features"] || [])
                     .map(
@@ -77,12 +79,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                     .join("")}
                 </ul>
               </div>
+
               <div class="pricing-footer mt-auto p-3">
-                <button 
-                  class="rts__btn pricing__btn choose-plan-btn no__fill__btn mt-3" 
+                <button
+                  class="rts__btn pricing__btn choose-plan-btn"
                   data-plan-id="${plan.id}"
                   data-price="${plan.price}"
-                  data-plan-name="${lang === "ar" ? plan.ar_name : plan.name}"
+                  data-plan-name-en="${plan.name}"
+                  data-plan-name-ar="${plan.ar_name}"
                 >
                   ${lang === "en" ? "Choose Plan" : "اختر الباقة"}
                 </button>
@@ -96,7 +100,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
 
     document.querySelectorAll(".choose-plan-btn").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
+      btn.addEventListener("click", () => {
         const token = localStorage.getItem("authToken");
 
         if (!token) {
@@ -115,11 +119,15 @@ document.addEventListener("DOMContentLoaded", async () => {
           return;
         }
 
-        const planId = e.target.getAttribute("data-plan-id");
-        const price = e.target.getAttribute("data-price");
-        const planName = e.target.getAttribute("data-plan-name");
+        const planId = btn.dataset.planId;
+        const price = btn.dataset.price;
 
-        window.location.href = `payment-choose.html?planId=${planId}&amount=${price}&planName=${planName}`;
+        // ✅ URL = إنجليزي فقط
+        const planNameEn = btn.dataset.planNameEn;
+
+        window.location.href = `payment-choose.html?planId=${planId}&amount=${price}&planName=${encodeURIComponent(
+          planNameEn
+        )}`;
       });
     });
   } catch (err) {
