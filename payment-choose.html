@@ -847,11 +847,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   publishable_api_key: MOYASAR_PUBLISHABLE_KEY,
   metadata: { userId, planId, orderId: ORDER_ID },
   callback_url: `https://jobzai.net/thanks.html`, // ← هنا ضع رابطك
-  on_completed(payment) {
-    window.location.href = `thanks.html?paymentId=${payment.id}&order=${ORDER_ID}`;
+  on_completed: async (payment) => {
+    console.log("✅ Payment completed:", payment);
+
+    // ممكن هنا تبعت payment.id للسيرفر لو حابب
+    window.location.href =
+      `thanks.html?paymentId=${payment.id}&order=${ORDER_ID}`;
+
+    return Promise.resolve(payment);
   },
-  on_failure(error) {
+
+ 
+  on_failure: async (error) => {
+    console.error("❌ Payment failed:", error);
     showError(error?.message || "Payment failed");
+    return Promise.reject(error);
   }
 };
 
@@ -870,7 +880,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             label: planName,
             amount: urlAmount,
 
-            validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate",
+            // validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate",
 
             save_card: true
           }
