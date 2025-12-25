@@ -29,7 +29,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const nameInput = document.getElementById("name");
   const emailInput = document.getElementById("emailUser");
   const phoneInput = document.getElementById("phoneUser");
-  const jobInput = document.getElementById("job");
+  const jobTitleInput = document.getElementById("jobTitle");
+  // const jobInput = document.getElementById("job");
   const citySelect = document.getElementById("City");
   const oldPasswordInput = document.getElementById("oldPassword");
   const passwordInput = document.getElementById("passwordUser");
@@ -529,9 +530,9 @@ console.log(finalDateFormatted);
         if (user.fullName) nameInput.value = user.fullName;
         if (user.email) emailInput.value = user.email;
         if (user.phone) phoneInput.value = user.phone;
-
-        if (user.facebook)
-          document.getElementById("Facebook").value = user.facebook;
+        if (user.jobTitle) jobTitleInput.value = user.jobTitle;
+          if (user.facebook)
+            document.getElementById("Facebook").value = user.facebook;
         if (user.linkedin)
           document.getElementById("Linkedin").value = user.linkedin;
         if (user.instagram)
@@ -542,7 +543,7 @@ console.log(finalDateFormatted);
           document.getElementById("Portfolio").value = user.portfolio;
 
         populateSelect(citySelect, saudiCities, user.cityId, "id", "name");
-        populateSelect(jobInput, jobs, user.jobId, "id", "title");
+        populateSelect( jobs, user.jobId, "id", "title");
            const reportsContainer = document.getElementById("reports");
            if (reportsContainer) {
              try {
@@ -598,11 +599,12 @@ console.log(finalDateFormatted);
 
       try {
         const payload = {};
+        console.log(payload);
         if (nameInput.value.trim()) payload.name = nameInput.value.trim();
         if (emailInput.value.trim()) payload.email = emailInput.value.trim();
         if (phoneInput.value.trim()) payload.phone = phoneInput.value.trim();
+        if (jobTitleInput.value.trim()) payload.jobTitle = jobTitleInput.value.trim();
         if (citySelect.value) payload.cityId = parseInt(citySelect.value, 10);
-        if (jobInput.value) payload.jobId = parseInt(jobInput.value, 10);
         if (passwordInput.value.trim()) {
           payload.newPassword = passwordInput.value.trim();
           if (oldPasswordInput.value.trim())
