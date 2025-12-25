@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ats Result</title>
+   
+ 
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="Your Ultimate Job HTML Template" />
+    <meta
+      name="keywords"
+      content="Hosting, Domain, Transfer, Buy Domain, WHMCS"
+    />
+    <link rel="canonical" href="https://html.themewant.com/hostie" />
+    <meta name="robots" content="index, follow" />
+    <!-- for open graph social media -->
+    <meta property="og:title" content="Your Ultimate Job HTML Template" />
+    <meta property="og:description" content="Your Ultimate Job HTML Template" />
+    <meta property="og:image" content="https://www.example.com/image.jpg" />
+    <meta property="og:url" content="https://html.themewant.com/hostie/" />
+    <!-- for twitter sharing -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Your Ultimate Job HTML Template" />
+    <meta
+      name="twitter:description"
+      content="Your Ultimate Job HTML Template"
+    />
+    <meta
+      name="twitter:image"
+      content="https://html.themewant.com/hostie/landing/assets/images/banner/slider-img-01.webp"
+    />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- fabicon -->
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+    <link
+      rel="shortcut-icon"
+      href="assets/img/favicon-16x16.png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="assets/img/favicon.ico"
+      type="image/x-icon"
+    />
+ 
+    <link rel="stylesheet" href="assets/fonts/icon/css/rt-icons.css" />
+    <!-- fontawesome -->
+    <link
+      rel="stylesheet"
+      href="assets/fonts/fontawesome/fontawesome.min.css"
+    />
+    <!-- all plugin css -->
+    <link rel="stylesheet" href="assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+ 
+     <style>
+  
+
+   
+        .card-main {
+            background: radial-gradient(circle at top left, #1e293b, #020617);
+            border-radius: 18px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.8);
+            padding: 20px 22px;
+        }
+
+        .badge-status {
+            font-size: 0.85rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+        }
+
+        .score-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 6px solid #22c55e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #bbf7d0;
+            background: radial-gradient(circle at 30% 30%, rgba(34, 197, 94, 0.25), transparent);
+        }
+
+            .score-circle .score-value {
+                font-size: 2.4rem;
+                font-weight: 700;
+                line-height: 1;
+            }
+
+            .score-circle .score-label {
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                opacity: 0.8;
+            }
+
+        .section-title {
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #9ca3af;
+            margin-bottom: 8px;
+        }
+
+        .card-sub {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 14px;
+            border: 1px solid rgba(75, 85, 99, 0.7);
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+
+        .progress {
+            height: 8px;
+            background-color: #1f2937;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #22c55e, #22d3ee);
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            font-size: 0.78rem;
+            color: #e5e7eb;
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+            background: #22c55e;
+        }
+
+        .skills-list li {
+            font-size: 0.88rem;
+            margin-bottom: 4px;
+        }
+
+        .json-box {
+            font-family: "JetBrains Mono", Consolas, monospace;
+            font-size: 0.78rem;
+            background: #020617;
+            border-radius: 10px;
+            padding: 10px 12px;
+            border: 1px solid rgba(55, 65, 81, 0.7);
+            max-height: 180px;
+            overflow: auto;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body class="template-dashboard">
+     <!-- header area -->
+        <header class="rts__section rts__header absolute__header">
+      <div class="container-none">
+        <div class="rts__menu__background">
+          <div class="row">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="rts__logo">
+                <a href="index.html">
+                  <img
+                    class="logo__image"
+                    src="assets/img/logo/jobs-ai-logo-02.png"
+                    width="160"
+                    height="40"
+                    alt="logo"
+                  />
+                </a>
+              </div>
+              <div
+                class="rts__menu d-flex gap-5 gap-lg-4 gap-xl-5 align-items-center"
+              >
+                <div class="navigation d-none d-lg-block">
+                  <nav class="navigation__menu" id="offcanvas__menu">
+                    <ul class="list-unstyled">
+                      <li class="navigation__menu--item">
+                        <a
+                          href="index.html"
+                          class="navigation__menu--item__link"
+                          data-en="Home"
+                          data-ar="الرئيسية"
+                          >Home</a
+                        >
+                      </li>
+
+                      <li class="navigation__menu--item">
+                        <a
+                          class="navigation__menu--item__link"
+                          href="pricing.html"
+                          data-en="Pricing"
+                          data-ar="الأشتراكات"
+                          >Pricing</a
+                        >
+                      </li>
+
+                      <li class="navigation__menu--item has-child has-arrow">
+                        <a
+                          href="#"
+                          class="navigation__menu--item__link"
+                          data-en="Policies & Support"
+                          data-ar="السياسات والدعم"
+                          >Policies & Support</a
+                        >
+                        <ul class="submenu sub__style" role="menu">
+                          <li role="menuitem">
+                            <a
+                              href="about.html"
+                              data-en="About"
+                              data-ar="من نحن"
+                              >About</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="privacy.html"
+                              data-en="Privacy"
+                              data-ar="الخصوصية"
+                              >Privacy</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="faq.html"
+                              data-en="Faq"
+                              data-ar="الأسئلة الشائعة"
+                              >Faq</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a href="tos.html" data-en="Tos" data-ar="الشروط"
+                              >Tos</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="contact-1.html"
+                              data-en="Contact us"
+                              data-ar="اتصل بنا"
+                              >Contact us</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li class="navigation__menu--item">
+                        <a
+                          href="blog-1.html"
+                          class="navigation__menu--item__link"
+                          data-en="Blog"
+                          data-ar="المدونة"
+                          >Blog</a
+                        >
+                      </li>
+                      <li id="profileMenu" class="profile-menu navigation__menu--item">
+                        <a
+                          href="employer-dash-profile.html"
+                          class="navigation__menu--item__link"
+                          data-en="User Profile"
+                          data-ar="الملف الشخصي"
+                          id="userName"
+                          >User Profile</a
+                        >
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+
+                <div class="header__right__btn d-flex gap-3">
+                  <a
+                    href="#"
+                    id="login"
+                    class="small__btn d-none d-sm-flex no__fill__btn border-6 font-xs"
+                    aria-label="Login Button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                  >
+                    <i class="rt-login"></i
+                    ><span
+                      id="authText"
+                      data-en="Sign In"
+                      data-ar="تسجيل الدخول"
+                      >Sign In</span
+                    >
+                  </a>
+                  <a
+                    href="#"
+                    id="logout"
+                    class="small__btn log-toggle d-sm-flex no__fill__btn border-6 font-xs"
+                    aria-label="Login Button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#logoutModal"
+                  >
+                    <i class="fa-solid fa-right-from-bracket"></i>
+<span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+                  </a>
+                  <!-- زر تغيير اللغة -->
+                  <a
+                    style="cursor: pointer"
+                    id="lang-btn"
+                    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+                  >
+                    Arabic
+                  </a>
+
+                  <button
+                    class="d-md-block d-lg-none"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvas"
+                    aria-controls="offcanvas"
+                  >
+                    <i class="fa-sharp fa-regular fa-bars"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- header area end -->
+    <div class="page-wrapper">
+        <!-- Main card -->
+        <div id="resultCard" class="card-main d-none">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-3">
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <span class="pill">
+                            <span class="pill-dot"></span>
+                            Request #<span id="lblRequestId"></span> � User #<span id="lblUserId"></span>
+                        </span>
+                        <span id="lblStatusBadge" class="badge-status"></span>
+                    </div>
+                    <div class="mt-2">
+                        <div class="text-secondary" style="font-size: 0.85rem;">
+                            Language: <span class="text-info fw-semibold" id="lblLanguage"></span>
+                        </div>
+                        <div class="text-secondary" style="font-size: 0.85rem;">
+                            Created: <span id="lblCreatedAt"></span> �
+                            Completed: <span id="lblCompletedAt"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="score-circle text-center">
+                    <div class="score-value" id="lblOverallScore">�</div>
+                    <div class="score-label">Overall ATS Score</div>
+                </div>
+            </div>
+
+            <hr class="text-secondary" />
+
+            <div class="row g-3">
+                <!-- Left column: scores -->
+                <div class="col-md-6">
+                    <div class="section-title">Scores breakdown</div>
+
+                    <div class="card-sub mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>Skills match</span>
+                            <span id="lblSkillsScore">�</span>
+                        </div>
+                        <div class="progress mt-1">
+                            <div id="barSkillsScore" class="progress-bar" role="progressbar"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-sub mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>Title match</span>
+                            <span id="lblTitleScore">�</span>
+                        </div>
+                        <div class="progress mt-1">
+                            <div id="barTitleScore" class="progress-bar" role="progressbar"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-sub mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>Education score</span>
+                            <span id="lblEducationScore">�</span>
+                        </div>
+                        <div class="progress mt-1">
+                            <div id="barEducationScore" class="progress-bar" role="progressbar"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-sub mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>Certifications score</span>
+                            <span id="lblCertScore">�</span>
+                        </div>
+                        <div class="progress mt-1">
+                            <div id="barCertScore" class="progress-bar" role="progressbar"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-sub mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>Keyword density</span>
+                            <span id="lblKeywordDensity">�</span>
+                        </div>
+                        <div class="progress mt-1">
+                            <div id="barKeywordDensity" class="progress-bar" role="progressbar"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-sub mb-1">
+                        <div class="d-flex justify-content-between">
+                            <span>Experience level</span>
+                            <span id="lblExperienceLevel" class="fw-semibold"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right column: skills & summary -->
+                <div class="col-md-6">
+                    <div class="section-title">Skills overview</div>
+
+                    <div class="card-sub">
+                        <div class="fw-semibold mb-1">Matched skills</div>
+                        <ul id="matchedSkillsList" class="skills-list mb-2"></ul>
+                        <div class="json-box" id="matchedSkillsRaw"></div>
+                    </div>
+
+                    <div class="card-sub">
+                        <div class="fw-semibold mb-1">Missing / recommended skills</div>
+                        <ul id="missingSkillsList" class="skills-list mb-2"></ul>
+                        <div class="json-box" id="missingSkillsRaw"></div>
+                    </div>
+
+                    <div class="card-sub">
+                        <div class="fw-semibold mb-1">Summary</div>
+                        <div id="lblSummary" class="mb-1" style="font-size: 0.9rem;"></div>
+                        <div id="lblKeywordsSummary" class="text-secondary" style="font-size: 0.82rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Raw JSON card (optional) -->
+        <div id="rawJsonCard" class="card-main mt-3 d-none" style="padding: 14px 16px;">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="section-title mb-0">Raw JSON (for debugging)</div>
+                <button class="btn btn-sm btn-outline-secondary" type="button"
+                        onclick="toggleRawJson()">
+                    Toggle visibility
+                </button>
+            </div>
+            <pre id="rawJsonBox" class="json-box mb-0"></pre>
+        </div>
+    </div>
+         <div class="d-flex justify-content-center mt-30">
+          <p class="copyright">
+            Copyright © 2024 All Rights Reserved by Jobs AI
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- content area end -->
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvas"
+      aria-labelledby="offcanvasLabel"
+    >
+      <div class="offcanvas-header p-0 mb-5 mt-4">
+        <a href="index.html" class="offcanvas-title" id="offcanvasLabel">
+          <img src="assets/img/logo/jobs-ai-logo-02.png" alt="logo" />
+        </a>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <!-- login offcanvas -->
+      <div class="mb-4 d-block d-sm-none">
+        <!-- <div class="header__right__btn d-flex justify-content-center gap-3">
+           <a
+                    href="#"
+                    id="loginCavas"
+                    class="small__btn  d-sm-flex no__fill__btn border-6 font-xs"
+                    aria-label="Login Button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                  >
+                    <i class="rt-login"></i
+                    ><span
+                      id="authText"
+                      data-en="Sign In"
+                      data-ar="تسجيل الدخول"
+                      >Sign In</span
+                    >
+                  </a>
+                  <a
+                    href="#"
+                    id="logoutCavas"
+                    class="small__btn log-toggle-canvas d-flex d-sm-flex no__fill__btn border-6 font-xs"
+                    aria-label="Login Button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#logoutModal"
+                  >
+                    <i class="fa-solid fa-right-from-bracket"></i>
+<span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+                  </a>
+        </div> -->
+      </div>
+      <div class="offcanvas-body p-0">
+        <div class="rts__offcanvas__menu overflow-hidden">
+          <div class="offcanvas__menu"></div>
+        </div>
+        <p
+          class="max-auto font-20 fw-medium text-center text-decoration-underline mt-4"
+        >
+          Our Social Links
+        </p>
+        <div class="rts__social d-flex justify-content-center gap-3 mt-3">
+          <a href="https://facebook.com" aria-label="facebook">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="https://instagram.com" aria-label="instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://linkedin.com" aria-label="linkedin">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <a href="https://pinterest.com" aria-label="pinterest">
+            <i class="fa-brands fa-pinterest"></i>
+          </a>
+          <a href="https://youtube.com" aria-label="youtube">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- THEME PRELOADER START -->
+    <div class="loader-wrapper">
+      <div class="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+    <!-- THEME PRELOADER END -->
+    <button type="button" class="rts__back__top" id="rts-back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    <script type="module" src="/assets/js/ats-result.js"></script> <!-- ملف الجافاسكريبت اللي هيجيب النتيجة حسب requestId -->
+      <script type="module" src="assets/js/login.js"></script>
+    <script src="assets/js/plugins.min.js"></script>
+    <script defer type="module" src="assets/js/main.js"></script>
+</body>
+
+ 
+</html>
