@@ -543,7 +543,7 @@ console.log(finalDateFormatted);
           document.getElementById("Portfolio").value = user.portfolio;
 
         populateSelect(citySelect, saudiCities, user.cityId, "id", "name");
-        populateSelect( jobs, user.jobId, "id", "title");
+        // populateSelect( jobs, user.jobId, "id", "title");
            const reportsContainer = document.getElementById("reports");
            if (reportsContainer) {
              try {

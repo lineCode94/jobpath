@@ -143,7 +143,12 @@ export const updateProfile = (data) =>
   api.patch("/users/complete-profile", data);
 
 export const getUserDetails = () => api.get("/users/get-user-details");
-
+export const sendAtsRequest = () => {
+  return api.get("/ats/send-req");
+};
+export const getAtsStatus = () => {
+  return api.get("/ats/get-req-status");
+};
 export const getAllCourses = () => api.get("/users/get-user-courses");
 
 export const getJobNames = () => api.get("/users/get-user-job-names");
