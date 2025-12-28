@@ -45,10 +45,9 @@ function hideLoadingState() {
 
 function renderResult(ats) {
   hideLoadingState();
-
+const lang = localStorage.getItem("lang") || "en";
   document.getElementById("lblRequestId").textContent = ats.requestId ?? "-";
-  document.getElementById("lblLanguage").textContent =
-    ats.languageDetected || "-";
+  document.getElementById("lblLanguage").textContent = lang || "-";
 
   document.getElementById("lblOverallScore").textContent = formatScore(
     ats.overallScore
@@ -106,7 +105,7 @@ function renderResult(ats) {
     missing.appendChild(li);
   });
 
-  document.getElementById("lblSummary").textContent = ats.summary || "-";
+  // document.getElementById("lblSummary").textContent = ats.summary || "-";
   document.getElementById("lblKeywordsSummary").textContent =
     ats.keywordsSummary || "-";
 
