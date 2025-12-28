@@ -65,111 +65,129 @@
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
  
-     <style>
-  
+ <style>
+    body {
+  background: var(--bg-page);
+  font-family: "Plus Jakarta Sans", "Tajawal", sans-serif;
+  color: var(--text-main);
+}
 
-   
-        .card-main {
-            background: radial-gradient(circle at top left, #1e293b, #020617);
-            border-radius: 18px;
-            border: 1px solid rgba(148, 163, 184, 0.4);
-            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.8);
-            padding: 20px 22px;
-        }
+/* Main Card */
+.card-main {
+  background: var(--bg-card);
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  padding: 28px;
+  max-width: 1100px;
+  margin: 140px auto 40px;
+}
 
-        .badge-status {
-            font-size: 0.85rem;
-            padding: 0.35rem 0.7rem;
-            border-radius: 999px;
-        }
+/* Status badge */
+.badge-status {
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  background: var(--primary-soft);
+  color: var(--primary);
+}
 
-        .score-circle {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            border: 6px solid #22c55e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: #bbf7d0;
-            background: radial-gradient(circle at 30% 30%, rgba(34, 197, 94, 0.25), transparent);
-        }
+/* Score Circle */
+.score-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 6px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+  background: #34a853;
+}
 
-            .score-circle .score-value {
-                font-size: 2.4rem;
-                font-weight: 700;
-                line-height: 1;
-            }
+.score-circle .score-value {
+  font-size: 2.6rem;
+  font-weight: 700;
+}
 
-            .score-circle .score-label {
-                font-size: 0.8rem;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-                opacity: 0.8;
-            }
+.score-circle .score-label {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
 
-        .section-title {
-            font-size: 0.9rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #9ca3af;
-            margin-bottom: 8px;
-        }
+/* Sections */
+.section-title {
+  font-size:16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
 
-        .card-sub {
-            background: rgba(15, 23, 42, 0.9);
-            border-radius: 14px;
-            border: 1px solid rgba(75, 85, 99, 0.7);
-            padding: 14px 16px;
-            margin-bottom: 14px;
-        }
+/* Sub cards */
+.card-sub {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid var(--border-light);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
 
-        .progress {
-            height: 8px;
-            background-color: #1f2937;
-        }
+/* Progress */
+.progress {
+  height: 6px;
+  background-color: #34a853;
+  border-radius: 999px;
+}
 
-        .progress-bar {
-            background: linear-gradient(90deg, #22c55e, #22d3ee);
-        }
+.progress-bar {
+  background: var(--primary);
+  border-radius: 999px;
+}
 
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.45);
-            font-size: 0.78rem;
-            color: #e5e7eb;
-            background: rgba(15, 23, 42, 0.7);
-        }
+/* Pills */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-light);
+  font-size: 0.75rem;
+  background: #fff;
+  color: var(--text-muted);
+}
 
-        .pill-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 6px;
-            background: #22c55e;
-        }
+.pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 6px;
+  background: var(--primary);
+}
 
-        .skills-list li {
-            font-size: 0.88rem;
-            margin-bottom: 4px;
-        }
+/* Skills */
+.skills-list li {
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
 
-        .json-box {
-            font-family: "JetBrains Mono", Consolas, monospace;
-            font-size: 0.78rem;
-            background: #020617;
-            border-radius: 10px;
-            padding: 10px 12px;
-            border: 1px solid rgba(55, 65, 81, 0.7);
-            max-height: 180px;
-            overflow: auto;
-            color: #9ca3af;
-        }
-    </style>
+/* Summary */
+#lblSummary {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+#lblKeywordsSummary {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+ </style>
 </head>
 <body class="template-dashboard">
      <!-- header area -->
@@ -342,136 +360,130 @@
     </header>
 
     <!-- header area end -->
-    <div class="page-wrapper">
-        <!-- Main card -->
-        <div id="resultCard" class="card-main d-none">
-            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-3">
-                <div>
-                    <div class="d-flex align-items-center gap-2 mb-1">
-                        <span class="pill">
-                            <span class="pill-dot"></span>
-                            Request #<span id="lblRequestId"></span> � User #<span id="lblUserId"></span>
-                        </span>
-                        <span id="lblStatusBadge" class="badge-status"></span>
-                    </div>
-                    <div class="mt-2">
-                        <div class="text-secondary" style="font-size: 0.85rem;">
-                            Language: <span class="text-info fw-semibold" id="lblLanguage"></span>
-                        </div>
-                        <div class="text-secondary" style="font-size: 0.85rem;">
-                            Created: <span id="lblCreatedAt"></span> �
-                            Completed: <span id="lblCompletedAt"></span>
-                        </div>
-                    </div>
+  <div class="page-wrapper">
+    <!-- Main card -->
+    <div id="resultCard" class="card-main d-none">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-3">
+            <div>
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="pill">
+                        <span class="pill-dot"></span>
+                        <span data-en="Request #" data-ar="طلب #"></span><span id="lblRequestId"></span>  
+                        <span data-en="User #" data-ar="مستخدم #"></span><span id="lblUserId"></span>
+                    </span>
+                    <span id="lblStatusBadge" class="badge-status"></span>
                 </div>
-
-                <div class="score-circle text-center">
-                    <div class="score-value" id="lblOverallScore">�</div>
-                    <div class="score-label">Overall ATS Score</div>
+                <div class="mt-2">
+                    <div class="text-secondary" style="font-size: 0.85rem;">
+                        <span data-en="Language:" data-ar="اللغة:"></span> 
+                        <span class="text-info fw-semibold" id="lblLanguage"></span>
+                    </div>
+                    <div class="text-secondary" style="font-size: 0.85rem;">
+                        <span data-en="Created:" data-ar="تم الإنشاء:"></span> 
+                        <span id="lblCreatedAt"></span> 
+                        <span data-en="Completed:" data-ar="تم الاكتمال:"></span> 
+                        <span id="lblCompletedAt"></span>
+                    </div>
                 </div>
             </div>
 
-            <hr class="text-secondary" />
-
-            <div class="row g-3">
-                <!-- Left column: scores -->
-                <div class="col-md-6">
-                    <div class="section-title">Scores breakdown</div>
-
-                    <div class="card-sub mb-2">
-                        <div class="d-flex justify-content-between">
-                            <span>Skills match</span>
-                            <span id="lblSkillsScore">�</span>
-                        </div>
-                        <div class="progress mt-1">
-                            <div id="barSkillsScore" class="progress-bar" role="progressbar"></div>
-                        </div>
-                    </div>
-
-                    <div class="card-sub mb-2">
-                        <div class="d-flex justify-content-between">
-                            <span>Title match</span>
-                            <span id="lblTitleScore">�</span>
-                        </div>
-                        <div class="progress mt-1">
-                            <div id="barTitleScore" class="progress-bar" role="progressbar"></div>
-                        </div>
-                    </div>
-
-                    <div class="card-sub mb-2">
-                        <div class="d-flex justify-content-between">
-                            <span>Education score</span>
-                            <span id="lblEducationScore">�</span>
-                        </div>
-                        <div class="progress mt-1">
-                            <div id="barEducationScore" class="progress-bar" role="progressbar"></div>
-                        </div>
-                    </div>
-
-                    <div class="card-sub mb-2">
-                        <div class="d-flex justify-content-between">
-                            <span>Certifications score</span>
-                            <span id="lblCertScore">�</span>
-                        </div>
-                        <div class="progress mt-1">
-                            <div id="barCertScore" class="progress-bar" role="progressbar"></div>
-                        </div>
-                    </div>
-
-                    <div class="card-sub mb-2">
-                        <div class="d-flex justify-content-between">
-                            <span>Keyword density</span>
-                            <span id="lblKeywordDensity">�</span>
-                        </div>
-                        <div class="progress mt-1">
-                            <div id="barKeywordDensity" class="progress-bar" role="progressbar"></div>
-                        </div>
-                    </div>
-
-                    <div class="card-sub mb-1">
-                        <div class="d-flex justify-content-between">
-                            <span>Experience level</span>
-                            <span id="lblExperienceLevel" class="fw-semibold"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right column: skills & summary -->
-                <div class="col-md-6">
-                    <div class="section-title">Skills overview</div>
-
-                    <div class="card-sub">
-                        <div class="fw-semibold mb-1">Matched skills</div>
-                        <ul id="matchedSkillsList" class="skills-list mb-2"></ul>
-                        <div class="json-box" id="matchedSkillsRaw"></div>
-                    </div>
-
-                    <div class="card-sub">
-                        <div class="fw-semibold mb-1">Missing / recommended skills</div>
-                        <ul id="missingSkillsList" class="skills-list mb-2"></ul>
-                        <div class="json-box" id="missingSkillsRaw"></div>
-                    </div>
-
-                    <div class="card-sub">
-                        <div class="fw-semibold mb-1">Summary</div>
-                        <div id="lblSummary" class="mb-1" style="font-size: 0.9rem;"></div>
-                        <div id="lblKeywordsSummary" class="text-secondary" style="font-size: 0.82rem;"></div>
-                    </div>
-                </div>
+            <div class="score-circle text-center">
+                <div class="score-value" id="lblOverallScore">–</div>
+                <div data-en="Overall ATS Score" data-ar="مجموع نقاط ATS" class="score-label"></div>
             </div>
         </div>
 
-        <!-- Raw JSON card (optional) -->
-        <div id="rawJsonCard" class="card-main mt-3 d-none" style="padding: 14px 16px;">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div class="section-title mb-0">Raw JSON (for debugging)</div>
-                <button class="btn btn-sm btn-outline-secondary" type="button"
-                        onclick="toggleRawJson()">
-                    Toggle visibility
-                </button>
+        <hr class="text-secondary" />
+
+        <div class="row g-3">
+            <!-- Left column: scores -->
+            <div class="col-md-6">
+                <div data-en="Scores breakdown" data-ar="تفاصيل الدرجات" class="section-title"></div>
+
+                <div class="card-sub mb-2">
+                    <div class="d-flex justify-content-between">
+                        <span data-en="Skills match" data-ar="توافق المهارات"></span>
+                        <span id="lblSkillsScore">–</span>
+                    </div>
+                    <div class="progress mt-1">
+                        <div id="barSkillsScore" class="progress-bar" role="progressbar"></div>
+                    </div>
+                </div>
+
+                <div class="card-sub mb-2">
+                    <div class="d-flex justify-content-between">
+                        <span data-en="Title match" data-ar="توافق المسمى الوظيفي"></span>
+                        <span id="lblTitleScore">–</span>
+                    </div>
+                    <div class="progress mt-1">
+                        <div id="barTitleScore" class="progress-bar" role="progressbar"></div>
+                    </div>
+                </div>
+
+                <div class="card-sub mb-2">
+                    <div class="d-flex justify-content-between">
+                        <span data-en="Education score" data-ar="درجة التعليم"></span>
+                        <span id="lblEducationScore">–</span>
+                    </div>
+                    <div class="progress mt-1">
+                        <div id="barEducationScore" class="progress-bar" role="progressbar"></div>
+                    </div>
+                </div>
+
+                <div class="card-sub mb-2">
+                    <div class="d-flex justify-content-between">
+                        <span data-en="Certifications score" data-ar="درجة الشهادات"></span>
+                        <span id="lblCertScore">–</span>
+                    </div>
+                    <div class="progress mt-1">
+                        <div id="barCertScore" class="progress-bar" role="progressbar"></div>
+                    </div>
+                </div>
+
+                <div class="card-sub mb-2">
+                    <div class="d-flex justify-content-between">
+                        <span data-en="Keyword density" data-ar="كثافة الكلمات المفتاحية"></span>
+                        <span id="lblKeywordDensity">–</span>
+                    </div>
+                    <div class="progress mt-1">
+                        <div id="barKeywordDensity" class="progress-bar" role="progressbar"></div>
+                    </div>
+                </div>
+
+                <div class="card-sub mb-1">
+                    <div class="d-flex justify-content-between">
+                        <span data-en="Experience level" data-ar="مستوى الخبرة"></span>
+                        <span id="lblExperienceLevel" class="fw-semibold"></span>
+                    </div>
+                </div>
             </div>
-            <pre id="rawJsonBox" class="json-box mb-0"></pre>
+
+            <!-- Right column: skills & summary -->
+            <div class="col-md-6">
+                <div data-en="Skills overview" data-ar="نظرة عامة على المهارات" class="section-title"></div>
+
+                <div class="card-sub">
+                    <div class="fw-semibold mb-1" data-en="Matched skills" data-ar="المهارات المتوافقة"></div>
+                    <ul id="matchedSkillsList" class="skills-list mb-2"></ul>
+                    <div class="json-box" id="matchedSkillsRaw"></div>
+                </div>
+
+                <div class="card-sub">
+                    <div class="fw-semibold mb-1" data-en="Missing / recommended skills" data-ar="المهارات المفقودة / المقترحة"></div>
+                    <ul id="missingSkillsList" class="skills-list mb-2"></ul>
+                    <div class="json-box" id="missingSkillsRaw"></div>
+                </div>
+
+                <div class="card-sub">
+                    <div class="fw-semibold mb-1" data-en="Summary" data-ar="الملخص"></div>
+                    <div id="lblSummary" class="mb-1" style="font-size: 0.9rem;"></div>
+                    <div id="lblKeywordsSummary" class="text-secondary" style="font-size: 0.82rem;"></div>
+                </div>
+            </div>
         </div>
+    </div>
+</div>
+
     </div>
          <div class="d-flex justify-content-center mt-30">
           <p class="copyright">

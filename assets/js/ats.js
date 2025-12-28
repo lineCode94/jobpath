@@ -71,43 +71,51 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===== Recursive Polling =====
-  async function pollAtsStatus(id, delaySeconds = 2) {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, delaySeconds * 1000));
+async function pollAtsStatus(id, delaySeconds = 2) {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, delaySeconds * 1000));
 
-      pollCount++;
-      const progress = Math.min(pollCount * 10, 95);
-      pollCountElement.textContent = progress + "%";
+    pollCount++;
+    pollCountElement.textContent = Math.min(pollCount * 10, 95) + "%";
 
-      const res = await getAtsStatus(id);
-      const atsStatus = res?.data?.data?.status;
-      console.log("ATS STATUS:", atsStatus);
+    const res = await getAtsStatus(id);
 
-      if (atsStatus === "Done") {
-        pollingStatus.textContent = "Completed";
-        pollCountElement.textContent = "100%";
-        showToast("ATS analysis completed", "success");
+    const atsStatus = res?.data?.data?.status?.toUpperCase();
 
-        setTimeout(() => {
-          // هنا نعدل الرابط لصفحة ats.html مباشرة
-          window.location.href = "/ats.html";
-        }, 1200);
-        return;
-      }
+    console.log("ATS STATUS:", atsStatus);
 
-      if (atsStatus === "Failed") {
-        throw new Error(res?.data?.data?.lastError || "ATS analysis failed");
-      }
+    // ✅ DONE or COMPLETED
+  if (atsStatus === "DONE" || atsStatus === "COMPLETED") {
+    pollingStatus.textContent = "Completed";
+    pollCountElement.textContent = "100%";
 
-      pollingStatus.textContent = atsStatus;
+    showToast("ATS analysis completed", "success");
 
-      // كل مرة بعد انتهاء call اعمل call جديد (recursive)
-      pollAtsStatus(id, 3); // recall every 3 seconds
-    } catch (err) {
-      showToast(err.message, "error");
-      resetUI();
-    }
+    setTimeout(() => {
+      window.location.href = "/ats.html";
+    }, 500);
+
+    return;
   }
+
+
+    // ❌ FAILED
+    if (atsStatus === "FAILED") {
+      throw new Error(res?.data?.data?.lastError || "ATS failed");
+    }
+
+    // ⏳ Pending / Processing
+    pollingStatus.textContent =
+      atsStatus === "PENDING" ? "Pending..." : "Processing...";
+
+    pollAtsStatus(id, 3);
+  } catch (err) {
+    showToast(err.message, "error");
+    resetUI();
+  }
+}
+
+
 
   // ===== Reset UI =====
   function resetUI() {
