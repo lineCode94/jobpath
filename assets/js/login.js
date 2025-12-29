@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginFormMail = document.getElementById("loginFormMail");
   const loginBtn = document.getElementById("login");
   const logoutBtn = document.getElementById("logout");
-  const profileMenu = document.getElementById("profileMenu");
 
   const phoneInput = document.getElementById("phone");
   const otpSection = document.getElementById("otpSection");
@@ -15,13 +14,12 @@ document.addEventListener("DOMContentLoaded", function () {
   let step = "send";
   let savedPhone = "";
 
-  // 🌐 Helper لتحديد اللغة
+  /* ================= Language Helper ================= */
   function t(ar, en) {
-    const lang = localStorage.getItem("lang") || "en";
-    return lang === "ar" ? ar : en;
+    return (localStorage.getItem("lang") || "en") === "ar" ? ar : en;
   }
 
-  // ✅ Toast Helper (زي ما هو)
+  /* ================= Toast ================= */
   function showToast(message, type = "info") {
     const styles = {
       success: {
@@ -41,63 +39,68 @@ document.addEventListener("DOMContentLoaded", function () {
         bg: "linear-gradient(135deg, #007bff, #6bb6ff)",
       },
     };
-const lang = localStorage.getItem("lang") || "en";
+
+    const lang = localStorage.getItem("lang") || "en";
+
     Toastify({
       text: `${styles[type].icon} <span style="margin-left:8px">${message}</span>`,
       duration: 3500,
       gravity: "bottom",
-      position: `${lang === "ar" ? "right" : "left"}`,
+      position: lang === "ar" ? "right" : "left",
       close: true,
       escapeMarkup: false,
       offset: { x: 20, y: 20 },
       style: {
         background: styles[type].bg,
         color: "#fff",
-        display: "flex",
-        alignItems: "center",
-        gap: "8px",
-        fontSize: "16px",
+        fontSize: "15px",
         fontWeight: "600",
         borderRadius: "10px",
         padding: "8px 14px",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-        whiteSpace: "nowrap",
       },
     }).showToast();
   }
 
-  // ✅ تحديث الواجهة
-function updateUI() {
-  const token = localStorage.getItem("authToken");
+  /* ================= Auth Helpers ================= */
 
-  // buttons
-  if (token) {
-    loginBtn?.classList.add("log-toggle");
-    logoutBtn?.classList.remove("log-toggle");
-  } else {
-    loginBtn?.classList.remove("log-toggle");
-    logoutBtn?.classList.add("log-toggle");
+  function setAuth(token) {
+    // تنظيف أي بيانات قديمة
+    localStorage.clear();
+
+    localStorage.setItem("authToken", token);
+    localStorage.setItem("loginTime", Date.now());
   }
 
-  // 👇 كل نسخ profile (navbar + offcanvas)
-  document.querySelectorAll(".profile-menu").forEach((menu) => {
-    menu.style.display = token ? "block" : "none";
-  });
-}
+  function clearAuth() {
+    localStorage.clear();
+  }
 
+  function isLoggedIn() {
+    return !!localStorage.getItem("authToken");
+  }
+
+  function updateUI() {
+    const logged = isLoggedIn();
+
+    loginBtn?.classList.toggle("log-toggle", logged);
+    logoutBtn?.classList.toggle("log-toggle", !logged);
+
+    document.querySelectorAll(".profile-menu").forEach((menu) => {
+      menu.style.display = logged ? "block" : "none";
+    });
+  }
 
   updateUI();
 
-  // ⏱ AUTO LOGOUT AFTER 2 HOURS (الإضافة الوحيدة)
+  /* ================= Auto Logout ================= */
   function checkAutoLogout() {
     const token = localStorage.getItem("authToken");
     const loginTime = localStorage.getItem("loginTime");
     if (!token || !loginTime) return;
 
     const TWO_HOURS = 2 * 60 * 60 * 1000;
-    if (Date.now() - loginTime >= TWO_HOURS) {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("loginTime");
+    if (Date.now() - Number(loginTime) >= TWO_HOURS) {
+      clearAuth();
       window.location.href = "index.html";
     }
   }
@@ -105,7 +108,7 @@ function updateUI() {
   checkAutoLogout();
   setInterval(checkAutoLogout, 60 * 1000);
 
-  // ---------------- PHONE LOGIN (OTP) ----------------
+  /* ================= OTP Login ================= */
   if (loginFormPhone && sendBtn) {
     sendBtn.addEventListener("click", async () => {
       if (step === "verify") {
@@ -118,28 +121,23 @@ function updateUI() {
           return;
         }
 
-        showToast(t("جاري التحقق من الكود...", "Verifying code..."), "info");
         sendBtn.disabled = true;
+        showToast(t("جاري التحقق من الكود...", "Verifying code..."), "info");
 
         try {
           const res = await verifyOtp(savedPhone, otp);
           const token = res?.data?.token || res?.data?.access_token;
 
-          if (token) {
-            localStorage.setItem("authToken", token);
-            localStorage.setItem("loginTime", Date.now());
+          if (!token) throw new Error("NO_TOKEN");
 
-            showToast(
-              t("تم تسجيل الدخول بنجاح", "Login successful!"),
-              "success"
-            );
-            updateUI();
+          setAuth(token);
+          updateUI();
 
-            const modal = bootstrap.Modal.getInstance(
-              document.getElementById("loginModal")
-            );
-            modal?.hide();
-          }
+          showToast(t("تم تسجيل الدخول بنجاح", "Login successful!"), "success");
+
+          bootstrap.Modal.getInstance(
+            document.getElementById("loginModal")
+          )?.hide();
         } catch {
           showToast(
             t("كود التحقق غير صحيح", "Invalid verification code"),
@@ -158,26 +156,27 @@ function updateUI() {
           return;
         }
 
+        sendBtn.disabled = true;
         showToast(
           t("جاري ارسال كود التحقق...", "Sending verification code..."),
           "info"
         );
-        sendBtn.disabled = true;
 
         try {
           await sendOtp(phone);
           savedPhone = phone;
 
+          otpSection.classList.remove("d-none");
+         phoneInput.parentElement.parentElement.style.display = "none";
+
+
+          sendBtn.textContent = t("تحقق من الكود", "Verify Code");
+          step = "verify";
+
           showToast(
             t("تم ارسال الكود بنجاح", "Code sent successfully"),
             "success"
           );
-
-          otpSection.classList.remove("d-none");
-          phoneInput.parentElement.parentElement.classList.add("d-none");
-
-          sendBtn.textContent = t("تحقق من الكود", "Verify Code");
-          step = "verify";
         } catch {
           showToast(t("فشل في ارسال الكود", "Failed to send code"), "error");
         } finally {
@@ -187,7 +186,7 @@ function updateUI() {
     });
   }
 
-  // ---------------- EMAIL / PHONE + PASSWORD LOGIN ----------------
+  /* ================= Email / Password Login ================= */
   if (loginFormMail) {
     loginFormMail.addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -209,43 +208,32 @@ function updateUI() {
         const res = await loginUser(identifier, password);
         const token = res?.token || res?.access_token;
 
-        if (token) {
-          localStorage.setItem("authToken", token);
-          localStorage.setItem("loginTime", Date.now());
+        if (!token) throw new Error("NO_TOKEN");
 
-          showToast(
-            t("تم تسجيل الدخول بنجاح!", "Login successful!"),
-            "success"
-          );
-          updateUI();
+        setAuth(token);
+        updateUI();
 
-          const modal = bootstrap.Modal.getInstance(
-            document.getElementById("loginModal")
-          );
-          modal?.hide();
-        } else {
-          showToast(
-            t("استجابة غير صالحة من السيرفر", "Invalid response from server"),
-            "error"
-          );
-        }
+        showToast(t("تم تسجيل الدخول بنجاح", "Login successful!"), "success");
+
+        bootstrap.Modal.getInstance(
+          document.getElementById("loginModal")
+        )?.hide();
       } catch (err) {
         showToast(
-          err.response?.data?.message ||
-            t("بيانات الدخول غير صحيحة", "Incorrect email/phone or password"),
+          err?.response?.data?.message ||
+            t("بيانات الدخول غير صحيحة", "Incorrect login credentials"),
           "error"
         );
       }
     });
   }
 
-  // ---------------- LOGOUT ----------------
+  /* ================= Logout ================= */
   if (logoutBtn) {
-    logoutBtn.addEventListener("click", function () {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("loginTime");
+    logoutBtn.addEventListener("click", () => {
+      clearAuth();
       showToast(
-        t("تم تسجيل الخروج بنجاح", "Logged out successfully!"),
+        t("تم تسجيل الخروج بنجاح", "Logged out successfully"),
         "success"
       );
       window.location.href = "index.html";

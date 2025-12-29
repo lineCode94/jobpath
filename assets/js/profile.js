@@ -1,6 +1,5 @@
 import {
   updateProfile,
-  setAuthToken,
   getUserDetails,
   uploadCv,
   getAllCourses,
@@ -418,7 +417,7 @@ console.log(finalDateFormatted);
          renderCvUI(downloadUrl, meta);
 
          showToast(`  ${msg}`, "success");
-         window.location.reload();
+        //  window.location.reload();
        } catch (err) {
          console.error(err);
          showToast("⚠️ فشل جلب بيانات الملف بعد الرفع", "error");
@@ -469,7 +468,7 @@ console.log(finalDateFormatted);
   const token = localStorage.getItem("authToken");
   let user = null;
   if (token) {
-    setAuthToken(token);
+    // setAuthToken(token);
     try {
       const response = await getUserDetails();
       console.log(response)
@@ -578,9 +577,13 @@ console.log(finalDateFormatted);
       const meta = {
         username: metaData.data.metadata.username,
         fileExtension: metaData.data.metadata.fileExtension,
-        date: formattedDate,
+        // date: formattedDate,
       };
-      renderCvUI(initCvPath, meta);
+  renderCvUI(
+    metaData?.data?.metadata?.downloadUrl || null,
+    metaData?.data?.metadata || {}
+  );
+
     } catch (err) {
       console.error("Error fetching user details:", err);
       // still render empty UI
@@ -615,8 +618,10 @@ console.log(finalDateFormatted);
         showToast("  تم حفظ البيانات بنجاح!", "success");
 
         if (res.data?.isPhoneChanged) {
-          localStorage.removeItem("authToken");
-          window.location.href = "/index.html";
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("loginTime");
+        window.location.href = "/index.html";
+
         }
       } catch (err) {
         console.error(err);
