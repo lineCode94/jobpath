@@ -1,4 +1,4 @@
-// contactUs.js
+// contact-us.js
 
 // Initialize EmailJS (replace with your correct Public Key)
 emailjs.init("YOUR_CORRECT_PUBLIC_KEY");
