@@ -493,6 +493,7 @@ console.log(finalDateFormatted);
 
  console.log(metaData.data.metadata);
       user = response?.data?.currentUser || null;
+      console.log("user",user);
   const res = await getAllCourses();
       const jobsNamesRes = await getJobNames();
       const jobNames = jobsNamesRes.data.jobNames;

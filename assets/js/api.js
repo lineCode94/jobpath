@@ -7,17 +7,12 @@ const API_BASE = "https://api.jobzai.net/api/v1";
 // ==================== AXIOS INSTANCE ====================
 export const api = axios.create({
   baseURL: API_BASE,
+  withCredentials: true, // ✅ أهم سطر (إرسال الكوكي)
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
   },
 });
-// ==================== INIT TOKEN FROM STORAGE ====================
-const storedToken = localStorage.getItem("authToken");
-
-if (storedToken) {
-  api.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`;
-}
 
 // ==================== TOAST ====================
 function showToast(message, type = "info") {
@@ -43,65 +38,14 @@ function showToast(message, type = "info") {
   }).showToast();
 }
 
-// ==================== TOKEN HANDLING ====================
-export const setAuthToken = (token) => {
-  if (token) {
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  } else {
-    delete api.defaults.headers.common["Authorization"];
-  }
-};
-
-export function saveAuthToken(token) {
-  const expiryTime = Date.now() + 2 * 60 * 60 * 1000; // 2 hours
-  localStorage.setItem("authToken", token);
-  localStorage.setItem("tokenExpiry", expiryTime.toString());
-  setAuthToken(token);
-}
-
-export function isTokenExpired() {
-  const expiry = localStorage.getItem("tokenExpiry");
-  if (!expiry) return false;
-  return Date.now() > parseInt(expiry, 10);
-}
-
-export function checkTokenExpiration() {
-  const token = localStorage.getItem("authToken");
-  const expiry = localStorage.getItem("tokenExpiry");
-
-  if (!token || !expiry) return;
-
-  if (Date.now() > parseInt(expiry, 10)) {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("tokenExpiry");
-    setAuthToken(null);
-
-    showToast("⚠️ Session expired. Please login again.", "warning");
-
-    setTimeout(() => {
-      window.location.href = "index.html";
-    }, 1500);
-  }
-}
-
-// check every minute
-setInterval(checkTokenExpiration, 60 * 1000);
-
 // ==================== RESPONSE INTERCEPTOR ====================
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error?.response?.status;
-    const msg = error?.response?.data?.msg || error?.response?.data?.message;
 
-    if (status === 401 || status === 403 || msg === "Token not provided") {
-      console.warn("🚫 Unauthorized – redirecting to login");
-
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("tokenExpiry");
-      setAuthToken(null);
-
-      showToast("⚠️ Please login again", "warning");
+    if (status === 401 || status === 403) {
+      showToast("⚠️ Session expired. Please login again.", "warning");
 
       setTimeout(() => {
         window.location.href = "index.html";
@@ -113,29 +57,26 @@ api.interceptors.response.use(
 );
 
 // ==================== AUTH ====================
+
+// OTP (بدون توكين أصلاً)
 export const sendOtp = (phone) => api.post("/users/send-otp", { phone });
 
 export const verifyOtp = (phone, otp) =>
   api.post("/users/verify-otp", { phone, otp });
 
+// Login (السيرفر بيحط التوكين في Cookie)
 export async function loginUser(identifier, password) {
   const payload = identifier.includes("@")
     ? { email: identifier, password }
     : { phone: identifier, password };
 
   const res = await api.post("/users/sign-in", payload);
-  const token = res?.data?.token;
-
-  if (token) saveAuthToken(token);
-
   return res.data;
 }
 
+// Logout (السيرفر يمسح الكوكي)
 export async function logoutUser() {
   await api.post("/users/logout");
-  localStorage.removeItem("authToken");
-  localStorage.removeItem("tokenExpiry");
-  setAuthToken(null);
 }
 
 // ==================== USER ====================
@@ -143,22 +84,19 @@ export const updateProfile = (data) =>
   api.patch("/users/complete-profile", data);
 
 export const getUserDetails = () => api.get("/users/get-user-details");
-// ats functions
-export const sendAtsRequest = () => {
-  return api.get("/ats/send-req");
-};
-export const getAtsStatus = () => {
-  return api.get("/ats/get-req-status");
-};
-export const getAtsResult = () => {
-  return api.get("/ats/get-req-result");
-};
-//end ats functions
+
 export const getAllCourses = () => api.get("/users/get-user-courses");
 
 export const getJobNames = () => api.get("/users/get-user-job-names");
 
 export const getCvMeta = () => api.get("/users/get-user-cv-metadata");
+
+// ==================== ATS ====================
+export const sendAtsRequest = () => api.get("/ats/send-req");
+
+export const getAtsStatus = () => api.get("/ats/get-req-status");
+
+export const getAtsResult = () => api.get("/ats/get-req-result");
 
 // ==================== JOBS ====================
 export const getAllJobs = () => api.get("/users/get-all-jobs");
@@ -167,7 +105,6 @@ export const getJobsList = (lang = "en") => api.get(`/jobs/list?lang=${lang}`);
 
 export const getSingleJob = async (id, lang = "en") => {
   if (!id) return null;
-
   const res = await api.get(`/jobs/get-single-job/${id}?lang=${lang}`);
   return res.data?.status ? res.data.job : null;
 };

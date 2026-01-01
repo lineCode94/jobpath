@@ -61,22 +61,36 @@ document.addEventListener("DOMContentLoaded", function () {
     }).showToast();
   }
 
+  /* ================= Cookie Helpers ================= */
+
+  function setCookie(name, value, hours) {
+    const expires = new Date(Date.now() + hours * 60 * 60 * 1000).toUTCString();
+    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+  }
+
+  function getCookie(name) {
+    return document.cookie
+      .split("; ")
+      .find((row) => row.startsWith(name + "="))
+      ?.split("=")[1];
+  }
+
+  function deleteCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+  }
+
   /* ================= Auth Helpers ================= */
 
   function setAuth(token) {
-    // تنظيف أي بيانات قديمة
-    localStorage.clear();
-
-    localStorage.setItem("authToken", token);
-    localStorage.setItem("loginTime", Date.now());
+    setCookie("authToken", token, 2); // ساعتين
   }
 
   function clearAuth() {
-    localStorage.clear();
+    deleteCookie("authToken");
   }
 
   function isLoggedIn() {
-    return !!localStorage.getItem("authToken");
+    return !!getCookie("authToken");
   }
 
   function updateUI() {
@@ -92,37 +106,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateUI();
 
-  /* ================= Auto Logout ================= */
-  function checkAutoLogout() {
-    const token = localStorage.getItem("authToken");
-    const loginTime = localStorage.getItem("loginTime");
-    if (!token || !loginTime) return;
-
-    const TWO_HOURS = 2 * 60 * 60 * 1000;
-    if (Date.now() - Number(loginTime) >= TWO_HOURS) {
-      clearAuth();
-      window.location.href = "index.html";
-    }
-  }
-
-  checkAutoLogout();
-  setInterval(checkAutoLogout, 60 * 1000);
-
   /* ================= OTP Login ================= */
+
   if (loginFormPhone && sendBtn) {
     sendBtn.addEventListener("click", async () => {
       if (step === "verify") {
         const otp = otpInput.value.trim();
         if (!otp) {
-          showToast(
-            t("من فضلك ادخل كود التحقق", "Please enter the verification code"),
-            "warning"
-          );
+          showToast(t("ادخل كود التحقق", "Enter verification code"), "warning");
           return;
         }
-
-        sendBtn.disabled = true;
-        showToast(t("جاري التحقق من الكود...", "Verifying code..."), "info");
 
         try {
           const res = await verifyOtp(savedPhone, otp);
@@ -133,60 +126,40 @@ document.addEventListener("DOMContentLoaded", function () {
           setAuth(token);
           updateUI();
 
-          showToast(t("تم تسجيل الدخول بنجاح", "Login successful!"), "success");
-
+          showToast(t("تم تسجيل الدخول", "Login successful"), "success");
           bootstrap.Modal.getInstance(
             document.getElementById("loginModal")
           )?.hide();
         } catch {
-          showToast(
-            t("كود التحقق غير صحيح", "Invalid verification code"),
-            "error"
-          );
-        } finally {
-          sendBtn.disabled = false;
+          showToast(t("كود غير صحيح", "Invalid code"), "error");
         }
       } else {
         const phone = phoneInput.value.trim();
         if (!phone) {
-          showToast(
-            t("من فضلك ادخل رقم الهاتف", "Please enter your phone number"),
-            "warning"
-          );
+          showToast(t("ادخل رقم الهاتف", "Enter phone number"), "warning");
           return;
         }
-
-        sendBtn.disabled = true;
-        showToast(
-          t("جاري ارسال كود التحقق...", "Sending verification code..."),
-          "info"
-        );
 
         try {
           await sendOtp(phone);
           savedPhone = phone;
 
           otpSection.classList.remove("d-none");
-         phoneInput.parentElement.parentElement.style.display = "none";
+          phoneInput.parentElement.parentElement.style.display = "none";
 
-
-          sendBtn.textContent = t("تحقق من الكود", "Verify Code");
+          sendBtn.textContent = t("تحقق", "Verify");
           step = "verify";
 
-          showToast(
-            t("تم ارسال الكود بنجاح", "Code sent successfully"),
-            "success"
-          );
+          showToast(t("تم إرسال الكود", "Code sent"), "success");
         } catch {
-          showToast(t("فشل في ارسال الكود", "Failed to send code"), "error");
-        } finally {
-          sendBtn.disabled = false;
+          showToast(t("فشل الإرسال", "Failed to send code"), "error");
         }
       }
     });
   }
 
-  /* ================= Email / Password Login ================= */
+  /* ================= Email Login ================= */
+
   if (loginFormMail) {
     loginFormMail.addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -195,14 +168,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const password = document.getElementById("password").value.trim();
 
       if (!identifier || !password) {
-        showToast(
-          t("من فضلك املأ جميع الحقول", "Please fill all fields"),
-          "warning"
-        );
+        showToast(t("املأ كل الحقول", "Fill all fields"), "warning");
         return;
       }
-
-      showToast(t("جاري تسجيل الدخول...", "Logging in..."), "info");
 
       try {
         const res = await loginUser(identifier, password);
@@ -213,15 +181,14 @@ document.addEventListener("DOMContentLoaded", function () {
         setAuth(token);
         updateUI();
 
-        showToast(t("تم تسجيل الدخول بنجاح", "Login successful!"), "success");
-
+        showToast(t("تم تسجيل الدخول", "Login successful"), "success");
         bootstrap.Modal.getInstance(
           document.getElementById("loginModal")
         )?.hide();
       } catch (err) {
         showToast(
           err?.response?.data?.message ||
-            t("بيانات الدخول غير صحيحة", "Incorrect login credentials"),
+            t("بيانات غير صحيحة", "Invalid credentials"),
           "error"
         );
       }
@@ -229,13 +196,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /* ================= Logout ================= */
+
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
       clearAuth();
-      showToast(
-        t("تم تسجيل الخروج بنجاح", "Logged out successfully"),
-        "success"
-      );
+      showToast(t("تم تسجيل الخروج", "Logged out"), "success");
       window.location.href = "index.html";
     });
   }

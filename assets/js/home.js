@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const token = res?.data?.token || res?.data?.access_token;
         if (token) {
           localStorage.setItem("authToken", token);
-          localStorage.setItem("userId", res?.data?.id);
+          // localStorage.setItem("userId", res?.data?.id);
           showToast(
             document.documentElement.lang === "ar"
               ? "  تم التحقق من الرمز بنجاح!"
