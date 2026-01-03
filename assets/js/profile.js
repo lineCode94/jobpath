@@ -409,7 +409,7 @@ async function secureDownload(url, filename) {
       if (downloadUrl) {
         // بعد الرفع
         try {
-            alert(1)
+            // alert(1)
           // 1) جيب الميتاداتا الحقيقي من الاندبوينت
           const metaData = await getCvMeta();
           console.log(metaData);
@@ -457,7 +457,7 @@ async function secureDownload(url, filename) {
 
   // attach change handler to input (auto upload)
   if (cvInput) {
-    alert(3 )
+    // alert(3 )
     cvInput.addEventListener("change", async (e) => {
       const file = e.target.files?.[0];
       if (file) {
