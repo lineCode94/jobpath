@@ -355,6 +355,7 @@ async function secureDownload(url, filename) {
 
   // ---------------- Auto upload on file select ----------------
   async function handleAutoUpload(file) {
+ 
     if (!file) return;
     // allowed types (PDF, DOCX). Add more if backend accepts.
     const allowed = [
@@ -390,7 +391,6 @@ async function secureDownload(url, filename) {
       formData.append("cv", file);
 
       const res = await uploadCv(formData); // uploadCv comes from api.js and expects FormData
-
       // expected: res.data.urlInfo.downloadUrl or backend may return updated user
       // handle both possibilities
       const downloadUrl =
@@ -398,7 +398,7 @@ async function secureDownload(url, filename) {
         res?.data?.cvPath ||
         res?.data?.path ||
         null;
-        alert(downloadUrl)
+      //  alert(2)
       const msg =
         res?.data?.msg ||
         (currentLang === "ar"
@@ -408,8 +408,10 @@ async function secureDownload(url, filename) {
       if (downloadUrl) {
         // بعد الرفع
         try {
+            alert(1)
           // 1) جيب الميتاداتا الحقيقي من الاندبوينت
           const metaData = await getCvMeta();
+          console.log(metaData);
          const meta = metaData?.data?.metadata || {};
 
           // 2) اعمل render بناء على البيانات الصح اللي من الباك
@@ -454,6 +456,7 @@ async function secureDownload(url, filename) {
 
   // attach change handler to input (auto upload)
   if (cvInput) {
+    alert(3 )
     cvInput.addEventListener("change", async (e) => {
       const file = e.target.files?.[0];
       if (file) {
@@ -464,82 +467,75 @@ async function secureDownload(url, filename) {
 
   // ---------------- FETCH USER & INITIALIZE CV UI ----------------
   // ---------------- FETCH USER & INITIALIZE CV UI ----------------
-  let user = null;
+ 
+let user = null;
+let metaData = null;
 
+try {
+  // ========= USER (أساسي) =========
+  const response = await getUserDetails();
+  user = response?.data?.currentUser || null;
+
+  // ========= CV META (اختياري) =========
   try {
-    // ✅ Cookie-based auth (source of truth)
-    const response = await getUserDetails();
-    user = response?.data?.currentUser || null;
-
-    const metaData = await getCvMeta();
-    const date = metaData.data.metadata.date;
-
-    const correctDate = new Date(date);
-    const theLang = localStorage.getItem("lang") || "en";
-
-    const formattedDate =
-      theLang === "ar"
-        ? correctDate.toLocaleDateString("ar-EG", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          })
-        : correctDate.toLocaleDateString("en-US", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          });
-
-    const res = await getAllCourses();
-    const jobsNamesRes = await getJobNames();
-
-    const suggestedCourses = res.data.courses;
-    const jobNames = jobsNamesRes.data.jobNames;
-
-    const suggestedCoursesList = document.getElementById("suggestedCourses");
-    const jobNamesList = document.getElementById("jobNames");
-
-    suggestedCoursesList.innerHTML = "";
-    jobNamesList.innerHTML = "";
-
-    const lang = localStorage.getItem("lang") || "en";
-
-    suggestedCourses.forEach((course) => {
-      const courseName = lang === "ar" ? course.ar_name : course.en_name;
-      suggestedCoursesList.innerHTML += `<li><a href="${course.url}" target="_blank">${courseName}</a></li>`;
-    });
-
-    jobNames.forEach((name) => {
-      const jobname = lang === "ar" ? name.ar_name : name.en_name;
-      jobNamesList.innerHTML += `<li>${jobname}</li>`;
-    });
-
-    // ---------------- FILL PROFILE ----------------
-    if (user) {
-      if (user.fullName) nameInput.value = user.fullName;
-      if (user.email) emailInput.value = user.email;
-      if (user.phone) phoneInput.value = user.phone;
-      if (user.jobTitle) jobTitleInput.value = user.jobTitle;
-
-      if (user.facebook) Facebook.value = user.facebook;
-      if (user.linkedin) Linkedin.value = user.linkedin;
-      if (user.instagram) Instagram.value = user.instagram;
-      if (user.twitter) Twitter.value = user.twitter;
-      if (user.portfolio) Portfolio.value = user.portfolio;
-
-      populateSelect(citySelect, saudiCities, user.cityId, "id", "name");
-    }
-
-    renderCvUI(
-      metaData?.data?.metadata?.downloadUrl || null,
-      metaData?.data?.metadata || {}
-    );
-  } catch (err) {
-    console.error("Not logged in or error fetching profile:", err);
-
-    // ❌ not logged in
-    renderCvUI(null, {});
+    const metaRes = await getCvMeta();
+    metaData = metaRes?.data?.metadata || null;
+  } catch (cvErr) {
+    console.warn("CV metadata failed, continue page:", cvErr);
+    metaData = null; // مهم
   }
+
+  // ========= COURSES & JOBS (أساسي) =========
+  const res = await getAllCourses();
+  const jobsNamesRes = await getJobNames();
+
+  const suggestedCourses = res.data.courses;
+  const jobNames = jobsNamesRes.data.jobNames;
+
+  // ========= UI =========
+  const suggestedCoursesList = document.getElementById("suggestedCourses");
+  const jobNamesList = document.getElementById("jobNames");
+
+  suggestedCoursesList.innerHTML = "";
+  jobNamesList.innerHTML = "";
+
+  const lang = localStorage.getItem("lang") || "en";
+
+  suggestedCourses.forEach((course) => {
+    const courseName = lang === "ar" ? course.ar_name : course.en_name;
+    suggestedCoursesList.innerHTML += `<li><a href="${course.url}" target="_blank">${courseName}</a></li>`;
+  });
+
+  jobNames.forEach((name) => {
+    const jobname = lang === "ar" ? name.ar_name : name.en_name;
+    jobNamesList.innerHTML += `<li>${jobname}</li>`;
+  });
+
+  // ========= PROFILE =========
+  if (user) {
+    if (user.fullName) nameInput.value = user.fullName;
+    if (user.email) emailInput.value = user.email;
+    if (user.phone) phoneInput.value = user.phone;
+    if (user.jobTitle) jobTitleInput.value = user.jobTitle;
+
+    if (user.facebook) Facebook.value = user.facebook;
+    if (user.linkedin) Linkedin.value = user.linkedin;
+    if (user.instagram) Instagram.value = user.instagram;
+    if (user.twitter) Twitter.value = user.twitter;
+    if (user.portfolio) Portfolio.value = user.portfolio;
+
+    populateSelect(citySelect, saudiCities, user.cityId, "id", "name");
+  }
+
+  // ========= CV UI =========
+  renderCvUI(metaData?.downloadUrl || null, metaData || {});
+} catch (err) {
+  console.error("Critical error (user not logged in):", err);
+
+  // بس هنا لو اليوزر نفسه فشل
+  renderCvUI(null, {});
+}
+
 
   // ---------------- PROFILE FORM SUBMISSION ----------------
   if (form) {

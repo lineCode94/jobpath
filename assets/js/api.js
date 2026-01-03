@@ -89,6 +89,7 @@ export async function loginUser(identifier, password) {
 // Logout (السيرفر يمسح الكوكي)
 export async function logoutUser() {
   await api.get("/users/log-out");
+  window.location.href = "index.html";
 }
 
 // ==================== USER ====================
