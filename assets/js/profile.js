@@ -6,6 +6,7 @@ import {
   getJobNames,
   getUserReports,
   getCvMeta,
+  logoutUser,
 } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -538,70 +539,79 @@ try {
 
 
   // ---------------- PROFILE FORM SUBMISSION ----------------
-  if (form) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!token) return showToast("⚠️ لم يتم تسجيل الدخول.", "warning");
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!user) return showToast("⚠️ لم يتم تسجيل الدخول.", "warning");
 
-      try {
-        const payload = {};
-        console.log(payload);
-        if (nameInput.value.trim()) payload.name = nameInput.value.trim();
-        if (emailInput.value.trim()) payload.email = emailInput.value.trim();
-        if (phoneInput.value.trim()) payload.phone = phoneInput.value.trim();
-        if (jobTitleInput.value.trim())
-          payload.jobTitle = jobTitleInput.value.trim();
-        if (citySelect.value) payload.cityId = parseInt(citySelect.value, 10);
-        if (passwordInput.value.trim()) {
-          payload.newPassword = passwordInput.value.trim();
-          if (oldPasswordInput.value.trim())
-            payload.oldPassword = oldPasswordInput.value.trim();
+    try {
+      const payload = {};
+
+      if (nameInput.value.trim()) payload.name = nameInput.value.trim();
+      if (emailInput.value.trim()) payload.email = emailInput.value.trim();
+      if (phoneInput.value.trim()) payload.phone = phoneInput.value.trim();
+      if (jobTitleInput.value.trim())
+        payload.jobTitle = jobTitleInput.value.trim();
+      if (citySelect.value) payload.cityId = parseInt(citySelect.value, 10);
+
+      // ✅ PASSWORD LOGIC
+      if (passwordInput && passwordInput.value.trim()) {
+        payload.newPassword = passwordInput.value.trim();
+
+        if (oldPasswordInput && oldPasswordInput.value.trim()) {
+          payload.oldPassword = oldPasswordInput.value.trim();
         }
-
-        const res = await updateProfile(payload, false);
-        showToast("  تم حفظ البيانات بنجاح!", "success");
-
-        if (res.data?.isPhoneChanged) {
-          localStorage.removeItem("authToken");
-          localStorage.removeItem("loginTime");
-          window.location.href = "/index.html";
-        }
-      } catch (err) {
-        console.error(err);
-        showToast(
-          `⚠️ فشل حفظ البيانات: ${err.response?.data?.msg || err.message}`,
-          "error"
-        );
       }
-    });
-  }
+
+      const res = await updateProfile(payload, false);
+      showToast("تم حفظ البيانات بنجاح!", "success");
+
+      if (res.data?.isPhoneChanged) {
+        logoutUser();
+        window.location.href = "/index.html";
+      }
+    } catch (err) {
+      console.error(err);
+      showToast(
+        `⚠️ فشل حفظ البيانات: ${err.response?.data?.msg || err.message}`,
+        "error"
+      );
+    }
+  });
+}
+
 
   // ---------------- SOCIAL LINKS FORM ----------------
-  if (socialForm) {
-    socialForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!token) return showToast("⚠️ لم يتم تسجيل الدخول.", "warning");
+if (socialForm) {
+  socialForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      try {
-        const payload = {
-          facebook: document.getElementById("Facebook").value.trim() || null,
-          linkedin: document.getElementById("Linkedin").value.trim() || null,
-          instagram: document.getElementById("Instagram").value.trim() || null,
-          twitter: document.getElementById("Twitter").value.trim() || null,
-          portfolio: document.getElementById("Portfolio").value.trim() || null,
-        };
+    // ✅ Cookie-based auth check
+    if (!user) {
+      showToast("⚠️ لم يتم تسجيل الدخول.", "warning");
+      return;
+    }
 
-        await updateProfile(payload, false);
-        showToast("  تم حفظ روابط التواصل بنجاح!", "success");
-      } catch (err) {
-        console.error(err);
-        showToast(
-          `  فشل حفظ الروابط: ${err.response?.data?.msg || err.message}`,
-          "error"
-        );
-      }
-    });
-  }
+    try {
+      const payload = {
+        facebook: document.getElementById("Facebook").value.trim() || null,
+        linkedin: document.getElementById("Linkedin").value.trim() || null,
+        instagram: document.getElementById("Instagram").value.trim() || null,
+        twitter: document.getElementById("Twitter").value.trim() || null,
+        portfolio: document.getElementById("Portfolio").value.trim() || null,
+      };
+
+      await updateProfile(payload, false);
+      showToast("تم حفظ روابط التواصل بنجاح!", "success");
+    } catch (err) {
+      console.error(err);
+      showToast(
+        `فشل حفظ الروابط: ${err.response?.data?.msg || err.message}`,
+        "error"
+      );
+    }
+  });
+}
   //get all reports 
    const reportsContainer = document.getElementById("reports");
    if (reportsContainer) {
