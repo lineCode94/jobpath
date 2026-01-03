@@ -11,7 +11,6 @@ import {
 document.addEventListener("DOMContentLoaded", async () => {
   const socialForm = document.getElementById("socialForm");
   const form = document.getElementById("profileForm");
-
   const currentLang = localStorage.getItem("lang") || "en";
   const translations = {
     en: {
@@ -44,48 +43,48 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // small area to show filename + timestamp (we'll inject it into cvPreviewDiv)
   // showToast helper
-function showToast(message, type = "info") {
-  const styles = {
-    success: {
-      icon: '<i class="fa-solid fa-circle-check"></i>',
-      bg: "linear-gradient(135deg, #28a745, #6fdc8d)",
-    },
-    error: {
-      icon: '<i class="fa-solid fa-circle-xmark"></i>',
-      bg: "linear-gradient(135deg, #dc3545, #ff6b81)",
-    },
-    warning: {
-      icon: '<i class="fa-solid fa-triangle-exclamation"></i>',
-      bg: "linear-gradient(135deg, #ffc107, #ffd861)",
-    },
-    info: {
-      icon: '<i class="fa-solid fa-circle-info"></i>',
-      bg: "linear-gradient(135deg, #007bff, #6bb6ff)",
-    },
-  };
+  function showToast(message, type = "info") {
+    const styles = {
+      success: {
+        icon: '<i class="fa-solid fa-circle-check"></i>',
+        bg: "linear-gradient(135deg, #28a745, #6fdc8d)",
+      },
+      error: {
+        icon: '<i class="fa-solid fa-circle-xmark"></i>',
+        bg: "linear-gradient(135deg, #dc3545, #ff6b81)",
+      },
+      warning: {
+        icon: '<i class="fa-solid fa-triangle-exclamation"></i>',
+        bg: "linear-gradient(135deg, #ffc107, #ffd861)",
+      },
+      info: {
+        icon: '<i class="fa-solid fa-circle-info"></i>',
+        bg: "linear-gradient(135deg, #007bff, #6bb6ff)",
+      },
+    };
 
-  Toastify({
-    text: `${styles[type].icon} <span style="margin-left:8px">${message}</span>`,
-    duration: 3500,
-    gravity: "bottom", // يظهر تحت
-    position: "left", // شمال
-    close: true,
-    escapeMarkup: false, // 👈 مهم عشان يسمح بعرض HTML داخل التوست
-    offset: { x: 20, y: 20 },
-    style: {
-      background: styles[type].bg,
-      color: "#fff",
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-      fontSize: "15px",
-      fontWeight: "600",
-      borderRadius: "10px",
-      padding: "12px 18px",
-      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-    },
-  }).showToast();
-}
+    Toastify({
+      text: `${styles[type].icon} <span style="margin-left:8px">${message}</span>`,
+      duration: 3500,
+      gravity: "bottom", // يظهر تحت
+      position: "left", // شمال
+      close: true,
+      escapeMarkup: false, // 👈 مهم عشان يسمح بعرض HTML داخل التوست
+      offset: { x: 20, y: 20 },
+      style: {
+        background: styles[type].bg,
+        color: "#fff",
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+        fontSize: "15px",
+        fontWeight: "600",
+        borderRadius: "10px",
+        padding: "12px 18px",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+      },
+    }).showToast();
+  }
 
   const saudiCities = [
     { id: 9429, name: "Riyadh" },
@@ -97,11 +96,11 @@ function showToast(message, type = "info") {
     { id: 9435, name: "Abha" },
   ];
 
-  const jobs = [
-    { id: 1, title: "Software engineer" },
-    { id: 2, title: "Back end developer" },
-    { id: 3, title: "Front end developer" },
-  ];
+  // const jobs = [
+  //   { id: 1, title: "Software engineer" },
+  //   { id: 2, title: "Back end developer" },
+  //   { id: 3, title: "Front end developer" },
+  // ];
 
   function populateSelect(
     selectEl,
@@ -125,37 +124,30 @@ function showToast(message, type = "info") {
       }
     }
   }
+//get  reports
 
+       
   // ---------------- secure download (returns file to user) ----------------
-  async function secureDownload(url, suggestedName = "cv.pdf") {
-    try {
-      const token = localStorage.getItem("authToken");
-      const res = await fetch(url, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!res.ok) {
-        showToast("⚠️ فشل تحميل السيرة الذاتية", "error");
-        return;
-      }
-      const blob = await res.blob();
-      const downloadUrl = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = downloadUrl;
-      a.download = suggestedName;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(downloadUrl);
-    } catch (err) {
-      console.error(err);
-      showToast("⚠️ حدث خطأ أثناء تحميل السيرة الذاتية", "error");
-    }
+async function secureDownload(url, filename) {
+  const res = await fetch(url, {
+    credentials: "include", // ✅
+  });
+
+  if (!res.ok) {
+    showToast("⚠️ فشل تحميل الملف", "error");
+    return;
   }
+
+  const blob = await res.blob();
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
 
   // ---------------- helpers: filename / date formatting ----------------
   function filenameFromPath(path) {
-    
     if (!path) return "";
     try {
       const u = new URL(path);
@@ -184,176 +176,182 @@ function showToast(message, type = "info") {
   }
 
   // ---------------- render CV UI (download / preview / meta) ----------------
- function renderCvUI(cvPath = null, meta = {}) {
-  console.log("meta render cv",meta)
-   if (!cvDownloadDiv || !cvUploadingDiv || !cvPreviewDiv) return;
+  function renderCvUI(cvPath = null, meta = {}) {
+    console.log("meta render cv", meta);
+    if (!cvDownloadDiv || !cvUploadingDiv || !cvPreviewDiv) return;
 
-   cvDownloadDiv.innerHTML = "";
-   cvUploadingDiv.innerHTML = "";
-   cvPreviewDiv.innerHTML = "";
+    cvDownloadDiv.innerHTML = "";
+    cvUploadingDiv.innerHTML = "";
+    cvPreviewDiv.innerHTML = "";
 
-   // -----------------------
-   // Align buttons to the right
-   // -----------------------
-   cvDownloadDiv.style.display = "flex";
-   cvDownloadDiv.style.justifyContent = "flex-end";
-   cvDownloadDiv.style.gap = "10px";
+    // -----------------------
+    // Align buttons to the right
+    // -----------------------
+    cvDownloadDiv.style.display = "flex";
+    cvDownloadDiv.style.justifyContent = "flex-end";
+    cvDownloadDiv.style.gap = "10px";
 
-   // -----------------------
-   // Helpers
-   // -----------------------
-   const arabicMonths = {
-     يناير: "January",
-     فبراير: "February",
-     مارس: "March",
-     أبريل: "April",
-     ابريل: "April",
-     مايو: "May",
-     يونيو: "June",
-     يوليو: "July",
-     أغسطس: "August",
-     اغسطس: "August",
-     سبتمبر: "September",
-     أكتوبر: "October",
-     اكتوبر: "October",
-     نوفمبر: "November",
-     ديسمبر: "December",
-   };
+    // -----------------------
+    // Helpers
+    // -----------------------
+    const arabicMonths = {
+      يناير: "January",
+      فبراير: "February",
+      مارس: "March",
+      أبريل: "April",
+      ابريل: "April",
+      مايو: "May",
+      يونيو: "June",
+      يوليو: "July",
+      أغسطس: "August",
+      اغسطس: "August",
+      سبتمبر: "September",
+      أكتوبر: "October",
+      اكتوبر: "October",
+      نوفمبر: "November",
+      ديسمبر: "December",
+    };
 
-   const arabicToEnglishDigits = (str) =>
-     str.replace(/[٠-٩]/g, (d) => "0123456789"[d.charCodeAt(0) - 0x0660]);
+    const arabicToEnglishDigits = (str) =>
+      str.replace(/[٠-٩]/g, (d) => "0123456789"[d.charCodeAt(0) - 0x0660]);
 
-   const normalizeArabicDate = (dateStr) => {
-     let s = arabicToEnglishDigits(dateStr.trim());
+    const normalizeArabicDate = (dateStr) => {
+      let s = arabicToEnglishDigits(dateStr.trim());
 
-     // استبدال الشهر العربي بالشهر الإنجليزي
-     for (const [ar, en] of Object.entries(arabicMonths)) {
-       const regex = new RegExp(ar, "g");
-       s = s.replace(regex, en);
-     }
+      // استبدال الشهر العربي بالشهر الإنجليزي
+      for (const [ar, en] of Object.entries(arabicMonths)) {
+        const regex = new RegExp(ar, "g");
+        s = s.replace(regex, en);
+      }
 
-     return s;
-   };
+      return s;
+    };
 
-   const formatDate = (dateStr) => {
-     if (!dateStr) return currentLang === "ar" ? "تاريخ غير متاح" : "No date";
+    const formatDate = (dateStr) => {
+      if (!dateStr) return currentLang === "ar" ? "تاريخ غير متاح" : "No date";
 
-     const normalized = normalizeArabicDate(dateStr);
-     const d = new Date(normalized);
+      const normalized = normalizeArabicDate(dateStr);
+      const d = new Date(normalized);
 
-     if (isNaN(d)) return currentLang === "ar" ? "تاريخ غير متاح" : "No date";
+      if (isNaN(d)) return currentLang === "ar" ? "تاريخ غير متاح" : "No date";
 
-     return d.toLocaleDateString(currentLang === "ar" ? "ar-EG" : "en-US", {
-       day: "numeric",
-       month: "long",
-       year: "numeric",
-     });
-   };
+      return d.toLocaleDateString(currentLang === "ar" ? "ar-EG" : "en-US", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    };
 
-   // -----------------------
-   // Build final filename safely
-   // -----------------------
-   const user = meta?.username || "cv";
-   console.log("user",user)
-   const ext = meta?.fileExtension || ".pdf";
-   const finalFileName = `${user}${ext}`;
+    // -----------------------
+    // Build final filename safely
+    // -----------------------
+    const user = meta?.username || "cv";
 
-   console.log("finalFileName:", finalFileName);
+    const ext = meta?.fileExtension || ".pdf";
+    const finalFileName = `${user}${ext}`;
 
-   const finalDateFormatted = formatDate(meta?.date);
-console.log(finalDateFormatted);
+    console.log("finalFileName:", finalFileName);
 
-   // -----------------------
-   // Download button
-   // -----------------------
-   const downloadBtn = document.createElement("button");
-   downloadBtn.type = "button";
-   downloadBtn.className = "rts__btn fill__btn";
-   downloadBtn.style.cssText =
-     "border-radius:50%;padding:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;";
-   downloadBtn.innerHTML = `<i class="fa-solid fa-download"></i>`;
+    const finalDateFormatted = formatDate(meta?.date);
+    console.log(finalDateFormatted);
 
-   if (!cvPath) {
-     downloadBtn.disabled = true;
-     downloadBtn.title = currentLang === "ar" ? "لا يوجد سيرة ذاتية" : "No CV";
-     downloadBtn.style.opacity = "0.45";
-   } else {
-     downloadBtn.title =
-       currentLang === "ar" ? "تحميل السيرة الذاتية" : "Download CV";
-     downloadBtn.addEventListener("click", () => {
-      //  alert(finalFileName);
-       secureDownload(cvPath, finalFileName);
-     });
-   }
+    // -----------------------
+    // Download button
+    // -----------------------
+    const downloadBtn = document.createElement("button");
+    downloadBtn.type = "button";
+    downloadBtn.className = "rts__btn fill__btn";
+    downloadBtn.style.cssText =
+      "border-radius:50%;padding:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;";
+    downloadBtn.innerHTML = `<i class="fa-solid fa-download"></i>`;
 
-   cvDownloadDiv.appendChild(downloadBtn);
+    if (!cvPath) {
+      downloadBtn.disabled = true;
+      downloadBtn.title = currentLang === "ar" ? "لا يوجد سيرة ذاتية" : "No CV";
+      downloadBtn.style.opacity = "0.45";
+    } else {
+      downloadBtn.title =
+        currentLang === "ar" ? "تحميل السيرة الذاتية" : "Download CV";
+      downloadBtn.addEventListener("click", () => {
+        //  alert(finalFileName);
+        secureDownload(cvPath, finalFileName);
+      });
+    }
 
-   // -----------------------
-   // Preview button
-   // -----------------------
-   const previewBtn = document.createElement("button");
-   previewBtn.type = "button";
-   previewBtn.className = "rts__btn fill__btn";
-   previewBtn.style.cssText =
-     "border-radius:50%;padding:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;";
-   previewBtn.innerHTML = `<i class="fa-solid fa-eye"></i>`;
+    cvDownloadDiv.appendChild(downloadBtn);
 
-   if (!cvPath) {
-     previewBtn.disabled = true;
-     previewBtn.style.opacity = "0.45";
-     previewBtn.title = currentLang === "ar" ? "لا يوجد معاينة" : "No preview";
-   } else {
-     previewBtn.title =
-       currentLang === "ar" ? "معاينة السيرة الذاتية" : "Preview CV";
-     previewBtn.addEventListener("click", async () => {
-       try {
-         const token = localStorage.getItem("authToken");
-         const res = await fetch(cvPath, {
-           method: "GET",
-           headers: { Authorization: `Bearer ${token}` },
-         });
-         if (!res.ok) {
-           showToast("⚠️ فشل جلب الملف للمعاينة", "error");
-           return;
-         }
-         const blob = await res.blob();
-         const url = URL.createObjectURL(blob);
-         window.open(url, "_blank");
-       } catch (err) {
-         console.error(err);
-         showToast("⚠️ خطأ أثناء المعاينة", "error");
-       }
-     });
-   }
+    // -----------------------
+    // Preview button
+    // -----------------------
+    const previewBtn = document.createElement("button");
+    previewBtn.type = "button";
+    previewBtn.className = "rts__btn fill__btn";
+    previewBtn.style.cssText =
+      "border-radius:50%;padding:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;";
+    previewBtn.innerHTML = `<i class="fa-solid fa-eye"></i>`;
 
-   cvDownloadDiv.appendChild(previewBtn);
+    if (!cvPath) {
+      previewBtn.disabled = true;
+      previewBtn.style.opacity = "0.45";
+      previewBtn.title = currentLang === "ar" ? "لا يوجد معاينة" : "No preview";
+    } else {
+      previewBtn.title =
+        currentLang === "ar" ? "معاينة السيرة الذاتية" : "Preview CV";
+  previewBtn.addEventListener("click", async () => {
+    try {
+      const res = await fetch(cvPath, {
+        method: "GET",
+        credentials: "include", // ✅ IMPORTANT
+      });
 
-   // -----------------------
-   // Meta display
-   // -----------------------
-   const metaWrap = document.createElement("div");
-   metaWrap.classList.add("meta-text");
+      if (!res.ok) {
+        showToast(
+          currentLang === "ar"
+            ? "⚠️ فشل جلب الملف للمعاينة"
+            : "Failed to load preview",
+          "error"
+        );
+        return;
+      }
 
-   const fileNameText = document.createElement("div");
-   fileNameText.style.cssText =
-     "font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;";
-   fileNameText.textContent = finalFileName;
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
+    } catch (err) {
+      console.error(err);
+      showToast(
+        currentLang === "ar" ? "⚠️ خطأ أثناء المعاينة" : "Preview error",
+        "error"
+      );
+    }
+  });
 
-   const dateText = document.createElement("div");
-   dateText.style.cssText = "font-size:12px;color:#6b6b6b;";
-   dateText.textContent =
-     (currentLang === "ar" ? "تم الرفع في: " : "Uploaded at: ") +
-     finalDateFormatted;
+    }
 
-   metaWrap.appendChild(fileNameText);
-   metaWrap.appendChild(dateText);
+    cvDownloadDiv.appendChild(previewBtn);
 
-   cvPreviewDiv.appendChild(metaWrap);
- }
+    // -----------------------
+    // Meta display
+    // -----------------------
+    const metaWrap = document.createElement("div");
+    metaWrap.classList.add("meta-text");
 
+    const fileNameText = document.createElement("div");
+    fileNameText.style.cssText =
+      "font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;";
+    fileNameText.textContent = finalFileName;
 
+    const dateText = document.createElement("div");
+    dateText.style.cssText = "font-size:12px;color:#6b6b6b;";
+    dateText.textContent =
+      (currentLang === "ar" ? "تم الرفع في: " : "Uploaded at: ") +
+      finalDateFormatted;
 
+    metaWrap.appendChild(fileNameText);
+    metaWrap.appendChild(dateText);
 
+    cvPreviewDiv.appendChild(metaWrap);
+  }
 
   // ---------------- Auto upload on file select ----------------
   async function handleAutoUpload(file) {
@@ -400,44 +398,44 @@ console.log(finalDateFormatted);
         res?.data?.cvPath ||
         res?.data?.path ||
         null;
+        alert(downloadUrl)
       const msg =
         res?.data?.msg ||
         (currentLang === "ar"
           ? "تم رفع السيرة الذاتية بنجاح!"
           : "CV uploaded successfully!");
 
-     if (downloadUrl) {
-       // بعد الرفع
-       try {
-         // 1) جيب الميتاداتا الحقيقي من الاندبوينت
-         const metaData = await getCvMeta();
-         const meta = metaData?.metadata || {};
+      if (downloadUrl) {
+        // بعد الرفع
+        try {
+          // 1) جيب الميتاداتا الحقيقي من الاندبوينت
+          const metaData = await getCvMeta();
+         const meta = metaData?.data?.metadata || {};
 
-         // 2) اعمل render بناء على البيانات الصح اللي من الباك
-         renderCvUI(downloadUrl, meta);
+          // 2) اعمل render بناء على البيانات الصح اللي من الباك
+          renderCvUI(downloadUrl, meta);
 
-         showToast(`  ${msg}`, "success");
-        //  window.location.reload();
-       } catch (err) {
-         console.error(err);
-         showToast("⚠️ فشل جلب بيانات الملف بعد الرفع", "error");
-       }
-     } else {
-       // fallback لو السيرفر رجعش لينك
-       try {
-         const refreshed = await getCvMeta();
-         const meta = refreshed?.metadata || {};
+          showToast(`  ${msg}`, "success");
+          //  window.location.reload();
+        } catch (err) {
+          console.error(err);
+          showToast("⚠️ فشل جلب بيانات الملف بعد الرفع", "error");
+        }
+      } else {
+        // fallback لو السيرفر رجعش لينك
+        try {
+          const refreshed = await getCvMeta();
+          const meta = refreshed?.metadata || {};
 
-         const newCv = refreshed?.metadata?.downloadUrl || null;
+          const newCv = refreshed?.metadata?.downloadUrl || null;
 
-         renderCvUI(newCv, meta);
-         showToast(`  ${msg}`, "success");
-       } catch {
-         renderCvUI(null, {});
-         showToast(`  ${msg}`, "success");
-       }
-     }
-
+          renderCvUI(newCv, meta);
+          showToast(`  ${msg}`, "success");
+        } catch {
+          renderCvUI(null, {});
+          showToast(`  ${msg}`, "success");
+        }
+      }
     } catch (err) {
       console.error("Upload error:", err);
       const errMsg =
@@ -465,133 +463,81 @@ console.log(finalDateFormatted);
   }
 
   // ---------------- FETCH USER & INITIALIZE CV UI ----------------
-  const token = localStorage.getItem("authToken");
+  // ---------------- FETCH USER & INITIALIZE CV UI ----------------
   let user = null;
-  if (token) {
-    // setAuthToken(token);
-    try {
-      const response = await getUserDetails();
-      console.log(response)
- const metaData = await getCvMeta();
- const date = metaData.data.metadata.date;
- const correctDate = new Date(date);
- const theLang = localStorage.getItem("lang") || "en";
- const formattedDate =
-   theLang === "ar"
-     ? correctDate.toLocaleDateString("ar-EG", {
-         day: "numeric",
-         month: "long",
-         year: "numeric",
-       })
-     : correctDate.toLocaleDateString("en-US", {
-         day: "numeric",
-         month: "long",
-         year: "numeric",
-       });
-//  const fileExtension = metaData.data.metadata.fileExtension;
 
+  try {
+    // ✅ Cookie-based auth (source of truth)
+    const response = await getUserDetails();
+    user = response?.data?.currentUser || null;
 
- console.log(metaData.data.metadata);
-      user = response?.data?.currentUser || null;
-      console.log("user",user);
-  const res = await getAllCourses();
-      const jobsNamesRes = await getJobNames();
-      const jobNames = jobsNamesRes.data.jobNames;
+    const metaData = await getCvMeta();
+    const date = metaData.data.metadata.date;
+
+    const correctDate = new Date(date);
+    const theLang = localStorage.getItem("lang") || "en";
+
+    const formattedDate =
+      theLang === "ar"
+        ? correctDate.toLocaleDateString("ar-EG", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })
+        : correctDate.toLocaleDateString("en-US", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          });
+
+    const res = await getAllCourses();
+    const jobsNamesRes = await getJobNames();
 
     const suggestedCourses = res.data.courses;
-    const suggestedCoursesList = document.getElementById("suggestedCourses");
+    const jobNames = jobsNamesRes.data.jobNames;
 
+    const suggestedCoursesList = document.getElementById("suggestedCourses");
     const jobNamesList = document.getElementById("jobNames");
-    jobNamesList.innerHTML = "";
+
     suggestedCoursesList.innerHTML = "";
+    jobNamesList.innerHTML = "";
 
     const lang = localStorage.getItem("lang") || "en";
+
     suggestedCourses.forEach((course) => {
       const courseName = lang === "ar" ? course.ar_name : course.en_name;
       suggestedCoursesList.innerHTML += `<li><a href="${course.url}" target="_blank">${courseName}</a></li>`;
     });
-     jobNames.forEach((name) => {
-       const jobname = lang === "ar" ? name.ar_name : name.en_name;
-       jobNamesList.innerHTML += `<li>${jobname}</li>`;
-     });
-      // fill profile fields
-      if (user) {
-        if (user.havePassword !== undefined && passwordInput && passwordLabel) {
-          if (user.havePassword) {
-            passwordLabel.innerText = translations[currentLang].updatePassword;
-            passwordInput.placeholder =
-              translations[currentLang].updatePassword;
-          } else {
-            passwordLabel.innerText = translations[currentLang].createPassword;
-            passwordInput.placeholder =
-              translations[currentLang].createPassword;
-          }
-        }
-        if (user.fullName) nameInput.value = user.fullName;
-        if (user.email) emailInput.value = user.email;
-        if (user.phone) phoneInput.value = user.phone;
-        if (user.jobTitle) jobTitleInput.value = user.jobTitle;
-          if (user.facebook)
-            document.getElementById("Facebook").value = user.facebook;
-        if (user.linkedin)
-          document.getElementById("Linkedin").value = user.linkedin;
-        if (user.instagram)
-          document.getElementById("Instagram").value = user.instagram;
-        if (user.twitter)
-          document.getElementById("Twitter").value = user.twitter;
-        if (user.portfolio)
-          document.getElementById("Portfolio").value = user.portfolio;
 
-        populateSelect(citySelect, saudiCities, user.cityId, "id", "name");
-        // populateSelect( jobs, user.jobId, "id", "title");
-           const reportsContainer = document.getElementById("reports");
-           if (reportsContainer) {
-             try {
-               const reportRes = await getUserReports();
-               if (reportRes.status && reportRes.last_report) {
-                 reportsContainer.innerHTML = `
-                <div class="p-3 text-center">
-                  <a href="${reportRes.last_report}" target="_blank" class="btn btn-primary">
-                    <i class="fa-solid fa-download me-2"></i>
-                    <span data-en="Download Job Report" data-ar="تحميل تقرير الوظائف">
-                      Download Job Report
-                    </span>
-                  </a>
-                </div>`;
-               } else {
-                 reportsContainer.innerHTML = `
-                <div class="p-3 text-center text-muted">
-                  <i class="fa-regular fa-file me-2"></i>
-                  <span data-en="No job reports found" data-ar="لا توجد تقارير وظائف">
-                    No job reports found
-                  </span>
-                </div>`;
-               }
-             } catch (err) {
-               console.error("Error fetching user reports:", err);
-             }
-           }
-      }
+    jobNames.forEach((name) => {
+      const jobname = lang === "ar" ? name.ar_name : name.en_name;
+      jobNamesList.innerHTML += `<li>${jobname}</li>`;
+    });
 
-      // initial render CV section
-      const initCvPath = user?.cvPath || null;
-      const meta = {
-        username: metaData.data.metadata.username,
-        fileExtension: metaData.data.metadata.fileExtension,
-        // date: formattedDate,
-      };
-  renderCvUI(
-    metaData?.data?.metadata?.downloadUrl || null,
-    metaData?.data?.metadata || {}
-  );
+    // ---------------- FILL PROFILE ----------------
+    if (user) {
+      if (user.fullName) nameInput.value = user.fullName;
+      if (user.email) emailInput.value = user.email;
+      if (user.phone) phoneInput.value = user.phone;
+      if (user.jobTitle) jobTitleInput.value = user.jobTitle;
 
-    } catch (err) {
-      console.error("Error fetching user details:", err);
-      // still render empty UI
-      renderCvUI(null, {});
+      if (user.facebook) Facebook.value = user.facebook;
+      if (user.linkedin) Linkedin.value = user.linkedin;
+      if (user.instagram) Instagram.value = user.instagram;
+      if (user.twitter) Twitter.value = user.twitter;
+      if (user.portfolio) Portfolio.value = user.portfolio;
+
+      populateSelect(citySelect, saudiCities, user.cityId, "id", "name");
     }
-  } else {
-    // not logged in → render disabled UI
+
+    renderCvUI(
+      metaData?.data?.metadata?.downloadUrl || null,
+      metaData?.data?.metadata || {}
+    );
+  } catch (err) {
+    console.error("Not logged in or error fetching profile:", err);
+
+    // ❌ not logged in
     renderCvUI(null, {});
   }
 
@@ -607,7 +553,8 @@ console.log(finalDateFormatted);
         if (nameInput.value.trim()) payload.name = nameInput.value.trim();
         if (emailInput.value.trim()) payload.email = emailInput.value.trim();
         if (phoneInput.value.trim()) payload.phone = phoneInput.value.trim();
-        if (jobTitleInput.value.trim()) payload.jobTitle = jobTitleInput.value.trim();
+        if (jobTitleInput.value.trim())
+          payload.jobTitle = jobTitleInput.value.trim();
         if (citySelect.value) payload.cityId = parseInt(citySelect.value, 10);
         if (passwordInput.value.trim()) {
           payload.newPassword = passwordInput.value.trim();
@@ -619,10 +566,9 @@ console.log(finalDateFormatted);
         showToast("  تم حفظ البيانات بنجاح!", "success");
 
         if (res.data?.isPhoneChanged) {
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("loginTime");
-        window.location.href = "/index.html";
-
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("loginTime");
+          window.location.href = "/index.html";
         }
       } catch (err) {
         console.error(err);
@@ -660,4 +606,33 @@ console.log(finalDateFormatted);
       }
     });
   }
+  //get all reports 
+   const reportsContainer = document.getElementById("reports");
+   if (reportsContainer) {
+     try {
+       const reportRes = await getUserReports();
+       console.log(reportRes);
+       if (reportRes.status && reportRes.last_report) {
+         reportsContainer.innerHTML = `
+                <div class="p-3 text-center">
+                  <a href="${reportRes.last_report}" target="_blank" class="btn btn-primary">
+                    <i class="fa-solid fa-download me-2"></i>
+                    <span data-en="Download Job Report" data-ar="تحميل تقرير الوظائف">
+                      Download Job Report
+                    </span>
+                  </a>
+                </div>`;
+       } else {
+         reportsContainer.innerHTML = `
+                <div class="p-3 text-center text-muted">
+                  <i class="fa-regular fa-file me-2"></i>
+                  <span data-en="No job reports found" data-ar="لا توجد تقارير وظائف">
+                    No job reports found
+                  </span>
+                </div>`;
+       }
+     } catch (err) {
+       console.error("Error fetching user reports:", err);
+     }
+   }
 });

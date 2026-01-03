@@ -1,4 +1,5 @@
 import { getPlans } from "./api.js";
+import api from "./api.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.querySelector(".mysr-form");
@@ -6,6 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!container) return;
 
+  /* ================= Toast ================= */
   function showToast(message, type = "info") {
     Toastify({
       text: message,
@@ -29,7 +31,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     }).showToast();
   }
 
+  /* ================= AUTH CHECK (COOKIE) ================= */
+  async function isLoggedIn() {
+    try {
+      const res = await api.get("/users/get-user-details");
+      return !!res.data?.currentUser?.id;
+    } catch (err) {
+      return false; // 401 / 403 / network
+    }
+  }
+
   try {
+    /* ================= FETCH PLANS ================= */
     const response = await getPlans();
     const plans = response.data?.plansWithAmount;
 
@@ -40,6 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
+    /* ================= RENDER ================= */
     container.innerHTML = `
       <div class="row justify-content-center">
         ${plans
@@ -53,9 +67,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </h3>
 
                 <div class="plan__price lh-1 mb-3">
-                  <span class="h2 mb-0 me-1">${plan.price / 100} ${
-              plan.currency
-            }</span>
+                  <span class="h2 mb-0 me-1">
+                    ${plan.price / 100} ${plan.currency}
+                  </span>
                   <small class="text-muted d-block">
                     ${lang === "en" ? "Duration" : "المدة"}:
                     ${plan.duration} ${lang === "en" ? "days" : "يوم"}
@@ -86,7 +100,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                   data-plan-id="${plan.id}"
                   data-price="${plan.price}"
                   data-plan-name-en="${plan.name}"
-                  data-plan-name-ar="${plan.ar_name}"
                 >
                   ${lang === "en" ? "Choose Plan" : "اختر الباقة"}
                 </button>
@@ -99,11 +112,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>
     `;
 
+    /* ================= CHOOSE PLAN HANDLER ================= */
     document.querySelectorAll(".choose-plan-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const token = localStorage.getItem("authToken");
+      btn.addEventListener("click", async () => {
+        const logged = await isLoggedIn();
 
-        if (!token) {
+        if (!logged) {
           showToast(
             lang === "en"
               ? "⚠️ Please log in before choosing a plan."
@@ -113,16 +127,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           const loginModalEl = document.getElementById("loginModal");
           if (loginModalEl) {
-            const loginModal = new bootstrap.Modal(loginModalEl);
-            loginModal.show();
+            new bootstrap.Modal(loginModalEl).show();
           }
           return;
         }
 
+        // ✅ logged in
         const planId = btn.dataset.planId;
         const price = btn.dataset.price;
-
-        // ✅ URL = إنجليزي فقط
         const planNameEn = btn.dataset.planNameEn;
 
         window.location.href = `payment-choose.html?planId=${planId}&amount=${price}&planName=${encodeURIComponent(

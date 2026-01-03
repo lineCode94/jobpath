@@ -12609,12 +12609,12 @@ input::placeholder {
 }
 /*# sourceMappingURL=../maps/style.css.map */
 /* hidden logout */
-.log-toggle{
+/* .log-toggle{
   display: none!important;
-}
-.log-toggle-canvas{
+} */
+/* .log-toggle-canvas{
   display: none!important;
-}
+} */
 .rts__logo{
   height: 100px;
 margin-top: -50px;

@@ -7,12 +7,25 @@ const API_BASE = "https://api.jobzai.net/api/v1";
 // ==================== AXIOS INSTANCE ====================
 export const api = axios.create({
   baseURL: API_BASE,
-  withCredentials: true, // ✅ أهم سطر (إرسال الكوكي)
+  withCredentials: true, // ✅ يبعت الكوكي تلقائي مع كل request
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
   },
 });
+
+// ==================== REQUEST INTERCEPTOR للـ Debug ====================
+api.interceptors.request.use(
+  (config) => {
+    console.log("➡️ Request URL:", config.url);
+    console.log("Method:", config.method);
+    console.log("Headers (check Cookie sent):", config.headers);
+
+    // Note: HttpOnly cookies مش هتظهر هنا لكن هتتبعت تلقائي مع request
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 // ==================== TOAST ====================
 function showToast(message, type = "info") {
@@ -44,13 +57,12 @@ api.interceptors.response.use(
   (error) => {
     const status = error?.response?.status;
 
-    if (status === 401 || status === 403) {
-      showToast("⚠️ Session expired. Please login again.", "warning");
-
-      setTimeout(() => {
-        window.location.href = "index.html";
-      }, 1500);
-    }
+    // if (status === 401 || status === 403) {
+    //   showToast("⚠️ Session expired. Please login again.", "warning");
+    //   setTimeout(() => {
+    //     window.location.href = "index.html";
+    //   }, 1500);
+    // }
 
     return Promise.reject(error);
   }
@@ -76,7 +88,7 @@ export async function loginUser(identifier, password) {
 
 // Logout (السيرفر يمسح الكوكي)
 export async function logoutUser() {
-  await api.post("/users/logout");
+  await api.get("/users/log-out");
 }
 
 // ==================== USER ====================

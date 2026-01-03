@@ -1,4 +1,5 @@
-import { sendOtp, verifyOtp, loginUser } from "./api.js";
+import { sendOtp, verifyOtp, loginUser, logoutUser } from "./api.js";
+import api from "./api.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const loginFormPhone = document.getElementById("loginFormPhone");
@@ -14,119 +15,86 @@ document.addEventListener("DOMContentLoaded", function () {
   let step = "send";
   let savedPhone = "";
 
-  /* ================= Language Helper ================= */
+  /* ================= AUTH STATE (LOCAL) ================= */
+  let authState = {
+    loggedIn: false,
+  };
+
+  /* ================= Language ================= */
   function t(ar, en) {
     return (localStorage.getItem("lang") || "en") === "ar" ? ar : en;
   }
 
   /* ================= Toast ================= */
   function showToast(message, type = "info") {
-    const styles = {
-      success: {
-        icon: '<i class="fa-solid fa-circle-check"></i>',
-        bg: "linear-gradient(135deg, #28a745, #6fdc8d)",
-      },
-      error: {
-        icon: '<i class="fa-solid fa-circle-xmark"></i>',
-        bg: "linear-gradient(135deg, #dc3545, #ff6b81)",
-      },
-      warning: {
-        icon: '<i class="fa-solid fa-triangle-exclamation"></i>',
-        bg: "linear-gradient(135deg, #ffc107, #ffd861)",
-      },
-      info: {
-        icon: '<i class="fa-solid fa-circle-info"></i>',
-        bg: "linear-gradient(135deg, #007bff, #6bb6ff)",
-      },
-    };
-
-    const lang = localStorage.getItem("lang") || "en";
-
     Toastify({
-      text: `${styles[type].icon} <span style="margin-left:8px">${message}</span>`,
-      duration: 3500,
+      text: message,
+      duration: 3000,
       gravity: "bottom",
-      position: lang === "ar" ? "right" : "left",
-      close: true,
-      escapeMarkup: false,
-      offset: { x: 20, y: 20 },
-      style: {
-        background: styles[type].bg,
-        color: "#fff",
-        fontSize: "15px",
-        fontWeight: "600",
-        borderRadius: "10px",
-        padding: "8px 14px",
-      },
+      position: "left",
+      style: { background: type === "error" ? "#dc3545" : "#28a745" },
     }).showToast();
   }
 
-  /* ================= Cookie Helpers ================= */
+  /* ================= AUTH ================= */
 
-  function setCookie(name, value, hours) {
-    const expires = new Date(Date.now() + hours * 60 * 60 * 1000).toUTCString();
-    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
-  }
-
-  function getCookie(name) {
-    return document.cookie
-      .split("; ")
-      .find((row) => row.startsWith(name + "="))
-      ?.split("=")[1];
-  }
-
-  function deleteCookie(name) {
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
-  }
-
-  /* ================= Auth Helpers ================= */
-
-  function setAuth(token) {
-    setCookie("authToken", token, 2); // ساعتين
-  }
-
-  function clearAuth() {
-    deleteCookie("authToken");
-  }
-
-  function isLoggedIn() {
-    return !!getCookie("authToken");
-  }
-
-  function updateUI() {
-    const logged = isLoggedIn();
-
-    loginBtn?.classList.toggle("log-toggle", logged);
-    logoutBtn?.classList.toggle("log-toggle", !logged);
-
-    document.querySelectorAll(".profile-menu").forEach((menu) => {
-      menu.style.display = logged ? "block" : "none";
+async function isLoggedIn() {
+  try {
+    const res = await api.get("/users/get-user-details", {
+      withCredentials: true, // الكوكيز يتم إرسالها تلقائيًا
     });
+
+    return res.status === 200 && !!res.data?.currentUser?.id;
+  } catch (err) {
+    if (err.response?.status === 401 || err.response?.status === 403) {
+      return false;
+    }
+    console.error("isLoggedIn error:", err);
+    return false;
+  }
+}
+
+function renderUI(logged) {
+  // Buttons
+  loginBtn?.classList.toggle("d-none", logged);
+  loginBtn?.classList.toggle("d-sm-flex", !logged);
+
+  logoutBtn?.classList.toggle("d-none", !logged);
+  logoutBtn?.classList.toggle("d-sm-flex", logged);
+
+  // Profile menu
+  document
+    .querySelectorAll(".profile-menu")
+    .forEach((menu) => (menu.style.display = logged ? "block" : "none"));
+}
+
+  async function updateUIFromServer() {
+    const logged = await isLoggedIn();
+    authState.loggedIn = logged;
+    renderUI(logged);
   }
 
-  updateUI();
+  function forceLoginUI() {
+    authState.loggedIn = true;
+    renderUI(true);
+  }
 
-  /* ================= OTP Login ================= */
+  /* ================= INIT ================= */
+  updateUIFromServer(); // ⬅️ فقط عند تحميل الصفحة
 
+  /* ================= OTP LOGIN ================= */
   if (loginFormPhone && sendBtn) {
     sendBtn.addEventListener("click", async () => {
       if (step === "verify") {
         const otp = otpInput.value.trim();
-        if (!otp) {
-          showToast(t("ادخل كود التحقق", "Enter verification code"), "warning");
-          return;
-        }
+        if (!otp) return showToast(t("ادخل الكود", "Enter code"), "error");
 
         try {
-          const res = await verifyOtp(savedPhone, otp);
-          const token = res?.data?.token || res?.data?.access_token;
+          await verifyOtp(savedPhone, otp); // cookie set by backend
 
-          if (!token) throw new Error("NO_TOKEN");
-
-          setAuth(token);
-          updateUI();
-
+          forceLoginUI(); // ⬅️ مهم جدًا
           showToast(t("تم تسجيل الدخول", "Login successful"), "success");
+
           bootstrap.Modal.getInstance(
             document.getElementById("loginModal")
           )?.hide();
@@ -135,73 +103,65 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       } else {
         const phone = phoneInput.value.trim();
-        if (!phone) {
-          showToast(t("ادخل رقم الهاتف", "Enter phone number"), "warning");
-          return;
-        }
+        if (!phone)
+          return showToast(t("ادخل رقم الهاتف", "Enter phone"), "error");
 
         try {
           await sendOtp(phone);
           savedPhone = phone;
 
           otpSection.classList.remove("d-none");
-          phoneInput.parentElement.parentElement.style.display = "none";
-
+          phoneInput.closest(".form-group").style.display = "none";
           sendBtn.textContent = t("تحقق", "Verify");
           step = "verify";
 
           showToast(t("تم إرسال الكود", "Code sent"), "success");
         } catch {
-          showToast(t("فشل الإرسال", "Failed to send code"), "error");
+          showToast(t("فشل الإرسال", "Failed"), "error");
         }
       }
     });
   }
 
-  /* ================= Email Login ================= */
-
+  /* ================= EMAIL LOGIN ================= */
   if (loginFormMail) {
-    loginFormMail.addEventListener("submit", async function (e) {
+    loginFormMail.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const identifier = document.getElementById("email").value.trim();
+      const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value.trim();
 
-      if (!identifier || !password) {
-        showToast(t("املأ كل الحقول", "Fill all fields"), "warning");
-        return;
-      }
+      if (!email || !password)
+        return showToast(t("املأ الحقول", "Fill fields"), "error");
 
       try {
-        const res = await loginUser(identifier, password);
-        const token = res?.token || res?.access_token;
+        await loginUser(email, password); // cookie stored
 
-        if (!token) throw new Error("NO_TOKEN");
-
-        setAuth(token);
-        updateUI();
-
+        forceLoginUI(); // ⬅️ الحل الحقيقي
         showToast(t("تم تسجيل الدخول", "Login successful"), "success");
+
         bootstrap.Modal.getInstance(
           document.getElementById("loginModal")
         )?.hide();
-      } catch (err) {
-        showToast(
-          err?.response?.data?.message ||
-            t("بيانات غير صحيحة", "Invalid credentials"),
-          "error"
-        );
+      } catch {
+        showToast(t("بيانات خاطئة", "Invalid credentials"), "error");
       }
     });
   }
 
-  /* ================= Logout ================= */
-
+  /* ================= LOGOUT ================= */
   if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      clearAuth();
-      showToast(t("تم تسجيل الخروج", "Logged out"), "success");
-      window.location.href = "index.html";
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        await logoutUser(); // backend clears cookie
+
+        authState.loggedIn = false;
+        renderUI(false);
+
+        showToast(t("تم تسجيل الخروج", "Logged out"), "success");
+      } catch {
+        showToast(t("فشل تسجيل الخروج", "Logout failed"), "error");
+      }
     });
   }
 });
