@@ -1,8 +1,13 @@
-import { getJobsList } from "./api.js";
+import { getJobsList, getUserDetails } from "./api.js";
 
 // ================== AUTH HELPERS ==================
-function isLoggedIn() {
-  return !!localStorage.getItem("authToken");
+async function isLoggedIn() {
+  try {
+    await getUserDetails(); // cookie auto sent
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function openLoginModal() {
@@ -23,9 +28,8 @@ async function loadJobs() {
 
   try {
     const res = await getJobsList(lang);
-// console.log(res)
-    let jobs = [];
 
+    let jobs = [];
     if (lang === "ar") {
       jobs = res?.data?.arJobs;
       if (!jobs || !jobs.length) jobs = res?.data?.enJobs || [];
@@ -107,15 +111,15 @@ function activateCardClicks() {
   document.querySelectorAll(".rts__job__card").forEach((card) => {
     card.style.cursor = "pointer";
 
-    card.addEventListener("click", () => {
+    card.addEventListener("click", async () => {
       const jobId = card.getAttribute("data-job-id");
       const lang = localStorage.getItem("lang") || "en";
 
-      // ❌ Not logged in → open login popup
-      if (!isLoggedIn()) {
+      const loggedIn = await isLoggedIn(); // ✅ الحل هنا
+
+      if (!loggedIn) {
         openLoginModal();
 
-        // حفظ الرابط للرجوع بعد اللوجين
         localStorage.setItem(
           "redirectAfterLogin",
           `job-details-2.html?id=${jobId}&lang=${lang}`
@@ -124,7 +128,6 @@ function activateCardClicks() {
         return;
       }
 
-      // ✅ Logged in → go to details
       window.location.href = `job-details-2.html?id=${jobId}&lang=${lang}`;
     });
   });
