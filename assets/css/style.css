@@ -12628,6 +12628,14 @@ input::placeholder {
   height: 100px;
 margin-top: -50px;
 }
+/* أي شاشة أقل من 768px (تقريبًا الهواتف) */
+@media (max-width: 768px) {
+  .breadcrumb__background {
+min-height: 300px;
+}
+}
+
+
   /* لون أيقونات السكشن */
   .single__cat__icon i {
     color: #4da6ff; /* أزرق فاتح مائل لللبني */
