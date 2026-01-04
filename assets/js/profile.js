@@ -577,27 +577,27 @@ if (form) {
 
       // ✅ PASSWORD LOGIC
       // ================= PASSWORD LOGIC =================
-      if (user.hasPassword) {
-        // update password
-        const oldPass = document.getElementById("oldPassword");
-        const newPass = document.getElementById("newPassword");
+if (user.hasPassword) {
+  // update password
+  const oldPass = document.getElementById("oldPassword");
+  const newPass = document.getElementById("newPassword");
 
-        if (newPass && newPass.value.trim()) {
-          if (!oldPass || !oldPass.value.trim()) {
-            return showToast("⚠️ أدخل كلمة المرور القديمة", "warning");
-          }
+  if (newPass && newPass.value.trim()) {
+    if (!oldPass || !oldPass.value.trim()) {
+      return showToast("⚠️ أدخل كلمة المرور القديمة", "warning");
+    }
 
-          payload.oldPassword = oldPass.value.trim();
-          payload.newPassword = newPass.value.trim();
-        }
-      } else {
-        // set password first time
-        const pass = document.getElementById("password");
+    payload.oldPassword = oldPass.value.trim();
+    payload.newPassword = newPass.value.trim();
+  }
+} else {
+  // set password first time
+  const pass = document.getElementById("passwordUser");
 
-        if (pass && pass.value.trim()) {
-          payload.newPassword = pass.value.trim();
-        }
-      }
+  if (pass && pass.value.trim()) {
+    payload.newPassword = pass.value.trim();
+  }
+}
 
       const res = await updateProfile(payload, false);
       showToast("تم حفظ البيانات بنجاح!", "success");

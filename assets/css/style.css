@@ -12633,9 +12633,26 @@ margin-top: -50px;
   .breadcrumb__background {
 min-height: 300px;
 }
+#lang-btn{
+  width:70px ;
 }
-
-
+#logout{
+  width: 70px;
+  font-size: 12px;
+  padding: 5px 5px;
+}
+#login{
+  width: 70px;
+  font-size: 12px;
+  padding: 5px 5px;
+}
+button[data-bs-toggle="offcanvas"] {
+width: 40px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+}
   /* لون أيقونات السكشن */
   .single__cat__icon i {
     color: #4da6ff; /* أزرق فاتح مائل لللبني */
