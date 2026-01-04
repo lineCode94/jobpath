@@ -26,7 +26,7 @@ function showToast(msg, type = "info") {
 /* ================= Auth Check (SOURCE OF TRUTH) ================= */
 async function isLoggedIn() {
   try {
-    alert(1)
+    // alert(1)
     await getUserDetails(); // cookie auto sent
     return true;
   } catch {
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ================= CHECK LOGIN STATE ================= */
   const logged = await isLoggedIn();
-console.log(logged);
+// console.log(logged);
   if (logged) {
     subscribeBtn.disabled = true;
     subscribeBtn.style.cursor = "not-allowed";

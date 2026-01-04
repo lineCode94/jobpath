@@ -178,7 +178,7 @@ async function secureDownload(url, filename) {
 
   // ---------------- render CV UI (download / preview / meta) ----------------
   function renderCvUI(cvPath = null, meta = {}) {
-    console.log("meta render cv", meta);
+    // console.log("meta render cv", meta);
     if (!cvDownloadDiv || !cvUploadingDiv || !cvPreviewDiv) return;
 
     cvDownloadDiv.innerHTML = "";
@@ -251,10 +251,10 @@ async function secureDownload(url, filename) {
     const ext = meta?.fileExtension || ".pdf";
     const finalFileName = `${user}${ext}`;
 
-    console.log("finalFileName:", finalFileName);
+    // console.log("finalFileName:", finalFileName);
 
     const finalDateFormatted = formatDate(meta?.date);
-    console.log(finalDateFormatted);
+    // console.log(finalDateFormatted);
 
     // -----------------------
     // Download button
@@ -412,7 +412,7 @@ async function secureDownload(url, filename) {
             // alert(1)
           // 1) جيب الميتاداتا الحقيقي من الاندبوينت
           const metaData = await getCvMeta();
-          console.log(metaData);
+          // console.log(metaData);
          const meta = metaData?.data?.metadata || {};
 
           // 2) اعمل render بناء على البيانات الصح اللي من الباك
@@ -653,7 +653,7 @@ if (socialForm) {
    if (reportsContainer) {
      try {
        const reportRes = await getUserReports();
-       console.log(reportRes);
+      //  console.log(reportRes);
        if (reportRes.status && reportRes.last_report) {
          reportsContainer.innerHTML = `
                 <div class="p-3 text-center">

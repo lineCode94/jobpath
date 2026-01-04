@@ -23,7 +23,7 @@ async function loadJobs() {
 
   try {
     const res = await getJobsList(lang);
-console.log(res)
+// console.log(res)
     let jobs = [];
 
     if (lang === "ar") {
