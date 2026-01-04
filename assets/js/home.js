@@ -1,18 +1,5 @@
 // home.js
-import { sendOtp, verifyOtp } from "./api.js";
-
-/* ================= Cookies Helpers ================= */
-function setCookie(name, value, days = 7) {
-  const expires = new Date(Date.now() + days * 86400000).toUTCString();
-  document.cookie = `${name}=${value}; expires=${expires}; path=/`;
-}
-
-function getCookie(name) {
-  return document.cookie
-    .split("; ")
-    .find((row) => row.startsWith(name + "="))
-    ?.split("=")[1];
-}
+import { sendOtp, verifyOtp, getUserDetails } from "./api.js";
 
 /* ================= Toast ================= */
 function showToast(msg, type = "info") {
@@ -36,23 +23,31 @@ function showToast(msg, type = "info") {
   }).showToast();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+/* ================= Auth Check (SOURCE OF TRUTH) ================= */
+async function isLoggedIn() {
+  try {
+    alert(1)
+    await getUserDetails(); // cookie auto sent
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
   const form = document.querySelector(".newsletter");
   if (!form) return;
 
   const phoneInput = document.getElementById("phoneInput");
   const subscribeBtn = document.getElementById("sendOtpBtn");
 
-  /* ================= Auth Guard ================= */
-  function isLoggedIn() {
-    return !!getCookie("authToken");
-  }
-
-  if (isLoggedIn()) {
+  /* ================= CHECK LOGIN STATE ================= */
+  const logged = await isLoggedIn();
+console.log(logged);
+  if (logged) {
     subscribeBtn.disabled = true;
     subscribeBtn.style.cursor = "not-allowed";
-    // phoneInput.disabled = true;
-
+subscribeBtn.classList.add("btn-disabled");
     subscribeBtn.addEventListener("click", (e) => {
       e.preventDefault();
       showToast(
@@ -63,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     });
 
-    return; // 🔴 نوقف أي OTP logic نهائيًا
+    return; // ⛔ نوقف OTP logic نهائيًا
   }
 
   /* ================= OTP Elements ================= */
@@ -87,22 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
   phoneInput.after(otpInput);
   otpInput.after(verifyBtn);
 
-  let step = "send";
-  let savedPhone = "";
-
-  /* ================= Subscribe ================= */
+  /* ================= Send OTP ================= */
   subscribeBtn.addEventListener("click", async (e) => {
     e.preventDefault();
-
-    if (isLoggedIn()) {
-      showToast(
-        document.documentElement.lang === "ar"
-          ? "أنت مسجل دخول بالفعل"
-          : "You are already logged in",
-        "warning"
-      );
-      return;
-    }
 
     const phone = phoneInput.value.trim();
     if (!phone) {
@@ -119,7 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       await sendOtp(phone);
-      savedPhone = phone;
+
+      // نحفظ الرقم مؤقتًا
+      sessionStorage.setItem("otp_phone", phone);
 
       phoneInput.style.display = "none";
       subscribeBtn.style.display = "none";
@@ -133,9 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
           : "Verification code sent",
         "success"
       );
-
-      step = "verify";
-    } catch {
+    } catch (err) {
+      console.error(err);
       showToast(
         document.documentElement.lang === "ar"
           ? "فشل إرسال الكود"
@@ -162,12 +145,10 @@ document.addEventListener("DOMContentLoaded", () => {
     verifyBtn.disabled = true;
 
     try {
-      const res = await verifyOtp(savedPhone, otp);
-      const token = res?.data?.token || res?.data?.access_token;
+      const phone = sessionStorage.getItem("otp_phone");
+      if (!phone) throw new Error("Phone not found");
 
-      if (!token) throw new Error();
-
-      setCookie("authToken", token, 7);
+      await verifyOtp(phone, otp); // backend sets cookie
 
       showToast(
         document.documentElement.lang === "ar"
@@ -176,8 +157,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "success"
       );
 
+      sessionStorage.removeItem("otp_phone");
       window.location.reload();
-    } catch {
+    } catch (err) {
+      console.error(err);
       showToast(
         document.documentElement.lang === "ar"
           ? "كود غير صحيح"

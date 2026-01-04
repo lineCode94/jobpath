@@ -476,7 +476,7 @@ try {
   // ========= USER (أساسي) =========
   const response = await getUserDetails();
   user = response?.data?.currentUser || null;
-
+renderPasswordUI(user);
   // ========= CV META (اختياري) =========
   try {
     const metaRes = await getCvMeta();
@@ -511,6 +511,27 @@ try {
     const jobname = lang === "ar" ? name.ar_name : name.en_name;
     jobNamesList.innerHTML += `<li>${jobname}</li>`;
   });
+//handel password  logic
+ 
+
+function renderPasswordUI(user) {
+  const setPasswordWrapper = document.getElementById("setPasswordWrapper");
+  const updatePasswordWrapper = document.getElementById(
+    "updatePasswordWrapper"
+  );
+
+  if (!setPasswordWrapper || !updatePasswordWrapper) return;
+
+  if (user?.hasPassword) {
+    // user عنده باسورد
+    setPasswordWrapper.classList.add("d-none");
+    updatePasswordWrapper.classList.remove("d-none");
+  } else {
+    // user جديد
+    setPasswordWrapper.classList.remove("d-none");
+    updatePasswordWrapper.classList.add("d-none");
+  }
+}
 
   // ========= PROFILE =========
   if (user) {
@@ -555,11 +576,26 @@ if (form) {
       if (citySelect.value) payload.cityId = parseInt(citySelect.value, 10);
 
       // ✅ PASSWORD LOGIC
-      if (passwordInput && passwordInput.value.trim()) {
-        payload.newPassword = passwordInput.value.trim();
+      // ================= PASSWORD LOGIC =================
+      if (user.hasPassword) {
+        // update password
+        const oldPass = document.getElementById("oldPassword");
+        const newPass = document.getElementById("newPassword");
 
-        if (oldPasswordInput && oldPasswordInput.value.trim()) {
-          payload.oldPassword = oldPasswordInput.value.trim();
+        if (newPass && newPass.value.trim()) {
+          if (!oldPass || !oldPass.value.trim()) {
+            return showToast("⚠️ أدخل كلمة المرور القديمة", "warning");
+          }
+
+          payload.oldPassword = oldPass.value.trim();
+          payload.newPassword = newPass.value.trim();
+        }
+      } else {
+        // set password first time
+        const pass = document.getElementById("password");
+
+        if (pass && pass.value.trim()) {
+          payload.newPassword = pass.value.trim();
         }
       }
 
