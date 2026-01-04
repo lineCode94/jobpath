@@ -202,56 +202,57 @@
                   </nav>
                 </div>
 
-                <div class="header__right__btn d-flex gap-3">
-                  <a
-                    href="#"
-                    id="login"
-                    style="  white-space: nowrap; "
-                    class="small__btn   d-sm-flex no__fill__btn border-6 font-xs"
-                    aria-label="Login Button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#loginModal"
-                  >
-                    <i class="rt-login"></i
-                    ><span
-                      id="authText"
-                      data-en="Sign In"
-                      data-ar="تسجيل الدخول"
-                      >Sign In</span
-                    >
-                  </a>
-                  <a
-                    href="#"
-                    id="logout"
-                    style="  white-space: nowrap; "
+          <div class="header__right__btn d-flex gap-3 align-items-center">
+  
+  <!-- Login -->
+  <a
+    href="#"
+    id="login"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Login Button"
+    data-bs-toggle="modal"
+    data-bs-target="#loginModal"
+  >
+    <i class="fa-regular fa-user"></i>
+    <span id="authText" data-en="Sign In" data-ar="تسجيل الدخول">Sign In</span>
+  </a>
 
-                    class="small__btn log-toggle   d-sm-flex no__fill__btn border-6 font-xs"
-                    aria-label="Login Button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#logoutModal"
-                  >
-                    <i class="fa-solid fa-right-from-bracket"></i>
-<span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
-                  </a>
-                  <!-- زر تغيير اللغة -->
-                  <a
-                    style="cursor: pointer"
-                    id="lang-btn"
-                    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
-                  >
-                    Arabic
-                  </a>
+  <!-- Logout -->
+  <a
+    href="#"
+    id="logout"
+    class="small__btn log-toggle d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Logout Button"
+    data-bs-toggle="modal"
+    data-bs-target="#logoutModal"
+  >
+    <i class="fa-solid fa-power-off"></i>
+    <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+  </a>
 
-                  <button
-                    class="d-md-block d-lg-none"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvas"
-                    aria-controls="offcanvas"
-                  >
-                    <i class="fa-sharp fa-regular fa-bars"></i>
-                  </button>
-                </div>
+  <!-- Language -->
+  <a
+    style="cursor: pointer"
+    id="lang-btn"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+  >
+    <i class="fa-solid fa-globe"></i>
+    <span data-en="English" data-ar="العربية">English</span>
+  </a>
+
+  <!-- Hamburger Menu -->
+  <button
+    class="d-md-block d-lg-none"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvas"
+    aria-controls="offcanvas"
+  >
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+</div>
+
               </div>
             </div>
           </div>

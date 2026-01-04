@@ -629,6 +629,7 @@
 // تنفيذ includes الأول
 
 document.addEventListener("DOMContentLoaded", async function () {
+  
   const includes = document.querySelectorAll("[data-include]");
 
   // تحميل ملفات الـ includes
@@ -675,7 +676,7 @@ function initLangSwitcher() {
 
   function updateLanguage() {
     document.documentElement.lang = currentLang;
-    langBtn.textContent = currentLang === "en" ? "Arabic" : "الانجليزية";
+    langBtn.textContent = currentLang === "en" ? "Ar" : "الانجليزية";
 
     // ترجم العناصر
     const translatableElements = document.querySelectorAll("[data-en]");

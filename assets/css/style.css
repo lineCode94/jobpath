@@ -12652,7 +12652,39 @@ display: flex;
 justify-content: center;
 align-items: center;
 }
+
+
 }
+/* right side in header  */
+/* لما الشاشة صغيرة - أقل من 576px */
+@media (max-width: 575px) {
+  /* نخفي النصوص باستثناء الـ language */
+  .header__right__btn a span#authText,
+  .header__right__btn a span[data-en="Logout"] {
+    display: none; /* نخفي Sign In / Logout */
+  }
+
+  /* اللغة تختصر لـ Ar / En */
+ 
+
+  /* نخفي النص الحالي داخل a للغة */
+  #lang-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  /* نخلي الأيقونات تظهر بشكل أكبر */
+  .header__right__btn i {
+    font-size: 20px;
+  }
+
+  /* نخلي الهامبرجر بار واضح */
+  .header__right__btn button.d-md-block.d-lg-none {
+    font-size: 22px;
+    padding: 10px;
+  }
+}
+
   /* لون أيقونات السكشن */
   .single__cat__icon i {
     color: #4da6ff; /* أزرق فاتح مائل لللبني */
