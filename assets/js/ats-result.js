@@ -1,147 +1,343 @@
 // ats-result.js
 import { getAtsResult } from "./api.js";
-// ⚠️ API بيرجع LATEST ATS RESULT — توكين فقط
+import { mapBackendAtsToFrontend } from "./ats-adapter.js";
 
-const POLL_INTERVAL = 4000; // 4 seconds
-let pollingTimer = null;
+let atsResultRow = null;
 
-/* ================= Helpers ================= */
-
-function formatScore(value) {
-  if (value === null || value === undefined) return "N/A";
-  const num = Number(value);
-  return isNaN(num) ? value : num.toFixed(2);
+/* ==================== HELPERS ==================== */
+function escapeHtml(str) {
+  str = String(str);
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
-function setBar(barElement, value, max = 100) {
-  if (!barElement) return;
-  const v = Number(value);
-  const percent = isNaN(v) ? 0 : Math.min(Math.max(v, 0), max);
-  barElement.style.width = percent + "%";
-  barElement.setAttribute("aria-valuenow", percent.toString());
+function safeText(v) {
+  if (v === null || v === undefined) return "--";
+  var s = String(v).trim();
+  return s.length ? s : "--";
 }
 
-function showLoadingState() {
-  document.getElementById("resultCard")?.classList.add("d-none");
-  document.getElementById("rawJsonCard")?.classList.add("d-none");
+function pct(n) {
+  var x = Number(n);
+  if (!isFinite(x)) return "--";
+  return x.toFixed(2) + "%";
+}
 
-  if (!document.getElementById("atsLoading")) {
-    const div = document.createElement("div");
-    div.id = "atsLoading";
-    div.className = "text-center mt-5 text-secondary";
-    div.innerHTML = `
-      <div class="spinner-border text-success mb-3"></div>
-      <div>Analyzing your CV, please wait...</div>
+function scoreLabel(score) {
+  if (score >= 85) return { cls: "good", label: "Strong" };
+  if (score >= 70) return { cls: "warn", label: "Moderate" };
+  return { cls: "bad", label: "Weak" };
+}
+
+function showToast(message, type = "info") {
+  console.log(message); // مؤقت – ممكن تستخدم Toastify لاحقاً
+}
+
+/* ==================== RENDER FUNCTIONS ==================== */
+
+function setRing(score) {
+  const r = 48;
+  const c = 2 * Math.PI * r;
+  const val = Math.max(0, Math.min(100, Number(score) || 0));
+  const dash = (val / 100) * c;
+  const rest = c - dash;
+
+  const ring = document.getElementById("ringStroke");
+  if (!ring) return;
+  ring.setAttribute("stroke-dasharray", `${dash} ${rest}`);
+
+  let stroke = "rgba(47,179,90,.95)";
+  if (val < 70) stroke = "rgba(52, 168, 83,.92)";
+  ring.setAttribute("stroke", stroke);
+
+  const overallEl = document.getElementById("overallScore");
+  if (overallEl) overallEl.textContent = val.toFixed(2);
+}
+
+function renderBars() {
+  const bars = [
+    { name: "Title Match", value: atsResultRow.TitleMatchScore },
+    { name: "Skills", value: atsResultRow.SkillsScore },
+    { name: "Experience", value: atsResultRow.ExperienceScore },
+    { name: "Education", value: atsResultRow.EducationScore },
+    { name: "Certifications", value: atsResultRow.CertificationsScore },
+    { name: "Keyword Density", value: atsResultRow.KeywordDensityScore },
+  ];
+
+  const host = document.getElementById("scoreBars");
+  if (!host) return;
+  host.innerHTML = "";
+
+  bars.forEach((b) => {
+    const val = Math.max(0, Math.min(100, Number(b.value) || 0));
+    const info = scoreLabel(val);
+
+    const row = document.createElement("div");
+    row.className = "bar";
+    row.innerHTML = `
+      <div class="barTop">
+        <div>${escapeHtml(b.name)}</div>
+        <div class="pct">
+          <span class="tag ${info.cls}">${escapeHtml(info.label)}</span>
+          <span>${escapeHtml(pct(val))}</span>
+        </div>
+      </div>
+      <div class="track"><div class="fill ${
+        info.cls === "warn" ? "warn" : info.cls === "bad" ? "bad" : ""
+      }" style="width:${val}%"></div></div>
     `;
-    document.querySelector(".page-wrapper")?.prepend(div);
+    host.appendChild(row);
+  });
+
+  // Animate bars
+  setTimeout(() => {
+    const fills = host.querySelectorAll(".fill");
+    fills.forEach((f) => {
+      const w = f.style.width;
+      f.style.width = "0%";
+      setTimeout(() => {
+        f.style.width = w;
+      }, 30);
+    });
+  }, 10);
+}
+
+function renderMeta() {
+  const pills = [
+    { k: "ResultId", v: atsResultRow.ResultId },
+    { k: "RequestId", v: atsResultRow.RequestId },
+    { k: "Language", v: atsResultRow.LanguageDetected },
+    { k: "Level", v: atsResultRow.ExperienceLevel },
+    { k: "Created", v: atsResultRow.CreatedAtUtc },
+  ];
+  const host = document.getElementById("metaPills");
+  if (!host) return;
+  host.innerHTML = "";
+  pills.forEach((p) => {
+    const el = document.createElement("div");
+    el.className = "pill";
+    el.innerHTML = `<span class="k">${escapeHtml(
+      p.k
+    )}</span><span class="v">${escapeHtml(p.v)}</span>`;
+    host.appendChild(el);
+  });
+}
+
+function renderNarrative() {
+  [
+    "Summary",
+    "TopStrengths",
+    "PrimaryRisk",
+    "CareerPotentialAssessment",
+  ].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && atsResultRow[id]) el.textContent = safeText(atsResultRow[id]);
+  });
+
+  const host = document.getElementById("KeywordsChips");
+  if (!host) return;
+  host.innerHTML = "";
+  const parts = (atsResultRow.KeywordsSummary || "").split(",");
+  const clean = parts.map((s) => s.trim()).filter((s) => s.length);
+  if (!clean.length) {
+    const empty = document.createElement("div");
+    empty.className = "chip";
+    empty.textContent = "--";
+    host.appendChild(empty);
+  } else {
+    clean.forEach((k) => {
+      const chip = document.createElement("div");
+      chip.className = "chip";
+      chip.textContent = k;
+      host.appendChild(chip);
+    });
   }
 }
 
-function hideLoadingState() {
-  document.getElementById("atsLoading")?.remove();
+function renderMatchedSkills() {
+  const tbody = document.getElementById("MatchedSkillsTbody");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+  const list = Array.isArray(atsResultRow.MatchedSkillsJson)
+    ? atsResultRow.MatchedSkillsJson
+    : [];
+  if (!list.length) {
+    tbody.innerHTML = '<tr><td colspan="4">--</td></tr>';
+    return;
+  }
+  list.forEach((s) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${escapeHtml(
+        s.SkillName
+      )}<div class="tag info" style="margin-top:6px;">SkillId: <span class="mono">${escapeHtml(
+      s.SkillId
+    )}</span></div></td>
+      <td class="mono">${escapeHtml(s.MatchScore)}</td>
+      <td>${escapeHtml(s.MatchType)}</td>
+      <td class="mono">${escapeHtml(s.Weight)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
 }
 
-/* ================= Render ================= */
+function renderMissingSkills() {
+  const tbody = document.getElementById("MissingSkillsTbody");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+  const list = Array.isArray(atsResultRow.MissingSkillsJson)
+    ? atsResultRow.MissingSkillsJson
+    : [];
+  if (!list.length) {
+    tbody.innerHTML = '<tr><td colspan="2">--</td></tr>';
+    return;
+  }
+  list.forEach((s) => {
+    let cls = "info";
+    const imp = Number(s.Importance) || 0;
+    if (imp >= 9) cls = "bad";
+    else if (imp >= 7) cls = "warn";
 
-function renderResult(ats) {
-  hideLoadingState();
-const lang = localStorage.getItem("lang") || "en";
-  document.getElementById("lblRequestId").textContent = ats.requestId ?? "-";
-  document.getElementById("lblLanguage").textContent = lang || "-";
-
-  document.getElementById("lblOverallScore").textContent = formatScore(
-    ats.overallScore
-  );
-
-  document.getElementById("lblSkillsScore").textContent = formatScore(
-    ats.skillsScore
-  );
-
-  document.getElementById("lblTitleScore").textContent = formatScore(
-    ats.titleMatchScore
-  );
-
-  document.getElementById("lblEducationScore").textContent = formatScore(
-    ats.educationScore
-  );
-
-  document.getElementById("lblCertScore").textContent = formatScore(
-    ats.certificationsScore
-  );
-
-  document.getElementById("lblKeywordDensity").textContent =
-    ats.keywordDensityScore != null
-      ? ats.keywordDensityScore.toFixed(2) + " %"
-      : "N/A";
-
-  document.getElementById("lblExperienceLevel").textContent =
-    ats.experienceLevel || "-";
-
-  // Progress bars
-  setBar(document.getElementById("barSkillsScore"), ats.skillsScore);
-  setBar(document.getElementById("barTitleScore"), ats.titleMatchScore);
-  setBar(document.getElementById("barEducationScore"), ats.educationScore);
-  setBar(document.getElementById("barCertScore"), ats.certificationsScore);
-  setBar(
-    document.getElementById("barKeywordDensity"),
-    ats.keywordDensityScore ? ats.keywordDensityScore * 5 : 0
-  );
-
-  // Matched skills
-  const matched = document.getElementById("matchedSkillsList");
-  matched.innerHTML = "";
-  ats.matchedSkills?.forEach((s) => {
-    const li = document.createElement("li");
-    li.innerHTML = `<strong>${s.SkillName}</strong> – ${s.MatchScore}%`;
-    matched.appendChild(li);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${escapeHtml(
+        s.SkillName
+      )}<div class="tag info" style="margin-top:6px;">SkillId: <span class="mono">${escapeHtml(
+      s.SkillId
+    )}</span></div></td>
+      <td><span class="tag ${cls}">Importance: <span class="mono">${escapeHtml(
+      s.Importance
+    )}</span></span></td>
+    `;
+    tbody.appendChild(tr);
   });
-
-  // Missing skills
-  const missing = document.getElementById("missingSkillsList");
-  missing.innerHTML = "";
-  ats.missingSkills?.forEach((s) => {
-    const li = document.createElement("li");
-    li.textContent = s.SkillName;
-    missing.appendChild(li);
-  });
-
-  // document.getElementById("lblSummary").textContent = ats.summary || "-";
-  document.getElementById("lblKeywordsSummary").textContent =
-    ats.keywordsSummary || "-";
-
- 
-
-  document.getElementById("resultCard").classList.remove("d-none");
-  // document.getElementById("rawJsonCard").classList.remove("d-none");
 }
 
-/* ================= Logic ================= */
+function renderCerts() {
+  const tbody = document.getElementById("CertsTbody");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+  const certs = atsResultRow.RecommendationsJson?.Certifications || [];
+  if (!certs.length) {
+    tbody.innerHTML = '<tr><td colspan="5">--</td></tr>';
+    return;
+  }
+  certs.forEach((c) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${escapeHtml(
+        c.Name
+      )}<div class="tag info" style="margin-top:6px;">CertificationId: <span class="mono">${escapeHtml(
+      c.CertificationId
+    )}</span></div></td>
+      <td>${escapeHtml(c.Provider)}</td>
+      <td>${escapeHtml(c.Level)}</td>
+      <td class="mono">${escapeHtml(c.Hours)}</td>
+      <td class="mono">${escapeHtml(c.Priority)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
 
+function renderCourses() {
+  const tbody = document.getElementById("CoursesTbody");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+  const courses = atsResultRow.RecommendationsJson?.Courses || [];
+  if (!courses.length) {
+    tbody.innerHTML = '<tr><td colspan="5">--</td></tr>';
+    return;
+  }
+  courses.forEach((c) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>
+        ${escapeHtml(c.CourseTitle)}
+        <div style="margin-top:6px; display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="tag info">CourseId: <span class="mono">${escapeHtml(
+            c.CourseId
+          )}</span></span>
+          <span class="tag info">SkillId: <span class="mono">${escapeHtml(
+            c.SkillId
+          )}</span></span>
+        </div>
+      </td>
+      <td>${escapeHtml(c.Provider)}</td>
+      <td>${escapeHtml(c.Level)}</td>
+      <td class="mono">${escapeHtml(c.Hours)}</td>
+      <td class="mono">${escapeHtml(c.Priority)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderActionPlan() {
+  const ap = atsResultRow.RecommendationsJson?.ActionPlan || {};
+  ["Plan30Days", "Plan60Days", "Plan90Days"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = safeText(ap[id]);
+  });
+}
+
+function renderOverallScoreUI() {
+  const el = document.getElementById("overallScore");
+  if (el) el.textContent = safeText(atsResultRow.OverallScore);
+}
+
+/* ==================== INIT ==================== */
+function init() {
+  document.querySelector("#resultCard")?.classList.remove("d-none");
+
+  // Render UI
+  renderMeta();
+  renderOverallScoreUI();
+  setRing(atsResultRow.OverallScore);
+  renderBars();
+  renderNarrative();
+  renderMatchedSkills();
+  renderMissingSkills();
+  renderCerts();
+  renderCourses();
+  renderActionPlan();
+
+  const copyBtn = document.getElementById("btnCopyJson");
+  if (copyBtn)
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(JSON.stringify(atsResultRow, null, 2));
+      showToast("✅ JSON copied to clipboard", "info");
+    });
+}
+
+/* ==================== STATES ==================== */
+function showEmptyState() {
+  document.querySelector("#resultCard")?.classList.add("d-none");
+  document.querySelector("#emptyState")?.classList.remove("d-none");
+}
+
+function showErrorState() {
+  showToast("⚠️ Failed to load ATS result", "error");
+}
+
+/* ==================== DATA LOADER ==================== */
 async function loadAtsResult() {
   try {
-    const res = await getAtsResult();
-    const ats = res?.data?.atsRes;
+    const apiResponse = await getAtsResult();
+    atsResultRow = mapBackendAtsToFrontend(apiResponse);
 
-    console.log("ATS RESPONSE:", ats);
-
-    // ✅ أول ما النتيجة موجودة نعرضها فورًا
-    if (ats?.overallScore != null) {
-      clearInterval(pollingTimer);
-      renderResult(ats);
+    if (!atsResultRow) {
+      showEmptyState();
       return;
     }
 
-    // ⏳ لسه مفيش نتيجة
-    showLoadingState();
-  } catch (e) {
-    console.error("ATS RESULT ERROR:", e);
+    init();
+  } catch (err) {
+    console.error(err);
+    showErrorState();
   }
 }
 
-/* ================= Init ================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-  showLoadingState();
-  loadAtsResult();
-  pollingTimer = setInterval(loadAtsResult, POLL_INTERVAL);
-});
+document.addEventListener("DOMContentLoaded", loadAtsResult);

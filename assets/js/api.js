@@ -17,9 +17,9 @@ export const api = axios.create({
 // ==================== REQUEST INTERCEPTOR للـ Debug ====================
 api.interceptors.request.use(
   (config) => {
-    console.log("➡️ Request URL:", config.url);
-    console.log("Method:", config.method);
-    console.log("Headers (check Cookie sent):", config.headers);
+    // console.log("➡️ Request URL:", config.url);
+    // console.log("Method:", config.method);
+    // console.log("Headers (check Cookie sent):", config.headers);
 
     // Note: HttpOnly cookies مش هتظهر هنا لكن هتتبعت تلقائي مع request
     return config;

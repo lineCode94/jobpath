@@ -65,133 +65,562 @@
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
  
- <style>
-    body {
-  background: var(--bg-page);
-  font-family: "Plus Jakarta Sans", "Tajawal", sans-serif;
-  color: var(--text-main);
+   <style>
+        :root {
+            --bg: #f6f7f8;
+            --panel: #ffffff;
+            --panel2: #fbfbfc;
+            --text: #0f172a;
+            --muted: #6b7280;
+            --border: rgba(15, 23, 42, .10);
+            --shadow: 0 18px 50px rgba(15, 23, 42, .08);
+            --shadow2: 0 10px 28px rgba(15, 23, 42, .06);
+            --radius: 16px;
+            --radius2: 22px;
+            --green: #2fb35a; /* main accent */
+            --green2: #23a14d;
+            --blue: #3b82f6;
+            --amber: #f59e0b;
+            --red: #ef4444;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--sans);
+            color: var(--text);
+            background: radial-gradient(1200px 700px at 20% 0%, rgba(47,179,90,.10), transparent 60%), radial-gradient(900px 650px at 85% 10%, rgba(59,130,246,.08), transparent 55%), var(--bg);
+        }
+
+        .toplines {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .35;
+            background-image: radial-gradient(circle at 10% 10%, rgba(15,23,42,.10) 1px, transparent 1px), radial-gradient(circle at 90% 20%, rgba(15,23,42,.10) 1px, transparent 1px);
+            background-size: 48px 48px, 56px 56px;
+            mix-blend-mode: multiply;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 18px 16px 48px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            box-shadow: var(--shadow2);
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 220px;
+        }
+
+        .logoMark {
+            width: 38px;
+            height: 38px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, rgba(47,179,90,.18), rgba(59,130,246,.10));
+            border: 1px solid rgba(47,179,90,.25);
+            color: var(--green2);
+            font-weight: 900;
+            letter-spacing: .5px;
+        }
+
+        .brandText {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+            .brandText b {
+                font-size: 16px;
+                letter-spacing: .2px;
+            }
+
+            .brandText span {
+                font-size: 12px;
+                color: var(--muted);
+            }
+
+        .nav {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            color: rgba(15,23,42,.78);
+            font-size: 14px;
+        }
+
+            .nav a {
+                color: inherit;
+                text-decoration: none;
+                padding: 8px 10px;
+                border-radius: 12px;
+            }
+
+                .nav a:hover {
+                    background: rgba(47,179,90,.08);
+                    color: rgba(15,23,42,.92);
+                }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            min-width: 220px;
+        }
+
+        .btn {
+            border: 1px solid rgba(47,179,90,.35);
+            background: rgba(47,179,90,.06);
+            color: var(--green2);
+            padding: 9px 12px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 13px;
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            transition: transform .08s ease, background .15s ease;
+            user-select: none;
+        }
+
+            .btn:hover {
+                background: rgba(47,179,90,.10);
+            }
+
+            .btn:active {
+                transform: scale(.98);
+            }
+
+            .btn.secondary {
+                border-color: rgba(15,23,42,.14);
+                background: rgba(15,23,42,.04);
+                color: rgba(15,23,42,.85);
+            }
+
+        /* Page title */
+        .pageHead {
+            margin: 18px 2px 8px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+            .pageHead h1 {
+                margin: 0;
+                font-size: 22px;
+                letter-spacing: .2px;
+            }
+
+            .pageHead p {
+                margin: 6px 0 0;
+                color: var(--muted);
+                font-size: 13px;
+                max-width: 760px;
+            }
+
+        .metaPills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            margin-top: 100px;
+        }
+
+        .pill {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 18px rgba(15,23,42,.05);
+            padding: 8px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            color: rgba(15,23,42,.82);
+        }
+
+            .pill .k {
+                color: var(--muted);
+            }
+
+            .pill .v {
+                font-family: var(--mono);
+            }
+
+        /* Layout */
+        .grid {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 980px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .brand, .actions {
+                min-width: auto;
+            }
+
+            .nav {
+                display: none;
+            }
+            /* keep it clean on mobile (like many templates) */
+        }
+
+        /* Cards */
+        .card-ats {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius2);
+            box-shadow: var(--shadow2);
+            overflow: hidden;
+        }
+
+        .card-ats-h {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(15,23,42,.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: linear-gradient(180deg, rgba(47,179,90,.06), rgba(255,255,255,0));
+        }
+
+            .card-ats-h h2 {
+                margin: 0;
+                font-size: 14px;
+                letter-spacing: .2px;
+            }
+
+        .card-ats-b {
+            padding: 14px 16px ;
+        }
+
+        /* Score ring */
+        .scoreWrap {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 5px;
+            align-items: center;
+        }
+
+        @media (max-width: 460px) {
+            .scoreWrap {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ring {
+            width: 150px;
+            height: 150px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            position: relative;
+            background: rgba(15,23,42,.03);
+            border: 1px solid rgba(15,23,42,.10);
+        }
+
+            .ring svg {
+                position: absolute;
+                inset: 0;
+                transform: rotate(-90deg);
+            }
+
+            .ring .val {
+                font-size: 30px;
+                font-weight: 900;
+                color: var(--green2);
+                letter-spacing: .3px;
+            }
+
+            .ring .sub {
+                margin-top: -2px;
+                font-size: 12px;
+                color: var(--muted);
+                text-align: center;
+            }
+
+        .kv {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+            .kv .item {
+                padding: 10px 10px;
+                border-radius: 14px;
+                border: 1px solid rgba(15,23,42,.10);
+                background: var(--panel2);
+            }
+
+            .kv .label {
+                font-size: 11px;
+                color: var(--muted);
+                margin-bottom: 4px;
+            }
+
+            .kv .value {
+                font-size: 13px;
+                font-family: var(--mono);
+                color: rgba(15,23,42,.88);
+            }
+
+            .kv .wide {
+                grid-column: 1 / -1;
+            }
+
+        /* Bars */
+        .bars {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bar {
+            padding: 10px 10px;
+            border-radius: 14px;
+            border: 1px solid rgba(15,23,42,.10);
+            background: var(--panel2);
+        }
+
+        .barTop {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: rgba(15,23,42,.80);
+        }
+
+            .barTop .pct {
+                font-family: var(--mono);
+                color: var(--muted);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(15,23,42,.14);
+            background: rgba(15,23,42,.04);
+            font-size: 11px;
+            color: rgba(15,23,42,.78);
+            white-space: nowrap;
+        }
+
+            .tag.good {
+                border-color: rgba(47,179,90,.25);
+                background: rgba(47,179,90,.10);
+                color: rgba(10,90,40,.95);
+            }
+
+            .tag.warn {
+                border-color: rgba(245,158,11,.25);
+                background: rgba(245,158,11,.12);
+                color: rgba(120,70,0,.95);
+            }
+
+            .tag.bad {
+                border-color: rgba(239,68,68,.25);
+                background: rgba(239,68,68,.10);
+                color: rgba(120,15,15,.95);
+            }
+
+            .tag.info {
+                border-color: rgba(59,130,246,.25);
+                background: rgba(59,130,246,.10);
+                color: rgba(20,60,140,.95);
+            }
+
+        .track {
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(15,23,42,.08);
+            overflow: hidden;
+            border: 1px solid rgba(15,23,42,.06);
+        }
+.fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(52,168,83,0.6), rgba(52,168,83,0.95));
+    transition: width 650ms ease;
 }
 
-/* Main Card */
-.card-main {
-  background: var(--bg-card);
-  border-radius: 20px;
-  border: 1px solid var(--border-light);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-  padding: 28px;
-  max-width: 1100px;
-  margin: 140px auto 40px;
+.fill.warn {
+    /* متدرج أخضر فاتح إلى الأساسي بدل الأصفر */
+    background: linear-gradient(90deg, rgba(85,195,110,0.6), rgba(52,168,83,0.95));
 }
 
-/* Status badge */
-.badge-status {
-  font-size: 0.8rem;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-weight: 600;
-  background: var(--primary-soft);
-  color: var(--primary);
+.fill.bad {
+    /* متدرج أخضر متوسط إلى الأساسي بدل الأحمر */
+    background: linear-gradient(90deg, rgba(40,140,70,0.6), rgba(52,168,83,0.95));
 }
 
-/* Score Circle */
-.score-circle {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  border: 6px solid var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  color: #fff;
-  background: #34a853;
-}
 
-.score-circle .score-value {
-  font-size: 25px;
-  font-weight: 700;
-}
+        /* Text blocks */
+        .twoCol {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
 
-.score-circle .score-label {
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-}
+        @media (max-width: 980px) {
+            .twoCol {
+                grid-template-columns: 1fr;
+            }
+        }
 
-/* Sections */
-.section-title {
-  font-size:16px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 10px;
-}
+        .block {
+            padding: 12px 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(15,23,42,.10);
+            background: var(--panel2);
+        }
 
-/* Sub cards */
-.card-sub {
-  background: #fff;
-  border-radius: 14px;
-  border: 1px solid var(--border-light);
-  padding: 14px 16px;
-  margin-bottom: 14px;
-}
+            .block h3 {
+                margin: 0 0 8px;
+                font-size: 13px;
+                color: rgba(15,23,42,.86);
+            }
 
-/* Progress */
-.progress {
-  height: 6px;
-  background-color: #34a853;
-  border-radius: 999px;
-}
+            .block p {
+                margin: 0;
+                color: var(--muted);
+                font-size: 13px;
+                line-height: 1.75;
+                white-space: pre-wrap;
+            }
 
-.progress-bar {
-  background: var(--primary);
-  border-radius: 999px;
-}
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
 
-/* Pills */
-.pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--border-light);
-  font-size: 0.75rem;
-  background: #fff;
-  color: var(--text-muted);
-}
+        .chip {
+            padding: 8px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(15,23,42,.10);
+            background: var(--panel2);
+            font-size: 12px;
+            color: rgba(15,23,42,.78);
+        }
 
-.pill-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  margin-right: 6px;
-  background: var(--primary);
-}
+        /* Tables */
+        .tableWrap {
+            overflow: auto;
+            max-height: 280px;
+        }
 
-/* Skills */
-.skills-list li {
-  font-size: 0.85rem;
-  margin-bottom: 6px;
-  color: var(--text-main);
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(15,23,42,.10);
+            background: var(--panel2);
+        }
 
-/* Summary */
-#lblSummary {
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
+        thead th {
+            text-align: left;
+            font-size: 12px;
+            color: rgba(15,23,42,.88);
+            padding: 10px 10px;
+            border-bottom: 1px solid rgba(15,23,42,.10);
+            background: rgba(47,179,90,.08);
+            white-space: nowrap;
+        }
 
-#lblKeywordsSummary {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
+        tbody td {
+            padding: 10px 10px;
+            border-bottom: 1px solid rgba(15,23,42,.08);
+            font-size: 12px;
+            color: rgba(15,23,42,.80);
+            vertical-align: top;
+        }
 
- </style>
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mono {
+            font-family: var(--mono);
+        }
+
+        .foot {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(107,114,128,.95);
+        }
+
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .toplines {
+                display: none;
+            }
+
+            .header {
+                box-shadow: none;
+            }
+
+            .card-ats {
+                box-shadow: none;
+            }
+
+            .btn {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body class="template-dashboard">
      <!-- header area -->
-        <header class="rts__section rts__header absolute__header">
+    <header class="rts__section rts__header absolute__header">
       <div class="container-none">
         <div class="rts__menu__background">
           <div class="row">
@@ -322,17 +751,17 @@
                       >Sign In</span
                     >
                   </a>
-                  <a
-                    href="#"
-                    id="logout"
-                    class="small__btn log-toggle d-sm-flex no__fill__btn border-6 font-xs"
-                    aria-label="Login Button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#logoutModal"
-                  >
-                    <i class="fa-solid fa-right-from-bracket"></i>
-<span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
-                  </a>
+              <a
+    href="#"
+    id="logout"
+    class="small__btn log-toggle d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Logout Button"
+    data-bs-toggle="modal"
+    data-bs-target="#logoutModal"
+  >
+    <i class="fa-solid fa-power-off"></i>
+    <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+  </a>
                   <!-- زر تغيير اللغة -->
                   <a
                     style="cursor: pointer"
@@ -360,130 +789,162 @@
     </header>
 
     <!-- header area end -->
-  <div class="page-wrapper">
-    <!-- Main card -->
-    <div id="resultCard" class="card-main d-none">
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-3">
-            <div>
-                <div class="d-flex align-items-center gap-2 mb-1">
-                    <span class="pill">
-                        <span class="pill-dot"></span>
-                        <span data-en="Request #" data-ar="طلب #"></span><span id="lblRequestId"></span>  
-                        <span data-en="User #" data-ar="مستخدم #"></span><span id="lblUserId"></span>
-                    </span>
-                    <span id="lblStatusBadge" class="badge-status"></span>
-                </div>
-                <div class="mt-2">
-                    <div class="text-secondary" style="font-size: 0.85rem;">
-                        <span data-en="Language:" data-ar="اللغة:"></span> 
-                        <span class="text-info fw-semibold" id="lblLanguage"></span>
-                    </div>
-                    <div class="text-secondary" style="font-size: 0.85rem;">
-                        <span data-en="Created:" data-ar="تم الإنشاء:"></span> 
-                        <span id="lblCreatedAt"></span> 
-                        <span data-en="Completed:" data-ar="تم الاكتمال:"></span> 
-                        <span id="lblCompletedAt"></span>
-                    </div>
-                </div>
-            </div>
+    <div class="container">
+        <!-- Header (matching your light theme style) -->
+       
 
-            <div class="score-circle text-center">
-                <div class="score-value" id="lblOverallScore">–</div>
-                <div data-en="Overall ATS Score" data-ar="مجموع نقاط ATS" class="score-label"></div>
+        <div class="pageHead">
+            <div>
+                <h1>CV Review Result</h1>
+ 
+
             </div>
+            <div class="metaPills" id="metaPills"></div>
         </div>
 
-        <hr class="text-secondary" />
-
-        <div class="row g-3">
-            <!-- Left column: scores -->
-            <div class="col-md-6">
-                <div data-en="Scores breakdown" data-ar="تفاصيل الدرجات" class="section-title"></div>
-
-                <div class="card-sub mb-2">
-                    <div class="d-flex justify-content-between">
-                        <span data-en="Skills match" data-ar="توافق المهارات"></span>
-                        <span id="lblSkillsScore">–</span>
-                    </div>
-                    <div class="progress mt-1">
-                        <div id="barSkillsScore" class="progress-bar" role="progressbar"></div>
+        <div class="grid">
+            <!-- Left: Scores -->
+            <section class="card-ats">
+                <div class="card-ats-h">
+                    <h2>Overall Performance</h2>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                       
+                        <button class="btn secondary" onclick="window.print()">Print</button>
                     </div>
                 </div>
 
-                <div class="card-sub mb-2">
-                    <div class="d-flex justify-content-between">
-                        <span data-en="Title match" data-ar="توافق المسمى الوظيفي"></span>
-                        <span id="lblTitleScore">–</span>
+                <div class="card-ats-b">
+                    <div class="scoreWrap">
+                     <div class="ring">
+    <svg viewBox="0 0 120 120" width="150" height="150">
+        <!-- الخلفية -->
+        <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(52, 168, 83, 0.1)" stroke-width="12" />
+        <!-- الخط الرئيسي -->
+        <circle id="ringStroke" cx="60" cy="60" r="48" fill="none" stroke="rgba(52, 168, 83, 0.95)" stroke-width="12" stroke-linecap="round"
+                stroke-dasharray="0 999" />
+    </svg>
+    <div>
+
+                                <div class="val" id="overallScore">--</div>
+                                <div class="sub">Overall Score</div>
+                            </div>
+                        </div>
+
+                        <div class="kv">
+                            <div class="item"><div class="label">ResultId</div><div class="value" id="ResultId">--</div></div>
+                            <div class="item"><div class="label">RequestId</div><div class="value" id="RequestId">--</div></div>
+                            <div class="item"><div class="label">LanguageDetected</div><div class="value" id="LanguageDetected">--</div></div>
+                            <div class="item"><div class="label">ExperienceLevel</div><div class="value" id="ExperienceLevel">--</div></div>
+                            <div class="item wide"><div class="label">CreatedAtUtc</div><div class="value" id="CreatedAtUtc">--</div></div>
+                        </div>
                     </div>
-                    <div class="progress mt-1">
-                        <div id="barTitleScore" class="progress-bar" role="progressbar"></div>
-                    </div>
+
+                    <div style="height:14px"></div>
+                    <div class="bars" id="scoreBars"></div>
+                </div>
+            </section>
+
+            <!-- Right: Detailed -->
+            <section class="card-ats">
+                <div class="card-ats-h">
+                    <h2>Executive Summary</h2>
+                    <span class="tag info" id="jobProfileTag">JobProfileId: --</span>
                 </div>
 
-                <div class="card-sub mb-2">
-                    <div class="d-flex justify-content-between">
-                        <span data-en="Education score" data-ar="درجة التعليم"></span>
-                        <span id="lblEducationScore">–</span>
+                <div class="card-ats-b">
+                    <div class="twoCol">
+                        <div class="block"><h3>Summary</h3><p id="Summary">--</p></div>
+                        <div class="block"><h3>Career Potential Assessment</h3><p id="CareerPotentialAssessment">--</p></div>
                     </div>
-                    <div class="progress mt-1">
-                        <div id="barEducationScore" class="progress-bar" role="progressbar"></div>
+
+                    <div style="height:14px"></div>
+
+                    <div class="twoCol">
+                        <div class="block"><h3>Top Strengths</h3><p id="TopStrengths">--</p></div>
+                        <div class="block"><h3>Primary Risk</h3><p id="PrimaryRisk">--</p></div>
                     </div>
-                </div>
 
-                <div class="card-sub mb-2">
-                    <div class="d-flex justify-content-between">
-                        <span data-en="Certifications score" data-ar="درجة الشهادات"></span>
-                        <span id="lblCertScore">–</span>
+                    <div style="height:14px"></div>
+
+                    <div class="block">
+                        <h3>Keywords Summary</h3>
+                        <div class="chips" id="KeywordsChips"></div>
                     </div>
-                    <div class="progress mt-1">
-                        <div id="barCertScore" class="progress-bar" role="progressbar"></div>
+
+                    <div style="height:14px"></div>
+
+                    <div class="twoCol">
+                        <div class="block">
+                            <h3>Matched Skills</h3>
+                            <div class="tableWrap">
+                                <table>
+                                    <thead><tr><th>Skill</th><th>MatchScore</th><th>MatchType</th><th>Weight</th></tr></thead>
+                                    <tbody id="MatchedSkillsTbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="block">
+                            <h3>Missing Skills</h3>
+                            <div class="tableWrap">
+                                <table>
+                                    <thead><tr><th>Skill</th><th>Importance</th></tr></thead>
+                                    <tbody id="MissingSkillsTbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="card-sub mb-2">
-                    <div class="d-flex justify-content-between">
-                        <span data-en="Keyword density" data-ar="كثافة الكلمات المفتاحية"></span>
-                        <span id="lblKeywordDensity">–</span>
+                    <div style="height:14px"></div>
+
+                    <div class="twoCol">
+                        <div class="block">
+                            <h3>Recommendations → Certifications</h3>
+                            <div class="tableWrap">
+                                <table>
+                                    <thead><tr><th>Name</th><th>Provider</th><th>Level</th><th>Hours</th><th>Priority</th></tr></thead>
+                                    <tbody id="CertsTbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="block">
+                            <h3>Recommendations → Courses</h3>
+                            <div class="tableWrap">
+                                <table>
+                                    <thead><tr><th>CourseTitle</th><th>Provider</th><th>Level</th><th>Hours</th><th>Priority</th></tr></thead>
+                                    <tbody id="CoursesTbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div class="progress mt-1">
-                        <div id="barKeywordDensity" class="progress-bar" role="progressbar"></div>
+
+                    <div style="height:14px"></div>
+
+                    <div class="block">
+                        <h3>Action Plan</h3>
+                        <div class="twoCol">
+                            <div class="block" style="margin:0;">
+                                <h3 style="margin-top:0;">30 Days</h3>
+                                <p id="Plan30Days">--</p>
+                            </div>
+                            <div class="block" style="margin:0;">
+                                <h3 style="margin-top:0;">60 Days</h3>
+                                <p id="Plan60Days">--</p>
+                            </div>
+                        </div>
+                        <div style="height:12px"></div>
+                        <div class="block" style="margin:0;">
+                            <h3 style="margin-top:0;">90 Days</h3>
+                            <p id="Plan90Days">--</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="card-sub mb-1">
-                    <div class="d-flex justify-content-between">
-                        <span data-en="Experience level" data-ar="مستوى الخبرة"></span>
-                        <span id="lblExperienceLevel" class="fw-semibold"></span>
-                    </div>
+                  
                 </div>
-            </div>
-
-            <!-- Right column: skills & summary -->
-            <div class="col-md-6">
-                <div data-en="Skills overview" data-ar="نظرة عامة على المهارات" class="section-title"></div>
-
-                <div class="card-sub">
-                    <div class="fw-semibold mb-1" data-en="Matched skills" data-ar="المهارات المتوافقة"></div>
-                    <ul id="matchedSkillsList" class="skills-list mb-2"></ul>
-                    <div class="json-box" id="matchedSkillsRaw"></div>
-                </div>
-
-                <div class="card-sub">
-                    <div class="fw-semibold mb-1" data-en="Missing / recommended skills" data-ar="المهارات المفقودة / المقترحة"></div>
-                    <ul id="missingSkillsList" class="skills-list mb-2"></ul>
-                    <div class="json-box" id="missingSkillsRaw"></div>
-                </div>
-
-                <div class="card-sub">
-                    <div class="fw-semibold mb-1" data-en="Summary" data-ar="الملخص"></div>
-                    <!-- <div id="lblSummary" class="mb-1" style="font-size: 0.9rem;"></div> -->
-                    <div id="lblKeywordsSummary" class="text-secondary" style="font-size: 0.82rem;"></div>
-                </div>
-            </div>
+            </section>
         </div>
     </div>
-</div>
-
     </div>
          <div class="d-flex justify-content-center mt-30">
           <p class="copyright">
@@ -581,6 +1042,7 @@
     <button type="button" class="rts__back__top" id="rts-back-to-top">
       <i class="fas fa-arrow-up"></i>
     </button>
+       
     <script type="module" src="/assets/js/ats-result.js"></script> <!-- ملف الجافاسكريبت اللي هيجيب النتيجة حسب requestId -->
       <script type="module" src="assets/js/login.js"></script>
     <script src="assets/js/plugins.min.js"></script>
