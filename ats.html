@@ -789,163 +789,237 @@
     </header>
 
     <!-- header area end -->
-    <div class="container">
-        <!-- Header (matching your light theme style) -->
-       
-
-        <div class="pageHead">
-            <div>
-                <h1>CV Review Result</h1>
- 
-
-            </div>
-            <div class="metaPills" id="metaPills"></div>
-        </div>
-
-        <div class="grid">
-            <!-- Left: Scores -->
-            <section class="card-ats">
-                <div class="card-ats-h">
-                    <h2>Overall Performance</h2>
-                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                       
-                        <button class="btn secondary" onclick="window.print()">Print</button>
-                    </div>
-                </div>
-
-                <div class="card-ats-b">
-                    <div class="scoreWrap">
-                     <div class="ring">
-    <svg viewBox="0 0 120 120" width="150" height="150">
-        <!-- الخلفية -->
-        <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(52, 168, 83, 0.1)" stroke-width="12" />
-        <!-- الخط الرئيسي -->
-        <circle id="ringStroke" cx="60" cy="60" r="48" fill="none" stroke="rgba(52, 168, 83, 0.95)" stroke-width="12" stroke-linecap="round"
-                stroke-dasharray="0 999" />
-    </svg>
+  <div class="container">
+  <div class="pageHead">
     <div>
+      <h1 data-en="CV Review Result" data-ar="نتيجة مراجعة السيرة الذاتية">
+        CV Review Result
+      </h1>
+    </div>
+    <div class="metaPills" id="metaPills"></div>
+  </div>
 
-                                <div class="val" id="overallScore">--</div>
-                                <div class="sub">Overall Score</div>
-                            </div>
-                        </div>
+  <div class="grid">
+    <!-- Left: Scores -->
+    <section class="card-ats">
+      <div class="card-ats-h">
+        <h2
+          data-en="Overall Performance"
+          data-ar="الأداء العام"
+        >
+          Overall Performance
+        </h2>
 
-                        <div class="kv">
-                            <div class="item"><div class="label">ResultId</div><div class="value" id="ResultId">--</div></div>
-                            <div class="item"><div class="label">RequestId</div><div class="value" id="RequestId">--</div></div>
-                            <div class="item"><div class="label">LanguageDetected</div><div class="value" id="LanguageDetected">--</div></div>
-                            <div class="item"><div class="label">ExperienceLevel</div><div class="value" id="ExperienceLevel">--</div></div>
-                            <div class="item wide"><div class="label">CreatedAtUtc</div><div class="value" id="CreatedAtUtc">--</div></div>
-                        </div>
-                    </div>
-
-                    <div style="height:14px"></div>
-                    <div class="bars" id="scoreBars"></div>
-                </div>
-            </section>
-
-            <!-- Right: Detailed -->
-            <section class="card-ats">
-                <div class="card-ats-h">
-                    <h2>Executive Summary</h2>
-                    <span class="tag info" id="jobProfileTag">JobProfileId: --</span>
-                </div>
-
-                <div class="card-ats-b">
-                    <div class="twoCol">
-                        <div class="block"><h3>Summary</h3><p id="Summary">--</p></div>
-                        <div class="block"><h3>Career Potential Assessment</h3><p id="CareerPotentialAssessment">--</p></div>
-                    </div>
-
-                    <div style="height:14px"></div>
-
-                    <div class="twoCol">
-                        <div class="block"><h3>Top Strengths</h3><p id="TopStrengths">--</p></div>
-                        <div class="block"><h3>Primary Risk</h3><p id="PrimaryRisk">--</p></div>
-                    </div>
-
-                    <div style="height:14px"></div>
-
-                    <div class="block">
-                        <h3>Keywords Summary</h3>
-                        <div class="chips" id="KeywordsChips"></div>
-                    </div>
-
-                    <div style="height:14px"></div>
-
-                    <div class="twoCol">
-                        <div class="block">
-                            <h3>Matched Skills</h3>
-                            <div class="tableWrap">
-                                <table>
-                                    <thead><tr><th>Skill</th><th>MatchScore</th><th>MatchType</th><th>Weight</th></tr></thead>
-                                    <tbody id="MatchedSkillsTbody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="block">
-                            <h3>Missing Skills</h3>
-                            <div class="tableWrap">
-                                <table>
-                                    <thead><tr><th>Skill</th><th>Importance</th></tr></thead>
-                                    <tbody id="MissingSkillsTbody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="height:14px"></div>
-
-                    <div class="twoCol">
-                        <div class="block">
-                            <h3>Recommendations → Certifications</h3>
-                            <div class="tableWrap">
-                                <table>
-                                    <thead><tr><th>Name</th><th>Provider</th><th>Level</th><th>Hours</th><th>Priority</th></tr></thead>
-                                    <tbody id="CertsTbody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="block">
-                            <h3>Recommendations → Courses</h3>
-                            <div class="tableWrap">
-                                <table>
-                                    <thead><tr><th>CourseTitle</th><th>Provider</th><th>Level</th><th>Hours</th><th>Priority</th></tr></thead>
-                                    <tbody id="CoursesTbody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="height:14px"></div>
-
-                    <div class="block">
-                        <h3>Action Plan</h3>
-                        <div class="twoCol">
-                            <div class="block" style="margin:0;">
-                                <h3 style="margin-top:0;">30 Days</h3>
-                                <p id="Plan30Days">--</p>
-                            </div>
-                            <div class="block" style="margin:0;">
-                                <h3 style="margin-top:0;">60 Days</h3>
-                                <p id="Plan60Days">--</p>
-                            </div>
-                        </div>
-                        <div style="height:12px"></div>
-                        <div class="block" style="margin:0;">
-                            <h3 style="margin-top:0;">90 Days</h3>
-                            <p id="Plan90Days">--</p>
-                        </div>
-                    </div>
-
-                  
-                </div>
-            </section>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button
+            class="btn secondary"
+            onclick="window.print()"
+            data-en="Print"
+            data-ar="طباعة"
+          >
+            Print
+          </button>
         </div>
-    </div>
-    </div>
+      </div>
+
+      <div class="card-ats-b">
+        <div class="scoreWrap">
+          <div class="ring">
+            <svg viewBox="0 0 120 120" width="150" height="150">
+              <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(52, 168, 83, 0.1)" stroke-width="12" />
+              <circle
+                id="ringStroke"
+                cx="60"
+                cy="60"
+                r="48"
+                fill="none"
+                stroke="rgba(52, 168, 83, 0.95)"
+                stroke-width="12"
+                stroke-linecap="round"
+                stroke-dasharray="0 999"
+              />
+            </svg>
+
+            <div>
+              <div class="val" id="overallScore">--</div>
+              <div
+                class="sub"
+                data-en="Overall Score"
+                data-ar="التقييم الكلي"
+              >
+                Overall Score
+              </div>
+            </div>
+          </div>
+
+          <div class="kv">
+            <div class="item">
+              <div class="label">ResultId</div>
+              <div class="value" id="ResultId">--</div>
+            </div>
+            <div class="item">
+              <div class="label">RequestId</div>
+              <div class="value" id="RequestId">--</div>
+            </div>
+            <div class="item">
+              <div class="label"
+                   data-en="Language Detected"
+                   data-ar="اللغة المكتشفة">
+                LanguageDetected
+              </div>
+              <div class="value" id="LanguageDetected">--</div>
+            </div>
+            <div class="item">
+              <div class="label"
+                   data-en="Experience Level"
+                   data-ar="مستوى الخبرة">
+                ExperienceLevel
+              </div>
+              <div class="value" id="ExperienceLevel">--</div>
+            </div>
+            <div class="item wide">
+              <div class="label"
+                   data-en="Created At"
+                   data-ar="تاريخ الإنشاء">
+                CreatedAtUtc
+              </div>
+              <div class="value" id="CreatedAtUtc">--</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+        <div class="bars" id="scoreBars"></div>
+      </div>
+    </section>
+
+    <!-- Right: Detailed -->
+    <section class="card-ats">
+      <div class="card-ats-h">
+        <h2
+          data-en="Executive Summary"
+          data-ar="الملخص التنفيذي"
+        >
+          Executive Summary
+        </h2>
+        <span class="tag info" id="jobProfileTag">
+          JobProfileId: --
+        </span>
+      </div>
+
+      <div class="card-ats-b">
+        <div class="twoCol">
+          <div class="block">
+            <h3 data-en="Summary" data-ar="الملخص">Summary</h3>
+            <p id="Summary">--</p>
+          </div>
+          <div class="block">
+            <h3
+              data-en="Career Potential Assessment"
+              data-ar="تقييم الإمكانيات المهنية"
+            >
+              Career Potential Assessment
+            </h3>
+            <p id="CareerPotentialAssessment">--</p>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="twoCol">
+          <div class="block">
+            <h3 data-en="Top Strengths" data-ar="أبرز نقاط القوة">
+              Top Strengths
+            </h3>
+            <p id="TopStrengths">--</p>
+          </div>
+          <div class="block">
+            <h3 data-en="Primary Risk" data-ar="المخاطر الرئيسية">
+              Primary Risk
+            </h3>
+            <p id="PrimaryRisk">--</p>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="block">
+          <h3 data-en="Keywords Summary" data-ar="ملخص الكلمات المفتاحية">
+            Keywords Summary
+          </h3>
+          <div class="chips" id="KeywordsChips"></div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="twoCol">
+          <div class="block">
+            <h3 data-en="Matched Skills" data-ar="المهارات المتطابقة">
+              Matched Skills
+            </h3>
+            <div class="tableWrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-en="Skill" data-ar="المهارة">Skill</th>
+                    <th data-en="Score" data-ar="التقييم">MatchScore</th>
+                    <th data-en="Type" data-ar="النوع">MatchType</th>
+                    <th data-en="Weight" data-ar="الوزن">Weight</th>
+                  </tr>
+                </thead>
+                <tbody id="MatchedSkillsTbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="block">
+            <h3 data-en="Missing Skills" data-ar="المهارات الناقصة">
+              Missing Skills
+            </h3>
+            <div class="tableWrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-en="Skill" data-ar="المهارة">Skill</th>
+                    <th data-en="Importance" data-ar="الأهمية">Importance</th>
+                  </tr>
+                </thead>
+                <tbody id="MissingSkillsTbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="block">
+          <h3 data-en="Action Plan" data-ar="خطة العمل">
+            Action Plan
+          </h3>
+
+          <div class="twoCol">
+            <div class="block" style="margin:0;">
+              <h3 data-en="30 Days" data-ar="30 يوم">30 Days</h3>
+              <p id="Plan30Days">--</p>
+            </div>
+            <div class="block" style="margin:0;">
+              <h3 data-en="60 Days" data-ar="60 يوم">60 Days</h3>
+              <p id="Plan60Days">--</p>
+            </div>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="block" style="margin:0;">
+            <h3 data-en="90 Days" data-ar="90 يوم">90 Days</h3>
+            <p id="Plan90Days">--</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
          <div class="d-flex justify-content-center mt-30">
           <p class="copyright">
             Copyright © 2024 All Rights Reserved by Jobs AI
