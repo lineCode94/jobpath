@@ -686,100 +686,91 @@
 </div>
 <form id="profileForm">
   <div class="info__field">
-    <!-- أول 4 حقول -->
+
+    <!-- الاسم + الإيميل -->
     <div class="row row-cols-sm-2 row-cols-1 g-3">
       <div class="rt-input-group">
-        <label for="name" data-en="Full Name" data-ar="الأسم">Full Name</label>
-        <input type="text" id="name" name="name" required   />
+        <label data-en="Full Name" data-ar="الأسم">Full Name</label>
+        <input type="text" id="name" />
       </div>
-      <div class="rt-input-group">
-        <label for="email" data-en="Email" data-ar="البريد الإلكتروني">Email</label>
-        <input type="email" id="emailUser" name="email" required  />
-      </div>
-    </div>
-
-    <div class="row row-cols-sm-2 row-cols-1 g-3">
-    <!-- SET PASSWORD (first time) -->
-    <div id="setPasswordWrapper" class="rt-input-group d-none">
-      <label for="passwordUser" data-en="Password" data-ar="كلمة المرور">
-        Password
-      </label>
-      <input
-        type="password"
-        id="passwordUser"
-        class="form-control mt-2"
-        placeholder="Password"
-      />
-    </div>
-
-    <!-- UPDATE PASSWORD -->
-    <div id="updatePasswordWrapper" class="rt-input-group d-none">
-      <label data-en="Update Password" data-ar="تحديث كلمة المرور">
-        Update Password
-      </label>
-
-      <input
-        type="password"
-        id="oldPassword"
-        class="form-control mt-2"
-        placeholder="Old Password"
-      />
-
-      <input
-        type="password"
-        id="newPassword"
-        class="form-control mt-2"
-        placeholder="New Password"
-      />
-    </div>
 
       <div class="rt-input-group">
-        <label for="phone" data-en="Phone" data-ar="الهاتف">Phone</label>
-        <input type="text" id="phoneUser" name="phone" required  />
+        <label data-en="Email" data-ar="البريد الإلكتروني">Email</label>
+        <input type="email" id="emailUser" />
       </div>
     </div>
 
-    <!-- باقي الحقول -->
-    <div class="row row-cols-sm-2 row-cols-1 g-3">
-     
-          <!-- <div class="rt-input-group">
-               <label for="title" data-en="Job Title" data-ar=" الوظيفة ">Job Title</label>
+    <!-- PASSWORD ROW (FULL WIDTH) -->
+    <div class="row g-3 mt-1">
 
-        <select name="Job" id="job" class="form-select" >
-          <option value=""  selected disabled>-- اختر الوظيفة --</option>
-         
-        </select>
-      </div> -->
-            <div class="rt-input-group">
-        <label for="jobTitle" data-en="Job Title" data-ar=" المسمى الوظيفي">Job Title</label>
-        <input type="text" id="jobTitle" name="jobTitle" />
+      <!-- SET PASSWORD -->
+      <div id="setPasswordWrapper" class="col-12 d-none">
+        <div class="rt-input-group">
+          <label data-en="Password" data-ar="كلمة المرور">Password</label>
+          <input type="password" id="passwordUser" />
+        </div>
       </div>
-      <!-- <div class="rt-input-group">
-        <label for="Profession" data-en="Profession" data-ar="التخصص">Profession</label>
-        <input type="text" id="Profession" name="profession" />
-      </div> -->
-           <div class="rt-input-group">
-        <label for="City" data-en="City" data-ar=" المدينة ">City</label>
-        <select name="City" id="City" class="form-select" >
-          <option value="" selected disabled>-- اختر المدينة --</option>
-         
-        </select>
+
+      <!-- UPDATE PASSWORD -->
+      <div id="updatePasswordWrapper" class="col-12 d-none">
+        <label style="color: #000;" data-en="Update Password" data-ar="تحديث كلمة المرور">
+          Update Password
+        </label>
+
+        <div class="row row-cols-sm-2 row-cols-1 g-3 mt-1">
+          <div class="rt-input-group">
+            <input
+              type="password"
+              id="oldPassword"
+              placeholder="Old Password"
+            />
+          </div>
+
+          <div class="rt-input-group">
+            <input
+              type="password"
+              id="newPassword"
+              placeholder="New Password"
+            />
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Phone + Job -->
+    <div class="row row-cols-sm-2 row-cols-1 g-3 mt-1">
+      <div class="rt-input-group">
+        <label data-en="Phone" data-ar="الهاتف">Phone</label>
+        <input type="text" id="phoneUser" />
+      </div>
+
+      <div class="rt-input-group">
+        <label data-en="Job Title" data-ar="المسمى الوظيفي">Job Title</label>
+        <input type="text" id="jobTitle" />
       </div>
     </div>
 
-    
+    <!-- City -->
+    <div class="row row-cols-sm-2 row-cols-1 g-3 mt-1">
+      <div class="rt-input-group">
+        <label data-en="City" data-ar="المدينة">City</label>
+        <select id="City" class="form-select"></select>
+      </div>
+    </div>
 
-    <!-- زر الحفظ -->
-    <div class="row">
+    <!-- Save -->
+    <div class="row mt-4">
       <div class="col">
-        <button id="save" data-ar="حفظ الملف الشخصي" data-en=" Save Profile " type="submit" class="rts__btn fill__btn"
-           >
-          Save Profile 
+        <button type="submit" class="rts__btn fill__btn">
+          Save Profile
         </button>
       </div>
     </div>
+
   </div>
 </form>
+
 
             </div>
           </div>
