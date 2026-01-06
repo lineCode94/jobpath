@@ -331,10 +331,8 @@
 
         /* Score ring */
         .scoreWrap {
-            display: grid;
-            grid-template-columns: 150px 1fr;
-            gap: 5px;
-            align-items: center;
+       display: flex;
+       justify-content: center;
         }
 
         @media (max-width: 460px) {
@@ -822,9 +820,9 @@
         </div>
       </div>
 
-      <div class="card-ats-b">
+      <div  class="card-ats-b">
         <div class="scoreWrap">
-          <div class="ring">
+          <div   class="ring">
             <svg viewBox="0 0 120 120" width="150" height="150">
               <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(52, 168, 83, 0.1)" stroke-width="12" />
               <circle
@@ -852,40 +850,7 @@
             </div>
           </div>
 
-          <div class="kv">
-            <div class="item">
-              <div class="label">ResultId</div>
-              <div class="value" id="ResultId">--</div>
-            </div>
-            <div class="item">
-              <div class="label">RequestId</div>
-              <div class="value" id="RequestId">--</div>
-            </div>
-            <div class="item">
-              <div class="label"
-                   data-en="Language Detected"
-                   data-ar="اللغة المكتشفة">
-                LanguageDetected
-              </div>
-              <div class="value" id="LanguageDetected">--</div>
-            </div>
-            <div class="item">
-              <div class="label"
-                   data-en="Experience Level"
-                   data-ar="مستوى الخبرة">
-                ExperienceLevel
-              </div>
-              <div class="value" id="ExperienceLevel">--</div>
-            </div>
-            <div class="item wide">
-              <div class="label"
-                   data-en="Created At"
-                   data-ar="تاريخ الإنشاء">
-                CreatedAtUtc
-              </div>
-              <div class="value" id="CreatedAtUtc">--</div>
-            </div>
-          </div>
+          
         </div>
 
         <div style="height:14px"></div>
@@ -967,7 +932,7 @@
                     <th data-en="Weight" data-ar="الوزن">Weight</th>
                   </tr>
                 </thead>
-                <tbody style="direction: ltr;" id="MatchedSkillsTbody"></tbody>
+                <tbody style="direction: ltr;text-align: left;" id="MatchedSkillsTbody"></tbody>
               </table>
             </div>
           </div>
@@ -984,7 +949,7 @@
                     <th data-en="Importance" data-ar="الأهمية">Importance</th>
                   </tr>
                 </thead>
-                <tbody style="direction: ltr;" id="MissingSkillsTbody"></tbody>
+                <tbody style="direction: ltr;text-align: left;" id="MissingSkillsTbody"></tbody>
               </table>
             </div>
           </div>
