@@ -176,7 +176,7 @@ function renderMatchedSkills() {
     tr.innerHTML = `
       <td>${escapeHtml(
         s.SkillName
-      )}<div class="tag info" style="margin-top:6px;">SkillId: <span class="mono">${escapeHtml(
+      )}<div class="tag info" style="margin:6px;">SkillId: <span class="mono">${escapeHtml(
       s.SkillId
     )}</span></div></td>
       <td class="mono">${escapeHtml(s.MatchScore)}</td>
@@ -208,7 +208,7 @@ function renderMissingSkills() {
     tr.innerHTML = `
       <td>${escapeHtml(
         s.SkillName
-      )}<div class="tag info" style="margin-top:6px;">SkillId: <span class="mono">${escapeHtml(
+      )}<div class="tag info" style="margin:6px;">SkillId: <span class="mono">${escapeHtml(
       s.SkillId
     )}</span></div></td>
       <td><span class="tag ${cls}">Importance: <span class="mono">${escapeHtml(
