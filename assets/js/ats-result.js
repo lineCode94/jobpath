@@ -59,14 +59,16 @@ function setRing(score) {
 }
 
 function renderBars() {
-  const bars = [
-    { name: "Title Match", value: atsResultRow.TitleMatchScore },
-    { name: "Skills", value: atsResultRow.SkillsScore },
-    { name: "Experience", value: atsResultRow.ExperienceScore },
-    { name: "Education", value: atsResultRow.EducationScore },
-    { name: "Certifications", value: atsResultRow.CertificationsScore },
-    { name: "Keyword Density", value: atsResultRow.KeywordDensityScore },
-  ];
+  const lang = localStorage.getItem("lang") || "en";
+const bars = [
+  { name: lang === "ar" ? "تطابق المسمّى الوظيفي" : "Title Match", value: atsResultRow.TitleMatchScore },
+  { name: lang === "ar" ? "المهارات" : "Skills", value: atsResultRow.SkillsScore },
+  { name: lang === "ar" ? "الخبرة" : "Experience", value: atsResultRow.ExperienceScore },
+  { name: lang === "ar" ? "التعليم" : "Education", value: atsResultRow.EducationScore },
+  { name: lang === "ar" ? "الشهادات" : "Certifications", value: atsResultRow.CertificationsScore },
+  { name: lang === "ar" ? "كثافة الكلمات المفتاحية" : "Keyword Density", value: atsResultRow.KeywordDensityScore },
+];
+
 
   const host = document.getElementById("scoreBars");
   if (!host) return;
