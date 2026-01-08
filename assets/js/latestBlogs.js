@@ -32,14 +32,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const res = await getLatestBlogs();
     const blogs = res?.data?.blogs || [];
-console.log(res);
+// console.log(res);
     if (!blogs.length) {
       container.innerHTML = `<p class="text-center mt-4">${
         lang === "ar" ? "لا توجد مقالات حالياً" : "No blogs available"
       }</p>`;
       return;
     }
-    console.log(blogs[0].blogImagePath);
+    // console.log(blogs[0].blogImagePath);
 
     container.innerHTML = blogs
       .map((blog) => {

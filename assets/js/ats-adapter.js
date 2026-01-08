@@ -2,7 +2,7 @@
 export function mapBackendAtsToFrontend(apiResponse) {
 const d = apiResponse?.data?.atsRes?.data;
 
-  console.log(d);
+  // console.log(d);
   if (!d) return null;
 
   return {
