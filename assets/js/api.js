@@ -124,6 +124,7 @@ export const getSingleJob = async (id, lang = "en") => {
 
 // ==================== BLOGS ====================
 export const getAllBlogs = () => api.get("/users/get-all-blogs");
+export const getLatestBlogs = () => api.get("/admin/get-recent-three-blogs");
 
 export const getSingleBlog = async (id) => {
   const res = await api.get(`/users/get-blog-by-id/${id}`);

@@ -1109,11 +1109,211 @@
  
      
         </div>
-        <div class="d-flex justify-content-center mt-30">
-          <p class="copyright">
-            Copyright © 2024 All Rights Reserved by Jobs AI
-          </p>
+        
+
+
+         <!-- LOGIN MODAL -->
+<div class="modal similar__modal fade" id="loginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="max-content similar__form form__padding">
+
+        <div class="d-flex mb-3 align-items-center justify-content-between">
+          <h6 class="mb-0" data-en="Login To JobsAI" data-ar="تسجيل الدخول إلى JobsAI">
+            Login To JobsAI
+          </h6>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-regular fa-xmark text-primary"></i>
+          </button>
         </div>
+
+        <div class="d-block has__line text-center">
+          <p data-en="Choose your login method" data-ar="اختر طريقة تسجيل الدخول">Choose your login method</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tab__switch flex-wrap flex-sm-nowrap nav-tab mt-30 mb-30" role="tablist">
+          <button
+            class="rts__btn nav-link active"
+            id="phone-tab"
+            data-en="Phone"
+            data-ar="الهاتف"
+            data-bs-toggle="tab"
+            data-bs-target="#phoneTab"
+            type="button"
+            role="tab"
+          >
+            <i class="fa-light fa-phone"></i> Phone
+          </button>
+          <button
+            class="rts__btn nav-link"
+            id="mail-tab"
+            data-ar="البريد"
+            data-en="Mail"
+            data-bs-toggle="tab"
+            data-bs-target="#mailTab"
+            type="button"
+            role="tab"
+          >
+            <i class="fa-light fa-envelope"></i> Mail
+          </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+
+          <!-- PHONE LOGIN -->
+          <div class="tab-pane fade show active" id="phoneTab" role="tabpanel" aria-labelledby="phone-tab">
+            <form method="post" id="loginFormPhone" class="d-flex flex-column gap-3">
+              
+              <div class="form-group">
+                <label for="phone" class="fw-medium text-dark mb-3"
+                  data-en="Your Phone"
+                  data-ar="رقم هاتفك"
+                >Your Phone</label>
+
+                <div class="position-relative">
+                  <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    class="input-login-phone"
+                    placeholder="Enter your phone"
+                    data-en="Enter your phone"
+                    data-ar="أدخل رقم هاتفك"
+                    required
+                  />
+                  <i class="fa-light fa-phone icon"></i>
+                </div>
+              </div>
+
+              <!-- OTP Section -->
+              <div class="form-group d-none" id="otpSection">
+                <label for="otp" class="fw-medium text-dark mb-3"
+                  data-en="Enter OTP"
+                  data-ar="أدخل رمز التحقق"
+                >Enter OTP</label>
+
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    name="otp"
+                    id="otp"
+                    placeholder="Enter OTP"
+                    data-en="Enter OTP"
+                    data-ar="أدخل رمز التحقق"
+                    maxlength="6"
+                  />
+                  <i class="fa-light fa-shield icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group my-3">
+                <button
+                  class="rts__btn w-100 fill__btn"
+                  type="button"
+                  id="sendOtpBtnLogin"
+                  data-en="Send OTP"
+                  data-ar="إرسال رمز التحقق"
+                >
+                  Send OTP
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- EMAIL OR PHONE + PASSWORD LOGIN -->
+          <div class="tab-pane fade" id="mailTab" role="tabpanel" aria-labelledby="mail-tab">
+            <form method="post" id="loginFormMail" class="d-flex flex-column gap-3">
+
+              <div class="form-group">
+                <label for="email" class="fw-medium text-dark mb-3"
+                  data-en="Email or Phone"
+                  data-ar="البريد الإلكتروني أو الهاتف"
+                >Email or Phone</label>
+
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="Enter your phone or email"
+                    data-en="Enter your phone or email"
+                    data-ar="أدخل رقم هاتفك أو بريدك الإلكتروني"
+                    required
+                  />
+                  <i class="fa-light fa-user icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="password" class="fw-medium text-dark mb-3"
+                  data-en="Password"
+                  data-ar="كلمة المرور"
+                >Password</label>
+
+                <div class="position-relative">
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    data-en="Enter your password"
+                    data-ar="أدخل كلمة المرور"
+                    required
+                  />
+                  <i class="fa-light fa-lock icon"></i>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-between align-items-center fw-medium">
+<!-- 
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="flexCheckDefault" />
+                  <label
+                    class="form-check-label"
+                    for="flexCheckDefault"
+                    data-en="Remember me"
+                    data-ar="تذكرني"
+                  >
+                    Remember me
+                  </label>
+                </div> -->
+
+                <!-- <a
+                  href="#"
+                  class="forgot__password text-para"
+                  data-bs-toggle="modal"
+                  data-bs-target="#forgotModal"
+                  data-en="Forgot Password?"
+                  data-ar="هل نسيت كلمة المرور؟"
+                >
+                  Forgot Password?
+                </a> -->
+
+              </div>
+
+              <div class="form-group my-3">
+                <button
+                  class="rts__btn w-100 fill__btn"
+                  type="submit"
+                  data-en="Login"
+                  data-ar="تسجيل الدخول"
+                >
+                  Login
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
       </div>
     </div>
     <!-- content area end -->
@@ -1195,6 +1395,10 @@
         </div>
       </div>
     </div>
+
+
+      <div data-include="layout/footer.html"></div>
+
     <!-- THEME PRELOADER START -->
     <div class="loader-wrapper">
       <div class="loader"></div>

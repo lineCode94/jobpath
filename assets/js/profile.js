@@ -601,9 +601,9 @@ if (user.hasPassword) {
 
       const res = await updateProfile(payload, false);
       showToast("تم حفظ البيانات بنجاح!", "success");
-      setTimeout(() => {
+   
         window.location.reload();
-      }, 500);
+    
       if (res.data?.isPhoneChanged) {
         logoutUser();
         window.location.href = "/index.html";
