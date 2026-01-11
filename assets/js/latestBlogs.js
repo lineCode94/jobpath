@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }</p>`;
       return;
     }
-    // console.log(blogs[0].blogImagePath);
+    console.log(blogs[0].blogId);
 
     container.innerHTML = blogs
       .map((blog) => {
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return `
   <div class="col-xl-4 col-lg-4 col-md-6">
     <div class="rts__single__blog">
-      <a href="blog-details.html?id=${blog.blogId}" class="blog__img">
+      <a href="blog-details.html?blogId=${blog.blogId}" class="blog__img">
         <img src="${image}" alt="${title}" />
       </a>
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           </span>
         </div>
 
-        <a href="blog-details.html?id=${blog.blogId}" class="h6 fw-semibold">
+        <a href="blog-details.html?blogId=${blog.blogId}" class="h6 fw-semibold">
           ${title}
         </a>
       </div>
