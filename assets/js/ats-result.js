@@ -1,109 +1,147 @@
-// ats-result.js
 import { getAtsResult } from "./api.js";
 import { mapBackendAtsToFrontend } from "./ats-adapter.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
+    const lang = localStorage.getItem("lang") || "en";
+
     // ===== Fetch ATS Result =====
     const apiRes = await getAtsResult();
-    console.log("ATS RAW RESPONSE:", apiRes);
-
     if (!apiRes?.data?.atsRes?.success) {
       console.error("Invalid ATS response structure");
       return;
     }
 
-    // 👈 المهم: ابعت الداتا الصح للـ adapter
     const data = mapBackendAtsToFrontend(apiRes.data.atsRes.data);
-    console.log(data);
+    // console.log(data.scores);
     if (!data) return;
+
+    // ===== Helper =====
+    const textByLang = (el) => el?.dataset?.[lang] || el?.textContent || "";
+
+    // ===== Update all headers with icons + language =====
+    const defaultIcons = {
+      "Overall Score": "fas fa-trophy",
+      "Score Breakdown": "fas fa-chart-bar",
+      "Matched Skills": "fas fa-check-circle",
+      "Development Areas": "fas fa-exclamation-triangle",
+      "Assessment Summary": "fas fa-file-alt",
+      "Development Recommendations": "fas fa-graduation-cap",
+      "Recommended Courses": "fas fa-book-open",
+      "Development Action Plan": "fas fa-road",
+      "Keywords Summary": "fas fa-key",
+    };
+
+    document.querySelectorAll("[data-en][data-ar]").forEach((el) => {
+      const text = textByLang(el);
+      let iconClass = el.dataset.icon;
+
+      // لو مفيش icon في HTML ندي icon افتراضي حسب النص الإنجليزي
+      if (!iconClass) {
+        iconClass = defaultIcons[el.dataset.en] || "";
+      }
+
+      // ضع الأيقونة مع النص
+      el.innerHTML = `<i class="${iconClass} me-2"></i> ${text}`;
+    });
 
     // ===== Overall Score =====
     const overallScoreEl = document.getElementById("overallScoreEn");
-    if (overallScoreEl) {
-      overallScoreEl.textContent = data.overallScore
-        ? data.overallScore.toFixed(1)
-        : "0.0";
-    }
+    if (overallScoreEl)
+      overallScoreEl.textContent = data.overallScore?.toFixed(1) || "0.0";
 
     // ===== Score Breakdown =====
-    const breakdown = document.getElementById("scoreBreakdownEn");
-    if (breakdown && Array.isArray(data.scores)) {
-      breakdown.innerHTML = "";
-      data.scores.forEach((s) => {
-        breakdown.innerHTML += `
-          <div class="mb-2">
-            <strong>${s.label}</strong>
-            <div class="progress">
-              <div class="progress-bar bg-success" style="width:${s.value}%">
-                ${s.value}%
+    const breakdownEl = document.getElementById("scoreBreakdownEn");
+    if (breakdownEl && Array.isArray(data.scores)) {
+      breakdownEl.innerHTML = "";
+   if (breakdownEl && Array.isArray(data.scores)) {
+     breakdownEl.innerHTML = ""; // reset
+
+     data.scores.forEach((s) => {
+       const scoreDiv = document.createElement("div");
+       scoreDiv.className = "mb-2";
+
+       scoreDiv.innerHTML = `
+      <strong>${s.label}</strong>
+      <div class="progress" style="height:12px; border-radius:6px; background:#e5e7eb;">
+        <div class="progress-bar" role="progressbar" style="width:0%; transition: width 1s ease-in-out; background: linear-gradient(90deg, #34d399, #10b981);">
+          ${s.value.toFixed(1)}%
+        </div>
+      </div>
+    `;
+
+       breakdownEl.appendChild(scoreDiv);
+
+       // animate the correct progress bar
+       const progressBar = scoreDiv.querySelector(".progress-bar");
+       setTimeout(() => {
+         progressBar.style.width = `${s.value}%`;
+       }, 100);
+     });
+   }
+
+    }
+
+    // ===== Skills =====
+    const renderSkills = (containerId, skills, type = "match") => {
+      const container = document.getElementById(containerId);
+      if (!container || !Array.isArray(skills)) return;
+
+      container.innerHTML = skills
+        .map((s) => {
+          if (type === "match") {
+            let badgeClass =
+              s.MatchScore >= 85
+                ? "bg-success"
+                : s.MatchScore >= 70
+                  ? "bg-warning"
+                  : "bg-danger";
+            return `
+              <div class="p-2 border-bottom d-flex justify-content-between align-items-center">
+                <div><strong>${s.SkillName}</strong><div class="small text-muted mt-1">${s.MatchType || ""}</div></div>
+                <span class="badge ${badgeClass}">${s.MatchScore}%</span>
               </div>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    // ===== Matched Skills =====
-    const matched = document.getElementById("matchedSkillsEn");
-    if (matched && Array.isArray(data.matchedSkills)) {
-      matched.innerHTML = data.matchedSkills
-        .map(
-          (s) => `
-          <div class="p-2 border-bottom">
-            <strong>${s.SkillName}</strong>
-            <div class="text-muted small">
-              Match: ${s.MatchScore}% – ${s.MatchType}
-            </div>
-          </div>
-        `,
-        )
+            `;
+          } else {
+            let badgeClass =
+              s.Importance >= 8
+                ? "bg-danger"
+                : s.Importance >= 5
+                  ? "bg-warning"
+                  : "bg-secondary";
+            return `
+              <div class="p-2 border-bottom d-flex justify-content-between align-items-center">
+                <div><strong>${s.SkillName}</strong></div>
+                <span class="badge ${badgeClass}">Importance ${s.Importance}</span>
+              </div>
+            `;
+          }
+        })
         .join("");
-    }
+    };
 
-    // ===== Missing Skills =====
-    const missing = document.getElementById("missingSkillsEn");
-    if (missing && Array.isArray(data.missingSkills)) {
-      missing.innerHTML = data.missingSkills
-        .map(
-          (s) => `
-          <div class="p-2 border-bottom">
-            <strong>${s.SkillName}</strong>
-            <span class="badge bg-warning ms-2">
-              Importance ${s.Importance}
-            </span>
-          </div>
-        `,
-        )
-        .join("");
-    }
+    renderSkills("matchedSkillsEn", data.matchedSkills, "match");
+    renderSkills("missingSkillsEn", data.missingSkills, "missing");
 
-    // ===== Text Sections =====
-    const summaryEl = document.getElementById("summaryEn");
-    if (summaryEl) summaryEl.textContent = data.summary || "";
-
-    const strengthsEl = document.getElementById("topStrengthsEn");
-    if (strengthsEl) strengthsEl.textContent = data.topStrengths || "";
-
-    const riskEl = document.getElementById("primaryRiskEn");
-    if (riskEl) riskEl.textContent = data.primaryRisk || "";
-
-    const careerEl = document.getElementById("careerPotentialEn");
-    if (careerEl) careerEl.textContent = data.careerPotential || "";
+    // ===== Assessment Texts =====
+    const setText = (id, value) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value || "";
+    };
+    setText("summaryEn", data.summary);
+    setText("topStrengthsEn", data.topStrengths);
+    setText("primaryRiskEn", data.primaryRisk);
+    setText("careerPotentialEn", data.careerPotential);
 
     // ===== Courses =====
     const coursesEl = document.getElementById("coursesEn");
     if (coursesEl && Array.isArray(data.courses)) {
       coursesEl.innerHTML = data.courses
         .map(
-          (c) => `
-          <div class="mb-3">
-            <strong>${c.CourseTitle}</strong>
-            <div class="small text-muted">
-              ${c.Provider} · ${c.Hours}h · ${c.Level}
-            </div>
-          </div>
-        `,
+          (c) => `<div class="mb-3 p-2 border rounded">
+                     <strong>${c.CourseTitle}</strong>
+                     <div class="small text-muted">${c.Provider} · ${c.Hours}h · ${c.Level}</div>
+                   </div>`,
         )
         .join("");
     }
@@ -111,23 +149,60 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ===== Action Plan =====
     const planEl = document.getElementById("actionPlanEn");
     if (planEl && data.actionPlan) {
-      planEl.innerHTML = `
-        <div><strong>30 Days:</strong> ${data.actionPlan.Plan30Days?.En || ""}</div>
-        <div><strong>60 Days:</strong> ${data.actionPlan.Plan60Days?.En || ""}</div>
-        <div><strong>90 Days:</strong> ${data.actionPlan.Plan90Days?.En || ""}</div>
-      `;
+      planEl.innerHTML = "";
+      const plans = [
+        {
+          days: lang === "ar" ? "30 يوم" : "30 Days",
+          text:
+            lang === "ar"
+              ? data.actionPlan.Plan30Days.Ar
+              : data.actionPlan.Plan30Days.En,
+          icon: data.actionPlan.Plan30Days.Icon || "fa-calendar-day",
+        },
+        {
+          days: lang === "ar" ? "60 يوم" : "60 Days",
+          text:
+            lang === "ar"
+              ? data.actionPlan.Plan60Days.Ar
+              : data.actionPlan.Plan60Days.En,
+          icon: data.actionPlan.Plan60Days.Icon || "fa-calendar-day",
+        },
+        {
+          days: lang === "ar" ? "90 يوم" : "90 Days",
+          text:
+            lang === "ar"
+              ? data.actionPlan.Plan90Days.Ar
+              : data.actionPlan.Plan90Days.En,
+          icon: data.actionPlan.Plan90Days.Icon || "fa-calendar-day",
+        },
+      ];
+
+      plans.forEach((plan) => {
+        const planHTML = `
+          <div class="plan-item">
+            <div class="plan-days">
+              <i class="fas ${plan.icon}"></i>
+              ${plan.days}
+            </div>
+            <div class="plan-text">${plan.text}</div>
+          </div>
+        `;
+        planEl.innerHTML += planHTML;
+      });
     }
 
     // ===== Keywords =====
     const keywordsEl = document.getElementById("keywordsEn");
-    if (keywordsEl && typeof data.keywords === "string") {
-      keywordsEl.innerHTML = data.keywords
-        .split(",")
-        .map(
-          (k) =>
-            `<span class="badge bg-secondary me-1 mb-1">${k.trim()}</span>`,
-        )
-        .join("");
+    if (keywordsEl && data.keywords) {
+      keywordsEl.innerHTML = "";
+      data.keywords.split(",").forEach((k) => {
+        let match = k.match(/(.*?) \((.*?)\)/);
+        let display = match ? (lang === "ar" ? match[2] : match[1]) : k;
+        const span = document.createElement("span");
+        span.className = "badge bg-secondary me-1 mb-1";
+        span.textContent = display.trim();
+        keywordsEl.appendChild(span);
+      });
     }
   } catch (err) {
     console.error("ATS load error:", err);
