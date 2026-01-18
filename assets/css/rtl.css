@@ -174,3 +174,7 @@ html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
   pointer-events: none;
   position: absolute;
 }
+.fixed-rtl {
+  text-align: left;
+  direction: ltr;
+}

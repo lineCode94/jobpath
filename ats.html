@@ -65,560 +65,600 @@
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
  
-   <style>
-        :root {
-            --bg: #f6f7f8;
-            --panel: #ffffff;
-            --panel2: #fbfbfc;
-            --text: #0f172a;
-            --muted: #6b7280;
-            --border: rgba(15, 23, 42, .10);
-            --shadow: 0 18px 50px rgba(15, 23, 42, .08);
-            --shadow2: 0 10px 28px rgba(15, 23, 42, .06);
-            --radius: 16px;
-            --radius2: 22px;
-            --green: #2fb35a; /* main accent */
-            --green2: #23a14d;
-            --blue: #3b82f6;
-            --amber: #f59e0b;
-            --red: #ef4444;
-            --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
-        }
+
+    <style>
+     :root {
+  /* ===== Brand (Based on #34a853) ===== */
+  --brand-900: #0f3d24;   /* very dark */
+  --brand-800: #166534;
+  --brand-700: #1e7f43;
+  --brand-600: #2ea44f;   /* قريب جدًا من الأساسي */
+  --brand-500: #34a853;   /* ✅ MAIN BRAND */
+  --brand-400: #5fcf8a;
+  --brand-300: #8fe3b1;
+  --brand-200: #bff0d4;
+  --brand-100: #e6f7ee;
+  --brand-50:  #f3fbf7;
+
+  /* ===== Neutrals ===== */
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #fbfdff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --muted-2: #94a3b8;
+  --border: rgba(15,23,42,.10);
+
+  /* ===== Accents ===== */
+  --blue-600: #2563eb;
+  --warn-600: #f59e0b;
+  --danger-600: #ef4444;
+
+  /* ===== Radius ===== */
+  --r-2xl: 24px;
+  --r-xl: 18px;
+  --r-lg: 16px;
+  --r-md: 12px;
+
+  /* ===== Shadows ===== */
+  --shadow-1: 0 10px 22px rgba(2,6,23,.06);
+  --shadow-2: 0 18px 44px rgba(2,6,23,.10);
+  --shadow-3: 0 28px 70px rgba(2,6,23,.14);
+
+  /* Brand glow */
+  --shadow-brand: 0 26px 80px rgba(52,168,83,.28);
+
+  /* ===== Typography ===== */
+  --font-en: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+  --font-ar: "Cairo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+}
 
         * {
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
-            margin: 0;
-            font-family: var(--sans);
+            font-family: var(--font-en);
             color: var(--text);
-            background: radial-gradient(1200px 700px at 20% 0%, rgba(47,179,90,.10), transparent 60%), radial-gradient(900px 650px at 85% 10%, rgba(59,130,246,.08), transparent 55%), var(--bg);
+            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .toplines {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            opacity: .35;
-            background-image: radial-gradient(circle at 10% 10%, rgba(15,23,42,.10) 1px, transparent 1px), radial-gradient(circle at 90% 20%, rgba(15,23,42,.10) 1px, transparent 1px);
-            background-size: 48px 48px, 56px 56px;
-            mix-blend-mode: multiply;
-            z-index: 0;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        .container {
+        .hidden {
+            display: none !important;
+        }
+
+        /* ===== Header ===== */
+        .header-bar {
+            color: white;
             position: relative;
-            z-index: 1;
-            max-width: 1240px;
-            margin: 0 auto;
-            padding: 18px 16px 48px;
-        }
-
-        /* Header */
-        .header {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 28px;
-            box-shadow: var(--shadow2);
-            padding: 12px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 220px;
-        }
-
-        .logoMark {
-            width: 38px;
-            height: 38px;
-            border-radius: 14px;
-            display: grid;
-            place-items: center;
-            background: linear-gradient(135deg, rgba(47,179,90,.18), rgba(59,130,246,.10));
-            border: 1px solid rgba(47,179,90,.25);
-            color: var(--green2);
-            font-weight: 900;
-            letter-spacing: .5px;
-        }
-
-        .brandText {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.1;
-        }
-
-            .brandText b {
-                font-size: 16px;
-                letter-spacing: .2px;
-            }
-
-            .brandText span {
-                font-size: 12px;
-                color: var(--muted);
-            }
-
-        .nav {
-            display: flex;
-            gap: 18px;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: center;
-            color: rgba(15,23,42,.78);
-            font-size: 14px;
-        }
-
-            .nav a {
-                color: inherit;
-                text-decoration: none;
-                padding: 8px 10px;
-                border-radius: 12px;
-            }
-
-                .nav a:hover {
-                    background: rgba(47,179,90,.08);
-                    color: rgba(15,23,42,.92);
-                }
-
-        .actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            min-width: 220px;
-        }
-
-        .btn {
-            border: 1px solid rgba(47,179,90,.35);
-            background: rgba(47,179,90,.06);
-            color: var(--green2);
-            padding: 9px 12px;
-            border-radius: 14px;
-            cursor: pointer;
-            font-size: 13px;
-            display: inline-flex;
-            gap: 8px;
-            align-items: center;
-            transition: transform .08s ease, background .15s ease;
-            user-select: none;
-        }
-
-            .btn:hover {
-                background: rgba(47,179,90,.10);
-            }
-
-            .btn:active {
-                transform: scale(.98);
-            }
-
-            .btn.secondary {
-                border-color: rgba(15,23,42,.14);
-                background: rgba(15,23,42,.04);
-                color: rgba(15,23,42,.85);
-            }
-
-        /* Page title */
-        .pageHead {
-            margin: 18px 2px 8px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-            .pageHead h1 {
-                margin: 0;
-                font-size: 22px;
-                letter-spacing: .2px;
-            }
-
-            .pageHead p {
-                margin: 6px 0 0;
-                color: var(--muted);
-                font-size: 13px;
-                max-width: 760px;
-            }
-
-        .metaPills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            align-items: center;
-            margin-top: 100px;
-        }
-
-        .pill {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            box-shadow: 0 8px 18px rgba(15,23,42,.05);
-            padding: 8px 10px;
-            border-radius: 999px;
-            font-size: 12px;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            color: rgba(15,23,42,.82);
-        }
-
-            .pill .k {
-                color: var(--muted);
-            }
-
-            .pill .v {
-                font-family: var(--mono);
-            }
-
-        /* Layout */
-        .grid {
-            margin-top: 14px;
-            display: grid;
-            grid-template-columns: 400px 1fr;
-            gap: 16px;
-        }
-
-        @media (max-width: 980px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
-            .brand, .actions {
-                min-width: auto;
-            }
-
-            .nav {
-                display: none;
-            }
-            /* keep it clean on mobile (like many templates) */
-        }
-
-        /* Cards */
-        .card-ats {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: var(--radius2);
-            box-shadow: var(--shadow2);
             overflow: hidden;
         }
 
-        .card-ats-h {
-            padding: 14px 16px;
-            border-bottom: 1px solid rgba(15,23,42,.08);
+           
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: -0.5px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            background: linear-gradient(180deg, rgba(47,179,90,.06), rgba(255,255,255,0));
+            gap: 10px;
         }
 
-            .card-ats-h h2 {
-                margin: 0;
-                font-size: 14px;
-                letter-spacing: .2px;
+        .logo-icon {
+            background: white;
+            color: var(--brand-500);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .language-switch {
+            display: inline-flex;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 4px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .lang-btn {
+            border: none;
+            background: transparent;
+            color: white;
+            padding: 8px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .lang-btn:hover {
+                background: rgba(255,255,255,0.1);
             }
 
-        .card-ats-b {
-            padding: 14px 16px ;
-        }
-
-        /* Score ring */
-        .scoreWrap {
-       display: flex;
-       justify-content: center;
-        }
-
-        @media (max-width: 460px) {
-            .scoreWrap {
-                grid-template-columns: 1fr;
+            .lang-btn.active {
+                background: white;
+                color: var(--brand-600);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             }
+
+        /* ===== Cards ===== */
+        .card {
+            border: none;
+            border-radius: var(--r-xl);
+            box-shadow: var(--shadow-1);
+            margin-bottom: 1.5rem;
+            background: var(--surface);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
         }
 
-        .ring {
-            width: 150px;
-            height: 150px;
-            border-radius: 999px;
-            display: grid;
-            place-items: center;
+            .card:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-2);
+            }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--brand-50), white);
+            border-bottom: 1px solid var(--brand-100);
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--r-xl) var(--r-xl) 0 0 !important;
+            font-weight: 700;
+            color: #333;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .card-header i {
+                color: var(--brand-500);
+            }
+
+        /* ===== Circular Progress for Overall Score ===== */
+        .circular-progress-container {
             position: relative;
-            background: rgba(15,23,42,.03);
-            border: 1px solid rgba(15,23,42,.10);
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
         }
 
-            .ring svg {
+        .circular-progress-bg {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--brand-500);
+            position: relative;
+        }
+
+            .circular-progress-bg::before {
+                content: '';
                 position: absolute;
-                inset: 0;
-                transform: rotate(-90deg);
+                width: 170px;
+                height: 170px;
+                background: white;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
             }
 
-            .ring .val {
-                font-size: 30px;
-                font-weight: 900;
-                color: var(--green2);
-                letter-spacing: .3px;
-            }
-
-            .ring .sub {
-                margin-top: -2px;
-                font-size: 12px;
-                color: var(--muted);
-                text-align: center;
-            }
-
-        .kv {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+        .circular-progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
         }
 
-            .kv .item {
-                padding: 10px 10px;
-                border-radius: 14px;
-                border: 1px solid rgba(15,23,42,.10);
-                background: var(--panel2);
-            }
+        .circular-score {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--brand-500);
+            line-height: 1;
+        }
 
-            .kv .label {
-                font-size: 11px;
-                color: var(--muted);
-                margin-bottom: 4px;
-            }
+        .circular-label {
+            font-size: 0.9rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 0.5rem;
+        }
 
-            .kv .value {
-                font-size: 13px;
-                font-family: var(--mono);
-                color: rgba(15,23,42,.88);
-            }
+        /* ===== Bar Charts for Score Breakdown ===== */
+        .bar-chart-container {
+            padding: 1rem;
+        }
 
-            .kv .wide {
-                grid-column: 1 / -1;
-            }
+        .bar-item {
+            margin-bottom: 1.5rem;
+        }
 
-        /* Bars */
-        .bars {
+        .bar-label {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
-        .bar {
-            padding: 10px 10px;
-            border-radius: 14px;
-            border: 1px solid rgba(15,23,42,.10);
-            background: var(--panel2);
+        .bar-name {
+            color: var(--text);
         }
 
-        .barTop {
+        .bar-value {
+            color: var(--brand-700);
+            font-weight: 700;
+        }
+
+        .bar-track {
+            height: 10px;
+            background: var(--brand-50);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--brand-400), var(--brand-600));
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+            position: relative;
+        }
+
+            .bar-fill::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 100%;
+                width: 3px;
+                background: white;
+                opacity: 0.5;
+            }
+
+        /* ===== Skills Display ===== */
+        .skill-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: background 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .skill-item:last-child {
+                border-bottom: none;
+            }
+
+            .skill-item:hover {
+                background: var(--brand-50);
+            }
+
+        .match-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            gap: 4px;
+        }
+
+        .match-high {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--brand-800);
+        }
+
+        .match-medium {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warn-600);
+        }
+
+        .match-low {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger-600);
+        }
+
+        .importance-badge {
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        .importance-high {
+            color: var(--danger-600);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .importance-medium {
+            color: var(--warn-600);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .importance-low {
+            color: var(--muted);
+            background: rgba(107, 114, 128, 0.1);
+        }
+
+        /* ===== Assessment Sections ===== */
+        .assessment-section {
+            background: var(--brand-50);
+            border-radius: var(--r-md);
+            padding: 1.25rem;
+            border: 1px solid var(--brand-100);
+            margin-bottom: 1rem;
+            height: 100%;
+        }
+
+            .assessment-section:last-child {
+                margin-bottom: 0;
+            }
+
+        .assessment-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 8px;
-            font-size: 12px;
-            color: rgba(15,23,42,.80);
+            gap: 8px;
+            display: flex;
+            justify-content: center;
         }
 
-            .barTop .pct {
-                font-family: var(--mono);
-                color: var(--muted);
-                display: flex;
-                align-items: center;
-                gap: 8px;
+        .assessment-text {
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* ===== Action Plan ===== */
+        .plan-timeline {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-left: 0.75rem;
+        }
+
+            .plan-timeline::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 3px;
+                background: linear-gradient(to bottom, var(--brand-500), var(--brand-300));
+                border-radius: 3px;
             }
 
-        .tag {
+        .plan-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--brand-100);
+        }
+
+            .plan-item:last-child {
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+
+            .plan-item::before {
+                content: '';
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: var(--brand-500);
+                border: 3px solid white;
+                left: -1.85rem;
+                top: 0;
+                box-shadow: 0 0 0 3px var(--brand-100);
+            }
+
+        .plan-days {
+            font-weight: 800;
+            color: var(--brand-600);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .plan-days i {
+                background: var(--brand-100);
+                padding: 6px;
+                border-radius: 8px;
+            }
+
+        .plan-text {
+            color: var(--text);
+            line-height: 1.7;
+            padding-left: 1.5rem;
+            background: var(--brand-50);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--brand-100);
+        }
+
+        /* ===== Courses ===== */
+        .course-card {
+            background: white;
+            border-radius: var(--r-md);
+            padding: 1.25rem;
+            border: 1px solid var(--brand-100);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .course-card:hover {
+                border-color: var(--brand-400);
+                transform: translateX(4px);
+            }
+
+            .course-card::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                background: var(--brand-500);
+            }
+
+        .course-title {
+            font-weight: 700;
+            color: var(--brand-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .course-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+
+            .course-meta span {
+                background: var(--brand-50);
+                padding: 4px 10px;
+                border-radius: 20px;
+                font-size: 0.85rem;
+                color: var(--brand-700);
+                font-weight: 600;
+            }
+
+        /* ===== Keywords ===== */
+        .keywords-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .keyword-tag {
+            background: linear-gradient(135deg, var(--brand-50), white);
+            color: var(--brand-800);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid var(--brand-200);
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 4px 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(15,23,42,.14);
-            background: rgba(15,23,42,.04);
-            font-size: 11px;
-            color: rgba(15,23,42,.78);
-            white-space: nowrap;
         }
 
-            .tag.good {
-                border-color: rgba(47,179,90,.25);
-                background: rgba(47,179,90,.10);
-                color: rgba(10,90,40,.95);
+            .keyword-tag::before {
+                content: '#';
+                color: var(--brand-500);
+                font-weight: 800;
             }
 
-            .tag.warn {
-                border-color: rgba(245,158,11,.25);
-                background: rgba(245,158,11,.12);
-                color: rgba(120,70,0,.95);
+        /* ===== Arabic Content ===== */
+        .ar-content {
+            direction: rtl;
+            text-align: right;
+            font-family: var(--font-ar);
+        }
+
+            .ar-content .plan-timeline {
+                padding-left: 0;
+                padding-right: 1.5rem;
+                margin-left: 0;
+                margin-right: 0.75rem;
             }
 
-            .tag.bad {
-                border-color: rgba(239,68,68,.25);
-                background: rgba(239,68,68,.10);
-                color: rgba(120,15,15,.95);
+                .ar-content .plan-timeline::before {
+                    left: auto;
+                    right: 0;
+                }
+
+            .ar-content .plan-item::before {
+                left: auto;
+                right: -1.85rem;
             }
 
-            .tag.info {
-                border-color: rgba(59,130,246,.25);
-                background: rgba(59,130,246,.10);
-                color: rgba(20,60,140,.95);
+            .ar-content .plan-text {
+                padding-left: 0;
+                padding-right: 1.5rem;
             }
 
-        .track {
-            height: 10px;
-            border-radius: 999px;
-            background: rgba(15,23,42,.08);
-            overflow: hidden;
-            border: 1px solid rgba(15,23,42,.06);
-        }
-.fill {
-    height: 100%;
-    width: 0%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, rgba(52,168,83,0.6), rgba(52,168,83,0.95));
-    transition: width 650ms ease;
-}
-
-.fill.warn {
-    /* متدرج أخضر فاتح إلى الأساسي بدل الأصفر */
-    background: linear-gradient(90deg, rgba(85,195,110,0.6), rgba(52,168,83,0.95));
-}
-
-.fill.bad {
-    /* متدرج أخضر متوسط إلى الأساسي بدل الأحمر */
-    background: linear-gradient(90deg, rgba(40,140,70,0.6), rgba(52,168,83,0.95));
-}
-
-
-        /* Text blocks */
-        .twoCol {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        @media (max-width: 980px) {
-            .twoCol {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .block {
-            padding: 12px 12px;
-            border-radius: 16px;
-            border: 1px solid rgba(15,23,42,.10);
-            background: var(--panel2);
-        }
-
-            .block h3 {
-                margin: 0 0 8px;
-                font-size: 13px;
-                color: rgba(15,23,42,.86);
+            .ar-content .course-card::before {
+                left: auto;
+                right: 0;
             }
 
-            .block p {
-                margin: 0;
-                color: var(--muted);
-                font-size: 13px;
-                line-height: 1.75;
-                white-space: pre-wrap;
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--brand-800);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 4px solid var(--brand-500);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .circular-progress-container {
+                width: 150px;
+                height: 150px;
             }
 
-        .chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .chip {
-            padding: 8px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(15,23,42,.10);
-            background: var(--panel2);
-            font-size: 12px;
-            color: rgba(15,23,42,.78);
-        }
-
-        /* Tables */
-        .tableWrap {
-            overflow: auto;
-            max-height: 280px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(15,23,42,.10);
-            background: var(--panel2);
-        }
-
-        thead th {
-            text-align: left;
-            font-size: 12px;
-            color: rgba(15,23,42,.88);
-            padding: 10px 10px;
-            border-bottom: 1px solid rgba(15,23,42,.10);
-            background: rgba(47,179,90,.08);
-            white-space: nowrap;
-        }
-
-        tbody td {
-            padding: 10px 10px;
-            border-bottom: 1px solid rgba(15,23,42,.08);
-            font-size: 12px;
-            color: rgba(15,23,42,.80);
-            vertical-align: top;
-        }
-
-        tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .mono {
-            font-family: var(--mono);
-        }
-
-        .foot {
-            margin-top: 12px;
-            text-align: center;
-            font-size: 12px;
-            color: rgba(107,114,128,.95);
-        }
-
-        @media print {
-            body {
-                background: #fff;
+            .circular-progress-bg::before {
+                width: 130px;
+                height: 130px;
+                
             }
 
-            .toplines {
-                display: none;
+            .circular-score {
+                font-size: 2.5rem;
             }
 
-            .header {
-                box-shadow: none;
+            .plan-timeline {
+                padding-left: 1rem;
+                margin-left: 0.5rem;
             }
 
-            .card-ats {
-                box-shadow: none;
+            .plan-item::before {
+                left: -1.35rem;
             }
-
-            .btn {
-                display: none;
-            }
+        }
+        .bg-success {
+            background-color: var(--brand-500)!important;
+        }
+        .text-success {
+            color: var(--brand-500)!important;
         }
     </style>
 </head>
 <body class="template-dashboard">
      <!-- header area -->
-    <header class="rts__section rts__header absolute__header">
+    <header class="rts__section rts__header absolute__header header-bar">
       <div class="container-none">
         <div class="rts__menu__background">
           <div class="row">
@@ -787,203 +827,251 @@
     </header>
 
     <!-- header area end -->
-  <div class="container">
-  <div class="pageHead">
-    <div>
-      <h1 data-en="CV Review Result" data-ar="نتيجة مراجعة السيرة الذاتية">
-        CV Review Result
-      </h1>
-    </div>
-    <div class="metaPills" id="metaPills"></div>
-  </div>
+<main class="container py-4">
+  <div>
+    <!-- Score Section -->
+    <div class="row mb-4">
+      <div class="col-md-5">
+        <div class="card h-100">
+          <div class="card-header">
+            <span
+              data-en="Overall Score"
+              data-ar="النتيجة الإجمالية"
+            >
+              <i class="fas fa-trophy"></i> Overall Score
+            </span>
+          </div>
 
-  <div class="grid">
-    <!-- Left: Scores -->
-    <section class="card-ats">
-      <div class="card-ats-h">
-        <h2
-          data-en="Overall Performance"
-          data-ar="الأداء العام"
-        >
-          Overall Performance
-        </h2>
+          <div class="card-body d-flex flex-column align-items-center">
+            <!-- Circular Progress -->
+            <div class="circular-progress-container mb-4">
+              <div
+                class="circular-progress-bg"
+                id="circularProgress"
+                style="background: conic-gradient(var(--brand-500) 225deg, #e5e7eb 225deg);"
+              ></div>
 
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button
-            class="btn secondary"
-            onclick="window.print()"
-            data-en="Print"
-            data-ar="طباعة"
-          >
-            Print
-          </button>
+              <div class="circular-progress-text">
+                <div class="circular-score" id="overallScoreEn">65.0</div>
+                <div
+                  class="circular-label"
+                  data-en="Overall Match"
+                  data-ar="نسبة التطابق الإجمالية"
+                >
+                  Overall Match
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <span
+                class="badge bg-success fs-6 px-3 py-2"
+                data-en="Mid Level"
+                data-ar="مستوى متوسط"
+              >
+                Mid Level
+              </span>
+              <span
+                class="badge bg-secondary fs-6 px-3 py-2"
+                data-en="Bilingual CV"
+                data-ar="سيرة ذاتية ثنائية اللغة"
+              >
+                Bilingual CV
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div  class="card-ats-b">
-        <div class="scoreWrap">
-          <div   class="ring">
-            <svg viewBox="0 0 120 120" width="150" height="150">
-              <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(52, 168, 83, 0.1)" stroke-width="12" />
-              <circle
-                id="ringStroke"
-                cx="60"
-                cy="60"
-                r="48"
-                fill="none"
-                stroke="rgba(52, 168, 83, 0.95)"
-                stroke-width="12"
-                stroke-linecap="round"
-                stroke-dasharray="0 999"
-              />
-            </svg>
+      <div class="col-md-7">
+        <div class="card h-100">
+          <div class="card-header">
+            <span
+              data-en="Score Breakdown"
+              data-ar="تفاصيل التقييم"
+            >
+              <i class="fas fa-chart-bar"></i> Score Breakdown
+            </span>
+          </div>
+          <div class="card-body">
+            <div class="bar-chart-container" id="scoreBreakdownEn"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <div>
-              <div class="val" id="overallScore">--</div>
-              <div
-                class="sub"
-                data-en="Overall Score"
-                data-ar="التقييم الكلي"
-              >
-                Overall Score
+    <!-- Skills Section -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header ">
+            <span
+              data-en="Matched Skills"
+              data-ar="المهارات المتطابقة"
+            >
+              <i class="fas fa-check-circle"></i> Matched Skills
+            </span>
+          </div>
+          <div class="card-body p-0">
+            <div class="fixed-rtl" id="matchedSkillsEn"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header">
+            <span
+              data-en="Development Areas"
+              data-ar="مجالات التطوير"
+            >
+              <i class="fas fa-exclamation-triangle"></i> Development Areas
+            </span>
+          </div>
+          <div class="card-body p-0">
+            <div class="fixed-rtl" id="missingSkillsEn"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assessment Summary -->
+    <div class="row mb-4  fixed-rtl">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <span
+              data-en="Assessment Summary"
+              data-ar="ملخص التقييم"
+            >
+              <i class="fas fa-file-alt"></i> Assessment Summary
+            </span>
+          </div>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="assessment-section">
+                  <div
+                    class="assessment-label"
+                    data-en="Top Strengths"
+                    data-ar="نقاط القوة الرئيسية"
+                  >
+                    <i class="fas fa-star text-success"></i> Top Strengths
+                  </div>
+                  <div class="assessment-text" id="topStrengthsEn"></div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="assessment-section">
+                  <div
+                    class="assessment-label"
+                    data-en="Primary Risk"
+                    data-ar="أهم نقاط الضعف"
+                  >
+                    <i class="fas fa-exclamation-circle text-danger"></i>
+                    Primary Risk
+                  </div>
+                  <div class="assessment-text" id="primaryRiskEn"></div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="assessment-section">
+                  <div
+                    class="assessment-label"
+                    data-en="Career Potential"
+                    data-ar="التطور الوظيفي المتوقع"
+                  >
+                    <i class="fas fa-chart-line text-primary"></i>
+                    Career Potential
+                  </div>
+                  <div class="assessment-text" id="careerPotentialEn"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div class="assessment-section">
+                <div
+                  class="assessment-label"
+                  data-en="Detailed Summary"
+                  data-ar="الملخص التفصيلي"
+                >
+                  <i class="fas fa-clipboard-check text-success"></i>
+                  Detailed Summary
+                </div>
+                <div class="assessment-text" id="summaryEn"></div>
               </div>
             </div>
           </div>
-
-          
         </div>
-
-        <div style="height:14px"></div>
-        <div class="bars" id="scoreBars"></div>
       </div>
-    </section>
+    </div>
 
-    <!-- Right: Detailed -->
-    <section class="card-ats">
-      <div class="card-ats-h">
-        <h2
-          data-en="Executive Summary"
-          data-ar="الملخص التنفيذي"
-        >
-          Executive Summary
-        </h2>
-        <span class="tag info" id="jobProfileTag">
-          JobProfileId: --
-        </span>
-      </div>
-
-      <div class="card-ats-b">
-        <div class="twoCol">
-          <div class="block">
-            <h3 data-en="Summary" data-ar="الملخص">Summary</h3>
-            <p id="Summary">--</p>
-          </div>
-          <div class="block">
-            <h3
-              data-en="Career Potential Assessment"
-              data-ar="تقييم الإمكانيات المهنية"
+    <!-- Recommendations -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <span
+              data-en="Development Recommendations"
+              data-ar="توصيات التطوير"
             >
-              Career Potential Assessment
-            </h3>
-            <p id="CareerPotentialAssessment">--</p>
+              <i class="fas fa-graduation-cap"></i>
+              Development Recommendations
+            </span>
           </div>
-        </div>
 
-        <div style="height:14px"></div>
-
-        <div class="twoCol">
-          <div class="block">
-            <h3 data-en="Top Strengths" data-ar="أبرز نقاط القوة">
-              Top Strengths
-            </h3>
-            <p id="TopStrengths">--</p>
-          </div>
-          <div class="block">
-            <h3 data-en="Primary Risk" data-ar="المخاطر الرئيسية">
-              Primary Risk
-            </h3>
-            <p id="PrimaryRisk">--</p>
-          </div>
-        </div>
-
-        <div style="height:14px"></div>
-
-        <div class="block">
-          <h3 data-en="Keywords Summary" data-ar="ملخص الكلمات المفتاحية">
-            Keywords Summary
-          </h3>
-          <div class="chips" id="KeywordsChips"></div>
-        </div>
-
-        <div style="height:14px"></div>
-
-        <div class="twoCol">
-          <div class="block">
-            <h3 data-en="Matched Skills" data-ar="المهارات المتطابقة">
-              Matched Skills
-            </h3>
-            <div class="tableWrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th data-en="Skill" data-ar="المهارة">Skill</th>
-                    <th data-en="Score" data-ar="التقييم">MatchScore</th>
-                    <th data-en="Type" data-ar="النوع">MatchType</th>
-                    <th data-en="Weight" data-ar="الوزن">Weight</th>
-                  </tr>
-                </thead>
-                <tbody style="direction: ltr;text-align: left;" id="MatchedSkillsTbody"></tbody>
-              </table>
+          <div class="card-body">
+            <div class="mb-4">
+              <h5
+                class="text-success mb-3"
+                data-en="Recommended Courses"
+                data-ar="الدورات المقترحة"
+              >
+                <i class="fas fa-book-open"></i> Recommended Courses
+              </h5>
+              <div id="coursesEn"></div>
             </div>
-          </div>
 
-          <div class="block">
-            <h3 data-en="Missing Skills" data-ar="المهارات الناقصة">
-              Missing Skills
-            </h3>
-            <div class="tableWrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th data-en="Skill" data-ar="المهارة">Skill</th>
-                    <th data-en="Importance" data-ar="الأهمية">Importance</th>
-                  </tr>
-                </thead>
-                <tbody style="direction: ltr;text-align: left;" id="MissingSkillsTbody"></tbody>
-              </table>
+            <div>
+              <h5
+                class="text-success mb-3"
+                data-en="Development Action Plan"
+                data-ar="خطة التطوير"
+              >
+                <i class="fas fa-road"></i> Development Action Plan
+              </h5>
+              <div class="plan-timeline" id="actionPlanEn"></div>
             </div>
-          </div>
-        </div>
-
-        <div style="height:14px"></div>
-
-        <div class="block">
-          <h3 data-en="Action Plan" data-ar="خطة العمل">
-            Action Plan
-          </h3>
-
-          <div style="direction: ltr;" class="twoCol">
-            <div class="block" style="margin:0;">
-              <h3 data-en="30 Days" data-ar="30 يوم">30 Days</h3>
-              <p id="Plan30Days">--</p>
-            </div>
-            <div class="block" style="margin:0;">
-              <h3 data-en="60 Days" data-ar="60 يوم">60 Days</h3>
-              <p id="Plan60Days">--</p>
-            </div>
-          </div>
-
-          <div style="height:12px"></div>
-
-          <div class="block" style="margin:0;direction: ltr;">
-            <h3 data-en="90 Days" data-ar="90 يوم">90 Days</h3>
-            <p id="Plan90Days">--</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+
+    <!-- Keywords -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <span
+              data-en="Keywords Summary"
+              data-ar="ملخص الكلمات المفتاحية"
+            >
+              <i class="fas fa-key"></i> Keywords Summary
+            </span>
+          </div>
+          <div class="card-body">
+            <div id="keywordsEn"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</main>
+
 
          <div class="d-flex justify-content-center mt-30">
           <p class="copyright">

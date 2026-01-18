@@ -1,49 +1,57 @@
 // ats-adapter.js
-export function mapBackendAtsToFrontend(apiResponse) {
-const d = apiResponse?.data?.atsRes?.data;
-
-  // console.log(d);
+export function mapBackendAtsToFrontend(d) {
   if (!d) return null;
 
-  return {
-    // ===== IDs =====
-    ResultId: d.ResultId,
-    RequestId: d.RequestId,
+  const lang = localStorage.getItem("lang") || "en";
 
-    // ===== Scores =====
-    OverallScore: d.OverallScore,
-    TitleMatchScore: d.TitleMatchScore,
-    SkillsScore: d.SkillsScore,
-    ExperienceScore: d.ExperienceScore,
-    EducationScore: d.EducationScore,
-    CertificationsScore: d.CertificationsScore,
-    KeywordDensityScore: d.KeywordDensityScore,
-
-    // ===== Meta =====
-    LanguageDetected: d.LanguageDetected,
-    ExperienceLevel: d.ExperienceLevel,
-    CreatedAtUtc: d.CreatedAtUtc,
-
-    // ===== Skills =====
-    MatchedSkillsJson: d.MatchedSkills || [],
-    MissingSkillsJson: d.MissingSkills || [],
-
-    // ===== Text blocks =====
-    KeywordsSummary: d.KeywordsSummary,
-    Summary: d.Summary,
-    TopStrengths: d.TopStrengths,
-    PrimaryRisk: d.PrimaryRisk,
-    CareerPotentialAssessment: d.CareerPotentialAssessment,
-
-    // ===== Recommendations =====
-    RecommendationsJson: {
-      JobProfileId: d.Recommendations?.JobProfileId,
-      BuiltAtUtc: d.Recommendations?.BuiltAtUtc,
-      MissingSkills: d.Recommendations?.MissingSkills || [],
-      Certifications: d.Recommendations?.Certifications || [],
-      Courses: d.Recommendations?.Courses || [],
-      ActionPlan: d.Recommendations?.ActionPlan || {},
+  // Translation map for score labels
+  const scoreLabels = {
+    en: {
+      titleMatch: "Title Match",
+      skills: "Skills",
+      experience: "Experience",
+      education: "Education",
+      certifications: "Certifications",
+      keywordDensity: "Keyword Density",
+    },
+    ar: {
+      titleMatch: "تطابق المسمى الوظيفي",
+      skills: "المهارات",
+      experience: "الخبرة",
+      education: "التعليم",
+      certifications: "الشهادات",
+      keywordDensity: "كثافة الكلمات المفتاحية",
     },
   };
-}
 
+  return {
+    overallScore: d.OverallScore,
+    experienceLevel: d.ExperienceLevel,
+    language: d.LanguageDetected,
+
+    scores: [
+      { label: scoreLabels[lang].titleMatch, value: d.TitleMatchScore },
+      { label: scoreLabels[lang].skills, value: d.SkillsScore },
+      { label: scoreLabels[lang].experience, value: d.ExperienceScore },
+      { label: scoreLabels[lang].education, value: d.EducationScore },
+      { label: scoreLabels[lang].certifications, value: d.CertificationsScore },
+      { label: scoreLabels[lang].keywordDensity, value: d.KeywordDensityScore },
+    ],
+
+    matchedSkills: d.MatchedSkills || [],
+    missingSkills: d.MissingSkills || [],
+
+    summary: lang === "ar" ? d.SummaryAr : d.SummaryEn,
+    topStrengths: lang === "ar" ? d.TopStrengthsAr : d.TopStrengthsEn,
+    primaryRisk: lang === "ar" ? d.PrimaryRiskAr : d.PrimaryRiskEn,
+    careerPotential:
+      lang === "ar"
+        ? d.CareerPotentialAssessmentAr
+        : d.CareerPotentialAssessmentEn,
+
+    keywords: d.KeywordsSummary || "",
+
+    courses: d.Recommendations?.Courses || [],
+    actionPlan: d.Recommendations?.ActionPlan || {},
+  };
+}
