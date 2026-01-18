@@ -54,71 +54,80 @@ document.addEventListener("DOMContentLoaded", async () => {
     const breakdownEl = document.getElementById("scoreBreakdownEn");
     if (breakdownEl && Array.isArray(data.scores)) {
       breakdownEl.innerHTML = "";
-   if (breakdownEl && Array.isArray(data.scores)) {
-     breakdownEl.innerHTML = ""; // reset
+if (breakdownEl && Array.isArray(data.scores)) {
+  breakdownEl.innerHTML = ""; // reset
 
-     data.scores.forEach((s) => {
-       const scoreDiv = document.createElement("div");
-       scoreDiv.className = "mb-2";
+  data.scores.forEach((s) => {
+    const scoreDiv = document.createElement("div");
+    scoreDiv.className =
+      "mb-2 d-flex justify-content-between align-items-center";
 
-       scoreDiv.innerHTML = `
+    // تحديد لون حسب القيمة
+    let barColor =
+       "#34d399"  ;
+
+    scoreDiv.innerHTML = `
       <strong>${s.label}</strong>
-      <div class="progress" style="height:12px; border-radius:6px; background:#e5e7eb;">
-        <div class="progress-bar" role="progressbar" style="width:0%; transition: width 1s ease-in-out; background: linear-gradient(90deg, #34d399, #10b981);">
+      <div class="progress" style="flex:1; height:12px; border-radius:6px; background:#e5e7eb; margin-left:10px; margin-right:10px;">
+        <div class="progress-bar" role="progressbar" style="width:0%; transition: width 1s ease-in-out; background:${barColor};">
           ${s.value.toFixed(1)}%
         </div>
       </div>
+      <span class="score-value">${s.value.toFixed(1)}%</span>
     `;
 
-       breakdownEl.appendChild(scoreDiv);
+    breakdownEl.appendChild(scoreDiv);
 
-       // animate the correct progress bar
-       const progressBar = scoreDiv.querySelector(".progress-bar");
-       setTimeout(() => {
-         progressBar.style.width = `${s.value}%`;
-       }, 100);
-     });
-   }
+    // Animate
+    const progressBar = scoreDiv.querySelector(".progress-bar");
+    setTimeout(() => {
+      progressBar.style.width = `${s.value}%`;
+    }, 100);
+  });
+}
+
 
     }
 
     // ===== Skills =====
-    const renderSkills = (containerId, skills, type = "match") => {
-      const container = document.getElementById(containerId);
-      if (!container || !Array.isArray(skills)) return;
+const renderSkills = (containerId, skills, type = "match") => {
+  const container = document.getElementById(containerId);
+  if (!container || !Array.isArray(skills)) return;
 
-      container.innerHTML = skills
-        .map((s) => {
-          if (type === "match") {
-            let badgeClass =
-              s.MatchScore >= 85
-                ? "bg-success"
-                : s.MatchScore >= 70
-                  ? "bg-warning"
-                  : "bg-danger";
-            return `
-              <div class="p-2 border-bottom d-flex justify-content-between align-items-center">
-                <div><strong>${s.SkillName}</strong><div class="small text-muted mt-1">${s.MatchType || ""}</div></div>
-                <span class="badge ${badgeClass}">${s.MatchScore}%</span>
-              </div>
-            `;
-          } else {
-            let badgeClass =
-              s.Importance >= 8
-                ? "bg-danger"
-                : s.Importance >= 5
-                  ? "bg-warning"
-                  : "bg-secondary";
-            return `
-              <div class="p-2 border-bottom d-flex justify-content-between align-items-center">
-                <div><strong>${s.SkillName}</strong></div>
-                <span class="badge ${badgeClass}">Importance ${s.Importance}</span>
-              </div>
-            `;
-          }
-        })
-        .join("");
-    };
+  container.innerHTML = skills
+    .map((s) => {
+      let badgeClass = "";
+      if (type === "match") {
+        badgeClass =
+          s.MatchScore >= 85
+            ? "match-high" // أخضر
+            : s.MatchScore >= 70
+              ? "match-medium" // أصفر
+              : "match-low"; // أحمر
+        return `
+          <div class="p-2 border-bottom d-flex justify-content-between align-items-center">
+            <div><strong>${s.SkillName}</strong><div class="small text-muted mt-1">${s.MatchType || ""}</div></div>
+            <span class="match-badge ${badgeClass}">${s.MatchScore}%</span>
+          </div>
+        `;
+      } else {
+        badgeClass =
+          s.Importance >= 8
+            ? "importance-high" // أحمر
+            : s.Importance >= 5
+              ? "importance-medium" // أصفر
+              : "importance-low"; // رمادي
+        return `
+          <div class="p-2 border-bottom d-flex justify-content-between align-items-center">
+            <div><strong>${s.SkillName}</strong></div>
+            <span class="importance-badge ${badgeClass}">Importance ${s.Importance}</span>
+          </div>
+        `;
+      }
+    })
+    .join("");
+};
+
 
     renderSkills("matchedSkillsEn", data.matchedSkills, "match");
     renderSkills("missingSkillsEn", data.missingSkills, "missing");
