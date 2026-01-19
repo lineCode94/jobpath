@@ -178,3 +178,48 @@ html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
   text-align: left;
   direction: ltr;
 }
+ .fix-text-rtl{
+  text-align: right;
+ }
+   .ar-content .plan-timeline::before {
+                    left: auto!important;
+                    right: 0!important;
+                }
+                   .plan-timeline {
+                padding-left: 0;
+                padding-right: 1.5rem;
+                margin-left: 0;
+                margin-right: 0.75rem;
+            }
+            
+                .plan-timeline::before {
+                    left: auto;
+                    right: 0;
+                }
+                          .plan-timeline::before {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 3px;
+                background: linear-gradient(to bottom, var(--brand-500), var(--brand-300));
+                border-radius: 3px;
+            }
+                 .plan-timeline {
+            position: relative;
+            padding-right: 1.5rem;
+            margin-right: 0.75rem;
+        }
+               .plan-item::before {
+                content: '';
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: var(--brand-500);
+                border: 3px solid white;
+                right: -1.85rem;
+                top: 0;
+                box-shadow: 0 0 0 3px var(--brand-100);
+            }
