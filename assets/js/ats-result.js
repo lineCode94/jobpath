@@ -63,8 +63,7 @@ if (breakdownEl && Array.isArray(data.scores)) {
       "mb-2 d-flex justify-content-between align-items-center";
 
     // تحديد لون حسب القيمة
-    let barColor =
-       "#34d399"  ;
+    let barColor = "#34a853";  ;
 
     scoreDiv.innerHTML = `
       <strong>${s.label}</strong>
