@@ -1,0 +1,1614 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="Your Ultimate Job HTML Template" />
+    <meta
+      name="keywords"
+      content="Hosting, Domain, Transfer, Buy Domain, WHMCS"
+    />
+    <link rel="canonical" href="https://html.themewant.com/hostie" />
+             <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <meta name="robots" content="index, follow" />
+    <!-- for open graph social media -->
+    <meta property="og:title" content="Your Ultimate Job HTML Template" />
+    <meta property="og:description" content="Your Ultimate Job HTML Template" />
+    <meta property="og:image" content="https://www.example.com/image.jpg" />
+    <meta property="og:url" content="https://html.themewant.com/hostie/" />
+    <!-- for twitter sharing -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Your Ultimate Job HTML Template" />
+    <meta
+      name="twitter:description"
+      content="Your Ultimate Job HTML Template"
+    />
+    <meta
+      name="twitter:image"
+      content="https://html.themewant.com/hostie/landing/assets/images/banner/slider-img-01.webp"
+    />
+
+    <!-- fabicon -->
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+    <link
+      rel="shortcut-icon"
+      href="assets/img/favicon-16x16.png"
+      type="image/x-icon"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="assets/img/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Jobs AI- Job Seeker &amp; Job Holder HTML Template</title>
+    <!-- rt icons -->
+    <link rel="stylesheet" href="assets/fonts/icon/css/rt-icons.css" />
+    <!-- fontawesome -->
+    <link
+      rel="stylesheet"
+      href="assets/fonts/fontawesome/fontawesome.min.css"
+    />
+    <!-- all plugin css -->
+    <link rel="stylesheet" href="assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+ 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobzAI - CV Enhancement Results</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+  /* ===== Primary / Secondary ===== */
+  --primary-color: #34a853;    /* brand-500 */
+  --secondary-color: #1e7f43;  /* brand-700 */
+
+  /* ===== States ===== */
+  --success-color: #2ea44f;    /* brand-600 */
+  --warning-color: #f59e0b;    /* warn-600 */
+  --danger-color: #ef4444;     /* danger-600 */
+
+  /* ===== Backgrounds ===== */
+  --light-bg: #f8fafc;         /* bg */
+  --dark-bg: #0f172a;          /* text */
+
+  /* ===== Borders ===== */
+  --border-color: rgba(15,23,42,.10);
+
+  /* ===== Text ===== */
+  --text-dark: #0f172a;        /* text */
+  --text-light: #64748b;       /* muted */
+
+  /* ===== Cards / Shadow ===== */
+  --card-shadow: 0 10px 22px rgba(2,6,23,.06);
+
+  /* ===== Motion ===== */
+  --transition: all 0.3s ease;
+}
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+            /* Arabic mode */
+            body[data-lang="ar"] {
+                font-family: 'Cairo', sans-serif;
+            }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 22px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-icon {
+            font-size: 30px;
+            background: rgba(255,255,255,0.2);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .logo-text p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .job-status {
+            background: rgba(255,255,255,0.15);
+            padding: 10px 16px;
+            border-radius: 999px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .status-done {
+            background-color: var(--success-color);
+        }
+
+        .status-pending {
+            background-color: var(--warning-color);
+            color: #1f2a37;
+        }
+
+        .status-failed {
+            background-color: var(--danger-color);
+        }
+
+        /* Language Switch */
+        .lang-switch {
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 999px;
+            padding: 6px;
+        }
+
+        .lang-btn {
+            border: none;
+            cursor: pointer;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-weight: 800;
+            background: transparent;
+            color: rgba(255,255,255,0.9);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+            .lang-btn:hover {
+                background: rgba(255,255,255,0.12);
+                transform: translateY(-1px);
+            }
+
+            .lang-btn.active {
+                background: rgba(255,255,255,0.28);
+                color: #fff;
+            }
+
+        /* Main Layout */
+        .main-layout {
+            display: flex;
+            gap: 22px;
+        }
+
+        .wizard-sidebar {
+            flex: 0 0 290px;
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: var(--card-shadow);
+            height: fit-content;
+        }
+
+        .wizard-title {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 14px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wizard-steps {
+            list-style: none;
+        }
+
+        .wizard-step {
+            padding: 14px 14px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+            .wizard-step:hover {
+                background-color: rgba(46,116,181,0.05);
+            }
+
+            .wizard-step.active {
+                background-color: rgba(46,116,181,0.1);
+                border-left-color: var(--primary-color);
+            }
+
+        /* RTL: flip the border */
+        body[dir="rtl"] .wizard-step {
+            border-left: none;
+            border-right: 4px solid transparent;
+        }
+
+            body[dir="rtl"] .wizard-step.active {
+                border-right-color: var(--primary-color);
+            }
+
+        .step-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--text-light);
+            flex: 0 0 auto;
+        }
+
+        .wizard-step.active .step-icon {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .step-info h4 {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .step-info p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+
+        .step-content {
+            padding: 22px;
+            display: none;
+        }
+
+            .step-content.active {
+                display: block;
+                animation: fadeIn 0.35s ease;
+            }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+            .step-header h2 {
+                font-size: 20px;
+                color: var(--primary-color);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin: 0;
+            }
+
+        .step-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 14px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Job Details */
+        .job-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px;
+        }
+
+        .info-item {
+            padding: 12px;
+            background: var(--light-bg);
+            border-radius: 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+
+        .info-value {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* ATS Audit */
+        .ats-score-card {
+            text-align: center;
+            padding: 18px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+
+        .ats-score {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1;
+            margin: 10px 0;
+            color: var(--primary-color);
+        }
+
+        .ats-verdict {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        .verdict-fixable {
+            background-color: rgba(255,193,7,0.2);
+            color: #856404;
+        }
+
+        .verdict-pass {
+            background-color: rgba(40,167,69,0.2);
+            color: #155724;
+        }
+
+        .verdict-fail {
+            background-color: rgba(220,53,69,0.2);
+            color: #721c24;
+        }
+
+        .category-scores {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .category-item {
+            padding: 12px;
+            background: var(--light-bg);
+            border-radius: 8px;
+        }
+
+        .category-name {
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+            font-weight: 800;
+        }
+
+        .category-score {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--primary-color);
+        }
+
+        .checks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 10px;
+        }
+
+        .check-item {
+            padding: 12px;
+            border-left: 4px solid #ddd;
+            border-radius: 10px;
+            background: #f9fafb;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        body[dir="rtl"] .check-item {
+            border-left: none;
+            border-right: 4px solid #ddd;
+        }
+
+        .check-pass {
+            border-left-color: var(--success-color);
+        }
+
+        body[dir="rtl"] .check-pass {
+            border-right-color: var(--success-color);
+        }
+
+        .check-fail {
+            border-left-color: var(--danger-color);
+        }
+
+        body[dir="rtl"] .check-fail {
+            border-right-color: var(--danger-color);
+        }
+
+        .check-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .check-title {
+            font-weight: 900;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .check-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .pill-pass {
+            background: rgba(40,167,69,0.14);
+            color: #155724;
+        }
+
+        .pill-fail {
+            background: rgba(220,53,69,0.14);
+            color: #721c24;
+        }
+
+        .pill-high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .pill-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .pill-low {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .kv {
+            font-size: 13px;
+            margin: 6px 0;
+            color: #111827;
+        }
+
+            .kv strong {
+                color: #111827;
+            }
+
+        .muted {
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        /* Enhanced CV */
+        .cv-preview {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 22px;
+            max-height: 620px;
+            overflow-y: auto;
+            font-family: 'Calibri', Arial, sans-serif;
+        }
+
+        .cv-header {
+            text-align: center;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .cv-name {
+            font-size: 26px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .cv-contact {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 3px;
+        }
+
+        .cv-section {
+            margin-bottom: 18px;
+        }
+
+        .cv-section-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cv-bullet-list {
+            padding-left: 20px;
+        }
+
+            .cv-bullet-list li {
+                margin-bottom: 5px;
+            }
+
+        /* Download */
+        .download-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 14px;
+        }
+
+        .download-card {
+            text-align: center;
+            padding: 26px 18px;
+            border-radius: 12px;
+            border: 2px dashed var(--border-color);
+            transition: var(--transition);
+        }
+
+            .download-card:hover {
+                border-color: var(--primary-color);
+                transform: translateY(-4px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            }
+
+        .download-icon {
+            font-size: 54px;
+            color: var(--primary-color);
+            margin-bottom: 14px;
+        }
+
+        .download-info h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .download-info p {
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 18px;
+            border-radius: 10px;
+            font-weight: 900;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+            .btn-primary:hover {
+                background: var(--secondary-color);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(46,116,181,0.25);
+            }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+            .btn-secondary:hover {
+                background: #5a6268;
+            }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+            .btn-success:hover {
+                background: #218838;
+            }
+
+        .footer {
+            text-align: center;
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-layout {
+                flex-direction: column;
+            }
+
+            .wizard-sidebar {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-right {
+                justify-content: center;
+            }
+
+            .job-info-grid, .category-scores, .checks-grid, .download-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body data-lang="en">
+       <header class="rts__section rts__header absolute__header">
+      <div class="container-none">
+        <div class="rts__menu__background">
+          <div class="row">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="rts__logo">
+                <a href="index.html">
+                  <img
+                    class="logo__image"
+                    src="assets/img/logo/jobs-ai-logo-02.png"
+                    width="160"
+                    height="40"
+                    alt="logo"
+                  />
+                </a>
+              </div>
+              <div
+                class="rts__menu d-flex gap-5 gap-lg-4 gap-xl-5 align-items-center"
+              >
+                <div class="navigation d-none d-lg-block">
+                  <nav class="navigation__menu" id="offcanvas__menu">
+                    <ul class="list-unstyled">
+                      <li class="navigation__menu--item">
+                        <a
+                          href="index.html"
+                          class="navigation__menu--item__link"
+                          data-en="Home"
+                          data-ar="الرئيسية"
+                          >Home</a
+                        >
+                      </li>
+
+                      <li class="navigation__menu--item">
+                        <a
+                          class="navigation__menu--item__link"
+                          href="pricing.html"
+                          data-en="Pricing"
+                          data-ar="الأشتراكات"
+                          >Pricing</a
+                        >
+                      </li>
+
+        <li class="navigation__menu--item">
+                        <a
+                          class="navigation__menu--item__link"
+                          href="ATS-main-page.html"
+                          data-en="ATS"
+                          data-ar="ATS"
+                          >ATS</a
+                        >
+                      </li>
+                      <li class="navigation__menu--item has-child has-arrow">
+                        <a
+                          href="#"
+                          class="navigation__menu--item__link"
+                          data-en="Policies & Support"
+                          data-ar="السياسات والدعم"
+                          >Policies & Support</a
+                        >
+                        <ul class="submenu sub__style" role="menu">
+                          <li role="menuitem">
+                            <a
+                              href="about.html"
+                              data-en="About"
+                              data-ar="من نحن"
+                              >About</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="privacy.html"
+                              data-en="Privacy"
+                              data-ar="الخصوصية"
+                              >Privacy</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="faq.html"
+                              data-en="Faq"
+                              data-ar="الأسئلة الشائعة"
+                              >Faq</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a href="tos.html" data-en="Tos" data-ar="الشروط"
+                              >Tos</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="contact-us.html"
+                              data-en="Contact us"
+                              data-ar="اتصل بنا"
+                              >Contact us</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li class="navigation__menu--item">
+                        <a
+                          href="blogs.html"
+                          class="navigation__menu--item__link"
+                          data-en="Blog"
+                          data-ar="المدونة"
+                          >Blog</a
+                        >
+                      </li>
+                      <li id="profileMenu" class="profile-menu navigation__menu--item">
+                        <a
+                          href="profile.html"
+                          class="navigation__menu--item__link "
+                          data-en="User Profile"
+                          data-ar="الملف الشخصي"
+                          id="userName"
+                          >User Profile</a
+                        >
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+
+          <div class="header__right__btn d-flex gap-3 align-items-center">
+  
+  <!-- Login -->
+  <a
+    href="#"
+    id="login"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Login Button"
+    data-bs-toggle="modal"
+    data-bs-target="#loginModal"
+  >
+    <i class="fa-regular fa-user"></i>
+    <span id="authText" data-en="Sign In" data-ar="تسجيل الدخول">Sign In</span>
+  </a>
+
+  <!-- Logout -->
+  <a
+    href="#"
+    id="logout"
+    class="small__btn log-toggle d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Logout Button"
+    data-bs-toggle="modal"
+    data-bs-target="#logoutModal"
+  >
+    <i class="fa-solid fa-power-off"></i>
+    <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+  </a>
+
+ <!-- Language -->
+  <a
+    style="cursor: pointer"
+    id="lang-btn"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+  >
+    <i class="fa-solid fa-globe"></i>
+    <span data-en="الأنجليزية" data-ar="Arabic">الأنجليزية</span>
+  </a>
+
+  <!-- Hamburger Menu -->
+  <button
+    class="d-md-block d-lg-none"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvas"
+    aria-controls="offcanvas"
+  >
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- breadcrumb area -->
+    <div class="rts__section breadcrumb__background">
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-lg-12 position-relative d-flex justify-content-between align-items-center"
+          >
+            <div class="breadcrumb__area max-content breadcrumb__padding z-2">
+              <h1
+                class="breadcrumb-title h3 mb-3"
+                 data-en="CV Enhancment"
+                          data-ar=" تحسين السيرة الذاتية"
+                          >CV Enhancment</a
+                        >
+              </h1>
+              <nav>
+                <ul class="breadcrumb m-0 lh-1">
+                  <li class="breadcrumb-item">
+                    <a href="index.html" data-en="Home" data-ar="الرئيسية">
+                      Home
+                    </a>
+                  </li>
+                  <li
+                    class="breadcrumb-item active"
+                    aria-current="page"
+                       data-en="CV Enhancment"
+                          data-ar=" تحسين السيرة الذاتية"
+                          >CV Enhancment</a
+                        >
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div
+              class="breadcrumb__area__shape d-flex gap-4 justify-content-end align-items-center"
+            >
+              <div class="shape__one common">
+                <img src="assets/img/breadcrumb/shape-1.svg" alt="" />
+              </div>
+              <div class="shape__two common">
+                <img src="assets/img/breadcrumb/shape-2.svg" alt="" />
+              </div>
+              <div class="shape__three common">
+                <img src="assets/img/breadcrumb/shape-3.svg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- breadcrumb area end -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="logo-text">
+                    <h1 style="color: #fff;" id="app-title">JobzAI CV Enhancer</h1>
+                    <p id="app-subtitle">Professional CV Enhancement & ATS Audit System</p>
+                </div>
+            </div>
+
+            <div class="header-right">
+              
+          
+
+                <div class="job-status status-done" id="jobStatusBadge">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="jobStatusText">Job Completed</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Wizard Sidebar -->
+            <div class="wizard-sidebar">
+                <div class="wizard-title">
+                    <i class="fas fa-tasks"></i>
+                    <span id="nav-title">Processing Steps</span>
+                </div>
+                <ul class="wizard-steps">
+                    <li class="wizard-step active" data-step="1">
+                        <div class="step-icon">1</div>
+                        <div class="step-info">
+                            <h4 id="nav-step1-title">Job Details</h4>
+                            <p id="nav-step1-sub">Basic job information</p>
+                        </div>
+                    </li>
+                    <li class="wizard-step" data-step="2">
+                        <div class="step-icon">2</div>
+                        <div class="step-info">
+                            <h4 id="nav-step2-title">ATS Audit Results</h4>
+                            <p id="nav-step2-sub">Compatibility scores & analysis</p>
+                        </div>
+                    </li>
+                    <li class="wizard-step" data-step="3">
+                        <div class="step-icon">3</div>
+                        <div class="step-info">
+                            <h4 id="nav-step3-title">Enhanced CV</h4>
+                            <p id="nav-step3-sub">Preview enhanced CV</p>
+                        </div>
+                    </li>
+                    <li class="wizard-step" data-step="4">
+                        <div class="step-icon">4</div>
+                        <div class="step-info">
+                            <h4 id="nav-step4-title">Download</h4>
+                            <p id="nav-step4-sub">Get your enhanced files</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Step 1 -->
+                <div class="step-content active" id="step-1">
+                    <div class="step-header">
+                        <h2><i class="fas fa-info-circle"></i> <span id="step1-title">Job Details</span></h2>
+                        <div class="step-actions">
+                            <button class="btn btn-primary" type="button" onclick="goToStep(2)">
+                                <span id="btn-next-1">Next Step</span> <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="job-info-grid">
+                        <div class="info-item">
+                            <div class="info-label" id="lbl-jobid">Job ID</div>
+                            <div class="info-value" id="job-id"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label" id="lbl-userid">User ID</div>
+                            <div class="info-value" id="user-id"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label" id="lbl-target">Target Job Title</div>
+                            <div class="info-value" id="target-job-title"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label" id="lbl-status">Status</div>
+                            <div class="info-value">
+                                <span class="job-status" id="status-inline" style="display:inline-flex; padding: 4px 12px; font-size: 13px;"></span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label" id="lbl-progress">Progress</div>
+                            <div class="info-value" id="progress-text"></div>
+                            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label" id="lbl-attempts">Attempts</div>
+                            <div class="info-value" id="attempts"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label" id="lbl-created">Created At</div>
+                            <div class="info-value" id="created-at"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label" id="lbl-started">Started At</div>
+                            <div class="info-value" id="started-at"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label" id="lbl-finished">Finished At</div>
+                            <div class="info-value" id="completed-at"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label" id="lbl-time">Processing Time</div>
+                            <div class="info-value" id="processing-time"></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-file-alt"></i> <span id="card-original">Original File Information</span></div>
+                        <div class="job-info-grid">
+                            <div class="info-item">
+                                <div class="info-label" id="lbl-path">Original CV Path</div>
+                                <div class="info-value" id="original-path"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" id="lbl-hash">File Hash (SHA256)</div>
+                                <div class="info-value" id="file-hash"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-content" id="step-2">
+                    <div class="step-header">
+                        <h2><i class="fas fa-chart-bar"></i> <span id="step2-title">ATS Audit Results</span></h2>
+                        <div class="step-actions">
+                            <button class="btn btn-secondary" type="button" onclick="goToStep(1)">
+                                <i class="fas fa-arrow-left"></i> <span id="btn-prev-2">Previous</span>
+                            </button>
+                            <button class="btn btn-primary" type="button" onclick="goToStep(3)">
+                                <span id="btn-next-2">Next Step</span> <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card ats-score-card">
+                        <div class="card-title" id="lbl-overall">Overall ATS Score</div>
+                        <div class="ats-score" id="ats-score"></div>
+                        <div class="ats-verdict" id="ats-verdict"></div>
+                        <p class="muted" style="margin-top: 10px;" id="ats-desc"></p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-layer-group"></i> <span id="lbl-cats">Category Scores</span></div>
+                        <div class="category-scores" id="category-scores"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-clipboard-check"></i> <span id="lbl-checks">Detailed Checks</span></div>
+                        <div class="checks-grid" id="checks-list"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-lightbulb"></i> <span id="lbl-recs">Recommendations</span></div>
+                        <div id="recommendations-list"></div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-content" id="step-3">
+                    <div class="step-header">
+                        <h2><i class="fas fa-file-contract"></i> <span id="step3-title">Enhanced CV Preview</span></h2>
+                        <div class="step-actions">
+                            <button class="btn btn-secondary" type="button" onclick="goToStep(2)">
+                                <i class="fas fa-arrow-left"></i> <span id="btn-prev-3">Previous</span>
+                            </button>
+                            <button class="btn btn-primary" type="button" onclick="goToStep(4)">
+                                <span id="btn-next-3">Next Step</span> <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-eye"></i> <span id="lbl-preview">Enhanced CV Preview (ATS-Friendly Format)</span></div>
+                        <div class="cv-preview" id="cv-preview"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-cogs"></i> <span id="lbl-summary">Enhancement Summary</span></div>
+                        <div class="job-info-grid">
+                            <div class="info-item">
+                                <div class="info-label" id="lbl-enhanced">Enhancements Applied</div>
+                                <div class="info-value" id="enh-applied"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" id="lbl-truth">Truthfulness Check</div>
+                                <div class="info-value" id="truth-check"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" id="lbl-notes">Notes from AI</div>
+                                <div class="info-value" id="ai-notes"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-content" id="step-4">
+                    <div class="step-header">
+                        <h2><i class="fas fa-download"></i> <span id="step4-title">Download Enhanced Files</span></h2>
+                        <div class="step-actions">
+                            <button class="btn btn-secondary" type="button" onclick="goToStep(3)">
+                                <i class="fas fa-arrow-left"></i> <span id="btn-prev-4">Previous</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="download-cards">
+                        <div class="download-card">
+                            <div class="download-icon"><i class="far fa-file-word"></i></div>
+                            <div class="download-info">
+                                <h3 id="dl-docx-title">Enhanced DOCX</h3>
+                                <p id="dl-docx-desc">Editable Microsoft Word document with professional formatting</p>
+                                <p class="muted"><strong id="dl-docx-path-lbl">Path:</strong> <span id="docx-path"></span></p>
+                                <a href="#" class="btn btn-primary" id="download-docx">
+                                    <i class="fas fa-download"></i> <span id="dl-docx-btn">Download DOCX</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="download-card">
+                            <div class="download-icon"><i class="far fa-file-pdf"></i></div>
+                            <div class="download-info">
+                                <h3 id="dl-pdf-title">Enhanced PDF</h3>
+                                <p id="dl-pdf-desc">Final PDF version ready for submission</p>
+                                <p class="muted"><strong id="dl-pdf-path-lbl">Path:</strong> <span id="pdf-path"></span></p>
+                                <a href="#" class="btn btn-success" id="download-pdf">
+                                    <i class="fas fa-download"></i> <span id="dl-pdf-btn">Download PDF</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-history"></i> <span id="lbl-proc-sum">Processing Summary</span></div>
+                        <div class="job-info-grid">
+                            <div class="info-item">
+                                <div class="info-label" id="lbl-proc-original">Original CV</div>
+                                <div class="info-value" id="proc-original"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" id="lbl-proc-score">ATS Result</div>
+                                <div class="info-value" id="proc-score"></div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" id="lbl-proc-files">Output Files</div>
+                                <div class="info-value" id="proc-files"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-redo"></i> <span id="lbl-next">Need Further Enhancements?</span></div>
+                        <p class="muted" id="next-desc" style="margin-bottom: 12px;"></p>
+                        <button class="btn btn-secondary" type="button" id="btn-reprocess">
+                            <i class="fas fa-sync-alt"></i> <span id="btn-reprocess-text">Process Another CV</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-include="layout/footer.html"></div>
+
+    <!-- Login Modal -->
+    <div class="modal similar__modal fade" id="loginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="max-content similar__form form__padding">
+
+        <div class="d-flex mb-3 align-items-center justify-content-between">
+          <h6 class="mb-0" data-en="Login To JobsAI" data-ar="تسجيل الدخول إلى JobsAI">
+            Login To JobsAI
+          </h6>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-regular fa-xmark text-primary"></i>
+          </button>
+        </div>
+
+        <div class="d-block has__line text-center">
+          <p data-en="Choose your login method" data-ar="اختر طريقة تسجيل الدخول">Choose your login method</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tab__switch flex-wrap flex-sm-nowrap nav-tab mt-30 mb-30" role="tablist">
+          <button
+            class="rts__btn nav-link active"
+            id="phone-tab"
+            data-en="Phone"
+            data-ar="الهاتف"
+            data-bs-toggle="tab"
+            data-bs-target="#phoneTab"
+            type="button"
+            role="tab"
+          >
+            <i class="fa-light fa-phone"></i> Phone
+          </button>
+          <button
+            class="rts__btn nav-link"
+            id="mail-tab"
+            data-ar="البريد"
+            data-en="Mail"
+            data-bs-toggle="tab"
+            data-bs-target="#mailTab"
+            type="button"
+            role="tab"
+          >
+            <i class="fa-light fa-envelope"></i> Mail
+          </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+
+          <!-- PHONE LOGIN -->
+          <div class="tab-pane fade show active" id="phoneTab" role="tabpanel" aria-labelledby="phone-tab">
+            <form method="post" id="loginFormPhone" class="d-flex flex-column gap-3">
+              
+              <div class="form-group">
+                <label for="phone" class="fw-medium text-dark mb-3"
+                  data-en="Your Phone"
+                  data-ar="رقم هاتفك"
+                >Your Phone</label>
+
+                <div class="position-relative">
+                  <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    class="input-login-phone"
+                    placeholder="Enter your phone"
+                    data-en="Enter your phone"
+                    data-ar="أدخل رقم هاتفك"
+                    required
+                  />
+                  <i class="fa-light fa-phone icon"></i>
+                </div>
+              </div>
+
+              <!-- OTP Section -->
+              <div class="form-group d-none" id="otpSection">
+                <label for="otp" class="fw-medium text-dark mb-3"
+                  data-en="Enter OTP"
+                  data-ar="أدخل رمز التحقق"
+                >Enter OTP</label>
+
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    name="otp"
+                    id="otp"
+                    placeholder="Enter OTP"
+                    data-en="Enter OTP"
+                    data-ar="أدخل رمز التحقق"
+                    maxlength="6"
+                  />
+                  <i class="fa-light fa-shield icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group my-3">
+                <button
+                  class="rts__btn w-100 fill__btn"
+                  type="button"
+                  id="sendOtpBtnLogin"
+                  data-en="Send OTP"
+                  data-ar="إرسال رمز التحقق"
+                >
+                  Send OTP
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- EMAIL OR PHONE + PASSWORD LOGIN -->
+          <div class="tab-pane fade" id="mailTab" role="tabpanel" aria-labelledby="mail-tab">
+            <form method="post" id="loginFormMail" class="d-flex flex-column gap-3">
+
+              <div class="form-group">
+                <label for="email" class="fw-medium text-dark mb-3"
+                  data-en="Email or Phone"
+                  data-ar="البريد الإلكتروني أو الهاتف"
+                >Email or Phone</label>
+
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="Enter your phone or email"
+                    data-en="Enter your phone or email"
+                    data-ar="أدخل رقم هاتفك أو بريدك الإلكتروني"
+                    required
+                  />
+                  <i class="fa-light fa-user icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="password" class="fw-medium text-dark mb-3"
+                  data-en="Password"
+                  data-ar="كلمة المرور"
+                >Password</label>
+
+                <div class="position-relative">
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    data-en="Enter your password"
+                    data-ar="أدخل كلمة المرور"
+                    required
+                  />
+                  <i class="fa-light fa-lock icon"></i>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-between align-items-center fw-medium">
+<!-- 
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="flexCheckDefault" />
+                  <label
+                    class="form-check-label"
+                    for="flexCheckDefault"
+                    data-en="Remember me"
+                    data-ar="تذكرني"
+                  >
+                    Remember me
+                  </label>
+                </div> -->
+
+                <!-- <a
+                  href="#"
+                  class="forgot__password text-para"
+                  data-bs-toggle="modal"
+                  data-bs-target="#forgotModal"
+                  data-en="Forgot Password?"
+                  data-ar="هل نسيت كلمة المرور؟"
+                >
+                  Forgot Password?
+                </a> -->
+
+              </div>
+
+              <div class="form-group my-3">
+                <button
+                  class="rts__btn w-100 fill__btn"
+                  type="submit"
+                  data-en="Login"
+                  data-ar="تسجيل الدخول"
+                >
+                  Login
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- offcanvas -->
+     <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvas"
+      aria-labelledby="offcanvasLabel"
+    >
+      <div class="offcanvas-header p-0 mb-5 mt-4">
+        <a href="index.html" class="offcanvas-title" id="offcanvasLabel">
+          <img src="assets/img/logo/jobs-ai-logo-02.png" alt="logo" />
+        </a>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <!-- login offcanvas -->
+      <div class="mb-4 d-block d-sm-none">
+        <div class="header__right__btn d-flex justify-content-center gap-3">
+          <a
+            href="#"
+            class="small__btn no__fill__btn border-6 font-xs"
+            aria-label="Login Button"
+            data-bs-toggle="modal"
+            data-bs-target="#loginModal"
+            data-en="Sign In"
+            data-ar="تسجيل الدخول"
+          >
+            <i class="rt-login"></i>Sign In</a
+          >
+       
+        </div>
+      </div>
+      <div class="offcanvas-body p-0">
+        <div class="rts__offcanvas__menu overflow-hidden">
+          <div class="offcanvas__menu"></div>
+        </div>
+        <p
+          class="max-auto font-20 fw-medium text-center text-decoration-underline mt-4"
+        >
+          Our Social Links
+        </p>
+        <div class="rts__social d-flex justify-content-center gap-3 mt-3">
+          <a href="https://facebook.com" aria-label="facebook">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="https://instagram.com" aria-label="instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://linkedin.com" aria-label="linkedin">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <a href="https://pinterest.com" aria-label="pinterest">
+            <i class="fa-brands fa-pinterest"></i>
+          </a>
+          <a href="https://youtube.com" aria-label="youtube">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- THEME PRELOADER START -->
+    <div class="loader-wrapper">
+      <div class="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+    <!-- THEME PRELOADER END -->
+    <button type="button" class="rts__back__top" id="rts-back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+ <script>
+  function setupWizardNavigation() {
+  const wizardSteps = document.querySelectorAll('.wizard-step');
+  const stepContents = document.querySelectorAll('.step-content');
+
+  wizardSteps.forEach(step => {
+    step.addEventListener('click', function() {
+      const stepNumber = this.getAttribute('data-step');
+
+      wizardSteps.forEach(s => s.classList.remove('active'));
+      this.classList.add('active');
+
+      stepContents.forEach(content => {
+        content.classList.remove('active');
+        if (content.id === `step-${stepNumber}`) content.classList.add('active');
+      });
+    });
+  });
+}
+
+function goToStep(stepNumber) {
+  const wizardStep = document.querySelector(`.wizard-step[data-step="${stepNumber}"]`);
+  const stepContent = document.getElementById(`step-${stepNumber}`);
+
+  if (!wizardStep || !stepContent) return;
+
+  document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+  wizardStep.classList.add('active');
+
+  document.querySelectorAll('.step-content').forEach(content => content.classList.remove('active'));
+  stepContent.classList.add('active');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  setupWizardNavigation();
+  goToStep(1); // افتح الخطوة الأولى تلقائياً
+});
+
+ </script>
+    <!-- all plugin js -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+<script src="assets/js/contact-us.js"></script>
+<script type="module" src="assets/js/cvEnhancement-result.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- <script type="module" src="assets/js/pricing.js"></script> -->
+    <script src="assets/js/plugins.min.js"></script>
+    <script type="module" src="assets/js/login.js" ></script>
+    <script   src="assets/js/main.js"></script>
+</body>
+</html>

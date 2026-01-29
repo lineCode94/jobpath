@@ -104,12 +104,18 @@ export const getJobNames = () => api.get("/users/get-user-job-names");
 
 export const getCvMeta = () => api.get("/users/get-user-cv-metadata");
 
-// ==================== ATS ====================
+// ==================== ATS REQUEST ====================
 export const sendAtsRequest = () => api.get("/ats/send-req");
 
 export const getAtsStatus = () => api.get("/ats/get-req-status");
 
 export const getAtsResult = () => api.get("/ats/get-req-result");
+// ==================== ATS cv enhancments ====================
+export const sendCvEnhancementRequest = () => api.get("/cv-enhancement/send-req");
+
+export const getCvEnhancementStatus = () => api.get("/cv-enhancement/get-req-status");
+
+export const getCvEnhancementResult = () => api.get("/cv-enhancement/get-req-result");
 
 // ==================== JOBS ====================
 export const getAllJobs = () => api.get("/users/get-all-jobs");

@@ -476,6 +476,7 @@ try {
   // ========= USER (أساسي) =========
   const response = await getUserDetails();
   user = response?.data?.currentUser || null;
+  console.log(user);
 renderPasswordUI(user);
   // ========= CV META (اختياري) =========
   try {

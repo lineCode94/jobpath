@@ -674,23 +674,29 @@ function initLangSwitcher() {
     document.body.style.direction = "ltr";
   }
 
-  function updateLanguage() {
-    document.documentElement.lang = currentLang;
-    langBtn.textContent = currentLang === "en" ? "Ar" : "الانجليزية";
+function updateLanguage() {
+  document.documentElement.lang = currentLang;
 
-    // ترجم العناصر
-    const translatableElements = document.querySelectorAll("[data-en]");
-    translatableElements.forEach((el) => {
-      const newText = el.getAttribute(`data-${currentLang}`);
-      if (newText !== null) {
-        if (el.placeholder !== undefined && el.placeholder !== "") {
-          el.placeholder = newText; // ✅ دعم placeholder
-        } else {
-          el.textContent = newText;
-        }
-      }
-    });
+  // غيّر النص فقط داخل الـ span، خلي الأيقونة ثابتة
+  const span = langBtn.querySelector("span");
+  if (span) {
+    span.textContent = currentLang === "en" ? "Arabic" : "الانجليزية";
   }
+
+  // ترجم باقي العناصر
+  const translatableElements = document.querySelectorAll("[data-en]");
+  translatableElements.forEach((el) => {
+    const newText = el.getAttribute(`data-${currentLang}`);
+    if (newText !== null) {
+      if (el.placeholder !== undefined && el.placeholder !== "") {
+        el.placeholder = newText; // ✅ دعم placeholder
+      } else {
+        el.textContent = newText;
+      }
+    }
+  });
+}
+
 
   if (langBtn) {
     langBtn.addEventListener("click", () => {

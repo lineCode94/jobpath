@@ -2,7 +2,7 @@ import { sendAtsRequest, getAtsStatus } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const atsBtn = document.getElementById("atsBtn");
-  const loadingPanel = document.getElementById("loadingPanel");
+  const loadingPanel = document.getElementById("progressPanel");
   const apiStatus = document.getElementById("apiStatus");
   const pollingStatus = document.getElementById("pollingStatus");
   const pollCountElement = document.getElementById("pollCount");

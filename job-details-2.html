@@ -88,7 +88,7 @@
   </head>
 <body>
     <!-- header area -->
- <header class="rts__section rts__header absolute__header">
+   <header class="rts__section rts__header absolute__header">
       <div class="container-none">
         <div class="rts__menu__background">
           <div class="row">
@@ -130,6 +130,15 @@
                         >
                       </li>
 
+        <li class="navigation__menu--item">
+                        <a
+                          class="navigation__menu--item__link"
+                          href="ATS-main-page.html"
+                          data-en="ATS"
+                          data-ar="ATS"
+                          >ATS</a
+                        >
+                      </li>
                       <li class="navigation__menu--item has-child has-arrow">
                         <a
                           href="#"
@@ -191,7 +200,7 @@
                       <li id="profileMenu" class="profile-menu navigation__menu--item">
                         <a
                           href="profile.html"
-                          class="navigation__menu--item__link"
+                          class="navigation__menu--item__link "
                           data-en="User Profile"
                           data-ar="الملف الشخصي"
                           id="userName"
@@ -202,24 +211,23 @@
                   </nav>
                 </div>
 
-                <div class="header__right__btn d-flex gap-3">
-                  <a
-                    href="#"
-                    id="login"
-                    class="small__btn d-none d-sm-flex no__fill__btn border-6 font-xs"
-                    aria-label="Login Button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#loginModal"
-                  >
-                    <i class="rt-login"></i
-                    ><span
-                      id="authText"
-                      data-en="Sign In"
-                      data-ar="تسجيل الدخول"
-                      >Sign In</span
-                    >
-                  </a>
-              <a
+          <div class="header__right__btn d-flex gap-3 align-items-center">
+  
+  <!-- Login -->
+  <a
+    href="#"
+    id="login"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Login Button"
+    data-bs-toggle="modal"
+    data-bs-target="#loginModal"
+  >
+    <i class="fa-regular fa-user"></i>
+    <span id="authText" data-en="Sign In" data-ar="تسجيل الدخول">Sign In</span>
+  </a>
+
+  <!-- Logout -->
+  <a
     href="#"
     id="logout"
     class="small__btn log-toggle d-sm-flex no__fill__btn border-6 font-xs"
@@ -230,26 +238,30 @@
     <i class="fa-solid fa-power-off"></i>
     <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
   </a>
-                  <!-- زر تغيير اللغة -->
-                  <a
-                     
-                    id="lang-btn"
 
-                    class="small__btn d-sm-flex no__fill__btn border-6 font-xs fake-lang-btn  "
-                  >
-                    Arabic
-                  </a>
+ <!-- Language -->
+  <a
+    style="cursor: pointer"
+    id="lang-btn"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+  >
+    <i class="fa-solid fa-globe"></i>
+    <span data-en="الأنجليزية" data-ar="Arabic">الأنجليزية</span>
+  </a>
 
-                  <button
-                    class="d-md-block d-lg-none"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvas"
-                    aria-controls="offcanvas"
-                  >
-                    <i class="fa-sharp fa-regular fa-bars"></i>
-                  </button>
-                </div>
+  <!-- Hamburger Menu -->
+  <button
+    class="d-md-block d-lg-none"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvas"
+    aria-controls="offcanvas"
+  >
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+</div>
+
               </div>
             </div>
           </div>
