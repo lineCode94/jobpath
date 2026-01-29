@@ -62,6 +62,11 @@ function renderUI(logged) {
   logoutBtn?.classList.toggle("d-none", !logged);
   logoutBtn?.classList.toggle("d-sm-flex", logged);
 
+  // ATS Menu (🔥 المطلوب)
+  const atsMenu = document.getElementById("atsMenu");
+  if (atsMenu) {
+    atsMenu.style.display = logged ? "block" : "none";
+  }
   // Profile menu
   document
     .querySelectorAll(".profile-menu")

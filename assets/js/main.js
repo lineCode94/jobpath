@@ -724,8 +724,9 @@ function updateLanguage() {
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("authToken");
   const profileMenu = document.getElementById("profileMenu");
+  const atsMenu = document.getElementById("atsMenu");
 
-  if (token && profileMenu) {
+  if (token && profileMenu ) {
     profileMenu.style.display = "block"; // ✅ يظهر فقط لو فيه توكين
   }
 });
