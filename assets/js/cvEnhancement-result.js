@@ -14,12 +14,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const data = mapBackendCvEnhancementToFrontend(apiRes.data.result.data);
     if (!data) return;
 
-    // ===== Job Info =====
+    // ===== Helpers =====
     const setText = (id, value) => {
       const el = document.getElementById(id);
       if (el) el.textContent = value || "";
     };
 
+    // ===== Job Info =====
     setText("job-id", data.jobId);
     setText("user-id", data.userId);
     setText("target-job-title", data.enhancedCv.jobTitle || "");
@@ -29,7 +30,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     setText("created-at", new Date(data.createdAt).toLocaleString());
     setText("started-at", new Date(data.startedAt).toLocaleString());
     setText("completed-at", new Date(data.finishedAt).toLocaleString());
-    document.getElementById("progress-fill").style.width = `${data.progress}%`;
+
+    const progressFill = document.getElementById("progress-fill");
+    if (progressFill) {
+      progressFill.style.width = `${data.progress}%`;
+    }
 
     // ===== ATS Score Card =====
     setText("ats-score", data.atsScore);
@@ -45,10 +50,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       categoryContainer.innerHTML = data.categoryScores
         .map(
           (c) => `
-        <div class="score-item">
-          <strong>${c.label}</strong>: ${c.score}%
-        </div>
-      `,
+          <div class="score-item">
+            <strong>${c.label}</strong>: ${c.score}%
+          </div>
+        `,
         )
         .join("");
     }
@@ -59,12 +64,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       checksContainer.innerHTML = data.checks
         .map(
           (ch) => `
-        <div class="check-item ${ch.status.toLowerCase()}">
-          <strong>${ch.title}</strong> [${ch.status}]
-          <div class="small text-muted">${ch.details}</div>
-          <div class="small text-info">Fix: ${ch.fix}</div>
-        </div>
-      `,
+          <div class="check-item ${ch.status.toLowerCase()}">
+            <strong>${ch.title}</strong> [${ch.status}]
+            <div class="small text-muted">${ch.details}</div>
+            <div class="small text-info">Fix: ${ch.fix}</div>
+          </div>
+        `,
         )
         .join("");
     }
@@ -84,21 +89,72 @@ document.addEventListener("DOMContentLoaded", async () => {
         <h3>${data.enhancedCv.header?.fullName}</h3>
         <p>${data.enhancedCv.summary}</p>
         <h4>Skills:</h4>
-        <ul>${(data.enhancedCv.skills || []).map((s) => `<li>${s}</li>`).join("")}</ul>
+        <ul>
+          ${(data.enhancedCv.skills || []).map((s) => `<li>${s}</li>`).join("")}
+        </ul>
       `;
     }
 
     // ===== Enhancement Summary =====
     setText("enh-applied", (data.enhancedCv.skills || []).join(", "));
-    setText("truth-check", "Passed"); // example, can adjust
+    setText("truth-check", "Passed");
     setText("ai-notes", (data.enhancedCv.notes || []).join(" "));
 
-    // ===== Download Links =====
-    const docxBtn = document.getElementById("download-docx");
-    if (docxBtn) docxBtn.href = `file:///${data.enhancedDocxPath}`;
+    // =================================================
+    // 🔥 DOWNLOAD LOGIC (STREAM ENDPOINTS – CASE 3)
+    // =================================================
 
-    const pdfBtn = document.getElementById("download-pdf");
-    if (pdfBtn) pdfBtn.href = `file:///${data.enhancedPdfPath}`;
+ // ===== Download Files (STREAM endpoints) =====
+async function downloadFile(url, filename) {
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      credentials: "include", // ⭐⭐⭐ مهم جدًا
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Download failed (${res.status}): ${text}`);
+    }
+
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    URL.revokeObjectURL(blobUrl);
+  } catch (err) {
+    console.error("Download error:", err);
+    alert("Failed to download file");
+  }
+}
+
+const docxBtn = document.getElementById("download-docx");
+if (docxBtn) {
+  docxBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    downloadFile(
+      "https://api.jobzai.net/api/v1/cv-enhancement/stream-docx",
+      "Enhanced-CV.docx",
+    );
+  });
+}
+
+const pdfBtn = document.getElementById("download-pdf");
+if (pdfBtn) {
+  pdfBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    downloadFile(
+      "https://api.jobzai.net/api/v1/cv-enhancement/stream-pdf",
+      "Enhanced-CV.pdf",
+    );
+  });
+}
   } catch (err) {
     console.error("CV Enhancement load error:", err);
   }
