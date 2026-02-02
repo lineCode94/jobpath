@@ -1,0 +1,1605 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+ 
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="Your Ultimate Job HTML Template" />
+    <meta
+      name="keywords"
+      content="Hosting, Domain, Transfer, Buy Domain, WHMCS"
+    />
+        <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <link rel="canonical" href="https://html.themewant.com/hostie" />
+    <meta name="robots" content="index, follow" />
+    <!-- for open graph social media -->
+    <meta property="og:title" content="Your Ultimate Job HTML Template" />
+    <meta property="og:description" content="Your Ultimate Job HTML Template" />
+    <meta property="og:image" content="https://www.example.com/image.jpg" />
+    <meta property="og:url" content="https://html.themewant.com/hostie/" />
+    <!-- for twitter sharing -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Your Ultimate Job HTML Template" />
+    <meta
+      name="twitter:description"
+      content="Your Ultimate Job HTML Template"
+    />
+    <meta
+      name="twitter:image"
+      content="https://html.themewant.com/hostie/landing/assets/images/banner/slider-img-01.webp"
+    />
+
+    <!-- fabicon -->
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+    <link
+      rel="shortcut-icon"
+      href="assets/img/favicon-16x16.png"
+      type="image/x-icon"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="assets/img/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Jobs AI- Job Seeker &amp; Job Holder HTML Template</title>
+    <!-- rt icons -->
+    <link rel="stylesheet" href="assets/fonts/icon/css/rt-icons.css" />
+    <!-- fontawesome -->
+    <link
+      rel="stylesheet"
+      href="assets/fonts/fontawesome/fontawesome.min.css"
+    />
+    <!-- all plugin css -->
+    <link rel="stylesheet" href="assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+ 
+    <style>
+        :root {
+            --primary: #10B981;
+            --secondary: #059669;
+            --accent: #34D399;
+            --background: #F0FDF4;
+            --dark-text: #064E3B;
+            --light-text: #6B7280;
+            --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(16, 185, 129, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--dark-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+            body[dir="rtl"] {
+                font-family: 'Cairo', sans-serif;
+                text-align: right;
+            }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        body[dir="rtl"] .header-content {
+            flex-direction: row-reverse;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+            .logo i {
+                color: var(--primary);
+                font-size: 2rem;
+            }
+
+            .logo h1 {
+                font-size: 1.8rem;
+                font-weight: 700;
+                background: linear-gradient(90deg, var(--primary), var(--secondary));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--background);
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+            .language-switcher:hover {
+                border-color: var(--primary);
+            }
+
+            .language-switcher i {
+                color: var(--primary);
+            }
+
+            .language-switcher span {
+                font-weight: 600;
+                color: var(--dark-text);
+            }
+
+        .back-button {
+            background: var(--background);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 10px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .back-button:hover {
+                background: var(--primary);
+                color: white;
+            }
+
+        /* Wizard Container */
+        .wizard-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        /* Wizard Steps */
+        .wizard-steps {
+            display: flex;
+            background: var(--white);
+            border-bottom: 2px solid var(--background);
+            position: relative;
+        }
+
+        .wizard-step {
+            flex: 1;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            background: var(--white);
+        }
+
+            .wizard-step.active {
+                background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(52, 211, 153, 0.05));
+            }
+
+            .wizard-step.completed {
+                background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(52, 211, 153, 0.02));
+            }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--background);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .wizard-step.active .step-number {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .wizard-step.completed .step-number {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .step-label {
+            font-weight: 600;
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+
+        .wizard-step.active .step-label {
+            color: var(--primary);
+        }
+
+        /* Wizard Content */
+        .wizard-content {
+            padding: 2.5rem;
+            min-height: 500px;
+        }
+
+        .step-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+            .step-content.active {
+                display: block;
+            }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+            color: var(--dark-text);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .step-description {
+            color: var(--light-text);
+            text-align: center;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Template Selection */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .template-card {
+            background: var(--white);
+            border: 2px solid var(--background);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .template-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--accent);
+                box-shadow: var(--shadow);
+            }
+
+            .template-card.selected {
+                border-color: var(--primary);
+                background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(52, 211, 153, 0.02));
+            }
+
+        .template-preview {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Template Preview Designs */
+        .template-1 .template-preview {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .template-2 .template-preview {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .template-3 .template-preview {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .template-4 .template-preview {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .template-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .template-description {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        .template-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        body[dir="rtl"] .template-badge {
+            right: auto;
+            left: 15px;
+        }
+
+        /* Form Styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+            background: var(--white);
+        }
+
+        body[dir="rtl"] .form-control {
+            text-align: right;
+            direction: rtl;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .form-control.error {
+            border-color: #EF4444;
+        }
+
+        .error-message {
+            color: #EF4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+            .error-message.show {
+                display: block;
+            }
+
+        /* Dynamic Lists (Experience, Education, Skills) */
+        .dynamic-list {
+            margin-top: 2rem;
+        }
+
+        .list-item {
+            background: var(--background);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+            .list-item:hover {
+                border-color: var(--accent);
+            }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        body[dir="rtl"] .list-header {
+            flex-direction: row-reverse;
+        }
+
+        .list-title {
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .remove-btn {
+            background: #EF4444;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+            .remove-btn:hover {
+                transform: scale(1.1);
+            }
+
+        .add-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            transition: var(--transition);
+        }
+
+        body[dir="rtl"] .add-btn {
+            flex-direction: row-reverse;
+        }
+
+        .add-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* Skills Input */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        body[dir="rtl"] .skill-tag {
+            flex-direction: row-reverse;
+        }
+
+        .skill-tag .remove {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+            .skill-tag .remove:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+        /* Preview Step */
+        .preview-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .cv-preview {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            min-height: 600px;
+            overflow-y: auto;
+        }
+
+        .preview-sidebar {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .preview-section {
+            margin-bottom: 2rem;
+        }
+
+            .preview-section h4 {
+                color: var(--primary);
+                margin-bottom: 1rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 2px solid var(--background);
+            }
+
+        /* Wizard Navigation */
+        .wizard-navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+            background: var(--white);
+            border-top: 2px solid var(--background);
+        }
+
+        body[dir="rtl"] .wizard-navigation {
+            flex-direction: row-reverse;
+        }
+
+        .nav-btn {
+            padding: 12px 32px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        body[dir="rtl"] .nav-btn {
+            flex-direction: row-reverse;
+        }
+
+        .btn-prev {
+            background: var(--background);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+            .btn-prev:hover {
+                background: var(--primary);
+                color: white;
+            }
+
+        .btn-next {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+            .btn-next:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+            }
+
+        .btn-finish {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 32px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        body[dir="rtl"] .btn-finish {
+            flex-direction: row-reverse;
+        }
+
+        .btn-finish:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .wizard-steps {
+                flex-direction: column;
+            }
+
+            .wizard-step {
+                padding: 1rem;
+            }
+
+            .template-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-container {
+                grid-template-columns: 1fr;
+            }
+
+            .wizard-content {
+                padding: 1.5rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--background);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body dir="ltr">
+ 
+    <!-- header area -->
+   <header class="rts__section rts__header absolute__header">
+      <div class="container-none">
+        <div class="rts__menu__background">
+          <div class="row">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="rts__logo">
+                <a href="index.html">
+                  <img
+                    class="logo__image"
+                    src="assets/img/logo/jobs-ai-logo-02.png"
+                    width="160"
+                    height="40"
+                    alt="logo"
+                  />
+                </a>
+              </div>
+              <div
+                class="rts__menu d-flex gap-5 gap-lg-4 gap-xl-5 align-items-center"
+              >
+                <div class="navigation d-none d-lg-block">
+                  <nav class="navigation__menu" id="offcanvas__menu">
+                    <ul class="list-unstyled">
+                      <li class="navigation__menu--item">
+                        <a
+                          href="index.html"
+                          class="navigation__menu--item__link"
+                          data-en="Home"
+                          data-ar="الرئيسية"
+                          >Home</a
+                        >
+                      </li>
+
+                      <li class="navigation__menu--item">
+                        <a
+                          class="navigation__menu--item__link"
+                          href="pricing.html"
+                          data-en="Pricing"
+                          data-ar="الأشتراكات"
+                          >Pricing</a
+                        >
+                      </li>
+
+        <li id="atsMenu" class="navigation__menu--item">
+                        <a              
+                          class="atsMenuItem navigation__menu--item__link"
+                          href="ATS-main-page.html"
+                          data-en="ATS"
+                          data-ar="ATS"
+                          >ATS</a
+                        >
+                      </li>
+                      <li class="navigation__menu--item has-child has-arrow">
+                        <a
+                          href="#"
+                          class="navigation__menu--item__link"
+                          data-en="Policies & Support"
+                          data-ar="السياسات والدعم"
+                          >Policies & Support</a
+                        >
+                        <ul class="submenu sub__style" role="menu">
+                          <li role="menuitem">
+                            <a
+                              href="about.html"
+                              data-en="About"
+                              data-ar="من نحن"
+                              >About</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="privacy.html"
+                              data-en="Privacy"
+                              data-ar="الخصوصية"
+                              >Privacy</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="faq.html"
+                              data-en="Faq"
+                              data-ar="الأسئلة الشائعة"
+                              >Faq</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a href="tos.html" data-en="Tos" data-ar="الشروط"
+                              >Tos</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="contact-us.html"
+                              data-en="Contact us"
+                              data-ar="اتصل بنا"
+                              >Contact us</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li class="navigation__menu--item">
+                        <a
+                          href="blogs.html"
+                          class="navigation__menu--item__link"
+                          data-en="Blog"
+                          data-ar="المدونة"
+                          >Blog</a
+                        >
+                      </li>
+                      <li id="profileMenu" class="profile-menu navigation__menu--item">
+                        <a
+                          href="profile.html"
+                          class="navigation__menu--item__link "
+                          data-en="User Profile"
+                          data-ar="الملف الشخصي"
+                          id="userName"
+                          >User Profile</a
+                        >
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+
+          <div class="header__right__btn d-flex gap-3 align-items-center">
+  
+  <!-- Login -->
+  <a
+    href="#"
+    id="login"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Login Button"
+    data-bs-toggle="modal"
+    data-bs-target="#loginModal"
+  >
+    <i class="fa-regular fa-user"></i>
+    <span id="authText" data-en="Sign In" data-ar="تسجيل الدخول">Sign In</span>
+  </a>
+
+  <!-- Logout -->
+  <a
+    href="#"
+    id="logout"
+    class="small__btn log-toggle d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Logout Button"
+    data-bs-toggle="modal"
+    data-bs-target="#logoutModal"
+  >
+    <i class="fa-solid fa-power-off"></i>
+    <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+  </a>
+
+ <!-- Language -->
+  <a
+    style="cursor: pointer"
+    id="lang-btn"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+  >
+    <i class="fa-solid fa-globe"></i>
+    <span data-en="الأنجليزية" data-ar="Arabic">الأنجليزية</span>
+  </a>
+
+  <!-- Hamburger Menu -->
+  <button
+    class="d-md-block d-lg-none"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvas"
+    aria-controls="offcanvas"
+  >
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- header area end -->
+    <!-- breadcrumb area -->
+    <div class="rts__section breadcrumb__background">
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-lg-12 position-relative d-flex justify-content-center align-items-center"
+          >
+            <div class="breadcrumb__area max-content breadcrumb__padding z-2">
+              <h1
+                class="breadcrumb-title h3 mb-3"
+                data-en=" Create CV"
+                data-ar="انشاء سيرة ذاتية"
+              >
+                Create CV
+              </h1>
+              <nav class="mx-auto max-content">
+                <ul class="breadcrumb m-0 lh-1">
+                  <li class="breadcrumb-item">
+                    <a href="index.html" data-en="Home" data-ar="الرئيسية">
+                      Home
+                    </a>
+                  </li>
+                  <li
+                    class="breadcrumb-item active"
+                    aria-current="page"
+                    data-en=" Create CV"
+                    data-ar="انشاء سيرة ذاتية"
+                  >
+               Create CV
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div
+              class="breadcrumb__area__shape breadcrumb__style__four d-flex gap-4 justify-content-end align-items-center"
+            >
+              <div class="shape__one common"></div>
+              <div class="shape__two common">
+                <img src="assets/img/breadcrumb/shape-2.svg" alt="" />
+              </div>
+              <div class="shape__three common">
+                <img src="assets/img/breadcrumb/shape-3.svg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- breadcrumb area end -->
+     <!-- Wizard -->
+    <div class="container">
+        <div class="wizard-container">
+            <!-- Wizard Steps -->
+            <div class="wizard-steps">
+                <div class="wizard-step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label" data-translate="step_template">Template</div>
+                </div>
+                <div class="wizard-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label" data-translate="step_personal_info">Personal Info</div>
+                </div>
+                <div class="wizard-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label" data-translate="step_experience">Experience</div>
+                </div>
+                <div class="wizard-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label" data-translate="step_education">Education</div>
+                </div>
+                <div class="wizard-step" data-step="5">
+                    <div class="step-number">5</div>
+                    <div class="step-label" data-translate="step_skills">Skills</div>
+                </div>
+                <div class="wizard-step" data-step="6">
+                    <div class="step-number">6</div>
+                    <div class="step-label" data-translate="step_preview">Preview</div>
+                </div>
+            </div>
+
+            <!-- Wizard Content -->
+            <div class="wizard-content">
+                <!-- Step 1: Template Selection -->
+                <div class="step-content active" id="step-1">
+                    <h2 class="step-title" data-translate="choose_template">Choose Your CV Template</h2>
+                    <p class="step-description" data-translate="template_description">Select a professional template that matches your industry and style. You can preview how your CV will look.</p>
+
+                    <div class="template-grid">
+                        <div class="template-card template-1" data-template="modern">
+                            <div class="template-preview">
+                                <img src="assets/templates/modern.png" alt="">
+                            </div>
+                            <div class="template-name" data-translate="template_modern">Modern Professional</div>
+                            <p class="template-description" data-translate="template_modern_desc">Clean, contemporary design perfect for tech and creative industries.</p>
+                            <div class="template-badge" data-translate="most_popular">Most Popular</div>
+                        </div>
+
+                        <div class="template-card template-2" data-template="classic">
+                            <div class="template-preview">
+                                <img src="assets/templates/classic.png" alt="">
+                            </div>
+                            <div class="template-name" data-translate="template_classic">Classic Executive</div>
+                            <p class="template-description" data-translate="template_classic_desc">Traditional layout ideal for corporate and finance professionals.</p>
+                        </div>
+
+                        <div class="template-card template-3" data-template="creative">
+                            <div class="template-preview">
+                                <img src="assets/templates/creative.png" alt="">
+                            </div>
+                            <div class="template-name" data-translate="template_creative">Creative Portfolio</div>
+                            <p class="template-description" data-translate="template_creative_desc">Bold design for designers, artists, and marketing professionals.</p>
+                        </div>
+
+                        <div class="template-card template-4" data-template="minimal">
+                            <div class="template-preview">
+                                <img src="assets/templates/minimal.png" alt="">
+                            </div>
+                            <div class="template-name" data-translate="template_minimal">Minimalist</div>
+                            <p class="template-description" data-translate="template_minimal_desc">Simple and clean design that focuses on content and readability.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Personal Information -->
+                <div class="step-content" id="step-2">
+                    <h2 class="step-title" data-translate="personal_info">Personal Information</h2>
+                    <p class="step-description" data-translate="personal_info_desc">Tell us about yourself. This information will appear at the top of your CV.</p>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" data-translate="full_name">Full Name *</label>
+                            <input type="text" class="form-control" id="fullName" placeholder="John Doe" data-translate-placeholder="name_placeholder">
+                            <div class="error-message" id="nameError" data-translate="error_name">Please enter your full name</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-translate="professional_title">Professional Title *</label>
+                            <input type="text" class="form-control" id="professionalTitle" placeholder="Senior Software Engineer" data-translate-placeholder="title_placeholder">
+                            <div class="error-message" id="titleError" data-translate="error_title">Please enter your professional title</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-translate="email">Email Address *</label>
+                            <input type="email" class="form-control" id="email" placeholder="john.doe@example.com" data-translate-placeholder="email_placeholder">
+                            <div class="error-message" id="emailError" data-translate="error_email">Please enter a valid email address</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-translate="phone">Phone Number *</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="+1 (555) 123-4567" data-translate-placeholder="phone_placeholder">
+                            <div class="error-message" id="phoneError" data-translate="error_phone">Please enter a valid phone number</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-translate="location">Location</label>
+                            <input type="text" class="form-control" id="location" placeholder="San Francisco, CA" data-translate-placeholder="location_placeholder">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-translate="linkedin">LinkedIn Profile</label>
+                            <input type="url" class="form-control" id="linkedin" placeholder="https://linkedin.com/in/johndoe" data-translate-placeholder="linkedin_placeholder">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-translate="github">GitHub Profile</label>
+                            <input type="url" class="form-control" id="github" placeholder="https://github.com/johndoe" data-translate-placeholder="github_placeholder">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-translate="summary">Professional Summary</label>
+                            <textarea class="form-control" id="summary" rows="4" placeholder="Write a brief summary of your professional background, skills, and career objectives..." data-translate-placeholder="summary_placeholder"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Work Experience -->
+                <div class="step-content" id="step-3">
+                    <h2 class="step-title" data-translate="work_experience">Work Experience</h2>
+                    <p class="step-description" data-translate="experience_desc">Add your work history, starting with your most recent position.</p>
+
+                    <div class="dynamic-list" id="experienceList">
+                        <!-- Experience items will be added here dynamically -->
+                        <div class="list-item" data-index="0">
+                            <div class="list-header">
+                                <div class="list-title" data-translate="experience_num">Experience #1</div>
+                                <button class="remove-btn" onclick="removeExperience(0)">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label" data-translate="job_title">Job Title *</label>
+                                    <input type="text" class="form-control experience-title" placeholder="Senior Software Engineer" data-translate-placeholder="job_title_placeholder">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" data-translate="company">Company *</label>
+                                    <input type="text" class="form-control experience-company" placeholder="Tech Corp Inc." data-translate-placeholder="company_placeholder">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" data-translate="location">Location</label>
+                                    <input type="text" class="form-control experience-location" placeholder="San Francisco, CA" data-translate-placeholder="location_placeholder">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" data-translate="start_date">Start Date *</label>
+                                    <input type="month" class="form-control experience-start-date">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" data-translate="end_date">End Date</label>
+                                    <input type="month" class="form-control experience-end-date">
+                                    <div style="margin-top: 5px;">
+                                        <label>
+                                            <input type="checkbox" class="experience-current"> <span data-translate="currently_working">Currently working here</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="grid-column: 1 / -1;">
+                                    <label class="form-label" data-translate="responsibilities">Responsibilities & Achievements</label>
+                                    <textarea class="form-control experience-description" rows="3" placeholder="Describe your responsibilities and achievements in this role..." data-translate-placeholder="responsibilities_placeholder"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="add-btn" onclick="addExperience()">
+                        <i class="fas fa-plus"></i>
+                        <span data-translate="add_experience">Add Another Experience</span>
+                    </button>
+                </div>
+
+                <!-- Step 4: Education -->
+                <div class="step-content" id="step-4">
+                    <h2 class="step-title" data-translate="education">Education</h2>
+                    <p class="step-description" data-translate="education_desc">Add your educational background and certifications.</p>
+
+                    <div class="dynamic-list" id="educationList">
+                        <!-- Education items will be added here dynamically -->
+                        <div class="list-item" data-index="0">
+                            <div class="list-header">
+                                <div class="list-title" data-translate="education_num">Education #1</div>
+                                <button class="remove-btn" onclick="removeEducation(0)">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label" data-translate="degree">Degree *</label>
+                                    <input type="text" class="form-control education-degree" placeholder="Bachelor of Science in Computer Science" data-translate-placeholder="degree_placeholder">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" data-translate="institution">Institution *</label>
+                                    <input type="text" class="form-control education-institution" placeholder="Stanford University" data-translate-placeholder="institution_placeholder">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" data-translate="location">Location</label>
+                                    <input type="text" class="form-control education-location" placeholder="Stanford, CA" data-translate-placeholder="location_placeholder">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" data-translate="graduation_date">Graduation Date *</label>
+                                    <input type="month" class="form-control education-date">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" data-translate="gpa">GPA (Optional)</label>
+                                    <input type="text" class="form-control education-gpa" placeholder="3.8/4.0" data-translate-placeholder="gpa_placeholder">
+                                </div>
+                                <div class="form-group" style="grid-column: 1 / -1;">
+                                    <label class="form-label" data-translate="achievements">Achievements & Honors</label>
+                                    <textarea class="form-control education-achievements" rows="2" placeholder="Academic honors, relevant coursework, or achievements..." data-translate-placeholder="achievements_placeholder"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="add-btn" onclick="addEducation()">
+                        <i class="fas fa-plus"></i>
+                        <span data-translate="add_education">Add Another Education</span>
+                    </button>
+                </div>
+
+                <!-- Step 5: Skills -->
+                <div class="step-content" id="step-5">
+                    <h2 class="step-title" data-translate="skills">Skills</h2>
+                    <p class="step-description" data-translate="skills_desc">Add your technical and soft skills. You can categorize them if needed.</p>
+
+                    <div class="form-group">
+                        <label class="form-label" data-translate="technical_skills">Technical Skills</label>
+                        <div class="skills-container" id="technicalSkills">
+                            <!-- Skill tags will be added here -->
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <input type="text" class="form-control" id="techSkillInput" placeholder="Add a technical skill (e.g., JavaScript, React, Python)" data-translate-placeholder="tech_skill_placeholder">
+                            <button class="add-btn" onclick="addSkill('technical')" style="padding: 10px 20px;">
+                                <i class="fas fa-plus"></i>
+                                <span data-translate="add">Add</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 2rem;">
+                        <label class="form-label" data-translate="soft_skills">Soft Skills</label>
+                        <div class="skills-container" id="softSkills">
+                            <!-- Skill tags will be added here -->
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <input type="text" class="form-control" id="softSkillInput" placeholder="Add a soft skill (e.g., Leadership, Communication)" data-translate-placeholder="soft_skill_placeholder">
+                            <button class="add-btn" onclick="addSkill('soft')" style="padding: 10px 20px;">
+                                <i class="fas fa-plus"></i>
+                                <span data-translate="add">Add</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 2rem;">
+                        <label class="form-label" data-translate="languages">Languages</label>
+                        <div class="skills-container" id="languageSkills">
+                            <!-- Skill tags will be added here -->
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <input type="text" class="form-control" id="languageInput" placeholder="Add a language (e.g., English - Fluent)" data-translate-placeholder="language_placeholder">
+                            <button class="add-btn" onclick="addSkill('language')" style="padding: 10px 20px;">
+                                <i class="fas fa-plus"></i>
+                                <span data-translate="add">Add</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6: Preview -->
+                <div class="step-content" id="step-6">
+                    <h2 class="step-title" data-translate="preview_cv">Preview Your CV</h2>
+                    <p class="step-description" data-translate="preview_desc">Review your CV before generating. Make sure all information is accurate.</p>
+
+                    <div class="preview-container">
+                        <div class="cv-preview" id="cvPreview">
+                            <!-- CV preview will be generated here -->
+                            <div style="text-align: center; padding: 3rem;">
+                                <i class="fas fa-file-alt" style="font-size: 4rem; color: var(--light-text); margin-bottom: 1rem;"></i>
+                                <h3 style="color: var(--light-text);" data-translate="cv_preview">CV Preview</h3>
+                                <p style="color: var(--light-text);" data-translate="complete_steps">Complete the previous steps to see your CV preview</p>
+                            </div>
+                        </div>
+
+                        <div class="preview-sidebar">
+                            <div class="preview-section">
+                                <h4 data-translate="selected_template">Selected Template</h4>
+                                <div id="selectedTemplatePreview" style="padding: 10px; background: var(--background); border-radius: var(--border-radius);">
+                                    <span data-translate="not_selected">Not selected yet</span>
+                                </div>
+                            </div>
+
+                            <div class="preview-section">
+                                <h4 data-translate="cv_summary">CV Summary</h4>
+                                <div style="font-size: 0.9rem;">
+                                    <div style="margin-bottom: 10px;">
+                                        <strong data-translate="personal_info">Personal Info:</strong>
+                                        <span id="previewPersonalCount">0 fields</span>
+                                    </div>
+                                    <div style="margin-bottom: 10px;">
+                                        <strong data-translate="experience">Experience:</strong>
+                                        <span id="previewExperienceCount">0 positions</span>
+                                    </div>
+                                    <div style="margin-bottom: 10px;">
+                                        <strong data-translate="education">Education:</strong>
+                                        <span id="previewEducationCount">0 entries</span>
+                                    </div>
+                                    <div>
+                                        <strong data-translate="skills">Skills:</strong>
+                                        <span id="previewSkillsCount">0 skills</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="preview-section">
+                                <h4 data-translate="export_options">Export Options</h4>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <button class="btn-finish" onclick="generateCV('pdf')">
+                                        <i class="fas fa-file-pdf"></i> <span data-translate="download_pdf">Download as PDF</span>
+                                    </button>
+                                    <button class="btn-finish" onclick="generateCV('docx')" style="background: #2B579A;">
+                                        <i class="fas fa-file-word"></i> <span data-translate="download_docx">Download as DOCX</span>
+                                    </button>
+                                    <button class="btn-finish" onclick="saveCV()" style="background: var(--light-text);">
+                                        <i class="fas fa-save"></i> <span data-translate="save_account">Save to Account</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="wizard-navigation">
+                <button class="nav-btn btn-prev" onclick="previousStep()">
+                    <i class="fas fa-arrow-left"></i>
+                    <span data-translate="previous">Previous</span>
+                </button>
+                <button class="nav-btn btn-next" onclick="nextStep()">
+                    <span data-translate="next">Next</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+<!-- LOGIN MODAL -->
+<div class="modal similar__modal fade" id="loginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="max-content similar__form form__padding">
+
+        <div class="d-flex mb-3 align-items-center justify-content-between">
+          <h6 class="mb-0" data-en="Login To JobsAI" data-ar="تسجيل الدخول إلى JobsAI">
+            Login To JobsAI
+          </h6>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-regular fa-xmark text-primary"></i>
+          </button>
+        </div>
+
+        <div class="d-block has__line text-center">
+          <p data-en="Choose your login method" data-ar="اختر طريقة تسجيل الدخول">Choose your login method</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tab__switch flex-wrap flex-sm-nowrap nav-tab mt-30 mb-30" role="tablist">
+          <button
+            class="rts__btn nav-link active"
+            id="phone-tab"
+            data-en="Phone"
+            data-ar="الهاتف"
+            data-bs-toggle="tab"
+            data-bs-target="#phoneTab"
+            type="button"
+            role="tab"
+          >
+            <i class="fa-light fa-phone"></i> Phone
+          </button>
+          <button
+            class="rts__btn nav-link"
+            id="mail-tab"
+            data-ar="البريد"
+            data-en="Mail"
+            data-bs-toggle="tab"
+            data-bs-target="#mailTab"
+            type="button"
+            role="tab"
+          >
+            <i class="fa-light fa-envelope"></i> Mail
+          </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+
+          <!-- PHONE LOGIN -->
+          <div class="tab-pane fade show active" id="phoneTab" role="tabpanel" aria-labelledby="phone-tab">
+            <form method="post" id="loginFormPhone" class="d-flex flex-column gap-3">
+              
+              <div class="form-group">
+                <label for="phone" class="fw-medium text-dark mb-3"
+                  data-en="Your Phone"
+                  data-ar="رقم هاتفك"
+                >Your Phone</label>
+
+                <div class="position-relative">
+                  <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    class="input-login-phone"
+                    placeholder="Enter your phone"
+                    data-en="Enter your phone"
+                    data-ar="أدخل رقم هاتفك"
+                    required
+                  />
+                  <i class="fa-light fa-phone icon"></i>
+                </div>
+              </div>
+
+              <!-- OTP Section -->
+              <div class="form-group d-none" id="otpSection">
+                <label for="otp" class="fw-medium text-dark mb-3"
+                  data-en="Enter OTP"
+                  data-ar="أدخل رمز التحقق"
+                >Enter OTP</label>
+
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    name="otp"
+                    id="otp"
+                    placeholder="Enter OTP"
+                    data-en="Enter OTP"
+                    data-ar="أدخل رمز التحقق"
+                    maxlength="6"
+                  />
+                  <i class="fa-light fa-shield icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group my-3">
+                <button
+                  class="rts__btn w-100 fill__btn"
+                  type="button"
+                  id="sendOtpBtnLogin"
+                  data-en="Send OTP"
+                  data-ar="إرسال رمز التحقق"
+                >
+                  Send OTP
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- EMAIL OR PHONE + PASSWORD LOGIN -->
+          <div class="tab-pane fade" id="mailTab" role="tabpanel" aria-labelledby="mail-tab">
+            <form method="post" id="loginFormMail" class="d-flex flex-column gap-3">
+
+              <div class="form-group">
+                <label for="email" class="fw-medium text-dark mb-3"
+                  data-en="Email or Phone"
+                  data-ar="البريد الإلكتروني أو الهاتف"
+                >Email or Phone</label>
+
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="Enter your phone or email"
+                    data-en="Enter your phone or email"
+                    data-ar="أدخل رقم هاتفك أو بريدك الإلكتروني"
+                    required
+                  />
+                  <i class="fa-light fa-user icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="password" class="fw-medium text-dark mb-3"
+                  data-en="Password"
+                  data-ar="كلمة المرور"
+                >Password</label>
+
+                <div class="position-relative">
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    data-en="Enter your password"
+                    data-ar="أدخل كلمة المرور"
+                    required
+                  />
+                  <i class="fa-light fa-lock icon"></i>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-between align-items-center fw-medium">
+<!-- 
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="flexCheckDefault" />
+                  <label
+                    class="form-check-label"
+                    for="flexCheckDefault"
+                    data-en="Remember me"
+                    data-ar="تذكرني"
+                  >
+                    Remember me
+                  </label>
+                </div> -->
+
+                <!-- <a
+                  href="#"
+                  class="forgot__password text-para"
+                  data-bs-toggle="modal"
+                  data-bs-target="#forgotModal"
+                  data-en="Forgot Password?"
+                  data-ar="هل نسيت كلمة المرور؟"
+                >
+                  Forgot Password?
+                </a> -->
+
+              </div>
+
+              <div class="form-group my-3">
+                <button
+                  class="rts__btn w-100 fill__btn"
+                  type="submit"
+                  data-en="Login"
+                  data-ar="تسجيل الدخول"
+                >
+                  Login
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- OFFCANVAS -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+  <div class="offcanvas-header p-0 mb-5 mt-4">
+    <a href="index.html" class="offcanvas-title" id="offcanvasLabel">
+      <img src="assets/img/logo/jobs-ai-logo-02.png" alt="logo" />
+    </a>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  
+  <!-- login offcanvas -->
+  <div class="mb-4 d-block d-sm-none">
+    <div class="header__right__btn d-flex justify-content-center gap-3">
+      <a href="#" class="small__btn no__fill__btn border-6 font-xs" aria-label="Login Button" data-bs-toggle="modal" data-bs-target="#loginModal">
+        <i class="rt-login"></i>Sign In</a>
+      <a href="#" class="small__btn d-xl-flex fill__btn border-6 font-xs" aria-label="Job Posting Button">Add Job</a>
+    </div>
+  </div>
+  <div class="offcanvas-body p-0">
+    <div class="rts__offcanvas__menu overflow-hidden">
+      <div class="offcanvas__menu"></div>
+    </div>
+    <p class="max-auto font-20 fw-medium text-center text-decoration-underline mt-4">
+      Our Social Links
+    </p>
+    <div class="rts__social d-flex justify-content-center gap-3 mt-3">
+      <a href="https://facebook.com" aria-label="facebook"><i class="fa-brands fa-facebook"></i></a>
+      <a href="https://instagram.com" aria-label="instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://linkedin.com" aria-label="linkedin"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://pinterest.com" aria-label="pinterest"><i class="fa-brands fa-pinterest"></i></a>
+      <a href="https://youtube.com" aria-label="youtube"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div data-include="layout/footer.html"></div>
+
+    
+    <!-- THEME PRELOADER START -->
+    <div class="loader-wrapper">
+      <div class="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+    <!-- THEME PRELOADER END -->
+     
+    <button type="button" class="rts__back__top" id="rts-back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+ 
+        <!-- all plugin js -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="assets/js/plugins.min.js"></script>
+<script type="module" src="assets/js/create-cv.jsz"></script>
+    <script type ="module" src="assets/js/login.js"></script>
+    <script  src="assets/js/main.js"></script>
+</body>
+</html>

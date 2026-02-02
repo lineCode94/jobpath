@@ -151,5 +151,8 @@ export const uploadCv = (formData) =>
       "Content-Type": "multipart/form-data",
     },
   });
+// ==================== create cv ====================
+export const getCvTemplates = () => api.get("/cv-build/templates");
+
 
 export default api;

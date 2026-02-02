@@ -1,6 +1,6 @@
 import { getJobsList, getUserDetails } from "./api.js";
 
-// ================== AUTH HELPERS ==================
+/* ================== AUTH HELPERS ================== */
 async function isLoggedIn() {
   try {
     await getUserDetails(); // cookie auto sent
@@ -21,30 +21,56 @@ function openLoginModal() {
   modal.show();
 }
 
-// ================== Render Jobs ==================
+/* ================== HELPERS ================== */
+function normalizeTags(tags) {
+  if (!tags) return [];
+
+  if (Array.isArray(tags)) return tags;
+
+  if (typeof tags === "string") {
+    return tags
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
+/* ================== Render Jobs ================== */
 async function loadJobs() {
   const lang = localStorage.getItem("lang") || "en";
   const jobsContainer = document.getElementById("jobsContainer");
 
   try {
     const res = await getJobsList(lang);
+    console.log("JOBS RESPONSE =>", res);
 
     let jobs = [];
+
     if (lang === "ar") {
       jobs = res?.data?.arJobs;
-      if (!jobs || !jobs.length) jobs = res?.data?.enJobs || [];
+      if (!jobs || !jobs.length) {
+        jobs = res?.data?.enJobs || [];
+      }
     } else {
       jobs = res?.data?.enJobs || [];
     }
 
     if (!jobs.length) {
-      jobsContainer.innerHTML = `<p class="text-center mt-4">لا توجد وظائف حالياً</p>`;
+      jobsContainer.innerHTML = `
+        <p class="text-center mt-4">
+          ${lang === "ar" ? "لا توجد وظائف حالياً" : "No jobs available"}
+        </p>
+      `;
       return;
     }
 
     jobsContainer.innerHTML = jobs
-      .map(
-        (job) => `
+      .map((job) => {
+        const tags = normalizeTags(lang === "ar" ? job.tagsAR : job.tagsEN);
+
+        return `
         <div class="col-lg-6 col-xl-4 col-md-6">
           <div class="rts__job__card" data-job-id="${job.jobId}">
             
@@ -57,7 +83,11 @@ async function loadJobs() {
               </div>
 
               <div class="featured__option">
-                ${job.badgeType === "featured" ? `<span>مميز</span>` : ``}
+                ${
+                  job.badgeType === "featured"
+                    ? `<span>${lang === "ar" ? "مميز" : "Featured"}</span>`
+                    : ``
+                }
               </div>
             </div>
 
@@ -81,32 +111,46 @@ async function loadJobs() {
 
             <div class="h6 job__title my-3">
               <a href="javascript:void(0)">
-                ${job.titleAR || job.titleEN}
+                ${lang === "ar" ? job.titleAR : job.titleEN}
               </a>
             </div>
 
-            <p>${job.shortDescriptionAR || job.shortDescriptionEN || ""}</p>
+            <p>
+              ${
+                lang === "ar"
+                  ? job.shortDescriptionAR || ""
+                  : job.shortDescriptionEN || ""
+              }
+            </p>
 
             <div class="job__tags d-flex flex-wrap gap-3 mt-4">
-              ${(job.tagsAR || job.tagsEN || [])
-                .map((tag) => `<a href="#" class="badge">${tag}</a>`)
-                .join("")}
+              ${
+                tags.length
+                  ? tags
+                      .map((tag) => `<a href="#" class="badge">${tag}</a>`)
+                      .join("")
+                  : ""
+              }
             </div>
 
           </div>
         </div>
-      `
-      )
+      `;
+      })
       .join("");
 
     activateCardClicks();
   } catch (error) {
     console.error(error);
-    jobsContainer.innerHTML = `<p class="text-danger mt-4 text-center">حدث خطأ أثناء تحميل الوظائف</p>`;
+    jobsContainer.innerHTML = `
+      <p class="text-danger mt-4 text-center">
+        ${lang === "ar" ? "حدث خطأ أثناء تحميل الوظائف" : "Error loading jobs"}
+      </p>
+    `;
   }
 }
 
-// ================== Card Click Logic ==================
+/* ================== Card Click Logic ================== */
 function activateCardClicks() {
   document.querySelectorAll(".rts__job__card").forEach((card) => {
     card.style.cursor = "pointer";
@@ -115,16 +159,15 @@ function activateCardClicks() {
       const jobId = card.getAttribute("data-job-id");
       const lang = localStorage.getItem("lang") || "en";
 
-      const loggedIn = await isLoggedIn(); // ✅ الحل هنا
+      const loggedIn = await isLoggedIn();
 
       if (!loggedIn) {
         openLoginModal();
 
         localStorage.setItem(
           "redirectAfterLogin",
-          `job-details-2.html?id=${jobId}&lang=${lang}`
+          `job-details-2.html?id=${jobId}&lang=${lang}`,
         );
-
         return;
       }
 
@@ -133,5 +176,5 @@ function activateCardClicks() {
   });
 }
 
-// ================== INIT ==================
+/* ================== INIT ================== */
 loadJobs();
