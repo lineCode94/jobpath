@@ -153,6 +153,20 @@ export const uploadCv = (formData) =>
   });
 // ==================== create cv ====================
 export const getCvTemplates = () => api.get("/cv-build/templates");
+export const cvCreate = (data) => api.post("/cv-build/create-cv", data);
+export const cvBuild = (data) => api.put("/cv-build/update-cv", data);
+export const getCvById = (cvId) => {
+  return api.get(`/cv-build/${cvId}`);
+};
 
+// 2️⃣ Export CV (pdf | docx)
+export const exportCv = (cvId, format) =>
+  api.post(`/cv-build/export/${cvId}`, { format });
 
+// ================= CV PREVIEW (STREAM FILE) =================
+export const cvPreview = (cvId) => {
+  return api.get(`/cv-build/stream-file/${cvId}`, {
+    responseType: "blob", // 🔥 مهم جدًا
+  });
+};
 export default api;

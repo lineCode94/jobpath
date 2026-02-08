@@ -66,9 +66,9 @@
  
     <style>
         :root {
-            --primary: #10B981;
+            --primary: #34a853;
             --secondary: #059669;
-            --accent: #34D399;
+            --accent: #2ea44f;
             --background: #F0FDF4;
             --dark-text: #064E3B;
             --light-text: #6B7280;
@@ -747,6 +747,14 @@
                 transform: rotate(360deg);
             }
         }
+        .template-card {
+  cursor: pointer;
+}
+
+.template-card * {
+  pointer-events: none;
+}
+
     </style>
 </head>
 <body dir="ltr">
@@ -1143,11 +1151,7 @@
                                 <div class="form-group">
                                     <label class="form-label" data-translate="end_date">End Date</label>
                                     <input type="month" class="form-control experience-end-date">
-                                    <div style="margin-top: 5px;">
-                                        <label>
-                                            <input type="checkbox" class="experience-current"> <span data-translate="currently_working">Currently working here</span>
-                                        </label>
-                                    </div>
+                                  
                                 </div>
                                 <div class="form-group" style="grid-column: 1 / -1;">
                                     <label class="form-label" data-translate="responsibilities">Responsibilities & Achievements</label>
@@ -1157,7 +1161,7 @@
                         </div>
                     </div>
 
-                    <button class="add-btn" onclick="addExperience()">
+                    <button class="add-btn"  >
                         <i class="fas fa-plus"></i>
                         <span data-translate="add_experience">Add Another Experience</span>
                     </button>
@@ -1308,15 +1312,15 @@
                             <div class="preview-section">
                                 <h4 data-translate="export_options">Export Options</h4>
                                 <div style="display: flex; flex-direction: column; gap: 10px;">
-                                    <button class="btn-finish" onclick="generateCV('pdf')">
+                                    <button class="btn-finish" onclick="downloadCv('pdf')"">
                                         <i class="fas fa-file-pdf"></i> <span data-translate="download_pdf">Download as PDF</span>
                                     </button>
-                                    <button class="btn-finish" onclick="generateCV('docx')" style="background: #2B579A;">
+                                    <button class="btn-finish" onclick="downloadCv('docx')"style="background: #2B579A;">
                                         <i class="fas fa-file-word"></i> <span data-translate="download_docx">Download as DOCX</span>
                                     </button>
-                                    <button class="btn-finish" onclick="saveCV()" style="background: var(--light-text);">
+                                    <!-- <button class="btn-finish" onclick="saveCV()" style="background: var(--light-text);">
                                         <i class="fas fa-save"></i> <span data-translate="save_account">Save to Account</span>
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                         </div>
@@ -1598,7 +1602,7 @@
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="assets/js/plugins.min.js"></script>
-<script type="module" src="assets/js/create-cv.jsz"></script>
+    <script type="module" src="assets/js/create-cv.js"></script>
     <script type ="module" src="assets/js/login.js"></script>
     <script  src="assets/js/main.js"></script>
 </body>
