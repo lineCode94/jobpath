@@ -934,7 +934,7 @@
     class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
   >
     <i class="fa-solid fa-globe"></i>
-    <span data-en="الأنجليزية" data-ar="Arabic">الأنجليزية</span>
+    <span >الأنجليزية</span>
   </a>
 
   <!-- Hamburger Menu -->
@@ -1037,250 +1037,275 @@
                     <i class="fas fa-tasks"></i>
                     <span id="nav-title">Processing Steps</span>
                 </div>
-                <ul class="wizard-steps">
-                    <li class="wizard-step active" data-step="1">
-                        <div class="step-icon">1</div>
-                        <div class="step-info">
-                            <h4 id="nav-step1-title">Job Details</h4>
-                            <p id="nav-step1-sub">Basic job information</p>
-                        </div>
-                    </li>
-                    <li class="wizard-step" data-step="2">
-                        <div class="step-icon">2</div>
-                        <div class="step-info">
-                            <h4 id="nav-step2-title">ATS Audit Results</h4>
-                            <p id="nav-step2-sub">Compatibility scores & analysis</p>
-                        </div>
-                    </li>
-                    <li class="wizard-step" data-step="3">
-                        <div class="step-icon">3</div>
-                        <div class="step-info">
-                            <h4 id="nav-step3-title">Enhanced CV</h4>
-                            <p id="nav-step3-sub">Preview enhanced CV</p>
-                        </div>
-                    </li>
-                    <li class="wizard-step" data-step="4">
-                        <div class="step-icon">4</div>
-                        <div class="step-info">
-                            <h4 id="nav-step4-title">Download</h4>
-                            <p id="nav-step4-sub">Get your enhanced files</p>
-                        </div>
-                    </li>
-                </ul>
+           <ul class="wizard-steps">
+    <li class="wizard-step active" data-step="1">
+        <div class="step-icon">1</div>
+        <div class="step-info">
+            <h4 id="nav-step1-title" data-en="Job Details" data-ar="تفاصيل الوظيفة" data-translate="nav_step1_title">Job Details</h4>
+            <p id="nav-step1-sub" data-en="Basic job information" data-ar="معلومات أساسية عن الوظيفة" data-translate="nav_step1_sub">Basic job information</p>
+        </div>
+    </li>
+    <li class="wizard-step" data-step="2">
+        <div class="step-icon">2</div>
+        <div class="step-info">
+            <h4 id="nav-step2-title" data-en="ATS Audit Results" data-ar="نتائج مراجعة ATS" data-translate="nav_step2_title">ATS Audit Results</h4>
+            <p id="nav-step2-sub" data-en="Compatibility scores & analysis" data-ar="درجات التوافق والتحليل" data-translate="nav_step2_sub">Compatibility scores & analysis</p>
+        </div>
+    </li>
+    <li class="wizard-step" data-step="3">
+        <div class="step-icon">3</div>
+        <div class="step-info">
+            <h4 id="nav-step3-title" data-en="Enhanced CV" data-ar="السيرة الذاتية المحسّنة" data-translate="nav_step3_title">Enhanced CV</h4>
+            <p id="nav-step3-sub" data-en="Preview enhanced CV" data-ar="معاينة السيرة الذاتية المحسّنة" data-translate="nav_step3_sub">Preview enhanced CV</p>
+        </div>
+    </li>
+    <li class="wizard-step" data-step="4">
+        <div class="step-icon">4</div>
+        <div class="step-info">
+            <h4 id="nav-step4-title" data-en="Download" data-ar="تحميل" data-translate="nav_step4_title">Download</h4>
+            <p id="nav-step4-sub" data-en="Get your enhanced files" data-ar="احصل على ملفاتك المحسّنة" data-translate="nav_step4_sub">Get your enhanced files</p>
+        </div>
+    </li>
+</ul>
+
             </div>
 
             <!-- Content Area -->
             <div class="content-area">
-                <!-- Step 1 -->
-                <div class="step-content active" id="step-1">
-                    <div class="step-header">
-                        <h2><i class="fas fa-info-circle"></i> <span id="step1-title">Job Details</span></h2>
-                        <div class="step-actions">
-                            <button class="btn btn-primary" type="button" onclick="goToStep(2)">
-                                <span id="btn-next-1">Next Step</span> <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
+             <!-- Step 1 -->
+<div class="step-content active" id="step-1">
+    <div class="step-header">
+        <h2><i class="fas fa-info-circle"></i> 
+            <span id="step1-title" data-en="Job Details" data-ar="تفاصيل الوظيفة" data-translate="step1_title">Job Details</span>
+        </h2>
+        <div class="step-actions">
+            <button class="btn btn-primary" type="button" onclick="goToStep(2)">
+                <span id="btn-next-1" data-en="Next Step" data-ar="الخطوة التالية" data-translate="btn_next_1">Next Step</span> 
+                <!-- <i class="fas fa-arrow-right"></i> -->
+            </button>
+        </div>
+    </div>
 
-                    <div class="job-info-grid">
-                        <div class="info-item">
-                            <div class="info-label" id="lbl-jobid">Job ID</div>
-                            <div class="info-value" id="job-id"></div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label" id="lbl-userid">User ID</div>
-                            <div class="info-value" id="user-id"></div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label" id="lbl-target">Target Job Title</div>
-                            <div class="info-value" id="target-job-title"></div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label" id="lbl-status">Status</div>
-                            <div class="info-value">
-                                <span class="job-status" id="status-inline" style="display:inline-flex; padding: 4px 12px; font-size: 13px;"></span>
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label" id="lbl-progress">Progress</div>
-                            <div class="info-value" id="progress-text"></div>
-                            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label" id="lbl-attempts">Attempts</div>
-                            <div class="info-value" id="attempts"></div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label" id="lbl-created">Created At</div>
-                            <div class="info-value" id="created-at"></div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label" id="lbl-started">Started At</div>
-                            <div class="info-value" id="started-at"></div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label" id="lbl-finished">Finished At</div>
-                            <div class="info-value" id="completed-at"></div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label" id="lbl-time">Processing Time</div>
-                            <div class="info-value" id="processing-time"></div>
-                        </div>
-                    </div>
+    <div class="job-info-grid">
+        <div class="info-item">
+            <div class="info-label" id="lbl-jobid" data-en="Job ID" data-ar="معرّف الوظيفة" data-translate="lbl_jobid">Job ID</div>
+            <div class="info-value" id="job-id"></div>
+        </div>
+        <div class="info-item">
+            <div class="info-label" id="lbl-userid" data-en="User ID" data-ar="معرّف المستخدم" data-translate="lbl_userid">User ID</div>
+            <div class="info-value" id="user-id"></div>
+        </div>
+        <div class="info-item">
+            <div class="info-label" id="lbl-target" data-en="Target Job Title" data-ar="المسمى الوظيفي المستهدف" data-translate="lbl_target">Target Job Title</div>
+            <div class="info-value" id="target-job-title"></div>
+        </div>
+        <div class="info-item">
+            <div class="info-label" id="lbl-status" data-en="Status" data-ar="الحالة" data-translate="lbl_status">Status</div>
+            <div class="info-value">
+                <span class="job-status" id="status-inline" style="display:inline-flex; padding: 4px 12px; font-size: 13px;"></span>
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="info-label" id="lbl-progress" data-en="Progress" data-ar="التقدم" data-translate="lbl_progress">Progress</div>
+            <div class="info-value" id="progress-text"></div>
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+        <div class="info-item">
+            <div class="info-label" id="lbl-attempts" data-en="Attempts" data-ar="المحاولات" data-translate="lbl_attempts">Attempts</div>
+            <div class="info-value" id="attempts"></div>
+        </div>
+        <div class="info-item">
+            <div class="info-label" id="lbl-created" data-en="Created At" data-ar="تم الإنشاء في" data-translate="lbl_created">Created At</div>
+            <div class="info-value" id="created-at"></div>
+        </div>
+        <div class="info-item">
+            <div class="info-label" id="lbl-started" data-en="Started At" data-ar="بدأ في" data-translate="lbl_started">Started At</div>
+            <div class="info-value" id="started-at"></div>
+        </div>
+        <div class="info-item">
+            <div class="info-label" id="lbl-finished" data-en="Finished At" data-ar="انتهى في" data-translate="lbl_finished">Finished At</div>
+            <div class="info-value" id="completed-at"></div>
+        </div>
+        <div class="info-item">
+            <div class="info-label" id="lbl-time" data-en="Processing Time" data-ar="مدة المعالجة" data-translate="lbl_time">Processing Time</div>
+            <div class="info-value" id="processing-time"></div>
+        </div>
+    </div>
 
-                    <div class="card">
-                        <div class="card-title"><i class="fas fa-file-alt"></i> <span id="card-original">Original File Information</span></div>
-                        <div class="job-info-grid">
-                            <div class="info-item">
-                                <div class="info-label" id="lbl-path">Original CV Path</div>
-                                <div class="info-value" id="original-path"></div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label" id="lbl-hash">File Hash (SHA256)</div>
-                                <div class="info-value" id="file-hash"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="card">
+        <div class="card-title"><i class="fas fa-file-alt"></i> 
+            <span id="card-original" data-en="Original File Information" data-ar="معلومات الملف الأصلي" data-translate="card_original">Original File Information</span>
+        </div>
+        <div class="job-info-grid">
+            <div class="info-item">
+                <div class="info-label" id="lbl-path" data-en="Original CV Path" data-ar="مسار السيرة الذاتية الأصلي" data-translate="lbl_path">Original CV Path</div>
+                <div class="info-value" id="original-path"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label" id="lbl-hash" data-en="File Hash (SHA256)" data-ar="هاش الملف (SHA256)" data-translate="lbl_hash">File Hash (SHA256)</div>
+                <div class="info-value" id="file-hash"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <!-- Step 2 -->
-                <div class="step-content" id="step-2">
-                    <div class="step-header">
-                        <h2><i class="fas fa-chart-bar"></i> <span id="step2-title">ATS Audit Results</span></h2>
-                        <div class="step-actions">
-                            <button class="btn btn-secondary" type="button" onclick="goToStep(1)">
-                                <i class="fas fa-arrow-left"></i> <span id="btn-prev-2">Previous</span>
-                            </button>
-                            <button class="btn btn-primary" type="button" onclick="goToStep(3)">
-                                <span id="btn-next-2">Next Step</span> <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
+<!-- Step 2 -->
+<div class="step-content" id="step-2">
+    <div class="step-header">
+        <h2><i class="fas fa-chart-bar"></i> 
+            <span id="step2-title" data-en="ATS Audit Results" data-ar="نتائج مراجعة ATS" data-translate="step2_title">ATS Audit Results</span>
+        </h2>
+        <div class="step-actions">
+            <button class="btn btn-secondary" type="button" onclick="goToStep(1)">
+                <!-- <i class="fas fa-arrow-left"></i>  -->
+                <span id="btn-prev-2" data-en="Previous" data-ar="السابق" data-translate="btn_prev_2">Previous</span>
+            </button>
+            <button class="btn btn-primary" type="button" onclick="goToStep(3)">
+                <span id="btn-next-2" data-en="Next Step" data-ar="الخطوة التالية" data-translate="btn_next_2">Next Step</span> 
+                <!-- <i class="fas fa-arrow-right"></i> -->
+            </button>
+        </div>
+    </div>
 
-                    <div class="card ats-score-card">
-                        <div class="card-title" id="lbl-overall">Overall ATS Score</div>
-                        <div class="ats-score" id="ats-score"></div>
-                        <div class="ats-verdict" id="ats-verdict"></div>
-                        <p class="muted" style="margin-top: 10px;" id="ats-desc"></p>
-                    </div>
+    <div class="card ats-score-card">
+        <div class="card-title" id="lbl-overall" data-en="Overall ATS Score" data-ar="درجة ATS الإجمالية" data-translate="lbl_overall">Overall ATS Score</div>
+        <div class="ats-score" id="ats-score"></div>
+        <div class="ats-verdict" id="ats-verdict"></div>
+        <p class="muted" style="margin-top: 10px;" id="ats-desc"></p>
+    </div>
 
-                    <div class="card">
-                        <div class="card-title"><i class="fas fa-layer-group"></i> <span id="lbl-cats">Category Scores</span></div>
-                        <div class="category-scores" id="category-scores"></div>
-                    </div>
+    <div class="card">
+        <div class="card-title"><i class="fas fa-layer-group"></i> 
+            <span id="lbl-cats" data-en="Category Scores" data-ar="درجات الفئات" data-translate="lbl_cats">Category Scores</span>
+        </div>
+        <div class="category-scores" id="category-scores"></div>
+    </div>
 
-                    <div class="card">
-                        <div class="card-title"><i class="fas fa-clipboard-check"></i> <span id="lbl-checks">Detailed Checks</span></div>
-                        <div class="checks-grid" id="checks-list"></div>
-                    </div>
+    <div class="card">
+        <div class="card-title"><i class="fas fa-clipboard-check"></i> 
+            <span id="lbl-checks" data-en="Detailed Checks" data-ar="الفحوصات التفصيلية" data-translate="lbl_checks">Detailed Checks</span>
+        </div>
+        <div class="checks-grid" id="checks-list"></div>
+    </div>
 
-                    <div class="card">
-                        <div class="card-title"><i class="fas fa-lightbulb"></i> <span id="lbl-recs">Recommendations</span></div>
-                        <div id="recommendations-list"></div>
-                    </div>
-                </div>
+    <div class="card">
+        <div class="card-title"><i class="fas fa-lightbulb"></i> 
+            <span id="lbl-recs" data-en="Recommendations" data-ar="التوصيات" data-translate="lbl_recs">Recommendations</span>
+        </div>
+        <div id="recommendations-list"></div>
+    </div>
+</div>
 
-                <!-- Step 3 -->
-                <div class="step-content" id="step-3">
-                    <div class="step-header">
-                        <h2><i class="fas fa-file-contract"></i> <span id="step3-title">Enhanced CV Preview</span></h2>
-                        <div class="step-actions">
-                            <button class="btn btn-secondary" type="button" onclick="goToStep(2)">
-                                <i class="fas fa-arrow-left"></i> <span id="btn-prev-3">Previous</span>
-                            </button>
-                            <button class="btn btn-primary" type="button" onclick="goToStep(4)">
-                                <span id="btn-next-3">Next Step</span> <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
 
-                    <div class="card">
-                        <div class="card-title"><i class="fas fa-eye"></i> <span id="lbl-preview">Enhanced CV Preview (ATS-Friendly Format)</span></div>
-                        <div class="cv-preview" id="cv-preview"></div>
-                    </div>
+              <!-- Step 3 -->
+<div class="step-content" id="step-3">
+    <div class="step-header">
+        <h2><i class="fas fa-file-contract"></i> 
+            <span id="step3-title" data-en="Enhanced CV Preview" data-ar="معاينة السيرة الذاتية المحسّنة" data-translate="step3_title">Enhanced CV Preview</span>
+        </h2>
+        <div class="step-actions">
+            <button class="btn btn-secondary" type="button" onclick="goToStep(2)">
+                <i class="fas fa-arrow-left"></i> 
+                <span id="btn-prev-3" data-en="Previous" data-ar="السابق" data-translate="btn_prev_3">Previous</span>
+            </button>
+            <button class="btn btn-primary" type="button" onclick="goToStep(4)">
+                <span id="btn-next-3" data-en="Next Step" data-ar="الخطوة التالية" data-translate="btn_next_3">Next Step</span> 
+                <!-- <i class="fas fa-arrow-right"></i> -->
+            </button>
+        </div>
+    </div>
 
-                    <div class="card">
-                        <div class="card-title"><i class="fas fa-cogs"></i> <span id="lbl-summary">Enhancement Summary</span></div>
-                        <div class="job-info-grid">
-                            <div class="info-item">
-                                <div class="info-label" id="lbl-enhanced">Enhancements Applied</div>
-                                <div class="info-value" id="enh-applied"></div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label" id="lbl-truth">Truthfulness Check</div>
-                                <div class="info-value" id="truth-check"></div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label" id="lbl-notes">Notes from AI</div>
-                                <div class="info-value" id="ai-notes"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="card">
+        <div class="card-title"><i class="fas fa-eye"></i> 
+            <span id="lbl-preview" data-en="Enhanced CV Preview (ATS-Friendly Format)" data-ar="معاينة السيرة الذاتية المحسّنة (متوافقة مع ATS)" data-translate="lbl_preview">Enhanced CV Preview (ATS-Friendly Format)</span>
+        </div>
+        <div class="cv-preview" id="cv-preview"></div>
+    </div>
 
-                <!-- Step 4 -->
-                <div class="step-content" id="step-4">
-                    <div class="step-header">
-                        <h2><i class="fas fa-download"></i> <span id="step4-title">Download Enhanced Files</span></h2>
-                        <div class="step-actions">
-                            <button class="btn btn-secondary" type="button" onclick="goToStep(3)">
-                                <i class="fas fa-arrow-left"></i> <span id="btn-prev-4">Previous</span>
-                            </button>
-                        </div>
-                    </div>
+    <div class="card">
+        <div class="card-title"><i class="fas fa-cogs"></i> 
+            <span id="lbl-summary" data-en="Enhancement Summary" data-ar="ملخص التحسينات" data-translate="lbl_summary">Enhancement Summary</span>
+        </div>
+        <div class="job-info-grid">
+            <div class="info-item">
+                <div class="info-label" id="lbl-enhanced" data-en="Enhancements Applied" data-ar="التحسينات المطبقة" data-translate="lbl_enhanced">Enhancements Applied</div>
+                <div class="info-value" id="enh-applied"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label" id="lbl-truth" data-en="Truthfulness Check" data-ar="التحقق من الصدق" data-translate="lbl_truth">Truthfulness Check</div>
+                <div class="info-value" id="truth-check"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label" id="lbl-notes" data-en="Notes from AI" data-ar="ملاحظات من الذكاء الاصطناعي" data-translate="lbl_notes">Notes from AI</div>
+                <div class="info-value" id="ai-notes"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <div class="download-cards">
-                        <div class="download-card">
-                            <div class="download-icon"><i class="far fa-file-word"></i></div>
-                            <div class="download-info">
-                                <h3 id="dl-docx-title">Enhanced DOCX</h3>
-                                <p id="dl-docx-desc">Editable Microsoft Word document with professional formatting</p>
-                                <p class="muted"><strong id="dl-docx-path-lbl">Path:</strong> <span id="docx-path"></span></p>
-                                <a   class="btn btn-primary" id="download-docx">
-                                    <i class="fas fa-download"></i> <span id="dl-docx-btn">Download DOCX</span>
-                                </a>
-                            </div>
-                        </div>
+<!-- Step 4 -->
+<div class="step-content" id="step-4">
+    <div class="step-header">
+        <h2><i class="fas fa-download"></i> 
+            <span id="step4-title" data-en="Download Enhanced Files" data-ar="تحميل الملفات المحسّنة" data-translate="step4_title">Download Enhanced Files</span>
+        </h2>
+        <div class="step-actions">
+            <button class="btn btn-secondary" type="button" onclick="goToStep(3)">
+                <!-- <i class="fas fa-arrow-left"></i>  -->
+                <span id="btn-prev-4" data-en="Previous" data-ar="السابق" data-translate="btn_prev_4">Previous</span>
+            </button>
+        </div>
+    </div>
 
-                        <div class="download-card">
-                            <div class="download-icon"><i class="far fa-file-pdf"></i></div>
-                            <div class="download-info">
-                                <h3 id="dl-pdf-title">Enhanced PDF</h3>
-                                <p id="dl-pdf-desc">Final PDF version ready for submission</p>
-                                <p class="muted"><strong id="dl-pdf-path-lbl">Path:</strong> <span id="pdf-path"></span></p>
-                                <a  class="btn btn-success" id="download-pdf">
-                                    <i class="fas fa-download"></i> <span id="dl-pdf-btn">Download PDF</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+    <div class="download-cards">
+        <div class="download-card">
+            <div class="download-icon"><i class="far fa-file-word"></i></div>
+            <div class="download-info">
+                <h3 id="dl-docx-title" data-en="Enhanced DOCX" data-ar="ملف DOCX محسّن" data-translate="dl_docx_title">Enhanced DOCX</h3>
+                <p id="dl-docx-desc" data-en="Editable Microsoft Word document with professional formatting" data-ar="ملف Word قابل للتعديل بتنسيق احترافي" data-translate="dl_docx_desc">Editable Microsoft Word document with professional formatting</p>
+                <p class="muted"><strong id="dl-docx-path-lbl" data-en="Path:" data-ar="المسار:" data-translate="dl_docx_path_lbl">Path:</strong> <span id="docx-path"></span></p>
+                <a class="btn btn-primary" id="download-docx">
+                    <i class="fas fa-download"></i> 
+                    <span id="dl-docx-btn" data-en="Download DOCX" data-ar="تحميل DOCX" data-translate="dl_docx_btn">Download DOCX</span>
+                </a>
+            </div>
+        </div>
 
-                    <div class="card">
-                        <div class="card-title"><i class="fas fa-history"></i> <span id="lbl-proc-sum">Processing Summary</span></div>
-                        <div class="job-info-grid">
-                            <div class="info-item">
-                                <div class="info-label" id="lbl-proc-original">Original CV</div>
-                                <div class="info-value" id="proc-original"></div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label" id="lbl-proc-score">ATS Result</div>
-                                <div class="info-value" id="proc-score"></div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label" id="lbl-proc-files">Output Files</div>
-                                <div class="info-value" id="proc-files"></div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="download-card">
+            <div class="download-icon"><i class="far fa-file-pdf"></i></div>
+            <div class="download-info">
+                <h3 id="dl-pdf-title" data-en="Enhanced PDF" data-ar="ملف PDF محسّن" data-translate="dl_pdf_title">Enhanced PDF</h3>
+                <p id="dl-pdf-desc" data-en="Final PDF version ready for submission" data-ar="نسخة PDF النهائية جاهزة للإرسال" data-translate="dl_pdf_desc">Final PDF version ready for submission</p>
+                <p class="muted"><strong id="dl-pdf-path-lbl" data-en="Path:" data-ar="المسار:" data-translate="dl_pdf_path_lbl">Path:</strong> <span id="pdf-path"></span></p>
+                <a class="btn btn-success" id="download-pdf">
+                    <i class="fas fa-download"></i> 
+                    <span id="dl-pdf-btn" data-en="Download PDF" data-ar="تحميل PDF" data-translate="dl_pdf_btn">Download PDF</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
-                    <!-- <div class="card">
-                        <div class="card-title"><i class="fas fa-redo"></i> <span id="lbl-next">Need Further Enhancements?</span></div>
-                        <p class="muted" id="next-desc" style="margin-bottom: 12px;"></p>
-                        <button class="btn btn-secondary" type="button" id="btn-reprocess">
-                            <i class="fas fa-sync-alt"></i> <span id="btn-reprocess-text">Process Another CV</span>
-                        </button>
-                    </div> -->
-                </div>
+    <div class="card">
+        <div class="card-title"><i class="fas fa-history"></i> 
+            <span id="lbl-proc-sum" data-en="Processing Summary" data-ar="ملخص المعالجة" data-translate="lbl_proc_sum">Processing Summary</span>
+        </div>
+        <div class="job-info-grid">
+            <div class="info-item">
+                <div class="info-label" id="lbl-proc-original" data-en="Original CV" data-ar="السيرة الذاتية الأصلية" data-translate="lbl_proc_original">Original CV</div>
+                <div class="info-value" id="proc-original"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label" id="lbl-proc-score" data-en="ATS Result" data-ar="نتيجة ATS" data-translate="lbl_proc_score">ATS Result</div>
+                <div class="info-value" id="proc-score"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label" id="lbl-proc-files" data-en="Output Files" data-ar="ملفات الإخراج" data-translate="lbl_proc_files">Output Files</div>
+                <div class="info-value" id="proc-files"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
             </div>
         </div>
     </div>

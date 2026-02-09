@@ -918,7 +918,7 @@
     class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
   >
     <i class="fa-solid fa-globe"></i>
-    <span data-en="الأنجليزية" data-ar="Arabic">الأنجليزية</span>
+    <span >الأنجليزية</span>
   </a>
 
   <!-- Hamburger Menu -->
@@ -994,351 +994,837 @@
      <!-- Wizard -->
     <div class="container">
         <div class="wizard-container">
-            <!-- Wizard Steps -->
-            <div class="wizard-steps">
-                <div class="wizard-step active" data-step="1">
-                    <div class="step-number">1</div>
-                    <div class="step-label" data-translate="step_template">Template</div>
-                </div>
-                <div class="wizard-step" data-step="2">
-                    <div class="step-number">2</div>
-                    <div class="step-label" data-translate="step_personal_info">Personal Info</div>
-                </div>
-                <div class="wizard-step" data-step="3">
-                    <div class="step-number">3</div>
-                    <div class="step-label" data-translate="step_experience">Experience</div>
-                </div>
-                <div class="wizard-step" data-step="4">
-                    <div class="step-number">4</div>
-                    <div class="step-label" data-translate="step_education">Education</div>
-                </div>
-                <div class="wizard-step" data-step="5">
-                    <div class="step-number">5</div>
-                    <div class="step-label" data-translate="step_skills">Skills</div>
-                </div>
-                <div class="wizard-step" data-step="6">
-                    <div class="step-number">6</div>
-                    <div class="step-label" data-translate="step_preview">Preview</div>
-                </div>
-            </div>
+       <!-- Wizard Steps -->
+<div class="wizard-steps">
+  <div class="wizard-step active" data-step="1">
+    <div class="step-number">1</div>
+    <div
+      class="step-label"
+      data-en="Template"
+      data-ar="القالب"
+    >
+      Template
+    </div>
+  </div>
+
+  <div class="wizard-step" data-step="2">
+    <div class="step-number">2</div>
+    <div
+      class="step-label"
+      data-en="Personal Info"
+      data-ar="البيانات الشخصية"
+    >
+      Personal Info
+    </div>
+  </div>
+
+  <div class="wizard-step" data-step="3">
+    <div class="step-number">3</div>
+    <div
+      class="step-label"
+      data-en="Experience"
+      data-ar="الخبرات العملية"
+    >
+      Experience
+    </div>
+  </div>
+
+  <div class="wizard-step" data-step="4">
+    <div class="step-number">4</div>
+    <div
+      class="step-label"
+      data-en="Education"
+      data-ar="التعليم"
+    >
+      Education
+    </div>
+  </div>
+
+  <div class="wizard-step" data-step="5">
+    <div class="step-number">5</div>
+    <div
+      class="step-label"
+      data-en="Skills"
+      data-ar="المهارات"
+    >
+      Skills
+    </div>
+  </div>
+
+  <div class="wizard-step" data-step="6">
+    <div class="step-number">6</div>
+    <div
+      class="step-label"
+      data-en="Preview"
+      data-ar="المعاينة النهائية"
+    >
+      Preview
+    </div>
+  </div>
+</div>
 
             <!-- Wizard Content -->
             <div class="wizard-content">
-                <!-- Step 1: Template Selection -->
-                <div class="step-content active" id="step-1">
-                    <h2 class="step-title" data-translate="choose_template">Choose Your CV Template</h2>
-                    <p class="step-description" data-translate="template_description">Select a professional template that matches your industry and style. You can preview how your CV will look.</p>
+          <!-- Step 1: Template Selection -->
+<div class="step-content active" id="step-1">
+  <h2
+    class="step-title"
+    data-en="Choose Your CV Template"
+    data-ar="اختر قالب السيرة الذاتية"
+  >
+    Choose Your CV Template
+  </h2>
 
-                    <div class="template-grid">
-                        <div class="template-card template-1" data-template="modern">
-                            <div class="template-preview">
-                                <img src="assets/templates/modern.png" alt="">
-                            </div>
-                            <div class="template-name" data-translate="template_modern">Modern Professional</div>
-                            <p class="template-description" data-translate="template_modern_desc">Clean, contemporary design perfect for tech and creative industries.</p>
-                            <div class="template-badge" data-translate="most_popular">Most Popular</div>
-                        </div>
+  <p
+    class="step-description"
+    data-en="Select a professional template that matches your industry and style. You can preview how your CV will look."
+    data-ar="اختر قالبًا احترافيًا يناسب مجالك وأسلوبك. يمكنك معاينة شكل السيرة الذاتية قبل التحميل."
+  >
+    Select a professional template that matches your industry and style. You can preview how your CV will look.
+  </p>
 
-                        <div class="template-card template-2" data-template="classic">
-                            <div class="template-preview">
-                                <img src="assets/templates/classic.png" alt="">
-                            </div>
-                            <div class="template-name" data-translate="template_classic">Classic Executive</div>
-                            <p class="template-description" data-translate="template_classic_desc">Traditional layout ideal for corporate and finance professionals.</p>
-                        </div>
+  <div class="template-grid">
+    <!-- Modern -->
+    <div class="template-card template-1" data-template="modern">
+      <div class="template-preview">
+        <img src="assets/templates/modern.png" alt="">
+      </div>
 
-                        <div class="template-card template-3" data-template="creative">
-                            <div class="template-preview">
-                                <img src="assets/templates/creative.png" alt="">
-                            </div>
-                            <div class="template-name" data-translate="template_creative">Creative Portfolio</div>
-                            <p class="template-description" data-translate="template_creative_desc">Bold design for designers, artists, and marketing professionals.</p>
-                        </div>
+      <div
+        class="template-name"
+        data-en="Modern Professional"
+        data-ar="احترافي عصري"
+      >
+        Modern Professional
+      </div>
 
-                        <div class="template-card template-4" data-template="minimal">
-                            <div class="template-preview">
-                                <img src="assets/templates/minimal.png" alt="">
-                            </div>
-                            <div class="template-name" data-translate="template_minimal">Minimalist</div>
-                            <p class="template-description" data-translate="template_minimal_desc">Simple and clean design that focuses on content and readability.</p>
-                        </div>
-                    </div>
+      <p
+        class="template-description"
+        data-en="Clean, contemporary design perfect for tech and creative industries."
+        data-ar="تصميم عصري ونظيف مناسب لمجالات التكنولوجيا والإبداع."
+      >
+        Clean, contemporary design perfect for tech and creative industries.
+      </p>
+
+      <div
+        class="template-badge"
+        data-en="Most Popular"
+        data-ar="الأكثر استخدامًا"
+      >
+        Most Popular
+      </div>
+    </div>
+
+    <!-- Classic -->
+    <div class="template-card template-2" data-template="classic">
+      <div class="template-preview">
+        <img src="assets/templates/classic.png" alt="">
+      </div>
+
+      <div
+        class="template-name"
+        data-en="Classic Executive"
+        data-ar="كلاسيكي إداري"
+      >
+        Classic Executive
+      </div>
+
+      <p
+        class="template-description"
+        data-en="Traditional layout ideal for corporate and finance professionals."
+        data-ar="تنسيق تقليدي مناسب للوظائف الإدارية والمجالات المالية."
+      >
+        Traditional layout ideal for corporate and finance professionals.
+      </p>
+    </div>
+
+    <!-- Creative -->
+    <div class="template-card template-3" data-template="creative">
+      <div class="template-preview">
+        <img src="assets/templates/creative.png" alt="">
+      </div>
+
+      <div
+        class="template-name"
+        data-en="Creative Portfolio"
+        data-ar="إبداعي"
+      >
+        Creative Portfolio
+      </div>
+
+      <p
+        class="template-description"
+        data-en="Bold design for designers, artists, and marketing professionals."
+        data-ar="تصميم جريء مناسب للمصممين والفنانين ومتخصصي التسويق."
+      >
+        Bold design for designers, artists, and marketing professionals.
+      </p>
+    </div>
+
+    <!-- Minimal -->
+    <div class="template-card template-4" data-template="minimal">
+      <div class="template-preview">
+        <img src="assets/templates/minimal.png" alt="">
+      </div>
+
+      <div
+        class="template-name"
+        data-en="Minimalist"
+        data-ar="بسيط"
+      >
+        Minimalist
+      </div>
+
+      <p
+        class="template-description"
+        data-en="Simple and clean design that focuses on content and readability."
+        data-ar="تصميم بسيط وواضح يركز على المحتوى وسهولة القراءة."
+      >
+        Simple and clean design that focuses on content and readability.
+      </p>
+    </div>
+  </div>
+</div>
+<!-- Step 2: Personal Information -->
+<div class="step-content" id="step-2">
+  <h2
+    class="step-title"
+    data-en="Personal Information"
+    data-ar="البيانات الشخصية"
+  >
+    Personal Information
+  </h2>
+
+  <p
+    class="step-description"
+    data-en="Tell us about yourself. This information will appear at the top of your CV."
+    data-ar="عرّفنا بنفسك. ستظهر هذه المعلومات في أعلى السيرة الذاتية."
+  >
+    Tell us about yourself. This information will appear at the top of your CV.
+  </p>
+
+  <div class="form-grid">
+    <div class="form-group">
+      <label
+        class="form-label"
+        data-en="Full Name *"
+        data-ar="الاسم الكامل *"
+      >
+        Full Name *
+      </label>
+      <input
+        type="text"
+        class="form-control"
+        id="fullName"
+        placeholder="John Doe"
+        data-en-placeholder="John Doe"
+        data-ar-placeholder="الاسم الكامل"
+      >
+      <div
+        class="error-message"
+        id="nameError"
+        data-en="Please enter your full name"
+        data-ar="من فضلك أدخل اسمك الكامل"
+      >
+        Please enter your full name
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label
+        class="form-label"
+        data-en="Professional Title *"
+        data-ar="المسمى الوظيفي *"
+      >
+        Professional Title *
+      </label>
+      <input
+        type="text"
+        class="form-control"
+        id="professionalTitle"
+        placeholder="Senior Software Engineer"
+        data-en-placeholder="Senior Software Engineer"
+        data-ar-placeholder="المسمى الوظيفي"
+      >
+      <div
+        class="error-message"
+        id="titleError"
+        data-en="Please enter your professional title"
+        data-ar="من فضلك أدخل المسمى الوظيفي"
+      >
+        Please enter your professional title
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label
+        class="form-label"
+        data-en="Email Address *"
+        data-ar="البريد الإلكتروني *"
+      >
+        Email Address *
+      </label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="john.doe@example.com"
+        data-en-placeholder="john.doe@example.com"
+        data-ar-placeholder="البريد الإلكتروني"
+      >
+      <div
+        class="error-message"
+        id="emailError"
+        data-en="Please enter a valid email address"
+        data-ar="من فضلك أدخل بريدًا إلكترونيًا صحيحًا"
+      >
+        Please enter a valid email address
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label
+        class="form-label"
+        data-en="Phone Number *"
+        data-ar="رقم الهاتف *"
+      >
+        Phone Number *
+      </label>
+      <input
+        type="tel"
+        class="form-control"
+        id="phone"
+        placeholder="+1 (555) 123-4567"
+        data-en-placeholder="+1 (555) 123-4567"
+        data-ar-placeholder="رقم الهاتف"
+      >
+      <div
+        class="error-message"
+        id="phoneError"
+        data-en="Please enter a valid phone number"
+        data-ar="من فضلك أدخل رقم هاتف صحيح"
+      >
+        Please enter a valid phone number
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label
+        class="form-label"
+        data-en="Location"
+        data-ar="الموقع"
+      >
+        Location
+      </label>
+      <input
+        type="text"
+        class="form-control"
+        id="location"
+        placeholder="San Francisco, CA"
+        data-en-placeholder="San Francisco, CA"
+        data-ar-placeholder="المدينة، الدولة"
+      >
+    </div>
+
+    <div class="form-group">
+      <label
+        class="form-label"
+        data-en="LinkedIn Profile"
+        data-ar="حساب لينكدإن"
+      >
+        LinkedIn Profile
+      </label>
+      <input
+        type="url"
+        class="form-control"
+        id="linkedin"
+        placeholder="https://linkedin.com/in/johndoe"
+        data-en-placeholder="https://linkedin.com/in/johndoe"
+        data-ar-placeholder="رابط حساب لينكدإن"
+      >
+    </div>
+
+    <div class="form-group">
+      <label
+        class="form-label"
+        data-en="GitHub Profile"
+        data-ar="حساب GitHub"
+      >
+        GitHub Profile
+      </label>
+      <input
+        type="url"
+        class="form-control"
+        id="github"
+        placeholder="https://github.com/johndoe"
+        data-en-placeholder="https://github.com/johndoe"
+        data-ar-placeholder="رابط حساب GitHub"
+      >
+    </div>
+
+    <div class="form-group">
+      <label
+        class="form-label"
+        data-en="Professional Summary"
+        data-ar="الملخص المهني"
+      >
+        Professional Summary
+      </label>
+      <textarea
+        class="form-control"
+        id="summary"
+        rows="4"
+        placeholder="Write a brief summary of your professional background, skills, and career objectives..."
+        data-en-placeholder="Write a brief summary of your professional background, skills, and career objectives..."
+        data-ar-placeholder="اكتب ملخصًا مختصرًا عن خبرتك المهنية ومهاراتك وأهدافك الوظيفية"
+      ></textarea>
+    </div>
+  </div>
+</div>
+
+
+        <!-- Step 3: Work Experience -->
+<div class="step-content" id="step-3">
+  <h2
+    class="step-title"
+    data-en="Work Experience"
+    data-ar="الخبرة العملية"
+  >
+    Work Experience
+  </h2>
+
+  <p
+    class="step-description"
+    data-en="Add your work history, starting with your most recent position."
+    data-ar="أضف خبراتك العملية بدءًا من أحدث وظيفة."
+  >
+    Add your work history, starting with your most recent position.
+  </p>
+
+  <div class="dynamic-list" id="experienceList">
+    <!-- Experience items will be added here dynamically -->
+    <div class="list-item" data-index="0">
+      <div class="list-header">
+        <div
+          class="list-title"
+          data-en="Experience #1"
+          data-ar="خبرة رقم 1"
+        >
+          Experience #1
+        </div>
+        <button class="remove-btn" onclick="removeExperience(0)">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label
+            class="form-label"
+            data-en="Job Title *"
+            data-ar="المسمى الوظيفي *"
+          >
+            Job Title *
+          </label>
+          <input
+            type="text"
+            class="form-control experience-title"
+            placeholder="Senior Software Engineer"
+            data-en-placeholder="Senior Software Engineer"
+            data-ar-placeholder="المسمى الوظيفي"
+          >
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-label"
+            data-en="Company *"
+            data-ar="اسم الشركة *"
+          >
+            Company *
+          </label>
+          <input
+            type="text"
+            class="form-control experience-company"
+            placeholder="Tech Corp Inc."
+            data-en-placeholder="Tech Corp Inc."
+            data-ar-placeholder="اسم الشركة"
+          >
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-label"
+            data-en="Location"
+            data-ar="الموقع"
+          >
+            Location
+          </label>
+          <input
+            type="text"
+            class="form-control experience-location"
+            placeholder="San Francisco, CA"
+            data-en-placeholder="San Francisco, CA"
+            data-ar-placeholder="المدينة، الدولة"
+          >
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-label"
+            data-en="Start Date *"
+            data-ar="تاريخ البدء *"
+          >
+            Start Date *
+          </label>
+          <input
+            type="month"
+            class="form-control experience-start-date"
+          >
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-label"
+            data-en="End Date"
+            data-ar="تاريخ الانتهاء"
+          >
+            End Date
+          </label>
+          <input
+            type="month"
+            class="form-control experience-end-date"
+          >
+        </div>
+
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label
+            class="form-label"
+            data-en="Responsibilities & Achievements"
+            data-ar="المسؤوليات والإنجازات"
+          >
+            Responsibilities & Achievements
+          </label>
+          <textarea
+            class="form-control experience-description"
+            rows="3"
+            placeholder="Describe your responsibilities and achievements in this role..."
+            data-en-placeholder="Describe your responsibilities and achievements in this role..."
+            data-ar-placeholder="اكتب وصفًا لمسؤولياتك وإنجازاتك في هذه الوظيفة"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="add-btn">
+    <i class="fas fa-plus"></i>
+    <span
+      data-en="Add Another Experience"
+      data-ar="إضافة خبرة أخرى"
+    >
+      Add Another Experience
+    </span>
+  </button>
+</div>
+
+        <!-- Step 4: Education -->
+<div class="step-content" id="step-4">
+  <h2
+    class="step-title"
+    data-en="Education"
+    data-ar="التعليم"
+  >
+    Education
+  </h2>
+
+  <p
+    class="step-description"
+    data-en="Add your educational background and certifications."
+    data-ar="أضف خلفيتك التعليمية والشهادات التي حصلت عليها."
+  >
+    Add your educational background and certifications.
+  </p>
+
+  <div class="dynamic-list" id="educationList">
+    <!-- Education items will be added here dynamically -->
+    <div class="list-item" data-index="0">
+      <div class="list-header">
+        <div
+          class="list-title"
+          data-en="Education #1"
+          data-ar="تعليم رقم 1"
+        >
+          Education #1
+        </div>
+        <button class="remove-btn" onclick="removeEducation(0)">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label
+            class="form-label"
+            data-en="Degree *"
+            data-ar="الدرجة العلمية *"
+          >
+            Degree *
+          </label>
+          <input
+            type="text"
+            class="form-control education-degree"
+            placeholder="Bachelor of Science in Computer Science"
+            data-en-placeholder="Bachelor of Science in Computer Science"
+            data-ar-placeholder="الدرجة العلمية"
+          >
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-label"
+            data-en="Institution *"
+            data-ar="المؤسسة التعليمية *"
+          >
+            Institution *
+          </label>
+          <input
+            type="text"
+            class="form-control education-institution"
+            placeholder="Stanford University"
+            data-en-placeholder="Stanford University"
+            data-ar-placeholder="اسم الجامعة أو المعهد"
+          >
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-label"
+            data-en="Location"
+            data-ar="الموقع"
+          >
+            Location
+          </label>
+          <input
+            type="text"
+            class="form-control education-location"
+            placeholder="Stanford, CA"
+            data-en-placeholder="Stanford, CA"
+            data-ar-placeholder="المدينة، الدولة"
+          >
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-label"
+            data-en="Graduation Date *"
+            data-ar="تاريخ التخرج *"
+          >
+            Graduation Date *
+          </label>
+          <input
+            type="month"
+            class="form-control education-date"
+          >
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-label"
+            data-en="GPA (Optional)"
+            data-ar="المعدل التراكمي (اختياري)"
+          >
+            GPA (Optional)
+          </label>
+          <input
+            type="text"
+            class="form-control education-gpa"
+            placeholder="3.8/4.0"
+            data-en-placeholder="3.8/4.0"
+            data-ar-placeholder="المعدل التراكمي"
+          >
+        </div>
+
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label
+            class="form-label"
+            data-en="Achievements & Honors"
+            data-ar="الإنجازات والتكريمات"
+          >
+            Achievements & Honors
+          </label>
+          <textarea
+            class="form-control education-achievements"
+            rows="2"
+            placeholder="Academic honors, relevant coursework, or achievements..."
+            data-en-placeholder="Academic honors, relevant coursework, or achievements..."
+            data-ar-placeholder="التكريمات الأكاديمية أو المقررات المهمة أو أي إنجازات تعليمية"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="add-btn" onclick="addEducation()">
+    <i class="fas fa-plus"></i>
+    <span
+      data-en="Add Another Education"
+      data-ar="إضافة تعليم آخر"
+    >
+      Add Another Education
+    </span>
+  </button>
+</div>
+
+
+         <!-- Step 5: Skills -->
+<div class="step-content" id="step-5">
+    <h2 class="step-title" data-en="Skills" data-ar="المهارات" data-translate="skills">Skills</h2>
+    <p class="step-description" data-en="Add your technical and soft skills. You can categorize them if needed."
+       data-ar="أضف مهاراتك التقنية والشخصية. يمكنك تصنيفها إذا لزم الأمر."
+       data-translate="skills_desc">
+        Add your technical and soft skills. You can categorize them if needed.
+    </p>
+
+    <div class="form-group">
+        <label class="form-label" data-en="Technical Skills" data-ar="المهارات التقنية" data-translate="technical_skills">Technical Skills</label>
+        <div class="skills-container" id="technicalSkills">
+            <!-- Skill tags will be added here -->
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <input type="text" class="form-control" id="techSkillInput"
+                   placeholder="Add a technical skill (e.g., JavaScript, React, Python)"
+                   data-en-placeholder="Add a technical skill (e.g., JavaScript, React, Python)"
+                   data-ar-placeholder="أضف مهارة تقنية (مثل JavaScript، React، Python)"
+                   data-translate-placeholder="tech_skill_placeholder">
+            <button class="add-btn" onclick="addSkill('technical')" style="padding: 10px 20px;">
+                <i class="fas fa-plus"></i>
+                <span data-en="Add" data-ar="أضف" data-translate="add">Add</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-top: 2rem;">
+        <label class="form-label" data-en="Soft Skills" data-ar="المهارات الشخصية" data-translate="soft_skills">Soft Skills</label>
+        <div class="skills-container" id="softSkills">
+            <!-- Skill tags will be added here -->
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <input type="text" class="form-control" id="softSkillInput"
+                   placeholder="Add a soft skill (e.g., Leadership, Communication)"
+                   data-en-placeholder="Add a soft skill (e.g., Leadership, Communication)"
+                   data-ar-placeholder="أضف مهارة شخصية (مثل القيادة، التواصل)"
+                   data-translate-placeholder="soft_skill_placeholder">
+            <button class="add-btn" onclick="addSkill('soft')" style="padding: 10px 20px;">
+                <i class="fas fa-plus"></i>
+                <span data-en="Add" data-ar="أضف" data-translate="add">Add</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-top: 2rem;">
+        <label class="form-label" data-en="Languages" data-ar="اللغات" data-translate="languages">Languages</label>
+        <div class="skills-container" id="languageSkills">
+            <!-- Skill tags will be added here -->
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <input type="text" class="form-control" id="languageInput"
+                   placeholder="Add a language (e.g., English - Fluent)"
+                   data-en-placeholder="Add a language (e.g., English - Fluent)"
+                   data-ar-placeholder="أضف لغة (مثل الإنجليزية - بطلاقة)"
+                   data-translate-placeholder="language_placeholder">
+            <button class="add-btn" onclick="addSkill('language')" style="padding: 10px 20px;">
+                <i class="fas fa-plus"></i>
+                <span data-en="Add" data-ar="أضف" data-translate="add">Add</span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Step 6: Preview -->
+<div class="step-content" id="step-6">
+    <h2 class="step-title" data-en="Preview Your CV" data-ar="معاينة سيرتك الذاتية" data-translate="preview_cv">Preview Your CV</h2>
+    <p class="step-description" data-en="Review your CV before generating. Make sure all information is accurate."
+       data-ar="راجع سيرتك الذاتية قبل التوليد. تأكد من صحة جميع المعلومات."
+       data-translate="preview_desc">
+        Review your CV before generating. Make sure all information is accurate.
+    </p>
+
+    <div class="preview-container">
+        <div class="cv-preview" id="cvPreview">
+            <!-- CV preview will be generated here -->
+            <div style="text-align: center; padding: 3rem;">
+                <i class="fas fa-file-alt" style="font-size: 4rem; color: var(--light-text); margin-bottom: 1rem;"></i>
+                <h3 style="color: var(--light-text);" data-en="CV Preview" data-ar="معاينة السيرة الذاتية" data-translate="cv_preview">CV Preview</h3>
+                <p style="color: var(--light-text);" data-en="Complete the previous steps to see your CV preview" 
+                   data-ar="أكمل الخطوات السابقة لرؤية معاينة سيرتك الذاتية" data-translate="complete_steps">
+                    Complete the previous steps to see your CV preview
+                </p>
+            </div>
+        </div>
+
+        <div class="preview-sidebar">
+            <div class="preview-section">
+                <h4 data-en="Selected Template" data-ar="القالب المختار" data-translate="selected_template">Selected Template</h4>
+                <div id="selectedTemplatePreview" style="padding: 10px; background: var(--background); border-radius: var(--border-radius);">
+                    <span data-en="Not selected yet" data-ar="لم يتم الاختيار بعد" data-translate="not_selected">Not selected yet</span>
                 </div>
+            </div>
 
-                <!-- Step 2: Personal Information -->
-                <div class="step-content" id="step-2">
-                    <h2 class="step-title" data-translate="personal_info">Personal Information</h2>
-                    <p class="step-description" data-translate="personal_info_desc">Tell us about yourself. This information will appear at the top of your CV.</p>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label" data-translate="full_name">Full Name *</label>
-                            <input type="text" class="form-control" id="fullName" placeholder="John Doe" data-translate-placeholder="name_placeholder">
-                            <div class="error-message" id="nameError" data-translate="error_name">Please enter your full name</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" data-translate="professional_title">Professional Title *</label>
-                            <input type="text" class="form-control" id="professionalTitle" placeholder="Senior Software Engineer" data-translate-placeholder="title_placeholder">
-                            <div class="error-message" id="titleError" data-translate="error_title">Please enter your professional title</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" data-translate="email">Email Address *</label>
-                            <input type="email" class="form-control" id="email" placeholder="john.doe@example.com" data-translate-placeholder="email_placeholder">
-                            <div class="error-message" id="emailError" data-translate="error_email">Please enter a valid email address</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" data-translate="phone">Phone Number *</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="+1 (555) 123-4567" data-translate-placeholder="phone_placeholder">
-                            <div class="error-message" id="phoneError" data-translate="error_phone">Please enter a valid phone number</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" data-translate="location">Location</label>
-                            <input type="text" class="form-control" id="location" placeholder="San Francisco, CA" data-translate-placeholder="location_placeholder">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" data-translate="linkedin">LinkedIn Profile</label>
-                            <input type="url" class="form-control" id="linkedin" placeholder="https://linkedin.com/in/johndoe" data-translate-placeholder="linkedin_placeholder">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" data-translate="github">GitHub Profile</label>
-                            <input type="url" class="form-control" id="github" placeholder="https://github.com/johndoe" data-translate-placeholder="github_placeholder">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" data-translate="summary">Professional Summary</label>
-                            <textarea class="form-control" id="summary" rows="4" placeholder="Write a brief summary of your professional background, skills, and career objectives..." data-translate-placeholder="summary_placeholder"></textarea>
-                        </div>
+            <div class="preview-section">
+                <h4 data-en="CV Summary" data-ar="ملخص السيرة الذاتية" data-translate="cv_summary">CV Summary</h4>
+                <div style="font-size: 0.9rem;">
+                    <div style="margin-bottom: 10px;">
+                        <strong data-en="Personal Info:" data-ar="المعلومات الشخصية:" data-translate="personal_info">Personal Info:</strong>
+                        <span id="previewPersonalCount">0 fields</span>
                     </div>
-                </div>
-
-                <!-- Step 3: Work Experience -->
-                <div class="step-content" id="step-3">
-                    <h2 class="step-title" data-translate="work_experience">Work Experience</h2>
-                    <p class="step-description" data-translate="experience_desc">Add your work history, starting with your most recent position.</p>
-
-                    <div class="dynamic-list" id="experienceList">
-                        <!-- Experience items will be added here dynamically -->
-                        <div class="list-item" data-index="0">
-                            <div class="list-header">
-                                <div class="list-title" data-translate="experience_num">Experience #1</div>
-                                <button class="remove-btn" onclick="removeExperience(0)">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label class="form-label" data-translate="job_title">Job Title *</label>
-                                    <input type="text" class="form-control experience-title" placeholder="Senior Software Engineer" data-translate-placeholder="job_title_placeholder">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" data-translate="company">Company *</label>
-                                    <input type="text" class="form-control experience-company" placeholder="Tech Corp Inc." data-translate-placeholder="company_placeholder">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" data-translate="location">Location</label>
-                                    <input type="text" class="form-control experience-location" placeholder="San Francisco, CA" data-translate-placeholder="location_placeholder">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" data-translate="start_date">Start Date *</label>
-                                    <input type="month" class="form-control experience-start-date">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" data-translate="end_date">End Date</label>
-                                    <input type="month" class="form-control experience-end-date">
-                                  
-                                </div>
-                                <div class="form-group" style="grid-column: 1 / -1;">
-                                    <label class="form-label" data-translate="responsibilities">Responsibilities & Achievements</label>
-                                    <textarea class="form-control experience-description" rows="3" placeholder="Describe your responsibilities and achievements in this role..." data-translate-placeholder="responsibilities_placeholder"></textarea>
-                                </div>
-                            </div>
-                        </div>
+                    <div style="margin-bottom: 10px;">
+                        <strong data-en="Experience:" data-ar="الخبرة:" data-translate="experience">Experience:</strong>
+                        <span id="previewExperienceCount">0 positions</span>
                     </div>
-
-                    <button class="add-btn"  >
-                        <i class="fas fa-plus"></i>
-                        <span data-translate="add_experience">Add Another Experience</span>
-                    </button>
-                </div>
-
-                <!-- Step 4: Education -->
-                <div class="step-content" id="step-4">
-                    <h2 class="step-title" data-translate="education">Education</h2>
-                    <p class="step-description" data-translate="education_desc">Add your educational background and certifications.</p>
-
-                    <div class="dynamic-list" id="educationList">
-                        <!-- Education items will be added here dynamically -->
-                        <div class="list-item" data-index="0">
-                            <div class="list-header">
-                                <div class="list-title" data-translate="education_num">Education #1</div>
-                                <button class="remove-btn" onclick="removeEducation(0)">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label class="form-label" data-translate="degree">Degree *</label>
-                                    <input type="text" class="form-control education-degree" placeholder="Bachelor of Science in Computer Science" data-translate-placeholder="degree_placeholder">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" data-translate="institution">Institution *</label>
-                                    <input type="text" class="form-control education-institution" placeholder="Stanford University" data-translate-placeholder="institution_placeholder">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" data-translate="location">Location</label>
-                                    <input type="text" class="form-control education-location" placeholder="Stanford, CA" data-translate-placeholder="location_placeholder">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" data-translate="graduation_date">Graduation Date *</label>
-                                    <input type="month" class="form-control education-date">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" data-translate="gpa">GPA (Optional)</label>
-                                    <input type="text" class="form-control education-gpa" placeholder="3.8/4.0" data-translate-placeholder="gpa_placeholder">
-                                </div>
-                                <div class="form-group" style="grid-column: 1 / -1;">
-                                    <label class="form-label" data-translate="achievements">Achievements & Honors</label>
-                                    <textarea class="form-control education-achievements" rows="2" placeholder="Academic honors, relevant coursework, or achievements..." data-translate-placeholder="achievements_placeholder"></textarea>
-                                </div>
-                            </div>
-                        </div>
+                    <div style="margin-bottom: 10px;">
+                        <strong data-en="Education:" data-ar="التعليم:" data-translate="education">Education:</strong>
+                        <span id="previewEducationCount">0 entries</span>
                     </div>
-
-                    <button class="add-btn" onclick="addEducation()">
-                        <i class="fas fa-plus"></i>
-                        <span data-translate="add_education">Add Another Education</span>
-                    </button>
-                </div>
-
-                <!-- Step 5: Skills -->
-                <div class="step-content" id="step-5">
-                    <h2 class="step-title" data-translate="skills">Skills</h2>
-                    <p class="step-description" data-translate="skills_desc">Add your technical and soft skills. You can categorize them if needed.</p>
-
-                    <div class="form-group">
-                        <label class="form-label" data-translate="technical_skills">Technical Skills</label>
-                        <div class="skills-container" id="technicalSkills">
-                            <!-- Skill tags will be added here -->
-                        </div>
-                        <div style="display: flex; gap: 10px; margin-top: 10px;">
-                            <input type="text" class="form-control" id="techSkillInput" placeholder="Add a technical skill (e.g., JavaScript, React, Python)" data-translate-placeholder="tech_skill_placeholder">
-                            <button class="add-btn" onclick="addSkill('technical')" style="padding: 10px 20px;">
-                                <i class="fas fa-plus"></i>
-                                <span data-translate="add">Add</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-group" style="margin-top: 2rem;">
-                        <label class="form-label" data-translate="soft_skills">Soft Skills</label>
-                        <div class="skills-container" id="softSkills">
-                            <!-- Skill tags will be added here -->
-                        </div>
-                        <div style="display: flex; gap: 10px; margin-top: 10px;">
-                            <input type="text" class="form-control" id="softSkillInput" placeholder="Add a soft skill (e.g., Leadership, Communication)" data-translate-placeholder="soft_skill_placeholder">
-                            <button class="add-btn" onclick="addSkill('soft')" style="padding: 10px 20px;">
-                                <i class="fas fa-plus"></i>
-                                <span data-translate="add">Add</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-group" style="margin-top: 2rem;">
-                        <label class="form-label" data-translate="languages">Languages</label>
-                        <div class="skills-container" id="languageSkills">
-                            <!-- Skill tags will be added here -->
-                        </div>
-                        <div style="display: flex; gap: 10px; margin-top: 10px;">
-                            <input type="text" class="form-control" id="languageInput" placeholder="Add a language (e.g., English - Fluent)" data-translate-placeholder="language_placeholder">
-                            <button class="add-btn" onclick="addSkill('language')" style="padding: 10px 20px;">
-                                <i class="fas fa-plus"></i>
-                                <span data-translate="add">Add</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 6: Preview -->
-                <div class="step-content" id="step-6">
-                    <h2 class="step-title" data-translate="preview_cv">Preview Your CV</h2>
-                    <p class="step-description" data-translate="preview_desc">Review your CV before generating. Make sure all information is accurate.</p>
-
-                    <div class="preview-container">
-                        <div class="cv-preview" id="cvPreview">
-                            <!-- CV preview will be generated here -->
-                            <div style="text-align: center; padding: 3rem;">
-                                <i class="fas fa-file-alt" style="font-size: 4rem; color: var(--light-text); margin-bottom: 1rem;"></i>
-                                <h3 style="color: var(--light-text);" data-translate="cv_preview">CV Preview</h3>
-                                <p style="color: var(--light-text);" data-translate="complete_steps">Complete the previous steps to see your CV preview</p>
-                            </div>
-                        </div>
-
-                        <div class="preview-sidebar">
-                            <div class="preview-section">
-                                <h4 data-translate="selected_template">Selected Template</h4>
-                                <div id="selectedTemplatePreview" style="padding: 10px; background: var(--background); border-radius: var(--border-radius);">
-                                    <span data-translate="not_selected">Not selected yet</span>
-                                </div>
-                            </div>
-
-                            <div class="preview-section">
-                                <h4 data-translate="cv_summary">CV Summary</h4>
-                                <div style="font-size: 0.9rem;">
-                                    <div style="margin-bottom: 10px;">
-                                        <strong data-translate="personal_info">Personal Info:</strong>
-                                        <span id="previewPersonalCount">0 fields</span>
-                                    </div>
-                                    <div style="margin-bottom: 10px;">
-                                        <strong data-translate="experience">Experience:</strong>
-                                        <span id="previewExperienceCount">0 positions</span>
-                                    </div>
-                                    <div style="margin-bottom: 10px;">
-                                        <strong data-translate="education">Education:</strong>
-                                        <span id="previewEducationCount">0 entries</span>
-                                    </div>
-                                    <div>
-                                        <strong data-translate="skills">Skills:</strong>
-                                        <span id="previewSkillsCount">0 skills</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="preview-section">
-                                <h4 data-translate="export_options">Export Options</h4>
-                                <div style="display: flex; flex-direction: column; gap: 10px;">
-                                    <button class="btn-finish" onclick="downloadCv('pdf')"">
-                                        <i class="fas fa-file-pdf"></i> <span data-translate="download_pdf">Download as PDF</span>
-                                    </button>
-                                    <button class="btn-finish" onclick="downloadCv('docx')"style="background: #2B579A;">
-                                        <i class="fas fa-file-word"></i> <span data-translate="download_docx">Download as DOCX</span>
-                                    </button>
-                                    <!-- <button class="btn-finish" onclick="saveCV()" style="background: var(--light-text);">
-                                        <i class="fas fa-save"></i> <span data-translate="save_account">Save to Account</span>
-                                    </button> -->
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                        <strong data-en="Skills:" data-ar="المهارات:" data-translate="skills">Skills:</strong>
+                        <span id="previewSkillsCount">0 skills</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Navigation Buttons -->
-            <div class="wizard-navigation">
-                <button class="nav-btn btn-prev" onclick="previousStep()">
-                    <i class="fas fa-arrow-left"></i>
-                    <span data-translate="previous">Previous</span>
-                </button>
-                <button class="nav-btn btn-next" onclick="nextStep()">
-                    <span data-translate="next">Next</span>
-                    <i class="fas fa-arrow-right"></i>
-                </button>
+            <div class="preview-section">
+                <h4 data-en="Export Options" data-ar="خيارات التصدير" data-translate="export_options">Export Options</h4>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button class="btn-finish" onclick="downloadCv('pdf')">
+                        <i class="fas fa-file-pdf"></i> 
+                        <span data-en="Download as PDF" data-ar="تحميل كملف PDF" data-translate="download_pdf">Download as PDF</span>
+                    </button>
+                    <button class="btn-finish" onclick="downloadCv('docx')" style="background: #2B579A;">
+                        <i class="fas fa-file-word"></i> 
+                        <span data-en="Download as DOCX" data-ar="تحميل كملف DOCX" data-translate="download_docx">Download as DOCX</span>
+                    </button>
+                    <!-- <button class="btn-finish" onclick="saveCV()" style="background: var(--light-text);">
+                        <i class="fas fa-save"></i> 
+                        <span data-en="Save to Account" data-ar="حفظ في الحساب" data-translate="save_account">Save to Account</span>
+                    </button> -->
+                </div>
             </div>
+        </div>
+    </div>
+</div>
+
+       <!-- Navigation Buttons -->
+<div class="wizard-navigation">
+    <button class="nav-btn btn-prev" onclick="previousStep()">
+        <!-- <i class="fas fa-arrow-left"></i> -->
+        <span data-en="Previous" data-ar="السابق" data-translate="previous">Previous</span>
+    </button>
+    <button class="nav-btn btn-next" onclick="nextStep()">
+        <span data-en="Next" data-ar="التالي" data-translate="next">Next</span>
+        <!-- <i class="fas fa-arrow-right"></i> -->
+    </button>
+</div>
+
         </div>
     </div>
 

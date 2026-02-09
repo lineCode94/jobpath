@@ -680,7 +680,7 @@ function updateLanguage() {
   // غيّر النص فقط داخل الـ span، خلي الأيقونة ثابتة
   const span = langBtn.querySelector("span");
   if (span) {
-    span.textContent = currentLang === "en" ? "Arabic" : "الانجليزية";
+    span.textContent = currentLang === "en" ? "Arabic" : "الأنجليزية";
   }
 
   // ترجم باقي العناصر

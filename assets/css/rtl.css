@@ -223,3 +223,20 @@ html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
                 top: 0;
                 box-shadow: 0 0 0 3px var(--brand-100);
             }
+            /* cv create */
+            /* افتراضي: لليسار إلى اليمين */
+.nav-btn i.fas.fa-arrow-left {
+    transform: none!important;
+}
+.nav-btn i.fas.fa-arrow-right {
+    transform: none!important;
+}
+
+/* إذا كان الاتجاه RTL */
+
+[dir="rtl"] .nav-btn.btn-prev i.fas.fa-arrow-left {
+    transform: rotate(180deg)!important; /* يعكس السهم */
+}
+[dir="rtl"] .nav-btn.btn-next i.fas.fa-arrow-right {
+    transform: rotate(180deg)!important;
+}

@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       const res = await getCvById(cvState.id);
       const cv = res.data.data;
+
       console.log("RESTORE CV:", cv);
 
       if (cv.sections?.personalInfo) {
@@ -167,8 +168,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       jobTitle: item.querySelector(".experience-title")?.value || "",
       company: item.querySelector(".experience-company")?.value || "",
       location: item.querySelector(".experience-location")?.value || "",
-      from: item.querySelector(".experience-start-date")?.value || "",
-      to: item.querySelector(".experience-end-date")?.value || "",
+      from: item.querySelector(".experience-start-date")?.value
+        ? item.querySelector(".experience-start-date").value + "-01"
+        : "",
+
+      to: item.querySelector(".experience-end-date")?.value
+        ? item.querySelector(".experience-end-date").value + "-01"
+        : "",
+
       // isCurrent: item.querySelector(".experience-current")?.checked || false,
       brief: item.querySelector(".experience-description")?.value || "",
     }));
@@ -187,8 +194,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function submitStep3() {
     const experience = collectExperienceData();
-    if (!experience.length || !experience[0].jobTitle)
-      return showToast("Add at least one experience", "error");
+const validExperience = experience.filter((e) => e.jobTitle && e.company);
+
+if (!validExperience.length)
+  return showToast("Add at least one experience", "error");
+
     try {
       await cvBuild({
         cvId: cvState.id,
@@ -202,6 +212,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
   function createExperienceItem(index, data = {}) {
+    console.log(data);
     return `
     <div class="list-item" data-index="${index}">
       <div class="list-header">
@@ -225,26 +236,35 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>
         <div class="form-group">
           <label>Start Date</label>
-          <input type="month" class="form-control experience-start-date" value="${data.startDate || ""}">
+     <input
+  type="month"
+  class="form-control experience-start-date"
+  value="${data.from ? data.from.slice(0, 7) : ""}"
+>
         </div>
         <div class="form-group">
           <label>End Date</label>
-          <input type="month" class="form-control experience-end-date" value="${data.endDate || ""}">
+        <input
+  type="month"
+  class="form-control experience-end-date"
+  value="${data.to ? data.to.slice(0, 7) : ""}"
+>
         </div>
-        <div class="form-group">
-          <label>
-            <input type="checkbox" class="experience-current" ${data.isCurrent ? "checked" : ""}>
-            Current
-          </label>
-        </div>
+      
         <div class="form-group">
           <label>Description</label>
-          <textarea class="form-control experience-description">${data.description || ""}</textarea>
+          <textarea class="form-control experience-description">${data.brief || ""}</textarea>
         </div>
       </div>
     </div>
   `;
   }
+    // <div class="form-group">
+    //       <label>
+    //         <input type="checkbox" class="experience-current" ${data.isCurrent ? "checked" : ""}>
+    //         Current
+    //       </label>
+    //     </div>
 
   // ================= STEP 4 =================
   function collectEducationData() {
@@ -510,9 +530,9 @@ window.downloadCv = async function (format = "pdf") {
 
   try {
     const res = await exportCv(cvState.id, format);
-console.log(res);
+// console.log(res);
    const fileUrl = res?.data?.data?.filePath;
-console.log(fileUrl);
+// console.log(fileUrl);
 
     if (!fileUrl) {
       console.log("Export CV response:", res);
