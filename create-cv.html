@@ -1495,6 +1495,11 @@
             type="month"
             class="form-control experience-end-date"
           >
+               <div style="margin-top: 5px;">
+                                        <label>
+                                            <input type="checkbox" class="experience-current"> <span data-translate="currently_working">Currently working here</span>
+                                        </label>
+                                    </div>
         </div>
 
         <div class="form-group" style="grid-column: 1 / -1;">
@@ -2068,8 +2073,7 @@
   </div>
 </div>
 
-<!-- FOOTER -->
-<div data-include="layout/footer.html"></div>
+
 
     
     <!-- THEME PRELOADER START -->
@@ -2083,13 +2087,14 @@
     <button type="button" class="rts__back__top" id="rts-back-to-top">
       <i class="fas fa-arrow-up"></i>
     </button>
- 
+ <!-- FOOTER -->
+<div style="width: 100%;" data-include="layout/footer.html"></div>
         <!-- all plugin js -->
         <script src="assets/js/plugins.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script type ="module" src="assets/js/login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="assets/js/create-cv.js"></script>
+    <script type ="module" src="assets/js/login.js"></script>
     <script  src="assets/js/main.js"></script>
 </body>
 </html>

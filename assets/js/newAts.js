@@ -1,6 +1,6 @@
 import { sendAtsRequest, getAtsStatus, getUserDetails } from "./api.js";
-
-document.addEventListener("DOMContentLoaded", () => {
+// import { requireAuth } from "./ats-guard.js";
+document.addEventListener("DOMContentLoaded", async() => {
   const atsBtn = document.getElementById("atsBtn");
 
   const progressPanel = document.getElementById("progressPanel");

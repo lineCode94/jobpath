@@ -1,6 +1,7 @@
 import { cvCreate, cvBuild, getCvById, exportCv, cvPreview } from "./api.js";
-
+import { requireAuth } from "./ats-gard.js";
 document.addEventListener("DOMContentLoaded", async () => {
+  await requireAuth();
   let currentStep = Number(sessionStorage.getItem("cvCurrentStep")) || 1;
 
   const cvState = {
@@ -171,12 +172,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       from: item.querySelector(".experience-start-date")?.value
         ? item.querySelector(".experience-start-date").value + "-01"
         : "",
-
       to: item.querySelector(".experience-end-date")?.value
         ? item.querySelector(".experience-end-date").value + "-01"
         : "",
 
-      // isCurrent: item.querySelector(".experience-current")?.checked || false,
+      isCurrentlyWorking:item.querySelector(".experience-current")?.checked || false,
       brief: item.querySelector(".experience-description")?.value || "",
     }));
   }
@@ -250,7 +250,12 @@ if (!validExperience.length)
   value="${data.to ? data.to.slice(0, 7) : ""}"
 >
         </div>
-      
+          <div class="form-group">
+          <label>
+            <input type="checkbox" class="experience-current" ${data.isCurrentlyWorking ? "checked" : ""}>
+            Current
+          </label>
+        </div>
         <div class="form-group">
           <label>Description</label>
           <textarea class="form-control experience-description">${data.brief || ""}</textarea>
@@ -259,12 +264,7 @@ if (!validExperience.length)
     </div>
   `;
   }
-    // <div class="form-group">
-    //       <label>
-    //         <input type="checkbox" class="experience-current" ${data.isCurrent ? "checked" : ""}>
-    //         Current
-    //       </label>
-    //     </div>
+
 
   // ================= STEP 4 =================
   function collectEducationData() {
