@@ -1,7 +1,7 @@
 import { sendAtsRequest, getAtsStatus, getUserDetails } from "./api.js";
-// import { requireAuth } from "./ats-guard.js";
-document.addEventListener("DOMContentLoaded", async() => {
-  const atsBtn = document.getElementById("atsBtn");
+
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".ats-action");
 
   const progressPanel = document.getElementById("progressPanel");
   const progressPercentage = document.getElementById("progressPercentage");
@@ -9,12 +9,11 @@ document.addEventListener("DOMContentLoaded", async() => {
   const progressDetails = document.getElementById("progressDetails");
   const progressAction = document.getElementById("progressAction");
 
-  if (!atsBtn) return;
-
   let pollCount = 0;
   let requestId = null;
+  let currentFlow = null; // 👈 assessment | enhance
 
-  // ===== Toast =====
+  /* ================= Toast ================= */
   function showToast(message, type = "info") {
     const colors = {
       info: "#333",
@@ -31,7 +30,18 @@ document.addEventListener("DOMContentLoaded", async() => {
     }).showToast();
   }
 
-  // ===== Progress UI =====
+  /* ================= AUTH CHECK ================= */
+  async function isLoggedIn() {
+    try {
+      const res = await getUserDetails();
+      const user = res?.currentUser || res?.data?.currentUser;
+      return !!user?.id;
+    } catch {
+      return false;
+    }
+  }
+
+  /* ================= PROGRESS ================= */
   function openProgress(message) {
     progressPanel.style.display = "flex";
     progressDetails.innerHTML = "";
@@ -43,21 +53,20 @@ document.addEventListener("DOMContentLoaded", async() => {
     progressPanel.style.display = "none";
   }
 
-  function updateProgress(percent, message) {
-    progressPercentage.textContent = `${percent}%`;
-    progressFill.style.width = `${percent}%`;
+ function updateProgress(percent, message) {
+   progressPercentage.textContent = `${percent}%`;
+   progressFill.style.width = `${percent}%`;
 
-    if (message) {
-      const p = document.createElement("p");
-      p.textContent = message;
-      progressDetails.appendChild(p);
-    }
-  }
+   if (message) {
+     progressDetails.innerHTML = `<p>${message}</p>`;
+   }
+ }
+
 
   function resetUI() {
-    atsBtn.disabled = false;
     pollCount = 0;
     requestId = null;
+    currentFlow = null;
 
     progressPercentage.textContent = "0%";
     progressFill.style.width = "0%";
@@ -67,93 +76,117 @@ document.addEventListener("DOMContentLoaded", async() => {
     closeProgress();
   }
 
-  // ===== Validate User =====
-  async function validateUser() {
+  /* ================= START FLOW ================= */
+  async function startFlow(type) {
     try {
-      const res = await getUserDetails();
-      const user = res?.currentUser || res?.data?.currentUser;
+      currentFlow = type;
+      pollCount = 0;
 
-      console.log("ATS user:", user);
+      openProgress(
+        type === "assessment"
+          ? "Starting ATS analysis..."
+          : "Starting CV enhancement...",
+      );
 
-      if (!user || !user.cvPath || !user.jobTitle) {
-        window.location.href = "/AtsError.html";
-        return null;
-      }
+      updateProgress(
+        10,
+        type === "assessment"
+          ? "Sending ATS request..."
+          : "Sending enhancement request...",
+      );
 
-      return user;
-    } catch (err) {
-      console.error("User validation error", err);
-      window.location.href = "/AtsError.html";
-      return null;
-    }
-  }
-
-  // ===== Start ATS Flow =====
-  async function startATSFlow() {
-    try {
-      atsBtn.disabled = true;
-      openProgress("Starting ATS analysis...");
-
-      const user = await validateUser();
-      if (!user) return;
-
-      updateProgress(10, "Sending ATS request...");
-      const res = await sendAtsRequest();
+      const res = await sendAtsRequest({ type });
 
       if (!res?.data?.status) {
-        throw new Error(res?.data?.msg || "ATS request failed");
+        throw new Error(res?.data?.msg || "Request failed");
       }
 
-      showToast(res.data.msg, "success");
+      requestId = res.data?.data?.requestId || "latest";
 
-      requestId = res.data?.data?.requestId || res.data?.requestId || "latest";
-
-      updateProgress(25, "ATS request created");
-      pollAtsStatus(requestId, 2);
+      updateProgress(25, "Request created successfully");
+      pollStatus(requestId);
     } catch (err) {
-      console.error(err);
-      showToast(err.message || "ATS error", "error");
+      showToast(err.message || "Process error", "error");
       resetUI();
     }
   }
 
-  // ===== Poll ATS =====
-  async function pollAtsStatus(id, delaySeconds = 2) {
+  /* ================= POLLING ================= */
+  async function pollStatus(id) {
     try {
-      await new Promise((r) => setTimeout(r, delaySeconds * 1000));
+      await new Promise((r) => setTimeout(r, 2000));
 
       pollCount++;
-      updateProgress(
-        Math.min(pollCount * 10 + 25, 95),
-        `Analyzing CV (step ${pollCount})...`,
-      );
+  updateProgress(
+    Math.min(pollCount * 10 + 25, 95),
+    currentFlow === "assessment"
+      ? "Analyzing your CV..."
+      : "Enhancing your CV...",
+  );
+
 
       const res = await getAtsStatus(id);
       const status = res?.data?.data?.status?.toUpperCase();
 
-      console.log("ATS STATUS:", status);
-
       if (status === "DONE" || status === "COMPLETED") {
-        updateProgress(100, "ATS analysis completed 🎉");
-        showToast("ATS analysis completed", "success");
+        updateProgress(
+          100,
+          currentFlow === "assessment"
+            ? "ATS analysis completed 🎉"
+            : "CV enhancement completed 🎉",
+        );
 
         progressAction.style.display = "block";
         progressAction.onclick = () => {
-          window.location.href = "/ats.html";
+          if (currentFlow === "assessment") {
+            window.location.href = "/ats.html";
+          } else {
+            window.location.href = "/CvEnhancment.html";
+          }
         };
+
         return;
       }
 
       if (status === "FAILED") {
-        throw new Error(res?.data?.data?.lastError || "ATS failed");
+        throw new Error("Process failed");
       }
 
-      pollAtsStatus(id, 3);
+      pollStatus(id);
     } catch (err) {
       showToast(err.message, "error");
       resetUI();
     }
   }
 
-  atsBtn.addEventListener("click", startATSFlow);
+  /* ================= MAIN BUTTON HANDLER ================= */
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      const logged = await isLoggedIn();
+
+      if (!logged) {
+        showToast("⚠️ Please log in first", "error");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1500);
+        return;
+      }
+
+      const action = btn.dataset.action;
+
+      if (action === "assessment") {
+        startFlow("assessment");
+      }
+
+      if (action === "enhance") {
+        startFlow("enhance");
+      }
+
+      if (!action && btn.tagName === "A") {
+        window.location.href = btn.href;
+      }
+    });
+  });
 });

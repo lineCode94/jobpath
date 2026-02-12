@@ -457,7 +457,7 @@
             text-align: right;
         }
 
-        .close-modal {
+        .close-modal-ats {
             position: absolute;
             top: 1rem;
             right: 1rem;
@@ -468,12 +468,12 @@
             color: var(--light-text);
         }
 
-        body[dir="rtl"] .close-modal {
+        body[dir="rtl"] .close-modal-ats {
             right: auto;
             left: 1rem;
         }
 
-        .modal-title {
+        .modal-title-ats {
             color: var(--secondary);
             margin-bottom: 1rem;
         }
@@ -852,6 +852,25 @@
             animation-delay: 0.6s;
             opacity: 0;
         }
+        /* 🔥 Fix login modal stacking */
+#loginModal {
+  z-index: 2000 !important;
+}
+
+#loginModal .modal-dialog {
+  max-width: 420px;
+  margin: 1.75rem auto;
+  transform: none !important;
+}
+
+body.modal-open {
+  overflow: hidden !important;
+}
+.ats-overlay,
+.ats-modal {
+  z-index: 1000;
+}
+
     </style>
 </head>
 <body dir="ltr">
@@ -897,7 +916,7 @@
                         >
                       </li>
 
-       <li id="atsMenu" class="navigation__menu--item">
+       <li class="navigation__menu--item">
                         <a              
                           class="atsMenuItem navigation__menu--item__link"
                           href="ATS-main-page.html"
@@ -1035,11 +1054,82 @@
         </div>
       </div>
     </header>
+    <!-- breadcrumb area -->
+<div class="rts__section breadcrumb__background">
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-lg-12 position-relative d-flex justify-content-between align-items-center"
+      >
+        <div class="breadcrumb__area max-content breadcrumb__padding z-2">
+          <h1
+            class="breadcrumb-title h3 mb-3"
+            data-en="CV Services  "
+            data-ar=" خدمات السيرة الذاتية  "
+          >
+          CV Services 
+          </h1>
+          <nav>
+            <ul class="breadcrumb m-0 lh-1">
+              <li class="breadcrumb-item">
+                <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+              </li>
+              <li
+                class="breadcrumb-item active"
+                aria-current="page"
+                data-en="CV Services  "
+                data-ar="  خدمات السيرة الذاتية   "
+              >
+              CV Services  
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div
+          class="breadcrumb__area__shape d-flex gap-4 justify-content-end align-items-center"
+        >
+          <div class="shape__one common">
+            <img src="assets/img/breadcrumb/shape-1.svg" alt="" />
+          </div>
+          <div class="shape__two common">
+            <img src="assets/img/breadcrumb/shape-2.svg" alt="" />
+          </div>
+          <div class="shape__three common">
+            <img src="assets/img/breadcrumb/shape-3.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-   <main style="margin-top: 200px;" class="container">
+    <!-- breadcrumb area end -->
+
+   <main style="margin-top: 50px;" class="container">
         
 
         <div class="cards-container">
+                <!-- Card 3: Comprehensive Career Assessment -->
+            <div class="card fade-in delay-3">
+                <div class="card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 data-en="Comprehensive Career Assessment" data-ar="تقييم مهني شامل">Comprehensive Career Assessment</h3>
+                <p data-en="Get personalized career recommendations, skill ratings, and professional development plan" data-ar="احصل على توصيات مهنية مخصصة وتقييمات المهارات وخطة تطوير مهنية">
+                    Get personalized career recommendations, skill ratings, and professional development plan
+                </p>
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> <span data-en="Skill gap analysis" data-ar="تحليل فجوات المهارات">Skill gap analysis</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-en="Career path recommendations" data-ar="توصيات مسار مهني">Career path recommendations</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-en="Development roadmap" data-ar="خارطة طريق للتطوير">Development roadmap</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span data-en="Industry insights" data-ar="رؤى صناعية">Industry insights</span></li>
+                </ul>
+                <button   class="cta-button ats-action"  
+                data-action="assessment"
+                data-en="Start Assessment" data-ar="ابدأ التقييم">
+                    Start Assessment
+                </button>
+            </div>
             <!-- Card 1: Create New CV -->
             <div class="card fade-in delay-1">
                 <div class="card-icon">
@@ -1055,7 +1145,7 @@
                     <li><i class="fas fa-check-circle"></i> <span data-en="Real-time preview" data-ar="معاينة فورية">Real-time preview</span></li>
                     <li><i class="fas fa-check-circle"></i> <span data-en="Multiple export formats" data-ar="تصدير بتنسيقات متعددة">Multiple export formats</span></li>
                 </ul>
-                <a href="create-cv.html" class="cta-button" data-en="Start Creating" data-ar="ابدأ الإنشاء">
+                <a href="create-cv.html" class="cta-button ats-action" data-en="Start Creating" data-ar="ابدأ الإنشاء">
                     Start Creating
                 </a>
             </div>
@@ -1075,30 +1165,14 @@
                     <li><i class="fas fa-check-circle"></i> <span data-en="Format correction" data-ar="تصحيح التنسيق">Format correction</span></li>
                     <li><i class="fas fa-check-circle"></i> <span data-en="Professional rewriting" data-ar="إعادة كتابة احترافية">Professional rewriting</span></li>
                 </ul>
-                <button class="cta-button" onclick="startProcess('enhance')" data-en="Enhance CV" data-ar="تحسين السيرة الذاتية">
+                <button class="cta-button ats-action" 
+                  data-action="enhance"
+                data-en="Enhance CV" data-ar="تحسين السيرة الذاتية">
                     Enhance CV
                 </button>
             </div>
 
-            <!-- Card 3: Comprehensive Career Assessment -->
-            <div class="card fade-in delay-3">
-                <div class="card-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3 data-en="Comprehensive Career Assessment" data-ar="تقييم مهني شامل">Comprehensive Career Assessment</h3>
-                <p data-en="Get personalized career recommendations, skill ratings, and professional development plan" data-ar="احصل على توصيات مهنية مخصصة وتقييمات المهارات وخطة تطوير مهنية">
-                    Get personalized career recommendations, skill ratings, and professional development plan
-                </p>
-                <ul class="features-list">
-                    <li><i class="fas fa-check-circle"></i> <span data-en="Skill gap analysis" data-ar="تحليل فجوات المهارات">Skill gap analysis</span></li>
-                    <li><i class="fas fa-check-circle"></i> <span data-en="Career path recommendations" data-ar="توصيات مسار مهني">Career path recommendations</span></li>
-                    <li><i class="fas fa-check-circle"></i> <span data-en="Development roadmap" data-ar="خارطة طريق للتطوير">Development roadmap</span></li>
-                    <li><i class="fas fa-check-circle"></i> <span data-en="Industry insights" data-ar="رؤى صناعية">Industry insights</span></li>
-                </ul>
-                <button id="atsBtn" class="cta-button" onclick="startProcess('assessment')" data-en="Start Assessment" data-ar="ابدأ التقييم">
-                    Start Assessment
-                </button>
-            </div>
+        
         </div>
 
         <!-- Assessment Results Preview -->
@@ -1198,8 +1272,8 @@
     <!-- Upload Modal -->
     <!-- <div id="uploadModal" class="modal-cvEnhancment">
         <div class="modal-content-cvEnhancment ">
-            <button class="close-modal" onclick="closeUploadModal()">&times;</button>
-            <h3 class="modal-title" data-en="Upload Your CV" data-ar="تحميل سيرتك الذاتية">Upload Your CV</h3>
+            <button class="close-modal-ats" onclick="closeUploadModal()">&times;</button>
+            <h3 class="modal-title-ats" data-en="Upload Your CV" data-ar="تحميل سيرتك الذاتية">Upload Your CV</h3>
             <p data-en="Upload your existing CV for AI-powered optimization and enhancement" data-ar="قم بتحميل سيرتك الذاتية الحالية للتحسين والتعزيز المدعوم بالذكاء الاصطناعي">
                 Upload your existing CV for AI-powered optimization and enhancement
             </p>
@@ -1223,8 +1297,8 @@
     <!-- Assessment Modal -->
     <!-- <div id="assessmentModal" class="modal-cvEnhancment">
         <div class="modal-content-cvEnhancment ">
-            <button class="close-modal" onclick="closeAssessmentModal()">&times;</button>
-            <h3 class="modal-title" data-en="Start Career Assessment" data-ar="ابدأ التقييم المهني">Start Career Assessment</h3>
+            <button class="close-modal-ats" onclick="closeAssessmentModal()">&times;</button>
+            <h3 class="modal-title-ats" data-en="Start Career Assessment" data-ar="ابدأ التقييم المهني">Start Career Assessment</h3>
             <p data-en="Answer a few questions to get personalized career recommendations and a development plan" data-ar="أجب على بعض الأسئلة للحصول على توصيات مهنية مخصصة وخطة تطوير">
                 Answer a few questions to get personalized career recommendations and a development plan
             </p>
@@ -1275,7 +1349,87 @@
 
     <!-- content area end -->
 
-<!-- Login Modal -->
+
+
+    <!-- offcanvas -->
+     <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvas"
+      aria-labelledby="offcanvasLabel"
+    >
+      <div class="offcanvas-header p-0 mb-5 mt-4">
+        <a href="index.html" class="offcanvas-title" id="offcanvasLabel">
+          <img src="assets/img/logo/jobs-ai-logo-02.png" alt="logo" />
+        </a>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <!-- login offcanvas -->
+      <div class="mb-4 d-block d-sm-none">
+        <div class="header__right__btn d-flex justify-content-center gap-3">
+          <a
+            href="#"
+            class="small__btn no__fill__btn border-6 font-xs"
+            aria-label="Login Button"
+            data-bs-toggle="modal"
+            data-bs-target="#loginModal"
+            data-en="Sign In"
+            data-ar="تسجيل الدخول"
+          >
+            <i class="rt-login"></i>Sign In</a
+          >
+       
+        </div>
+      </div>
+      <div class="offcanvas-body p-0">
+        <div class="rts__offcanvas__menu overflow-hidden">
+          <div class="offcanvas__menu"></div>
+        </div>
+        <p
+          class="max-auto font-20 fw-medium text-center text-decoration-underline mt-4"
+        >
+          Our Social Links
+        </p>
+        <div class="rts__social d-flex justify-content-center gap-3 mt-3">
+          <a href="https://facebook.com" aria-label="facebook">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="https://instagram.com" aria-label="instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://linkedin.com" aria-label="linkedin">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <a href="https://pinterest.com" aria-label="pinterest">
+            <i class="fa-brands fa-pinterest"></i>
+          </a>
+          <a href="https://youtube.com" aria-label="youtube">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- THEME PRELOADER START -->
+    <div class="loader-wrapper">
+      <div class="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+    <!-- THEME PRELOADER END -->
+    <button type="button" class="rts__back__top" id="rts-back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- THEME PRELOADER END -->
+    <button type="button" class="rts__back__top" id="rts-back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    <!-- Login Modal -->
     <div class="modal similar__modal fade" id="loginModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content-cvEnhancment ">
@@ -1476,86 +1630,6 @@
     </div>
   </div>
 </div>
-
-    <!-- offcanvas -->
-     <div
-      class="offcanvas offcanvas-end"
-      tabindex="-1"
-      id="offcanvas"
-      aria-labelledby="offcanvasLabel"
-    >
-      <div class="offcanvas-header p-0 mb-5 mt-4">
-        <a href="index.html" class="offcanvas-title" id="offcanvasLabel">
-          <img src="assets/img/logo/jobs-ai-logo-02.png" alt="logo" />
-        </a>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <!-- login offcanvas -->
-      <div class="mb-4 d-block d-sm-none">
-        <div class="header__right__btn d-flex justify-content-center gap-3">
-          <a
-            href="#"
-            class="small__btn no__fill__btn border-6 font-xs"
-            aria-label="Login Button"
-            data-bs-toggle="modal"
-            data-bs-target="#loginModal"
-            data-en="Sign In"
-            data-ar="تسجيل الدخول"
-          >
-            <i class="rt-login"></i>Sign In</a
-          >
-       
-        </div>
-      </div>
-      <div class="offcanvas-body p-0">
-        <div class="rts__offcanvas__menu overflow-hidden">
-          <div class="offcanvas__menu"></div>
-        </div>
-        <p
-          class="max-auto font-20 fw-medium text-center text-decoration-underline mt-4"
-        >
-          Our Social Links
-        </p>
-        <div class="rts__social d-flex justify-content-center gap-3 mt-3">
-          <a href="https://facebook.com" aria-label="facebook">
-            <i class="fa-brands fa-facebook"></i>
-          </a>
-          <a href="https://instagram.com" aria-label="instagram">
-            <i class="fa-brands fa-instagram"></i>
-          </a>
-          <a href="https://linkedin.com" aria-label="linkedin">
-            <i class="fa-brands fa-linkedin"></i>
-          </a>
-          <a href="https://pinterest.com" aria-label="pinterest">
-            <i class="fa-brands fa-pinterest"></i>
-          </a>
-          <a href="https://youtube.com" aria-label="youtube">
-            <i class="fa-brands fa-youtube"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-    <!-- THEME PRELOADER START -->
-    <div class="loader-wrapper">
-      <div class="loader"></div>
-      <div class="loader-section section-left"></div>
-      <div class="loader-section section-right"></div>
-    </div>
-    <!-- THEME PRELOADER END -->
-    <button type="button" class="rts__back__top" id="rts-back-to-top">
-      <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- THEME PRELOADER END -->
-    <button type="button" class="rts__back__top" id="rts-back-to-top">
-      <i class="fas fa-arrow-up"></i>
-    </button>
-    
        <!-- all scripts -->
 <!-- Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -1565,7 +1639,7 @@
 <script type="module" src="assets/js/cvEnhancment.js"></script> <!-- لازم يكون قبل ATS عشان الـ panel موجود -->
 <script type="module" src="assets/js/newAts.js"></script>
 <script type="module" src="assets/js/ats-result.js"></script> <!-- ATS Result logic بعد CV panel -->
-
+<script type="module" src="assets/js/ats-gard-main.js"></script>
 <script type="module" src="assets/js/login.js"></script> <!-- Login module -->
 <script type="module" src="assets/js/main.js"></script> <!-- Main app logic -->
 

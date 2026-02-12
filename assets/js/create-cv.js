@@ -1,7 +1,12 @@
-import { cvCreate, cvBuild, getCvById, exportCv, cvPreview } from "./api.js";
+import { cvCreate, cvBuild, getCvById, exportCv, cvPreview , getUserDetails} from "./api.js";
 import { requireAuth } from "./ats-gard.js";
+// import syncSessionWithUser from "./syncSessionWithUser.js";
+//============GET USER ID ================
+
+
 document.addEventListener("DOMContentLoaded", async () => {
   await requireAuth();
+  // await syncSessionWithUser();
   let currentStep = Number(sessionStorage.getItem("cvCurrentStep")) || 1;
 
   const cvState = {
@@ -22,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       backgroundColor: type === "error" ? "#dc3545" : "#28a745",
     }).showToast();
   }
-
+  
   // ================= STEP 2 ELEMENT REFERENCES =================
   const fullName = document.getElementById("fullName");
   const email = document.getElementById("email");
@@ -163,6 +168,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // ================= STEP 3 =================
+
   function collectExperienceData() {
     const items = document.querySelectorAll("#experienceList .list-item");
     return Array.from(items).map((item) => ({
@@ -176,9 +182,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         ? item.querySelector(".experience-end-date").value + "-01"
         : "",
 
-      isCurrentlyWorking:item.querySelector(".experience-current")?.checked || false,
+      isCurrentlyWorking:
+        item.querySelector(".experience-current")?.checked || false,
       brief: item.querySelector(".experience-description")?.value || "",
     }));
+  }
+  // ================= ADD EXPERIENCE BUTTON =================
+  const addExperienceBtn = document.querySelector("#step-3 .add-btn");
+
+  if (addExperienceBtn) {
+    addExperienceBtn.addEventListener("click", () => {
+      const list = document.getElementById("experienceList");
+      const items = list.querySelectorAll(".list-item");
+      const newIndex = items.length;
+
+      list.insertAdjacentHTML("beforeend", createExperienceItem(newIndex));
+    });
   }
 
   function fillStep3(cv) {
@@ -194,10 +213,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function submitStep3() {
     const experience = collectExperienceData();
-const validExperience = experience.filter((e) => e.jobTitle && e.company);
+    const validExperience = experience.filter((e) => e.jobTitle && e.company);
 
-if (!validExperience.length)
-  return showToast("Add at least one experience", "error");
+    if (!validExperience.length)
+      return showToast("Add at least one experience", "error");
 
     try {
       await cvBuild({
@@ -264,7 +283,14 @@ if (!validExperience.length)
     </div>
   `;
   }
+  window.removeExperience = function (index) {
+    const list = document.getElementById("experienceList");
+    const items = list.querySelectorAll(".list-item");
 
+    if (items[index]) {
+      items[index].remove();
+    }
+  };
 
   // ================= STEP 4 =================
   function collectEducationData() {
@@ -302,6 +328,14 @@ if (!validExperience.length)
       </div>
     `;
   }
+window.removeEducation = function (index) {
+  const list = document.getElementById("educationList");
+  const items = list.querySelectorAll(".list-item");
+
+  if (items[index]) {
+    items[index].remove();
+  }
+};
 
   function fillStep4(cv) {
     const list = document.getElementById("educationList");
@@ -312,6 +346,18 @@ if (!validExperience.length)
     education.forEach((edu, idx) =>
       list.insertAdjacentHTML("beforeend", createEducationItem(idx, edu)),
     );
+  }
+  // ================= ADD EDUCATION BUTTON =================
+  const addEducationBtn = document.querySelector("#step-4 .add-btn");
+
+  if (addEducationBtn) {
+    addEducationBtn.addEventListener("click", () => {
+      const list = document.getElementById("educationList");
+      const items = list.querySelectorAll(".list-item");
+      const newIndex = items.length;
+
+      list.insertAdjacentHTML("beforeend", createEducationItem(newIndex));
+    });
   }
 
   async function submitStep4() {
@@ -480,78 +526,77 @@ if (!validExperience.length)
     if (skillsCountEl) skillsCountEl.textContent = `${skills.length} skills`;
   }
 
- async function loadStep6Preview() {
-   if (!cvState.id) return;
+  async function loadStep6Preview() {
+    if (!cvState.id) return;
 
-   const previewEl = document.getElementById("cvPreview");
-   previewEl.innerHTML = "<p class='text-muted'>Loading preview...</p>";
+    const previewEl = document.getElementById("cvPreview");
+    previewEl.innerHTML = "<p class='text-muted'>Loading preview...</p>";
 
-   try {
-     const res = await getCvById(cvState.id);
-     const cv = res.data.data;
-renderStep6Sidebar(cv);
-     if (!cv.lastExport) {
-       previewEl.innerHTML =
-         "<p class='text-muted'>No preview available yet</p>";
-       return;
-     }
+    try {
+      const res = await getCvById(cvState.id);
+      const cv = res.data.data;
+      renderStep6Sidebar(cv);
+      if (!cv.lastExport) {
+        previewEl.innerHTML =
+          "<p class='text-muted'>No preview available yet</p>";
+        return;
+      }
 
-     // Preview للـ PDF فقط
-     if (cv.lastExport.format !== "pdf") {
-       previewEl.innerHTML =
-         "<p class='text-muted'>Preview available only for PDF. Please download DOCX.</p>";
-       return;
-     }
+      // Preview للـ PDF فقط
+      if (cv.lastExport.format !== "pdf") {
+        previewEl.innerHTML =
+          "<p class='text-muted'>Preview available only for PDF. Please download DOCX.</p>";
+        return;
+      }
 
-     // 🔥 استدعاء stream-file
-     const fileRes = await cvPreview(cvState.id);
-     const blob = new Blob([fileRes.data], { type: "application/pdf" });
-     const fileUrl = URL.createObjectURL(blob);
+      // 🔥 استدعاء stream-file
+      const fileRes = await cvPreview(cvState.id);
+      const blob = new Blob([fileRes.data], { type: "application/pdf" });
+      const fileUrl = URL.createObjectURL(blob);
 
-     previewEl.innerHTML = `
+      previewEl.innerHTML = `
       <iframe
         src="${fileUrl}"
         style="width:100%; height:600px; border:none"
       ></iframe>
     `;
-   } catch (err) {
-     console.error(err);
-     previewEl.innerHTML =
-       "<p class='text-muted'>Failed to load CV preview</p>";
-     showToast("Failed to load CV preview", "error");
-   }
- }
+    } catch (err) {
+      console.error(err);
+      previewEl.innerHTML =
+        "<p class='text-muted'>Failed to load CV preview</p>";
+      showToast("Failed to load CV preview", "error");
+    }
+  }
 
   // ================= DOWNLOAD =================
-window.downloadCv = async function (format = "pdf") {
-  if (!cvState.id) {
-    return showToast("No CV found", "error");
-  }
-
-  try {
-    const res = await exportCv(cvState.id, format);
-// console.log(res);
-   const fileUrl = res?.data?.data?.filePath;
-// console.log(fileUrl);
-
-    if (!fileUrl) {
-      console.log("Export CV response:", res);
-      return showToast("File link not found", "error");
+  window.downloadCv = async function (format = "pdf") {
+    if (!cvState.id) {
+      return showToast("No CV found", "error");
     }
 
-    const a = document.createElement("a");
-    a.href = fileUrl;
-    a.target = "_blank";
-    a.download = fileUrl.split("/").pop();
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  } catch (err) {
-    console.error(err);
-    showToast("Download failed", "error");
-  }
-};
+    try {
+      const res = await exportCv(cvState.id, format);
+      // console.log(res);
+      const fileUrl = res?.data?.data?.filePath;
+      // console.log(fileUrl);
 
+      if (!fileUrl) {
+        console.log("Export CV response:", res);
+        return showToast("File link not found", "error");
+      }
+
+      const a = document.createElement("a");
+      a.href = fileUrl;
+      a.target = "_blank";
+      a.download = fileUrl.split("/").pop();
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (err) {
+      console.error(err);
+      showToast("Download failed", "error");
+    }
+  };
 
   // ================= NAVIGATION =================
   window.previousStep = async function () {
