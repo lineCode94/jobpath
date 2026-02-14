@@ -122,6 +122,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         language: cvState.language,
       });
       cvState.id = res.data.data.id;
+      // alert(cvState.id)
       sessionStorage.setItem("cvId", cvState.id);
       showToast("Template saved");
       goToStep(2);
