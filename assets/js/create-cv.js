@@ -1,12 +1,12 @@
 import { cvCreate, cvBuild, getCvById, exportCv, cvPreview , getUserDetails} from "./api.js";
 import { requireAuth } from "./ats-gard.js";
-// import syncSessionWithUser from "./syncSessionWithUser.js";
+import syncSessionWithUser from "./syncSessionWithUser.js";
 //============GET USER ID ================
 
 
 document.addEventListener("DOMContentLoaded", async () => {
   await requireAuth();
-  // await syncSessionWithUser();
+  await syncSessionWithUser();
   let currentStep = Number(sessionStorage.getItem("cvCurrentStep")) || 1;
 
   const cvState = {

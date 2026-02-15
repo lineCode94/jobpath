@@ -1430,9 +1430,10 @@ body.modal-open {
       <i class="fas fa-arrow-up"></i>
     </button>
     <!-- Login Modal -->
-    <div class="modal similar__modal fade" id="loginModal">
+  <!-- LOGIN MODAL -->
+<div class="modal similar__modal fade" id="loginModal">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content-cvEnhancment ">
+    <div class="modal-content">
       <div class="max-content similar__form form__padding">
 
         <div class="d-flex mb-3 align-items-center justify-content-between">
@@ -1513,13 +1514,16 @@ body.modal-open {
 
                 <div class="position-relative">
                   <input
-                    type="text"
-                    name="otp"
-                    id="otp"
+                    type="number"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    autocomplete="one-time-code"
                     placeholder="Enter OTP"
                     data-en="Enter OTP"
                     data-ar="أدخل رمز التحقق"
+                    id="otp"
                     maxlength="6"
+                    class="opt-clean"
                   />
                   <i class="fa-light fa-shield icon"></i>
                 </div>
