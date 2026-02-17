@@ -94,6 +94,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const templateKey = card.dataset.template;
     const templateId = TEMPLATE_MAP[templateKey];
     if (!templateId) return showToast("Invalid template selected", "error");
+   
+
     cvState.templateId = templateId;
     sessionStorage.setItem("templateId", templateId);
   }
@@ -112,24 +114,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (card) card.classList.add("selected");
   }
 
-  async function submitStep1() {
-    if (!cvState.templateId)
-      return showToast("Please select a template first", "error");
-    if (cvState.id) return goToStep(2);
-    try {
-      const res = await cvCreate({
-        templateId: cvState.templateId,
-        language: cvState.language,
-      });
-      cvState.id = res.data.data.id;
-      // alert(cvState.id)
-      sessionStorage.setItem("cvId", cvState.id);
-      showToast("Template saved");
-      goToStep(2);
-    } catch {
-      showToast("Failed to create CV", "error");
-    }
+async function submitStep1() {
+  if (!cvState.templateId) {
+    return showToast("Please select a template first", "error");
   }
+
+  try {
+    // لو فيه CV موجود → نعمل update للتمبلت
+    if (cvState.id) {
+      await cvBuild({
+        cvId: cvState.id,
+        status: "draft",
+        templateId: cvState.templateId,
+      });
+
+      showToast("Template updated");
+      return goToStep(2);
+    }
+
+    // لو مفيش CV → نعمل واحد جديد
+    const res = await cvCreate({
+      templateId: cvState.templateId,
+      language: cvState.language,
+    });
+
+    cvState.id = res.data.data.id;
+    sessionStorage.setItem("cvId", cvState.id);
+
+    showToast("Template saved");
+    goToStep(2);
+  } catch (err) {
+    console.error(err);
+    showToast("Failed to save template", "error");
+  }
+}
+
+
 
   // ================= STEP 2 =================
   function fillStep2(cv) {
