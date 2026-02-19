@@ -166,12 +166,12 @@ function activateCardClicks() {
 
         localStorage.setItem(
           "redirectAfterLogin",
-          `job-details-2.html?id=${jobId}&lang=${lang}`,
+          `job-details.html?id=${jobId}&lang=${lang}`,
         );
         return;
       }
 
-      window.location.href = `job-details-2.html?id=${jobId}&lang=${lang}`;
+      window.location.href = `job-details.html?id=${jobId}&lang=${lang}`;
     });
   });
 }

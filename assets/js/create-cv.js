@@ -251,59 +251,110 @@ async function submitStep1() {
       showToast("Failed to save experience", "error");
     }
   }
-  function createExperienceItem(index, data = {}) {
-    console.log(data);
-    return `
-    <div class="list-item" data-index="${index}">
+function createExperienceItem(index, data = {}) {
+  const lang = localStorage.getItem("lang") || "en";
+
+  return `
+    <div class="list-item" data-index="${index}" dir="${lang === "ar" ? "rtl" : "ltr"}">
+      
       <div class="list-header">
-        <div class="list-title">Experience #${index + 1}</div>
+        <div 
+          class="list-title"
+          data-en="Experience #${index + 1}"
+          data-ar="خبرة رقم ${index + 1}"
+        >
+          ${lang === "ar" ? `خبرة رقم ${index + 1}` : `Experience #${index + 1}`}
+        </div>
+
         <button type="button" class="remove-btn" onclick="removeExperience(${index})">
           <i class="fas fa-times"></i>
         </button>
       </div>
+
       <div class="form-grid">
+
         <div class="form-group">
-          <label>Job Title *</label>
-          <input class="form-control experience-title" value="${data.jobTitle || ""}">
+          <label data-en="Job Title *" data-ar="المسمى الوظيفي *">
+            ${lang === "ar" ? "المسمى الوظيفي *" : "Job Title *"}
+          </label>
+          <input 
+            class="form-control experience-title" 
+            value="${data.jobTitle || ""}"
+          >
         </div>
+
         <div class="form-group">
-          <label>Company *</label>
-          <input class="form-control experience-company" value="${data.company || ""}">
+          <label data-en="Company *" data-ar="اسم الشركة *">
+            ${lang === "ar" ? "اسم الشركة *" : "Company *"}
+          </label>
+          <input 
+            class="form-control experience-company" 
+            value="${data.company || ""}"
+          >
         </div>
+
         <div class="form-group">
-          <label>Location</label>
-          <input class="form-control experience-location" value="${data.location || ""}">
+          <label data-en="Location" data-ar="الموقع">
+            ${lang === "ar" ? "الموقع" : "Location"}
+          </label>
+          <input 
+            class="form-control experience-location" 
+            value="${data.location || ""}"
+          >
         </div>
+
         <div class="form-group">
-          <label>Start Date</label>
-     <input
-  type="month"
-  class="form-control experience-start-date"
-  value="${data.from ? data.from.slice(0, 7) : ""}"
->
+          <label data-en="Start Date" data-ar="تاريخ البداية">
+            ${lang === "ar" ? "تاريخ البداية" : "Start Date"}
+          </label>
+          <input
+            type="month"
+            class="form-control experience-start-date"
+            value="${data.from ? data.from.slice(0, 7) : ""}"
+          >
         </div>
+
         <div class="form-group">
-          <label>End Date</label>
-        <input
-  type="month"
-  class="form-control experience-end-date"
-  value="${data.to ? data.to.slice(0, 7) : ""}"
->
+          <label data-en="End Date" data-ar="تاريخ الانتهاء">
+            ${lang === "ar" ? "تاريخ الانتهاء" : "End Date"}
+          </label>
+          <input
+            type="month"
+            class="form-control experience-end-date"
+            value="${data.to ? data.to.slice(0, 7) : ""}"
+          >
         </div>
-          <div class="form-group">
+
+        <div class="form-group">
           <label>
-            <input type="checkbox" class="experience-current" ${data.isCurrentlyWorking ? "checked" : ""}>
-            Current
+            <input 
+              type="checkbox" 
+              class="experience-current" 
+              ${data.isCurrentlyWorking ? "checked" : ""}
+            >
+            <span 
+              data-en="Currently Working"
+              data-ar="أعمل هنا حالياً"
+            >
+              ${lang === "ar" ? "أعمل هنا حالياً" : "Currently Working"}
+            </span>
           </label>
         </div>
+
         <div class="form-group">
-          <label>Description</label>
-          <textarea class="form-control experience-description">${data.brief || ""}</textarea>
+          <label data-en="Description" data-ar="الوصف">
+            ${lang === "ar" ? "الوصف" : "Description"}
+          </label>
+          <textarea 
+            class="form-control experience-description"
+          >${data.brief || ""}</textarea>
         </div>
+
       </div>
     </div>
   `;
-  }
+}
+
   window.removeExperience = function (index) {
     const list = document.getElementById("experienceList");
     const items = list.querySelectorAll(".list-item");
@@ -323,32 +374,73 @@ async function submitStep1() {
     }));
   }
 
-  function createEducationItem(index, data = {}) {
-    return `
-      <div class="list-item" data-index="${index}">
-        <div class="list-header">
-          <div class="list-title">Education #${index + 1}</div>
-          <button type="button" class="remove-btn" onclick="removeEducation(${index})">
-            <i class="fas fa-times"></i>
-          </button>
+function createEducationItem(index, data = {}) {
+  const lang = localStorage.getItem("lang") || "en";
+
+  return `
+    <div class="list-item" data-index="${index}" dir="${lang === "ar" ? "rtl" : "ltr"}">
+      
+      <div class="list-header">
+        <div 
+          class="list-title"
+          data-en="Education #${index + 1}"
+          data-ar="تعليم رقم ${index + 1}"
+        >
+          ${lang === "ar" ? `تعليم رقم ${index + 1}` : `Education #${index + 1}`}
         </div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Degree *</label>
-            <input class="form-control education-degree" value="${data.degree || ""}">
-          </div>
-          <div class="form-group">
-            <label>Institution *</label>
-            <input class="form-control education-institution" value="${data.institution || ""}">
-          </div>
-          <div class="form-group">
-            <label>Graduation Year</label>
-            <input type="month" class="form-control education-date" value="${data.graduationYear || ""}">
-          </div>
-        </div>
+
+        <button type="button" class="remove-btn" onclick="removeEducation(${index})">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
-    `;
-  }
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label 
+            data-en="Degree *"
+            data-ar="الدرجة العلمية *"
+          >
+            ${lang === "ar" ? "الدرجة العلمية *" : "Degree *"}
+          </label>
+          <input 
+            class="form-control education-degree" 
+            value="${data.degree || ""}"
+          >
+        </div>
+
+        <div class="form-group">
+          <label 
+            data-en="Institution *"
+            data-ar="المؤسسة التعليمية *"
+          >
+            ${lang === "ar" ? "المؤسسة التعليمية *" : "Institution *"}
+          </label>
+          <input 
+            class="form-control education-institution" 
+            value="${data.institution || ""}"
+          >
+        </div>
+
+        <div class="form-group">
+          <label 
+            data-en="Graduation Date"
+            data-ar="تاريخ التخرج"
+          >
+            ${lang === "ar" ? "تاريخ التخرج" : "Graduation Date"}
+          </label>
+          <input 
+            type="month" 
+            class="form-control education-date" 
+            value="${data.graduationYear ? data.graduationYear.slice(0, 7) : ""}"
+          >
+        </div>
+
+      </div>
+    </div>
+  `;
+}
+
 window.removeEducation = function (index) {
   const list = document.getElementById("educationList");
   const items = list.querySelectorAll(".list-item");
