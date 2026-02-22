@@ -24,6 +24,19 @@ document.addEventListener("DOMContentLoaded", function () {
   function t(ar, en) {
     return (localStorage.getItem("lang") || "en") === "ar" ? ar : en;
   }
+  
+  //===============Get error message=========================
+  function getErrorMessage(err, fallbackAr, fallbackEn) {
+    const backendMsg =
+      err?.response?.data?.message ||
+      err?.response?.data?.msg ||
+      err?.response?.data?.error;
+
+    if (backendMsg) return backendMsg;
+
+    return t(fallbackAr, fallbackEn);
+  }
+
 
   /* ================= Toast ================= */
   function showToast(message, type = "info") {
@@ -101,11 +114,13 @@ function renderUI(logged) {
           showToast(t("تم تسجيل الدخول", "Login successful"), "success");
 
           bootstrap.Modal.getInstance(
-            document.getElementById("loginModal")
+            document.getElementById("loginModal"),
           )?.hide();
-        } catch {
-          showToast(t("كود غير صحيح", "Invalid code"), "error");
+        } catch (err) {
+          const msg = getErrorMessage(err, "كود غير صحيح", "Invalid code");
+          showToast(msg, "error");
         }
+
       } else {
         const phone = phoneInput.value.trim();
         if (!phone)
@@ -121,9 +136,15 @@ function renderUI(logged) {
           step = "verify";
 
           showToast(t("تم إرسال الكود", "Code sent"), "success");
-        } catch {
-          showToast(t("فشل الإرسال", "Failed"), "error");
+        } catch (err) {
+          const msg = getErrorMessage(
+            err,
+            "فشل الإرسال",
+            "Failed to send code",
+          );
+          showToast(msg, "error");
         }
+
       }
     });
   }
@@ -146,11 +167,13 @@ function renderUI(logged) {
         showToast(t("تم تسجيل الدخول", "Login successful"), "success");
 
         bootstrap.Modal.getInstance(
-          document.getElementById("loginModal")
+          document.getElementById("loginModal"),
         )?.hide();
-      } catch {
-        showToast(t("بيانات خاطئة", "Invalid credentials"), "error");
+      } catch (err) {
+        const msg = getErrorMessage(err, "بيانات خاطئة", "Invalid credentials");
+        showToast(msg, "error");
       }
+
     });
   }
 
@@ -164,9 +187,11 @@ function renderUI(logged) {
         renderUI(false);
 
         showToast(t("تم تسجيل الخروج", "Logged out"), "success");
-      } catch {
-        showToast(t("فشل تسجيل الخروج", "Logout failed"), "error");
+      } catch (err) {
+        const msg = getErrorMessage(err, "فشل تسجيل الخروج", "Logout failed");
+        showToast(msg, "error");
       }
+
     });
   }
 });

@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let pollCount = 0;
   let jobId = null;
 
+  // ===== translation =====
+    function t(ar, en) {
+      return (localStorage.getItem("lang") || "en") === "ar" ? ar : en;
+    }
   // ===== Toast =====
   function showToast(message, type = "info") {
     const colors = {
@@ -92,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== Start Enhancement =====
   async function startEnhancementFlow() {
+  
     try {
       enhanceBtn.disabled = true;
       openProgress("Starting CV enhancement...");
@@ -100,18 +105,19 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!user) return;
 
       updateProgress(10, "Sending CV enhancement request...");
-      const res = await sendCvEnhancementRequest();
-
+      const res = await   sendCvEnhancementRequest();
+// alert(res)
+// console.log(res);
       if (!res?.data?.status) {
         throw new Error(res?.data?.msg || "CV enhancement request failed");
       }
 
-      showToast(res.data.msg, "success");
+      // showToast(t("تم إرسال طلب تحسين السيرة الذاتية", "CV enhancement request sent"), "success");
 
       jobId = res.data.jobId || res.data.data?.jobId;
       if (!jobId) throw new Error("Job ID not returned");
 
-      updateProgress(25, "CV enhancement started");
+      updateProgress(25,  t("تم إرسال طلب تحسين السيرة الذاتية .", "CV enhancement request sent"));
       pollEnhancement(jobId, 2);
     } catch (err) {
       showToast(err.message, "error");
@@ -125,14 +131,14 @@ document.addEventListener("DOMContentLoaded", () => {
       await new Promise((r) => setTimeout(r, delaySeconds * 1000));
 
       pollCount++;
-      updateProgress(Math.min(pollCount * 10 + 25, 95), "Enhancing your CV...");
+      updateProgress(Math.min(pollCount * 10 + 25, 95),  t("جاري تحسين السيرة الذاتية..", "Enhancing CV..."));
 
       const res = await getCvEnhancementStatus(id);
       const status = res?.data?.data?.status?.toUpperCase();
 
       if (status === "DONE" || status === "COMPLETED") {
-        updateProgress(100, "CV enhancement completed 🎉");
-        showToast("CV enhancement completed", "success");
+        updateProgress(100,  t("تم تحسين السيرة الذاتية", "CV enhanced successfully"));
+        // showToast(t("تم تحسين السيرة الذاتية", "CV enhanced successfully"), "success");
 
         progressAction.style.display = "block";
         progressAction.onclick = () => {

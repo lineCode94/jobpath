@@ -36,6 +36,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const linkedin = document.getElementById("linkedin");
   const github = document.getElementById("github");
   const summary = document.getElementById("summary");
+  // ================= translate function =================
+  function t(en, ar) {
+    return (localStorage.getItem("lang") || "en") === "ar" ? ar : en;
+  }
+  
 
   // ================= RESTORE CV =================
   async function restoreCvState() {
@@ -127,8 +132,9 @@ async function submitStep1() {
         status: "draft",
         templateId: cvState.templateId,
       });
+ 
 
-      showToast("Template updated");
+      showToast(t("Template updated", "تم تحديث القالب"));
       return goToStep(2);
     }
 
@@ -140,12 +146,11 @@ async function submitStep1() {
 
     cvState.id = res.data.data.id;
     sessionStorage.setItem("cvId", cvState.id);
-
-    showToast("Template saved");
+    showToast( t("Template saved", "تم حفظ القالب"));
     goToStep(2);
   } catch (err) {
     console.error(err);
-    showToast("Failed to save template", "error");
+    showToast( t("Failed to save template", "فشل حفظ القالب"), "error");
   }
 }
 
@@ -181,10 +186,10 @@ async function submitStep1() {
           summary: summary.value,
         },
       });
-      showToast("Personal info saved");
+      showToast( t("Personal info saved", "تم حفظ المعلومات الشخصية"));
       goToStep(3);
     } catch {
-      showToast("Failed to save personal info", "error");
+      showToast( t("Failed to save personal info", "فشل حفظ المعلومات الشخصية"), "error");
     }
   }
 
@@ -237,7 +242,7 @@ async function submitStep1() {
     const validExperience = experience.filter((e) => e.jobTitle && e.company);
 
     if (!validExperience.length)
-      return showToast("Add at least one experience", "error");
+      return showToast( t("Please add at least one experience", "الرجاء إضافة خبرة واحدة على الأقل"), "error");
 
     try {
       await cvBuild({
@@ -245,10 +250,10 @@ async function submitStep1() {
         status: "draft",
         cvJson: { experience },
       });
-      showToast("Experience saved");
+      showToast( t("Experience saved", "تم حفظ الخبرة"));
       goToStep(4);
     } catch {
-      showToast("Failed to save experience", "error");
+      showToast( t("Failed to save experience", "فشل حفظ الخبرة"), "error");
     }
   }
 function createExperienceItem(index, data = {}) {
@@ -476,17 +481,17 @@ window.removeEducation = function (index) {
   async function submitStep4() {
     const education = collectEducationData();
     if (!education.length || !education[0].degree)
-      return showToast("Add at least one education record", "error");
+      return showToast( t("Please add at least one education", "الرجاء إضافة تعليم واحد على الأقل"), "error");
     try {
       await cvBuild({
         cvId: cvState.id,
         status: "draft",
         cvJson: { education },
       });
-      showToast("Education saved");
+      showToast( t("Education saved", "تم حفظ التعليم"));
       goToStep(5);
     } catch {
-      showToast("Failed to save education", "error");
+      showToast( t("Failed to save education", "فشل حفظ التعليم"), "error");
     }
   }
 
@@ -580,7 +585,7 @@ window.removeEducation = function (index) {
     const skills = [...technical, ...soft, ...languages];
 
     if (!skills.length) {
-      return showToast("Please add at least one skill", "error");
+      return showToast( t("Please add at least one skill", "الرجاء إضافة واحدة على الأقل"), "error");
     }
 
     try {
@@ -592,11 +597,11 @@ window.removeEducation = function (index) {
         },
       });
 
-      showToast("Skills saved successfully!");
+      showToast( t("Skills saved", "تم حفظ المهارات"));
       goToStep(6);
     } catch (err) {
       console.error(err);
-      showToast("Failed to save skills", "error");
+      showToast( t("Failed to save skills", "فشل حفظ المهارات"), "error");
     }
   }
   // ================= STEP 6 =================
@@ -677,14 +682,14 @@ window.removeEducation = function (index) {
       console.error(err);
       previewEl.innerHTML =
         "<p class='text-muted'>Failed to load CV preview</p>";
-      showToast("Failed to load CV preview", "error");
+      showToast( t("Failed to load CV preview", "فشل تحميل معاينة السيرة الذاتية"), "error");
     }
   }
 
   // ================= DOWNLOAD =================
   window.downloadCv = async function (format = "pdf") {
     if (!cvState.id) {
-      return showToast("No CV found", "error");
+      return showToast(t("No cv to download", "لا يوجد سيرة معاينة للتنزيل"), "error");
     }
 
     try {
@@ -694,8 +699,8 @@ window.removeEducation = function (index) {
       // console.log(fileUrl);
 
       if (!fileUrl) {
-        console.log("Export CV response:", res);
-        return showToast("File link not found", "error");
+        // console.log("Export CV response:", res);
+        return showToast(t("Failed to download CV", "فشل التنزيل"), "error");
       }
 
       const a = document.createElement("a");
@@ -707,7 +712,7 @@ window.removeEducation = function (index) {
       a.remove();
     } catch (err) {
       console.error(err);
-      showToast("Download failed", "error");
+      showToast(t("Failed to download CV", "فشل التنزيل"), "error");
     }
   };
 
