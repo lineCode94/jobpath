@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
     Toastify({
       text: message,
       duration: 3000,
-      gravity: "bottom",
-      position: "left",
+      gravity: "top",
+      position: "center",
       style: { background: type === "error" ? "#dc3545" : "#28a745" },
     }).showToast();
   }

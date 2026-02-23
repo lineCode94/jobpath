@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       text: message,
       duration: 3000,
       gravity: "top",
-      position: "right",
+      position: "center",
       backgroundColor: type === "error" ? "#dc3545" : "#28a745",
     }).showToast();
   }

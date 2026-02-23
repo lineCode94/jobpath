@@ -270,4 +270,34 @@ Thank you.`;
   } finally {
     hideLoader();
   }
+  const langSwitch = document.getElementById("langSwitch");
+function updateLangButton() {
+  const currentLang = localStorage.getItem("lang") || "en";
+
+  if (!langSwitch) return;
+
+  if (currentLang === "en") {
+    langSwitch.textContent = "Arabic";
+  } else {
+    langSwitch.textContent = "English";
+  }
+}
+if (langSwitch) {
+  langSwitch.addEventListener("click", () => {
+    const currentLang = localStorage.getItem("lang") || "en";
+    const newLang = currentLang === "en" ? "ar" : "en";
+
+    localStorage.setItem("lang", newLang);
+
+    updateLangButton(); // يحدث النص فورًا
+
+    const params = new URLSearchParams(window.location.search);
+    params.set("lang", newLang);
+
+    window.location.search = params.toString();
+  });
+}
+
+    updateLangButton();
+
 });

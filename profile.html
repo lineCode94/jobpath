@@ -518,9 +518,9 @@
                         <a              
                           class="atsMenuItem navigation__menu--item__link"
                           href="ATS-main-page.html"
-                          data-en="ATS"
-                          data-ar="ATS"
-                          >ATS</a
+                          data-en="Smart Hiring"
+                          data-ar="التوظيف الذكى"
+                          >Smart Hiring</a
                         >
                       </li>
                       <li class="navigation__menu--item has-child has-arrow">
@@ -619,7 +619,8 @@
     data-bs-toggle="modal"
     data-bs-target="#logoutModal"
   >
-    <i class="fa-solid fa-power-off"></i>
+    <i class="fal fa-sign-out"></i>
+  
     <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
   </a>
 
@@ -629,7 +630,7 @@
     id="lang-btn"
     class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
   >
-    <i class="fa-solid fa-globe"></i>
+    <i class="fa-solid fa-globe d-none d-sm-block"></i>
     <span >الأنجليزية</span>
   </a>
 
@@ -654,6 +655,63 @@
     </header>
 
     <!-- header area end -->
+<div class="rts__section breadcrumb__background">
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-lg-12 position-relative d-flex justify-content-between align-items-center"
+      >
+        <div class="breadcrumb__area max-content breadcrumb__padding z-2">
+          
+          <h1
+            class="breadcrumb-title h3 mb-3"
+            data-en="User Profile"
+            data-ar="الملف الشخصي"
+          >
+            User Profile
+          </h1>
+
+          <nav>
+            <ul class="breadcrumb m-0 lh-1">
+              
+              <li class="breadcrumb-item">
+                <a href="index.html" data-en="Home" data-ar="الرئيسية">
+                  Home
+                </a>
+              </li>
+
+              <li
+                class="breadcrumb-item active"
+                aria-current="page"
+                data-en="User Profile"
+                data-ar="الملف الشخصي"
+              >
+                User Profile
+              </li>
+
+            </ul>
+          </nav>
+        </div>
+
+        <div
+          class="breadcrumb__area__shape d-flex gap-4 justify-content-end align-items-center"
+        >
+          <div class="shape__one common">
+            <img src="assets/img/breadcrumb/shape-1.svg" alt="" />
+          </div>
+          <div class="shape__two common">
+            <img src="assets/img/breadcrumb/shape-2.svg" alt="" />
+          </div>
+          <div class="shape__three common">
+            <img src="assets/img/breadcrumb/shape-3.svg" alt="" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
     <!-- content area -->
     <div class="dashboard__content d-flex">
     
@@ -674,7 +732,6 @@
     <a class="nav-link" href="#social" data-en="Social Links" data-ar="روابط التواصل">Social Links</a>
     <a class="nav-link" href="#Portfolio" data-en="Portofolio" data-ar="معرض الأعمال">Portofolio</a>
     <a class="nav-link" href="#reports" data-en="Job Reports" data-ar="تقارير الوظائف">Job Reports</a>
-    <a class="nav-link" href="#suggestions" data-en="HR Suggestions" data-ar=" اقتراحات الموارد البشرية">HR Suggestions</a>
   </div>
 </nav>
 
@@ -1003,38 +1060,7 @@
           <!-- Portfolio link end -->
  
           <!-- Portfolio link end -->
-           <div class="hr-suggestions">
-  <h6 class="fw-medium mt-4 mb-4" data-en="HR Suggestions" data-ar="اقتراحات الموارد البشرية">HR Suggestions</h6>
-
-  <!-- Suggested Courses -->
-   <div id="suggestions" class="social__links p-30 radius-16 bg-white" id="hr-suggestions">
-  <div class="info__field">
-    <!-- Suggested Courses -->
-    <div class="row row-cols-sm-2 row-cols-1 g-3">
-      <div class="rt-input-group">
-        <label data-en="Suggested Courses" data-ar="الدورات المقترحة">Suggested Courses</label>
-        <ul id="suggestedCourses" class="list-unstyled m-0">
-          <!-- <li><a href="#" target="_blank">Course 1</a></li>
-          <li><a href="#" target="_blank">Course 2</a></li> -->
-        </ul>
-      </div>
-    </div>
-
-    <!-- Recommended Job Titles -->
-    <div class="row row-cols-sm-2 row-cols-1 g-3 mt-2">
-      <div class="rt-input-group">
-        <label data-en="Recommended Job Titles" data-ar="المسميات الوظيفية  المقترحة">
-          Recommended Job Titles
-        </label>
-        <ul id="jobNames" class="list-unstyled m-0">
-          <!-- <li>Frontend Developer</li>
-          <li>UI/UX Designer</li> -->
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
+    
  <!--end Suggested Courses-->
  
      
@@ -1104,7 +1130,7 @@
 
                 <div class="position-relative">
                   <input
-                    type="tel"
+                    type="number"
                     name="phone"
                     id="phone"
                     class="input-login-phone"
