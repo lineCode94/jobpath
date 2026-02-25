@@ -912,7 +912,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   metadata: { userId, planId, orderId: ORDER_ID },
   callback_url: `https://jobzai.net/thanks.html`, // ← هنا ضع رابطك
   on_completed: async (payment) => {
-    console.log("✅ Payment completed:", payment);
+    // console.log("✅ Payment completed:", payment);
 
     // ممكن هنا تبعت payment.id للسيرفر لو حابب
     window.location.href =
@@ -937,7 +937,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 🍎 Apple Pay
     if(selectedMethod === "applepay") {
-      alert("applepay");
+      // alert("applepay");
       config.methods = ["applepay"];
     config.apple_pay = {
             country: "SA",

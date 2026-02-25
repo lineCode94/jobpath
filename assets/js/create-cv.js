@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const res = await getCvById(cvState.id);
       const cv = res.data.data;
 
-      console.log("RESTORE CV:", cv);
+      // console.log("RESTORE CV:", cv);
 
       if (cv.sections?.personalInfo) {
         fillStep2(cv);

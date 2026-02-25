@@ -22,7 +22,7 @@ export default async function syncSessionWithUser() {
 
     // لو اليوزر اتغير
     if (storedUserId !== String(userId)) {
-      console.log("User changed → resetting CV session");
+      // console.log("User changed → resetting CV session");
 
       const keysToRemove = ["cvId", "templateId", "cvCurrentStep", "cvUserId"];
 

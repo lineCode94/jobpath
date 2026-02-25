@@ -47,12 +47,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ================= API =================
 
     const response = await getSingleJob(jobId, lang);
-    console.log("FULL RESPONSE:", response);
+    // console.log("FULL RESPONSE:", response);
 
     const job = response?.job ?? response;
     if (!job) throw new Error("Job not found");
 
-    console.log("JOB OBJECT:", job);
+    // console.log("JOB OBJECT:", job);
 
     // ================= HEADER =================
 
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         response?.relatedJobs ||
         response?.data?.relatedJobs;
 
-      console.log("RELATED RAW:", related);
+      // console.log("RELATED RAW:", related);
 
       // لو object نحوله array
       if (related && !Array.isArray(related) && typeof related === "object") {
@@ -203,29 +203,56 @@ document.addEventListener("DOMContentLoaded", async () => {
           </p>
         `;
       } else {
-        related.forEach((rJob) => {
-          const id = rJob.jobId ?? rJob.id ?? rJob.job_id;
+       related.forEach((rJob) => {
+         const id = rJob.jobId ?? rJob.id ?? rJob.job_id;
+         if (!id) return;
 
-          if (!id) return;
+         const rTitle =
+           pick(rJob, "titleEN", "titleAR") || safe(rJob.companyName);
 
-          const rTitle =
-            pick(rJob, "titleEN", "titleAR") || safe(rJob.companyName);
+         const rLocation =
+           pick(rJob, "locationEN", "locationAR") ||
+           (lang === "ar" ? "غير محدد" : "Not specified");
 
-          const rLocation = pick(rJob, "locationEN", "locationAR");
+         const rType =
+           safe(rJob.jobType) || (lang === "ar" ? "غير محدد" : "Not specified");
 
-          const card = document.createElement("div");
-          card.className = "related-job-card";
+         const logo = "/assets/img/home-1/company/google.svg";
 
-          card.innerHTML = `
-            <h6>${rTitle}</h6>
-            <span>${rLocation}</span>
-            <a href="job-details.html?id=${id}&lang=${lang}">
-              ${lang === "ar" ? "عرض التفاصيل" : "View Details"}
-            </a>
-          `;
+         const wrapper = document.createElement("div");
+         wrapper.className =
+           "d-flex gap-4 mt-4 align-items-center flex-sm-row flex-column mx-auto mx-sm-0";
 
-          relatedContainer.appendChild(card);
-        });
+         wrapper.innerHTML = `
+    <div class="company__icon recent__post">
+      <img src="${logo}" alt="company logo">
+    </div>
+
+    <div class="job__meta w-100 d-flex text-center text-sm-start flex-column gap-2">
+      <div>
+        <a href="job-details.html?id=${id}&lang=${lang}" 
+           class="job__title h6 fw-semibold mb-0">
+          ${rTitle}
+        </a>
+      </div>
+
+      <div class="d-flex gap-3 justify-content-center justify-content-sm-start flex-wrap">
+        <div class="d-flex gap-2 align-items-center">
+          <i class="fa-light fa-location-dot"></i>
+          ${rLocation}
+        </div>
+
+        <div class="d-flex gap-2 align-items-center">
+          <i class="fa-light rt-briefcase"></i>
+          ${rType}
+        </div>
+      </div>
+    </div>
+  `;
+
+         relatedContainer.appendChild(wrapper);
+       });
+
       }
     }
 
@@ -264,7 +291,7 @@ Thank you.`;
       });
     }
 
-    console.log("✅ Page Rendered Successfully");
+    // console.log("✅ Page Rendered Successfully");
   } catch (err) {
     console.error("❌ ERROR:", err);
   } finally {

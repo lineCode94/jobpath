@@ -44,7 +44,7 @@ async function loadJobs() {
 
   try {
     const res = await getJobsList(lang);
-    console.log("JOBS RESPONSE =>", res);
+    // console.log("JOBS RESPONSE =>", res);
 
     let jobs = [];
 

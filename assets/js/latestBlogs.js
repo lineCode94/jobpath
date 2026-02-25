@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }</p>`;
       return;
     }
-    console.log(blogs[0].blogId);
+    // console.log(blogs[0].blogId);
 
     container.innerHTML = blogs
       .map((blog) => {

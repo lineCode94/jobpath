@@ -82,7 +82,7 @@ async function pollAtsStatus(id, delaySeconds = 2) {
 
     const atsStatus = res?.data?.data?.status?.toUpperCase();
 
-    console.log("ATS STATUS:", atsStatus);
+    // console.log("ATS STATUS:", atsStatus);
 
     // ✅ DONE or COMPLETED
   if (atsStatus === "DONE" || atsStatus === "COMPLETED") {

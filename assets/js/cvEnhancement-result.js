@@ -2,6 +2,15 @@ import { getCvEnhancementResult } from "./api.js";
 import { mapBackendCvEnhancementToFrontend } from "./cvEnhancementAdapter.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    function showToast(message, type = "success") {
+      Toastify({
+        text: message,
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: type === "error" ? "#dc3545" : "#28a745",
+      }).showToast();
+    }
   try {
     const lang = localStorage.getItem("lang") || "en";
 
@@ -129,8 +138,8 @@ async function downloadFile(url, filename) {
 
     URL.revokeObjectURL(blobUrl);
   } catch (err) {
-    console.error("Download error:", err);
-    alert("Failed to download file");
+    // console.error("Download error:", err);
+    showToast("Failed to download file");
   }
 }
 
