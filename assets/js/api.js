@@ -170,4 +170,7 @@ export const cvPreview = (cvId) => {
     responseType: "blob", // 🔥 مهم جدًا
   });
 };
+// ================= news letter =================
+export const subscribeNewsletter = (payload) =>
+  api.post("/newsletter/subscribe", payload);
 export default api;

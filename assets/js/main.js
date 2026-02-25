@@ -627,106 +627,110 @@
 // end header and footer layout fetch
 // language switcher
 // تنفيذ includes الأول
-
 document.addEventListener("DOMContentLoaded", async function () {
-  
   const includes = document.querySelectorAll("[data-include]");
 
   // تحميل ملفات الـ includes
   await Promise.all(
     Array.from(includes).map(async (el) => {
       const file = el.getAttribute("data-include");
-      const res = await fetch(file);
-      const html = await res.text();
-      el.innerHTML = html;
-    })
+      if (!file) return;
+
+      try {
+        const res = await fetch(file);
+        const html = await res.text();
+        el.innerHTML = html;
+      } catch (err) {
+        console.error("Include load error:", err);
+      }
+    }),
   );
 
-  // بعد التحميل، شغّل اللانج سويتشر
+  // بعد التحميل
   initLangSwitcher();
 });
 
-// تحميل ملف RTL
+// ================= RTL =================
 function loadRtlStylesheet() {
   if (document.getElementById("rtl-css")) return;
+
   const link = document.createElement("link");
   link.id = "rtl-css";
   link.rel = "stylesheet";
   link.href = "assets/css/rtl.css";
   document.head.appendChild(link);
 }
+
 function removeRtlStylesheet() {
   const link = document.getElementById("rtl-css");
   if (link) link.remove();
 }
 
-// السويتشر
+// ================= LANG SWITCH =================
 function initLangSwitcher() {
   let currentLang = localStorage.getItem("lang") || "en";
   const langBtn = document.getElementById("lang-btn");
 
-  // ضبط الاتجاه من أول تحميل
-  if (currentLang === "ar") {
-    loadRtlStylesheet();
-    document.body.style.direction = "rtl";
-  } else {
-    removeRtlStylesheet();
-    document.body.style.direction = "ltr";
+  function applyDirection() {
+    document.documentElement.lang = currentLang;
+
+    if (currentLang === "ar") {
+      loadRtlStylesheet();
+      document.body.style.direction = "rtl";
+    } else {
+      removeRtlStylesheet();
+      document.body.style.direction = "ltr";
+    }
   }
 
-function updateLanguage() {
-  document.documentElement.lang = currentLang;
+  function updateLanguage() {
+    applyDirection();
 
-  // غيّر النص فقط داخل الـ span، خلي الأيقونة ثابتة
-  const span = langBtn.querySelector("span");
-  if (span) {
-    span.textContent = currentLang === "en" ? "Arabic" : "الأنجليزية";
-  }
+    // تحديث زرار اللغة (لو موجود)
+    if (langBtn) {
+      const span = langBtn.querySelector("span");
+      if (span) {
+        span.textContent = currentLang === "en" ? "Arabic" : "English";
+      }
+    }
 
-  // ترجم باقي العناصر
-  const translatableElements = document.querySelectorAll("[data-en]");
-  translatableElements.forEach((el) => {
-    const newText = el.getAttribute(`data-${currentLang}`);
-    if (newText !== null) {
-      if (el.placeholder !== undefined && el.placeholder !== "") {
-        el.placeholder = newText; // ✅ دعم placeholder
+    // ترجمة العناصر
+    const translatableElements =
+      document.querySelectorAll("[data-en][data-ar]");
+
+    translatableElements.forEach((el) => {
+      const newText = el.getAttribute(`data-${currentLang}`);
+      if (!newText) return;
+
+      if (el.hasAttribute("placeholder")) {
+        el.placeholder = newText;
       } else {
         el.textContent = newText;
       }
-    }
-  });
-}
+    });
+  }
 
-
+  // لو الزرار موجود فعل الحدث
   if (langBtn) {
     langBtn.addEventListener("click", () => {
       currentLang = currentLang === "en" ? "ar" : "en";
       localStorage.setItem("lang", currentLang);
-
-      if (currentLang === "ar") {
-        loadRtlStylesheet();
-        document.body.style.direction = "rtl";
-      } else {
-        removeRtlStylesheet();
-        document.body.style.direction = "ltr";
-      }
-
       updateLanguage();
       window.location.reload();
     });
   }
 
-  updateLanguage(); // تشغيل أول مرة
+  updateLanguage(); // أول تشغيل
 }
 
-// مثال: تفعيل اللغة العربية
-// switchLanguage('ar');
+// ================= PROFILE MENU =================
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("authToken");
   const profileMenu = document.getElementById("profileMenu");
-  const atsMenu = document.getElementById("atsMenu");
 
-  if (token && profileMenu ) {
-    profileMenu.style.display = "block"; // ✅ يظهر فقط لو فيه توكين
+  if (token && profileMenu) {
+    profileMenu.style.display = "block";
   }
 });
+// =================newsletter =================
+

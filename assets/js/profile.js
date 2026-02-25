@@ -488,30 +488,30 @@ renderPasswordUI(user);
   }
 
   // ========= COURSES & JOBS (أساسي) =========
-  const res = await getAllCourses();
-  const jobsNamesRes = await getJobNames();
+  // const res = await getAllCourses();
+  // const jobsNamesRes = await getJobNames();
 
-  const suggestedCourses = res.data.courses;
-  const jobNames = jobsNamesRes.data.jobNames;
+  // const suggestedCourses = res.data.courses;
+  // const jobNames = jobsNamesRes.data.jobNames;
 
   // ========= UI =========
-  const suggestedCoursesList = document.getElementById("suggestedCourses");
-  const jobNamesList = document.getElementById("jobNames");
+  // const suggestedCoursesList = document.getElementById("suggestedCourses");
+  // const jobNamesList = document.getElementById("jobNames");
 
-  suggestedCoursesList.innerHTML = "";
-  jobNamesList.innerHTML = "";
+  // suggestedCoursesList.innerHTML = "";
+  // jobNamesList.innerHTML = "";
 
-  const lang = localStorage.getItem("lang") || "en";
+  // const lang = localStorage.getItem("lang") || "en";
 
-  suggestedCourses.forEach((course) => {
-    const courseName = lang === "ar" ? course.ar_name : course.en_name;
-    suggestedCoursesList.innerHTML += `<li><a href="${course.url}" target="_blank">${courseName}</a></li>`;
-  });
+  // suggestedCourses.forEach((course) => {
+  //   const courseName = lang === "ar" ? course.ar_name : course.en_name;
+  //   // suggestedCoursesList.innerHTML += `<li><a href="${course.url}" target="_blank">${courseName}</a></li>`;
+  // });
 
-  jobNames.forEach((name) => {
-    const jobname = lang === "ar" ? name.ar_name : name.en_name;
-    jobNamesList.innerHTML += `<li>${jobname}</li>`;
-  });
+  // jobNames.forEach((name) => {
+  //   const jobname = lang === "ar" ? name.ar_name : name.en_name;
+  //   jobNamesList.innerHTML += `<li>${jobname}</li>`;
+  // });
 //handel password  logic
  
 

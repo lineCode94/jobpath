@@ -270,26 +270,69 @@ Thank you.`;
   } finally {
     hideLoader();
   }
-  const langSwitch = document.getElementById("langSwitch");
+  // ================= LANG SWITCH =================
+  // ================= LANG SWITCH =================
+const langSwitch = document.getElementById("langSwitch");
+
+function getCurrentLang() {
+  const params = new URLSearchParams(window.location.search);
+  const urlLang = params.get("lang");
+
+  if (urlLang) {
+    localStorage.setItem("lang", urlLang);
+    return urlLang;
+  }
+
+  return localStorage.getItem("lang") || "en";
+}
+
+function updateDirection(lang) {
+  document.documentElement.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+  document.documentElement.setAttribute("lang", lang);
+}
+
 function updateLangButton() {
-  const currentLang = localStorage.getItem("lang") || "en";
+  const currentLang = getCurrentLang();
 
   if (!langSwitch) return;
 
-  if (currentLang === "en") {
-    langSwitch.textContent = "Arabic";
-  } else {
-    langSwitch.textContent = "English";
-  }
+  langSwitch.textContent = currentLang === "en" ? "Arabic" : "English";
 }
+
+function translateStaticContent(lang) {
+  const elements = document.querySelectorAll("[data-en][data-ar]");
+
+  elements.forEach(el => {
+    const text =
+      lang === "ar"
+        ? el.getAttribute("data-ar")
+        : el.getAttribute("data-en");
+
+    // لو العنصر فيه أيقونة جواه، منغير innerHTML
+    if (el.children.length === 0) {
+      el.textContent = text;
+    } else {
+      const textNode = Array.from(el.childNodes).find(
+        node => node.nodeType === 3
+      );
+      if (textNode) textNode.nodeValue = " " + text;
+    }
+  });
+}
+
+// أول تحميل
+let currentLang = getCurrentLang();
+updateDirection(currentLang);
+updateLangButton();
+translateStaticContent(currentLang);
+
+// عند الضغط
 if (langSwitch) {
   langSwitch.addEventListener("click", () => {
-    const currentLang = localStorage.getItem("lang") || "en";
+    const currentLang = getCurrentLang();
     const newLang = currentLang === "en" ? "ar" : "en";
 
     localStorage.setItem("lang", newLang);
-
-    updateLangButton(); // يحدث النص فورًا
 
     const params = new URLSearchParams(window.location.search);
     params.set("lang", newLang);
@@ -298,6 +341,5 @@ if (langSwitch) {
   });
 }
 
-    updateLangButton();
 
 });
