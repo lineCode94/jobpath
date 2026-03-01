@@ -754,7 +754,19 @@
 .template-card * {
   pointer-events: none;
 }
-
+@media (max-width: 576px) {
+         .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+   .add-btn-experience, .add-btn-education {
+            font-size: 16px;
+            width: 100%;
+        }
+  
+}
     </style>
 </head>
 <body dir="ltr">
@@ -1523,7 +1535,7 @@
     </div>
   </div>
 
-  <button class="add-btn">
+  <button class="add-btn add-btn-experience">
     <i class="fas fa-plus"></i>
     <span
       data-en="Add Another Experience"
@@ -1671,7 +1683,7 @@
     </div>
   </div>
 
-  <button class="add-btn" >
+  <button class="add-btn add-btn-education" >
     <i class="fas fa-plus"></i>
     <span
       data-en="Add Another Education"
@@ -1821,7 +1833,7 @@
 
        <!-- Navigation Buttons -->
 <div class="wizard-navigation">
-    <button class="nav-btn btn-prev" onclick="previousStep()">
+    <button style="margin-right: 5px;" class="nav-btn btn-prev" onclick="previousStep()">
         <!-- <i class="fas fa-arrow-left"></i> -->
         <span data-en="Previous" data-ar="السابق" data-translate="previous">Previous</span>
     </button>

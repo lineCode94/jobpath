@@ -63,16 +63,7 @@
     <link rel="stylesheet" href="assets/css/plugins.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <style>
-  
-
-  
- 
-
-  
- 
- 
-
-        .submit-btn {
+   .submit-btn {
             color: white!important;
             border: none;
             padding: 16px 45px;
@@ -374,6 +365,7 @@
   align-items: center;
   cursor: pointer;
   transition: 0.3s;
+  text-align: center;
 }
 
 .cv-dropzone i {
@@ -467,6 +459,45 @@
   opacity: 0.6;
   cursor: not-allowed;
 } */
+ /* =========================
+   CV FILE BOX – RESPONSIVE FIX
+========================= */
+
+@media (max-width: 576px) {
+
+  .cv-file-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+  }
+
+  /* النص */
+  .meta-text {
+    position: static;
+    transform: none;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  /* الأزرار */
+  .cv-actions {
+    position: static;
+    transform: none;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  /* تصغير حجم الأزرار شوية */
+  .cv-actions button {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 8px !important;
+  }
+}
 
     </style>
   </head>
@@ -877,7 +908,12 @@
       <div id="cvFileBox" class="cv-file-box" style="margin-top: 25px;  ">
         
         <!-- The container required by renderCvUI -->
-        <div class="cv-actions" ">
+  
+
+        <div id="cvPreviewDiv"  >
+
+        </div>
+              <div class="cv-actions ">
 
           <!-- Download button goes here -->
           <!-- Uploading / loading -->
@@ -885,10 +921,6 @@
           <div style="justify-content: center; display: flex;" id="cvUploadingDiv"></div>
 
           <!-- Preview button + file name + date -->
-        </div>
-
-        <div id="cvPreviewDiv"  >
-
         </div>
 
       </div>

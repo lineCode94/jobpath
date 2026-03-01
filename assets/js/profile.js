@@ -551,7 +551,16 @@ function renderPasswordUI(user) {
   }
 
   // ========= CV UI =========
-  renderCvUI(metaData?.downloadUrl || null, metaData || {});
+ 
+  const cvPath = user?.cvPath || null;
+
+  const meta = {
+    username: user?.fullName || "cv",
+    date: user?.cvUpdatedAt || null,
+    fileExtension: user?.cvPath ? "." + user.cvPath.split(".").pop() : ".pdf",
+  };
+
+  renderCvUI(cvPath, meta);
 } catch (err) {
   console.error("Critical error (user not logged in):", err);
 
