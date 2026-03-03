@@ -343,10 +343,7 @@
 
 
 
-      .cv-upload-wrapper {
-  max-width: 900px;
-  margin: auto;
-}
+ 
 
 .upload-flex {
   display: flex;
@@ -498,7 +495,64 @@
     padding: 8px !important;
   }
 }
+/* ===========================
+   PROFILE TABS – MODERN STYLE
+=========================== */
 
+.profile-tabs-wrapper {
+  background: #ffffff;
+  padding: 15px 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+  margin-bottom: 30px;
+}
+
+.profile-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.profile-tab {
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #6b7280;
+  transition: all 0.25s ease;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.profile-tab:hover {
+  background: #f3fbf5;
+  color: #34a853;
+}
+
+.profile-tab.active {
+  background: #34a853;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(52,168,83,0.3);
+}
+@media (max-width: 768px) {
+
+  .profile-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 5px;
+  }
+
+  .profile-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .profile-tab {
+    white-space: nowrap;
+  }
+
+}
     </style>
   </head>
   <body class="template-dashboard">
@@ -744,8 +798,37 @@
 </div>
 
     <!-- content area -->
+         <nav class="profile-tabs-wrapper">
+  <div class="profile-tabs">
+
+    <a class="profile-tab active" href="#info"
+       data-en="Employee Info"
+       data-ar="بيانات الموظف">
+      Employee Info
+    </a>
+
+ 
+
+    <a class="profile-tab" href="#cvUpload"
+       data-en="Cv Upload"
+       data-ar=" تحميل السيرة الذاتية">
+      Cv Upload
+    </a>
+
+    <a class="profile-tab" href="#reports"
+       data-en="Job Reports"
+       data-ar="تقارير الوظائف">
+      Job Reports
+    </a>
+   <a class="profile-tab" href="#social"
+       data-en="Social Links"
+       data-ar="روابط التواصل">
+      Social Links
+    </a>
+  </div>
+</nav>
     <div class="dashboard__content d-flex">
-    
+
       <div style="margin-right: auto;margin-left: auto;" class="dashboard__right dashboard__right__rtl">
         <div class="dash__content">
           <!-- sidebar menu -->
@@ -755,35 +838,16 @@
             </div>
           </div> -->
           <!-- sidebar menu end -->
-
+<h6 class="fw-medium mt-4 mb-4" data-en="Employee info" data-ar=" بينات الموظف ">
+    Employee info
+  </h6>
           <div class="my__profile__tab radius-16 bg-white">
- <nav>
-  <div class="nav nav-tabs">
-    <a class="nav-link active" href="#info" data-en="Company Details" data-ar=" بينات الموظف">Company Details</a>
-    <a class="nav-link" href="#social" data-en="Social Links" data-ar="روابط التواصل">Social Links</a>
-    <a class="nav-link" href="#Portfolio" data-en="Portofolio" data-ar="معرض الأعمال">Portofolio</a>
-    <a class="nav-link" href="#reports" data-en="Job Reports" data-ar="تقارير الوظائف">Job Reports</a>
-  </div>
-</nav>
 
-            <div class="my__details" id="info">
-          <div class="info__top">
-  <!-- <div class="author__image">
-    <img class="p-4" src="assets/img/icon/google.svg" alt="" />
-  </div> -->
-  <!-- <div class="select__image">
-    <label for="file" class="file-upload__label" data-en="Upload New Photo" data-ar="تحميل صورة جديدة">
-      Upload New Photo
-    </label>
-    <input
-      type="file"
-      class="file-upload__input"
-      id="file"
-    />
-  </div> -->
-  <!-- <div class="delete__data" title="Delete" data-en="Delete" data-ar="حذف">
-    <i class="fa-light fa-trash-can"></i>
-  </div> -->
+
+<div class="my__details" id="info">
+  
+<div class="info__top">
+   
 </div>
 <form id="profileForm">
   <div class="info__field">
@@ -877,7 +941,7 @@
           </div>
 <!-- upload cv -->
  
-<section>
+<section id="cvUpload">
   <h6 class="fw-medium mt-4 mb-4" data-en="Upload CV" data-ar="تحميل السيرة الذاتية">
     Upload CV
   </h6>
@@ -936,7 +1000,7 @@
 
  <!-- cv enhancments -->
              <!-- Job Reports -->
- <h6 class="fw-medium mt-4 mb-4" data-en="Job Reports" data-ar="تقارير الوظائف">Job Reports</h6>
+ <h6 class="fw-medium mt-4 mb-4"   data-en="Job Reports" data-ar="تقارير الوظائف">Job Reports</h6>
           <div class="social__links p-30 radius-16 bg-white" id="reports">
             <div class="info__field">
            
@@ -999,9 +1063,7 @@
           </div>
 <!-- job reporst -->
           <!-- social links -->
-           <form class="" id="socialForm" 
-   
-           ">
+           <form   id="socialForm" >
           
           
            <h6 class="fw-medium mt-5 mb-4" data-en="Social Links" data-ar="روابط التواصل الاجتماعي">Social Links</h6>
@@ -1398,6 +1460,23 @@
       <i class="fas fa-arrow-up"></i>
     </button>
     <!-- all plugin js -->
+     <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const tabs = document.querySelectorAll(".profile-tab");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", function () {
+
+      // نشيل active من الكل
+      tabs.forEach(t => t.classList.remove("active"));
+
+      // نحطه على اللي اتضغط عليه
+      this.classList.add("active");
+
+    });
+  });
+});
+</script>
      <script type="module" src="assets/js/login.js"></script>
      <!-- <script type="module" src="assets/js/cv.js"></script> -->
     <script src="assets/js/plugins.min.js"></script>

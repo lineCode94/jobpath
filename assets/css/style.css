@@ -10653,9 +10653,9 @@ input::placeholder {
 
 .dashboard__right {
   padding: 30px;
-  /* width: calc(100% - 360px); */
+  width: calc(100% - 360px);
   /* margin-left: 360px; */
-  margin-top: 100px;
+  
 }
 
 @media screen and (max-width: 992px) {
