@@ -795,8 +795,7 @@ html[dir="ltr"] .pay-button i {
    <!-- 1. مكتبات خارجية -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script src="https://unpkg.com/moyasar-payment-form@2.2.3/dist/moyasar.umd.js"></script>
-
+<script src="https://cdn.moyasar.com/mpf/1.14.0/moyasar.js"></script>
 <!-- 2. سكربتات المشروع -->
 <script type="module" src="assets/js/api.js"></script> <!-- إذا كانت ES module -->
 <script type="module" src="assets/js/login.js"></script>
@@ -944,7 +943,8 @@ if (selectedMethod === "applepay") {
     label: planName
   };
 
-  config.save_card = true; // مهم علشان token
+  config.save_card = true;
+
 }
     // init Moyasar
     if(typeof Moyasar === "undefined") {
