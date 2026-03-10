@@ -795,7 +795,8 @@ html[dir="ltr"] .pay-button i {
    <!-- 1. مكتبات خارجية -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script src="https://cdn.moyasar.com/mpf/1.15.0/moyasar.js"></script>
+<script src="https://unpkg.com/moyasar-payment-form@2.2.3/dist/moyasar.umd.js"></script>
+
 <!-- 2. سكربتات المشروع -->
 <script type="module" src="assets/js/api.js"></script> <!-- إذا كانت ES module -->
 <script type="module" src="assets/js/login.js"></script>
@@ -934,18 +935,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       if(selectedSource === "mada") config.supported_networks = ["mada"];
     }
 
-    // 🍎 Apple Pa
- if(selectedMethod === "applepay") {
+    // 🍎 Apple Pay
+    if(selectedMethod === "applepay") {
+      // alert("applepay");
+      config.methods = ["applepay"];
+    config.apple_pay = {
+            country: "SA",
+            currency: "SAR",
+            label: planName,
+            amount: urlAmount,
 
-  config.methods = ["applepay"];
+            // validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate",
 
-  config.apple_pay = {
-    country: "SA",
-    label: planName,
-    save_card: true
-  };
-
-}
+            save_card: true
+          }
+    }
 
     // init Moyasar
     if(typeof Moyasar === "undefined") {
