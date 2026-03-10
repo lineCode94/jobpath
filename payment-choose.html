@@ -935,22 +935,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       if(selectedSource === "mada") config.supported_networks = ["mada"];
     }
 
-    // 🍎 Apple Pay
-    if(selectedMethod === "applepay") {
-      // alert("applepay");
-      config.methods = ["applepay"];
-    config.apple_pay = {
-            country: "SA",
-            currency: "SAR",
-            label: planName,
-            amount: urlAmount,
+if (selectedMethod === "applepay") {
 
-            // validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate",
+  config.methods = ["applepay"];
 
-            save_card: true
-          }
-    }
+  config.apple_pay = {
+    country: "SA",
+    label: planName
+  };
 
+  config.save_card = true; // مهم علشان token
+}
     // init Moyasar
     if(typeof Moyasar === "undefined") {
       showError("Payment gateway failed to load");
