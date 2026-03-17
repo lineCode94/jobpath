@@ -796,7 +796,7 @@ html[dir="ltr"] .pay-button i {
    <!-- 1. مكتبات خارجية -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<!-- <script src="https://unpkg.com/moyasar-payment-form@2.2.3/dist/moyasar.umd.js"></script> -->
+
 
 <!-- 2. سكربتات المشروع -->
 <script type="module" src="assets/js/login.js"></script>
@@ -894,63 +894,72 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // ===== تهيئة الدفع =====
-  let moyasarInitialized = false;
-function initPayment() {
-
-  if(!selectedMethod) {
-    showError("Please select payment method");
-    return;
-  }
-
-  // منع تشغيل Moyasar أكثر من مرة
-  if(moyasarInitialized) return;
-
-  moyasarInitialized = true;
-
-  moyasarContainer.innerHTML = `<div id="moyasar-form"></div>`;
-
-  openSheet();
-
-  const config = {
-    element: "#moyasar-form",
-    amount: urlAmount,
-    currency: "SAR",
-    description: `${planName} - ${ORDER_ID}`,
-    publishable_api_key: MOYASAR_PUBLISHABLE_KEY,
-    metadata: { userId, planId, orderId: ORDER_ID },
-    callback_url: `https://jobzai.net/thanks.html`,
-
-    on_completed: async (payment) => {
-      window.location.href =
-        `thanks.html?paymentId=${payment.id}&order=${ORDER_ID}`;
-      return Promise.resolve(payment);
-    },
-
-    on_failure: async (error) => {
-      console.error("Payment failed:", error);
-      showError(error?.message || "Payment failed");
-      return Promise.reject(error);
+  function initPayment() {
+    if(!selectedMethod) {
+      showError("Please select payment method");
+      return;
     }
-  };
 
-  // Credit Card / Mada
-  if(selectedMethod === "creditcard") {
-    config.methods = ["creditcard"];
-    if(selectedSource === "mada") config.supported_networks = ["mada"];
+    moyasarContainer.innerHTML = `<div id="moyasar-form"></div>`;
+    openSheet();
+
+   const config = {
+  element: "#moyasar-form",
+  amount: urlAmount, // المبلغ بالهللة
+  currency: "SAR",
+  description: `${planName} - ${ORDER_ID}`,
+  publishable_api_key: MOYASAR_PUBLISHABLE_KEY,
+  metadata: { userId, planId, orderId: ORDER_ID },
+  callback_url: `https://jobzai.net/thanks.html`, // ← هنا ضع رابطك
+  on_completed: async (payment) => {
+    // console.log("✅ Payment completed:", payment);
+
+    // ممكن هنا تبعت payment.id للسيرفر لو حابب
+    window.location.href =
+      `thanks.html?paymentId=${payment.id}&order=${ORDER_ID}`;
+
+    return Promise.resolve(payment);
+  },
+
+ 
+  on_failure: async (error) => {
+    console.error("❌ Payment failed:", error);
+    showError(error?.message || "Payment failed");
+    return Promise.reject(error);
   }
+};
 
-  // Apple Pay
-  if(selectedMethod === "applepay") {
-    config.methods = ["applepay"];
+    // 💳 Credit Card / Mada
+    if(selectedMethod === "creditcard") {
+      config.methods = ["creditcard"];
+      if(selectedSource === "mada") config.supported_networks = ["mada"];
+    }
+
+    // 🍎 Apple Pay
+    if(selectedMethod === "applepay") {
+      // alert("applepay");
+      config.methods = ["applepay"];
     config.apple_pay = {
-      country: "SA",
-      label: planName,
-      save_card: true
-    };
+            country: "SA",
+            currency: "SAR",
+            label: planName,
+            amount: urlAmount,
+
+            // validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate",
+
+             save_card: true
+          }
+    }
+
+    // init Moyasar
+    if(typeof Moyasar === "undefined") {
+      showError("Payment gateway failed to load");
+      return;
+    }
+
+    Moyasar.init(config);
   }
 
-  Moyasar.init(config);
-}
   payButton.onclick = initPayment;
 
 });
