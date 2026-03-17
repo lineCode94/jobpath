@@ -893,6 +893,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.classList.add("sheet-open");
   }
 
+  // 🟢 1. THE CRASH FIX: Track initialized state to prevent Apple Pay Registry crash
+  let initializedMethod = null;
+
   // ===== تهيئة الدفع =====
   function initPayment() {
     if(!selectedMethod) {
@@ -900,34 +903,40 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
+    // 🟢 2. THE CRASH FIX: If already initialized, just open the sheet. Do NOT call init again.
+    if (initializedMethod === selectedMethod) {
+      openSheet();
+      return; 
+    }
+
+    // 🟢 3. THE CRASH FIX: If they switch from Visa to Apple Pay, force a reload to clear Apple's registry.
+    if (initializedMethod !== null && initializedMethod !== selectedMethod) {
+       window.location.reload();
+       return;
+    }
+
+    // --- First Time Initialization ---
     moyasarContainer.innerHTML = `<div id="moyasar-form"></div>`;
     openSheet();
 
-   const config = {
-  element: "#moyasar-form",
-  amount: urlAmount, // المبلغ بالهللة
-  currency: "SAR",
-  description: `${planName} - ${ORDER_ID}`,
-  publishable_api_key: MOYASAR_PUBLISHABLE_KEY,
-  metadata: { userId, planId, orderId: ORDER_ID },
-  callback_url: `https://jobzai.net/thanks.html`, // ← هنا ضع رابطك
-  on_completed: async (payment) => {
-    // console.log("✅ Payment completed:", payment);
-
-    // ممكن هنا تبعت payment.id للسيرفر لو حابب
-    window.location.href =
-      `thanks.html?paymentId=${payment.id}&order=${ORDER_ID}`;
-
-    return Promise.resolve(payment);
-  },
-
- 
-  on_failure: async (error) => {
-    console.error("❌ Payment failed:", error);
-    showError(error?.message || "Payment failed");
-    return Promise.reject(error);
-  }
-};
+    const config = {
+      element: "#moyasar-form",
+      amount: urlAmount, // المبلغ بالهللة
+      currency: "SAR",
+      description: `${planName} - ${ORDER_ID}`,
+      publishable_api_key: MOYASAR_PUBLISHABLE_KEY,
+      metadata: { userId, planId, orderId: ORDER_ID },
+      callback_url: `https://jobzai.net/thanks.html`, 
+      on_completed: async (payment) => {
+        window.location.href = `thanks.html?paymentId=${payment.id}&order=${ORDER_ID}`;
+        return Promise.resolve(payment);
+      },
+      on_failure: async (error) => {
+        console.error("❌ Payment failed:", error);
+        showError(error?.message || "Payment failed");
+        return Promise.reject(error);
+      }
+    };
 
     // 💳 Credit Card / Mada
     if(selectedMethod === "creditcard") {
@@ -937,18 +946,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 🍎 Apple Pay
     if(selectedMethod === "applepay") {
-      // alert("applepay");
       config.methods = ["applepay"];
-    config.apple_pay = {
-            country: "SA",
-            currency: "SAR",
-            label: planName,
-            amount: urlAmount,
-
-            // validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate",
-
-            //  save_card: true
-          }
+      config.apple_pay = {
+        country: "SA",
+        currency: "SAR",
+        label: planName,
+        amount: urlAmount,
+        
+        // 🟢 4. THE VISIBILITY FIX: Uncommented for Web App Security 
+        validate_merchant_url: "https://api.moyasar.com/v1/applepay/initiate"
+        
+        // ❌ save_card: true has been permanently removed from here
+      };
     }
 
     // init Moyasar
@@ -958,6 +967,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     Moyasar.init(config);
+    
+    // 🟢 5. THE CRASH FIX: Lock the method so we know it's already safely in the DOM
+    initializedMethod = selectedMethod;
   }
 
   payButton.onclick = initPayment;
