@@ -57,15 +57,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /* ================= FETCH FILTER OPTIONS ================= */
-  async function fetchFilters() {
-    try {
-      const res = await api.get("/jobs/filter-options");
-      return res.data;
-    } catch (err) {
-      console.error("❌ Error fetching filters:", err);
-      return null;
-    }
+async function fetchFilters() {
+  try {
+    const res = await api.get("/jobs/filter-options", {
+      params: {
+        lang,
+      },
+    });
+
+    return res.data;
+  } catch (err) {
+    console.error("❌ Error fetching filters:", err);
+    return null;
   }
+}
 
   /* ================= APPLY FILTER OPTIONS ================= */
   function applyFiltersUI(data) {
@@ -118,24 +123,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // ===== TAGS =====
-    if (tags && data.tags) {
-      tags.innerHTML = `
-       
-        ${data.tags
-          .map(
-            (tag) => `
-        <div class="d-flex align-items-center justify-content-between list">
-          <div class="d-flex gap-2 align-items-center checkbox">
-            <input type="checkbox" class="tag-checkbox" id="${tag}" />
-            <label for="${tag}">${tag}</label>
-          </div>
-        </div>
-      `,
-          )
-          .join("")}
-      `;
-    }
+const tagsList = document.querySelector("#tagsSelect .list");
 
+if (tagsList && data.tags) {
+  tagsList.innerHTML = `
+    <li class="option" data-value="">All Categories</li>
+    ${data.tags
+      .map(
+        (tag) => `
+        <li class="option" data-value="${tag}">
+          ${tag}
+        </li>
+      `,
+      )
+      .join("")}
+  `;
+}
     // ===== SALARY =====
     const salaryContainer = document.getElementById("salaryContainer");
 

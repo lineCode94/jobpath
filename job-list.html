@@ -71,7 +71,10 @@
   max-height: 200px;
   overflow-y: auto;
 }
-
+#tagsSelect .list {
+  max-height: 200px;
+  overflow-y: auto;
+}
 /* search */
 #locationSelect .dropdown-search {
   padding: 8px;
@@ -318,62 +321,95 @@
 
       <!-- ================= LEFT FILTERS ================= -->
       <div class="col-lg-4 col-xxl-3 col-xl-4">
-        <div class="job__search__section mb-40">
+        <div   class="job__search__section mb-40">
           <form action="#" class="d-flex flex-column row-30">
 
             <!-- Search -->
             <div class="search__item">
-              <label class="mb-3 font-20 fw-medium text-dark text-capitalize">
+              <label class="mb-3 font-20 fw-medium text-dark text-capitalize"
+                data-en="Search By Job Title"
+                data-ar="ابحث حسب مسمى الوظيفة">
                 Search By Job Title
               </label>
+
               <div class="position-relative">
-                <input type="text" id="search" placeholder="Enter Type Of job" />
+                <input type="text" id="search"
+                  placeholder="Enter Type Of job"
+                  data-en-placeholder="Enter Type Of job"
+                  data-ar-placeholder="أدخل نوع الوظيفة" />
+
                 <i class="fa-light fa-magnifying-glass"></i>
               </div>
             </div>
 
             <!-- Location -->
             <div class="search__item">
-              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize">
+              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize"
+                data-en="Search Location"
+                data-ar="ابحث بالموقع">
                 Search Location
               </h6>
 
               <div class="position-relative">
-         <div class="nice-select location" id="locationSelect" tabindex="0">
-  <span class="current">Search Location</span>
+                <div class="nice-select location" id="locationSelect" tabindex="0">
+                  <span class="current"
+                    data-en="Search Location"
+                    data-ar="ابحث بالموقع">
+                    Search Location
+                  </span>
 
-  <div class="dropdown-content">
-    <div class="dropdown-search">
-      <input type="text" id="locationSearch" placeholder="Search location..." />
-    </div>
+                  <div class="dropdown-content">
+                    <div class="dropdown-search">
+                      <input type="text" id="locationSearch"
+                        placeholder="Search location..."
+                        data-en-placeholder="Search location..."
+                        data-ar-placeholder="ابحث عن موقع..." />
+                    </div>
 
-    <ul class="list"></ul>
-  </div>
-</div>
+                    <ul class="list"></ul>
+                  </div>
+                </div>
 
                 <i class="fa-light fa-location-dot"></i>
               </div>
             </div>
 
-            <!-- Category (FIXED) -->
+            <!-- Category -->
             <div class="search__item">
-              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize">
-                Search By Job category
+              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize"
+                data-en="Search By Job Category"
+                data-ar="ابحث حسب تصنيف الوظيفة">
+                Search By Job Category
               </h6>
 
-              <!-- مهم: container منفصل -->
-              <div class="search__item__list" id="tags"></div>
+         <div class="position-relative">
+  <div class="nice-select" id="tagsSelect">
+    <span class="current"
+      data-en="Job Category"
+      data-ar="تصنيف الوظيفة">
+      Job Category
+    </span>
+    <ul class="list"></ul>
+  </div>
+  <i class="fa-light fa-tags"></i>
+</div>
             </div>
 
-            <!-- Date Posted (FIXED ID) -->
+            <!-- Date Posted -->
             <div class="search__item">
-              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize">
+              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize"
+                data-en="Date Posted"
+                data-ar="تاريخ النشر">
                 Date posted
               </h6>
 
               <div class="position-relative">
                 <div class="nice-select" id="dateSelect">
-                  <span class="current">Date Posted</span>
+                  <span class="current"
+                    data-en="Date Posted"
+                    data-ar="تاريخ النشر">
+                    Date Posted
+                  </span>
                   <ul class="list"></ul>
                 </div>
                 <i class="fa-light fa-clock"></i>
@@ -382,28 +418,30 @@
 
             <!-- Job Type -->
             <div class="search__item" id="jobTypeContainer">
-              <div class="mb-3 font-20 fw-medium text-dark text-capitalize">
+              <div class="mb-3 font-20 fw-medium text-dark text-capitalize"
+                data-en="Job Type"
+                data-ar="نوع الوظيفة">
                 job type
               </div>
 
-              <div class="search__item__list">
-                <!-- JS هيملأها -->
-              </div>
+              <div class="search__item__list"></div>
             </div>
 
             <!-- Salary -->
             <div class="search__item salary-range">
-              <div class="mb-3 font-20 fw-medium text-dark text-capitalize">
+              <div class="mb-3 font-20 fw-medium text-dark text-capitalize"
+                data-en="Salary Offered"
+                data-ar="الراتب المعروض">
                 salary offered
               </div>
 
               <div class="search__item__list" id="salaryContainer"></div>
             </div>
 
-            <button
-              type="submit"
+            <button type="submit"
               class="rts__btn no__fill__btn max-content mx-auto job__search__btn font-sm"
-            >
+              data-en="Find Job"
+              data-ar="ابحث عن وظيفة">
               Find Job
             </button>
 
@@ -415,37 +453,50 @@
           <form action="#" class="d-flex flex-column row-30">
 
             <div class="search__item">
-              <label class="mb-3 font-20 fw-medium text-dark text-capitalize">
+              <label class="mb-3 font-20 fw-medium text-dark text-capitalize"
+                data-en="Job Alert"
+                data-ar="تنبيه وظائف">
                 Job Alert
               </label>
+
               <div class="position-relative">
-                <input type="text" placeholder="Enter Type Of job" />
+                <input type="text"
+                  placeholder="Enter Type Of job"
+                  data-en-placeholder="Enter Type Of job"
+                  data-ar-placeholder="أدخل نوع الوظيفة" />
+
                 <i class="fa-light fa-magnifying-glass"></i>
               </div>
             </div>
 
             <div class="search__item no-icon">
-              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize">
+              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize"
+                data-en="Email Frequency"
+                data-ar="تكرار الإيميل">
                 EmailFrequency
               </h6>
 
               <div class="position-relative">
                 <div class="nice-select">
-                  <span class="current">Daily</span>
+                  <span class="current"
+                    data-en="Daily"
+                    data-ar="يومي">
+                    Daily
+                  </span>
                   <ul class="list">
-                    <li class="option selected">Daily</li>
-                    <li class="option">Weekly</li>
-                    <li class="option">Monthly</li>
-                    <li class="option">Tri-Weekly</li>
+                    <li class="option selected" data-en="Daily" data-ar="يومي">Daily</li>
+                    <li class="option" data-en="Weekly" data-ar="أسبوعي">Weekly</li>
+                    <li class="option" data-en="Monthly" data-ar="شهري">Monthly</li>
+                    <li class="option" data-en="Tri-Weekly" data-ar="ثلاث مرات أسبوعيًا">Tri-Weekly</li>
                   </ul>
                 </div>
               </div>
             </div>
 
-            <button
-              type="submit"
+            <button type="submit"
               class="rts__btn fill__btn py-3 rounded-2 job__search"
-            >
+              data-en="Save Job Alert"
+              data-ar="حفظ تنبيه الوظائف">
               Save Job Alert
             </button>
 
@@ -457,7 +508,9 @@
       <div class="col-lg-8 col-xl-8 col-xxl-9">
 
         <div class="top__query mb-40 d-flex flex-wrap justify-content-between align-items-center">
-          <span class="text-dark font-20 fw-medium">
+          <span class="text-dark font-20 fw-medium"
+            data-en="Showing results"
+            data-ar="عرض النتائج">
             Showing results
           </span>
         </div>
