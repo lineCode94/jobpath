@@ -104,7 +104,11 @@ document.addEventListener("DOMContentLoaded", async () => {
           (type) => `
         <div class="d-flex align-items-center justify-content-between list">
           <div class="d-flex gap-2 align-items-center checkbox">
-            <input type="checkbox" id="${type}" />
+            <input 
+            type="checkbox" 
+            class="job-type-checkbox" 
+            value="${type}" 
+            id="${type}" />
             <label for="${type}">${type}</label>
           </div>
         </div>
@@ -216,19 +220,11 @@ function enableLocationSearch() {
   }
 
   /* ================= GET VALUES ================= */
-  function getJobTypes() {
-    return Array.from(
-      document.querySelectorAll(
-        ".search__item__list input[type='checkbox']:checked",
-      ),
-    )
-      .filter(
-        (el) =>
-          !el.classList.contains("tag-checkbox") &&
-          !el.classList.contains("salary-checkbox"),
-      )
-      .map((el) => el.id);
-  }
+function getJobTypes() {
+  return Array.from(
+    document.querySelectorAll(".job-type-checkbox:checked"),
+  ).map((el) => el.value);
+}
 
   function getTags() {
     return Array.from(document.querySelectorAll(".tag-checkbox:checked")).map(
