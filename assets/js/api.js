@@ -173,4 +173,8 @@ export const cvPreview = (cvId) => {
 // ================= news letter =================
 export const subscribeNewsletter = (payload) =>
   api.post("/newsletter/subscribe", payload);
+// ==================== job list ====================
+export const getJobs = (page = 1, limit = 9) => {
+  return api.get(`/jobs/public?page=${page}&limit=${limit}&lang=en`);
+};
 export default api;

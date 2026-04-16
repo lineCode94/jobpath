@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Your Ultimate Job HTML Template">
+    <meta name="keywords" content="Hosting, Domain, Transfer, Buy Domain, WHMCS">
+    <link rel="canonical" href="https://html.themewant.com/hostie">
+    <meta name="robots" content="index, follow">
+    <!-- for open graph social media -->
+    <meta property="og:title" content="Your Ultimate Job HTML Template">
+    <meta property="og:description" content="Your Ultimate Job HTML Template">
+    <meta property="og:image" content="https://www.example.com/image.jpg">
+    <meta property="og:url" content="https://html.themewant.com/hostie/">
+    <!-- for twitter sharing -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Your Ultimate Job HTML Template">
+    <meta name="twitter:description" content="Your Ultimate Job HTML Template">
+    <meta name="twitter:image" content="https://html.themewant.com/hostie/landing/assets/images/banner/slider-img-01.webp">
+
+    <!-- fabicon -->
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut-icon" href="assets/img/favicon-16x16.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <title>Jobpath - Job Seeker &amp; Job Holder HTML Template</title>
+    <!-- rt icons -->
+    <link rel="stylesheet" href="assets/fonts/icon/css/rt-icons.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="assets/fonts/fontawesome/fontawesome.min.css">
+    <!-- all plugin css -->
+    <link rel="stylesheet" href="assets/css/plugins.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+      <style>
+      .active {
+  background: var(--rts-button-1);
+  color: #fff!important;
+  border-radius: 6px;
+}
+/* dropdown height + scroll */
+ /* الشكل الأساسي زي باقي الحقول */
+#locationSelect {
+  position: relative;
+  cursor: pointer;
+}
+
+/* اخفاء المحتوى لحد ما يتفتح */
+#locationSelect .dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 6px;
+  z-index: 999;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* لما يتفتح */
+#locationSelect.open .dropdown-content {
+  display: block;
+}
+
+/* scroll */
+#locationSelect .list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* search */
+#locationSelect .dropdown-search {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+#locationSearch {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+     </style>
+</head>
+<body>
+    <!-- header area -->
+    <header class="rts__section rts__header absolute__header">
+      <div class="container-none">
+        <div class="rts__menu__background">
+          <div class="row">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="rts__logo">
+                <a href="index.html">
+                  <img
+                    class="logo__image"
+                    src="assets/img/logo/jobs-ai-logo-02.png"
+                    width="160"
+                    height="40"
+                    alt="logo"
+                  />
+                </a>
+              </div>
+              <div
+                class="rts__menu d-flex gap-5 gap-lg-4 gap-xl-5 align-items-center"
+              >
+                <div class="navigation d-none d-lg-block">
+                  <nav class="navigation__menu" id="offcanvas__menu">
+                    <ul class="list-unstyled">
+                      <li class="navigation__menu--item">
+                        <a
+                          href="index.html"
+                          class="navigation__menu--item__link"
+                          data-en="Home"
+                          data-ar="الرئيسية"
+                          >Home</a
+                        >
+                      </li>
+
+                      <li class="navigation__menu--item">
+                        <a
+                          class="navigation__menu--item__link"
+                          href="pricing.html"
+                          data-en="Pricing"
+                          data-ar="الأشتراكات"
+                          >Pricing</a
+                        >
+                      </li>
+
+       <li class="navigation__menu--item">
+                        <a              
+                          class="atsMenuItem navigation__menu--item__link"
+                          href="ATS-main-page.html"
+                          data-en="Smart Hiring"
+                          data-ar="التوظيف الذكى"
+                          >Smart Hiring</a
+                        >
+                      </li>
+                            <li class="navigation__menu--item">
+                        <a              
+                          class="atsMenuItem navigation__menu--item__link"
+                          href=" job-list.html"
+                          data-en="Job List"
+                          data-ar=" قائمة الوظائف "
+                          >Job List</a
+                        >
+                      </li>
+                      <li class="navigation__menu--item has-child has-arrow">
+                        <a
+                          href="#"
+                          class="navigation__menu--item__link"
+                          data-en="Policies & Support"
+                          data-ar="السياسات والدعم"
+                          >Policies & Support</a
+                        >
+                        <ul class="submenu sub__style" role="menu">
+                          <li role="menuitem">
+                            <a
+                              href="about.html"
+                              data-en="About"
+                              data-ar="من نحن"
+                              >About</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="privacy.html"
+                              data-en="Privacy"
+                              data-ar="الخصوصية"
+                              >Privacy</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="faq.html"
+                              data-en="Faq"
+                              data-ar="الأسئلة الشائعة"
+                              >Faq</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a href="tos.html" data-en="Tos" data-ar="الشروط"
+                              >Tos</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="contact-us.html"
+                              data-en="Contact us"
+                              data-ar="اتصل بنا"
+                              >Contact us</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li class="navigation__menu--item">
+                        <a
+                          href="blogs.html"
+                          class="navigation__menu--item__link"
+                          data-en="Blog"
+                          data-ar="المدونة"
+                          >Blog</a
+                        >
+                      </li>
+                      <li id="profileMenu" class="profile-menu navigation__menu--item">
+                        <a
+                          href="profile.html"
+                          class="navigation__menu--item__link "
+                          data-en="User Profile"
+                          data-ar="الملف الشخصي"
+                          id="userName"
+                          >User Profile</a
+                        >
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+
+          <div class="header__right__btn d-flex gap-3 align-items-center">
+  
+  <!-- Login -->
+  <a
+    href="#"
+    id="login"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Login Button"
+    data-bs-toggle="modal"
+    data-bs-target="#loginModal"
+  >
+    <i class="fa-regular fa-user"></i>
+    <span id="authText" data-en="Sign In" data-ar="تسجيل الدخول">Sign In</span>
+  </a>
+
+  <!-- Logout -->
+  <a
+    href="#"
+    id="logout"
+    class="small__btn log-toggle d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Logout Button"
+    data-bs-toggle="modal"
+    data-bs-target="#logoutModal"
+  >
+    <i class="fal fa-sign-out"></i>
+    <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+  </a>
+
+
+ <!-- Language -->
+  <a
+    style="cursor: pointer"
+    id="lang-btn"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+  >
+    <i class="fa-solid fa-globe d-none d-sm-block"></i>
+    <span >الأنجليزية</span>
+  </a>
+
+  <!-- Hamburger Menu -->
+  <button
+    class="d-md-block d-lg-none"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvas"
+    aria-controls="offcanvas"
+  >
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+<!-- header area end -->
+    <!-- breadcrumb area -->
+    <div class="rts__section breadcrumb__background">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 position-relative d-flex justify-content-between align-items-center">
+                <div class="breadcrumb__area max-content breadcrumb__padding z-2">
+                    <h1 class="breadcrumb-title h3 mb-3">Job List</h1>
+                    <nav>
+                        <ul class="breadcrumb m-0 lh-1">
+                          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                          <li class="breadcrumb-item  " aria-current="page">Job List</li>
+                        </ul>
+                    </nav>                  
+                </div>
+                <div class="breadcrumb__area__shape d-flex gap-4 justify-content-end align-items-center">
+                    <div class="shape__one common">
+                        <img src="assets/img/breadcrumb/shape-1.svg" alt="">
+                    </div>
+                    <div class="shape__two common">
+                        <img src="assets/img/breadcrumb/shape-2.svg" alt="">
+                    </div>
+                    <div class="shape__three common">
+                        <img src="assets/img/breadcrumb/shape-3.svg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- breadcrumb area end -->
+
+    <!-- job list one -->
+<div class="rts__section section__padding">
+  <div class="container-fluid padding-75">
+    <div class="row g-30">
+
+      <!-- ================= LEFT FILTERS ================= -->
+      <div class="col-lg-4 col-xxl-3 col-xl-4">
+        <div class="job__search__section mb-40">
+          <form action="#" class="d-flex flex-column row-30">
+
+            <!-- Search -->
+            <div class="search__item">
+              <label class="mb-3 font-20 fw-medium text-dark text-capitalize">
+                Search By Job Title
+              </label>
+              <div class="position-relative">
+                <input type="text" id="search" placeholder="Enter Type Of job" />
+                <i class="fa-light fa-magnifying-glass"></i>
+              </div>
+            </div>
+
+            <!-- Location -->
+            <div class="search__item">
+              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize">
+                Search Location
+              </h6>
+
+              <div class="position-relative">
+         <div class="nice-select location" id="locationSelect" tabindex="0">
+  <span class="current">Search Location</span>
+
+  <div class="dropdown-content">
+    <div class="dropdown-search">
+      <input type="text" id="locationSearch" placeholder="Search location..." />
+    </div>
+
+    <ul class="list"></ul>
+  </div>
+</div>
+
+                <i class="fa-light fa-location-dot"></i>
+              </div>
+            </div>
+
+            <!-- Category (FIXED) -->
+            <div class="search__item">
+              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize">
+                Search By Job category
+              </h6>
+
+              <!-- مهم: container منفصل -->
+              <div class="search__item__list" id="tags"></div>
+            </div>
+
+            <!-- Date Posted (FIXED ID) -->
+            <div class="search__item">
+              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize">
+                Date posted
+              </h6>
+
+              <div class="position-relative">
+                <div class="nice-select" id="dateSelect">
+                  <span class="current">Date Posted</span>
+                  <ul class="list"></ul>
+                </div>
+                <i class="fa-light fa-clock"></i>
+              </div>
+            </div>
+
+            <!-- Job Type -->
+            <div class="search__item">
+              <div class="mb-3 font-20 fw-medium text-dark text-capitalize">
+                job type
+              </div>
+
+              <div class="search__item__list">
+                <!-- JS هيملأها -->
+              </div>
+            </div>
+
+            <!-- Salary -->
+            <div class="search__item salary-range">
+              <div class="mb-3 font-20 fw-medium text-dark text-capitalize">
+                salary offered
+              </div>
+
+              <div class="search__item__list" id="salaryContainer"></div>
+            </div>
+
+            <button
+              type="submit"
+              class="rts__btn no__fill__btn max-content mx-auto job__search__btn font-sm"
+            >
+              Find Job
+            </button>
+
+          </form>
+        </div>
+
+        <!-- ================= ALERT ================= -->
+        <div class="job__aleart job__search__section">
+          <form action="#" class="d-flex flex-column row-30">
+
+            <div class="search__item">
+              <label class="mb-3 font-20 fw-medium text-dark text-capitalize">
+                Job Alert
+              </label>
+              <div class="position-relative">
+                <input type="text" placeholder="Enter Type Of job" />
+                <i class="fa-light fa-magnifying-glass"></i>
+              </div>
+            </div>
+
+            <div class="search__item no-icon">
+              <h6 class="mb-3 font-20 fw-medium text-dark text-capitalize">
+                EmailFrequency
+              </h6>
+
+              <div class="position-relative">
+                <div class="nice-select">
+                  <span class="current">Daily</span>
+                  <ul class="list">
+                    <li class="option selected">Daily</li>
+                    <li class="option">Weekly</li>
+                    <li class="option">Monthly</li>
+                    <li class="option">Tri-Weekly</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="rts__btn fill__btn py-3 rounded-2 job__search"
+            >
+              Save Job Alert
+            </button>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= RIGHT SIDE ================= -->
+      <div class="col-lg-8 col-xl-8 col-xxl-9">
+
+        <div class="top__query mb-40 d-flex flex-wrap justify-content-between align-items-center">
+          <span class="text-dark font-20 fw-medium">
+            Showing results
+          </span>
+        </div>
+
+        <div class="row g-30 is__style__five" id="jobsContainer"></div>
+
+        <div class="rts__pagination rounded__pagination mx-auto pt-60 max-content">
+          <ul class="d-flex gap-2 pagination-list"></ul>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+     </div>
+    <!-- job list one end -->
+<div class="modal similar__modal fade" id="loginModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="max-content similar__form form__padding">
+
+        <div class="d-flex mb-3 align-items-center justify-content-between">
+          <h6 class="mb-0" data-en="Login To JobsAI" data-ar="تسجيل الدخول إلى JobsAI">
+            Login To JobsAI
+          </h6>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-regular fa-xmark text-primary"></i>
+          </button>
+        </div>
+
+        <div class="d-block has__line text-center">
+          <p data-en="Choose your login method" data-ar="اختر طريقة تسجيل الدخول">Choose your login method</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tab__switch flex-wrap flex-sm-nowrap nav-tab mt-30 mb-30" role="tablist">
+          <button
+            class="rts__btn nav-link active"
+            id="phone-tab"
+            data-en="Phone"
+            data-ar="الهاتف"
+            data-bs-toggle="tab"
+            data-bs-target="#phoneTab"
+            type="button"
+            role="tab"
+          >
+            <i class="fa-light fa-phone"></i> Phone
+          </button>
+          <button
+            class="rts__btn nav-link"
+            id="mail-tab"
+            data-ar="البريد"
+            data-en="Mail"
+            data-bs-toggle="tab"
+            data-bs-target="#mailTab"
+            type="button"
+            role="tab"
+          >
+            <i class="fa-light fa-envelope"></i> Mail
+          </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+
+          <!-- PHONE LOGIN -->
+          <div class="tab-pane fade show active" id="phoneTab" role="tabpanel" aria-labelledby="phone-tab">
+            <form method="post" id="loginFormPhone" class="d-flex flex-column gap-3">
+              
+              <div class="form-group">
+                <label for="phone" class="fw-medium text-dark mb-3"
+                  data-en="Your Phone"
+                  data-ar="رقم هاتفك"
+                >Your Phone</label>
+
+                <div class="position-relative">
+                  <input
+                    type="number"
+                    name="phone"
+                    id="phone"
+                    class="input-login-phone"
+                    placeholder="Enter your phone"
+                    data-en="Enter your phone"
+                    data-ar="أدخل رقم هاتفك"
+                    required
+                  />
+                  <i class="fa-light fa-phone icon"></i>
+                </div>
+              </div>
+
+              <!-- OTP Section -->
+              <div class="form-group d-none" id="otpSection">
+                <label for="otp" class="fw-medium text-dark mb-3"
+                  data-en="Enter OTP"
+                  data-ar="أدخل رمز التحقق"
+                >Enter OTP</label>
+
+                <div class="position-relative">
+                  <input
+                    type="number"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    autocomplete="one-time-code"
+                    placeholder="Enter OTP"
+                    data-en="Enter OTP"
+                    data-ar="أدخل رمز التحقق"
+                    id="otp"
+                    maxlength="6"
+                    class="opt-clean"
+                  />
+                  <i class="fa-light fa-shield icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group my-3">
+                <button
+                  class="rts__btn w-100 fill__btn"
+                  type="button"
+                  id="sendOtpBtnLogin"
+                  data-en="Send OTP"
+                  data-ar="إرسال رمز التحقق"
+                >
+                  Send OTP
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- EMAIL OR PHONE + PASSWORD LOGIN -->
+          <div class="tab-pane fade" id="mailTab" role="tabpanel" aria-labelledby="mail-tab">
+            <form method="post" id="loginFormMail" class="d-flex flex-column gap-3">
+
+              <div class="form-group">
+                <label for="email" class="fw-medium text-dark mb-3"
+                  data-en="Email or Phone"
+                  data-ar="البريد الإلكتروني أو الهاتف"
+                >Email or Phone</label>
+
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="Enter your phone or email"
+                    data-en="Enter your phone or email"
+                    data-ar="أدخل رقم هاتفك أو بريدك الإلكتروني"
+                    required
+                  />
+                  <i class="fa-light fa-user icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="password" class="fw-medium text-dark mb-3"
+                  data-en="Password"
+                  data-ar="كلمة المرور"
+                >Password</label>
+
+                <div class="position-relative">
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    data-en="Enter your password"
+                    data-ar="أدخل كلمة المرور"
+                    required
+                  />
+                  <i class="fa-light fa-lock icon"></i>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-between align-items-center fw-medium">
+<!-- 
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="flexCheckDefault" />
+                  <label
+                    class="form-check-label"
+                    for="flexCheckDefault"
+                    data-en="Remember me"
+                    data-ar="تذكرني"
+                  >
+                    Remember me
+                  </label>
+                </div> -->
+
+                <!-- <a
+                  href="#"
+                  class="forgot__password text-para"
+                  data-bs-toggle="modal"
+                  data-bs-target="#forgotModal"
+                  data-en="Forgot Password?"
+                  data-ar="هل نسيت كلمة المرور؟"
+                >
+                  Forgot Password?
+                </a> -->
+
+              </div>
+
+              <div class="form-group my-3">
+                <button
+                  class="rts__btn w-100 fill__btn"
+                  type="submit"
+                  data-en="Login"
+                  data-ar="تسجيل الدخول"
+                >
+                  Login
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+    <div data-include="layout/footer.html"></div>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-header p-0 mb-5 mt-4">
+      <a href="index.html" class="offcanvas-title" id="offcanvasLabel">
+        <img src="assets/img/logo/header__one.svg" alt="logo">
+      </a> 
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <!-- login offcanvas -->
+     <div class="mb-4 d-block d-sm-none">
+      <div class="header__right__btn d-flex justify-content-center gap-3">
+        <a href="#" class="small__btn no__fill__btn border-6 font-xs" aria-label="Login Button" data-bs-toggle="modal" data-bs-target="#loginModal"> <i class="rt-login"></i>Sign In</a>
+        <a href="#" class="small__btn d-xl-flex fill__btn border-6 font-xs" aria-label="Job Posting Button">Add Job</a>
+    </div>
+     </div>
+    <div class="offcanvas-body p-0">
+      <div class="rts__offcanvas__menu overflow-hidden">
+        <div class="offcanvas__menu"></div>
+      </div>
+      <p class="max-auto font-20 fw-medium text-center text-decoration-underline mt-4">Our Social Links</p>
+      <div class="rts__social d-flex justify-content-center gap-3 mt-3">
+    <a href="https://facebook.com"  aria-label="facebook">
+        <i class="fa-brands fa-facebook"></i>
+    </a>
+    <a href="https://instagram.com"  aria-label="instagram">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+    <a href="https://linkedin.com"  aria-label="linkedin">
+        <i class="fa-brands fa-linkedin"></i>
+    </a>
+    <a href="https://pinterest.com"  aria-label="pinterest">
+        <i class="fa-brands fa-pinterest"></i>
+    </a>
+    <a href="https://youtube.com"  aria-label="youtube">
+        <i class="fa-brands fa-youtube"></i>
+    </a>
+</div>
+    </div>
+  </div>
+<!-- THEME PRELOADER START -->
+<div class="loader-wrapper">
+    <div class="loader">
+    </div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- THEME PRELOADER END -->
+<button type="button" class="rts__back__top" id="rts-back-to-top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+<!-- all plugin js -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="assets/js/plugins.min.js"></script>
+<script type ="module" src="assets/js/login.js"></script>
+<script type="module" src="assets/js/newsletter.js"></script>
+<script type="module" src="assets/js/jobList.js"></script>
+<script   src="assets/js/main.js"></script>
+</body>
+</html>
