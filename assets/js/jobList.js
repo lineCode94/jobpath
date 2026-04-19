@@ -266,9 +266,9 @@ function getSalaries() {
 
           <div class="job__meta d-flex flex-column gap-2">
             <a class="job__title h6 mb-0">
-              ${title} - ${company}
+              ${title} 
             </a>
-
+<span>${company}</span>
             <div class="d-flex gap-3 flex-wrap mb-2">
               <div>${location || "-"}</div>
               <div>${type || "-"}</div>
