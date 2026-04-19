@@ -347,13 +347,39 @@ function activateCardClicks() {
 
     const targetPage = parseInt(link.dataset.page);
     if (!targetPage) return;
-
+renderSkeleton();
     const data = await fetchJobs(targetPage);
     if (!data) return;
 
     renderJobs(data.jobs);
     renderPagination(data.pagination);
   });
+  // skeleton loading
+  function renderSkeleton(count = 6) {
+    container.innerHTML = "";
+
+    for (let i = 0; i < count; i++) {
+      container.innerHTML += `
+      <div class="col-lg-12 col-xxl-6">
+        <div class="rts__job__card__big style__gradient d-flex gap-4 align-items-center">
+          
+          <div class="company__icon skeleton skeleton-img"></div>
+
+          <div class="job__meta d-flex flex-column gap-2 w-100">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text"></div>
+
+            <div class="d-flex gap-3">
+              <div class="skeleton skeleton-text"></div>
+              <div class="skeleton skeleton-text"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    `;
+    }
+  }
 
   /* ================= SUBMIT FILTER ================= */
   form.addEventListener("submit", async (e) => {
@@ -376,7 +402,7 @@ function activateCardClicks() {
     )?.textContent;
 
     filters.datePosted = dateText === "Date Posted" ? "" : dateText;
-
+renderSkeleton();
     const data = await fetchJobs(1);
     if (!data) return;
 
@@ -390,7 +416,7 @@ function activateCardClicks() {
     applyFiltersUI(filtersData);
     enableLocationSearch();
   }
-
+renderSkeleton();
   const data = await fetchJobs(1);
   if (!data) return;
 

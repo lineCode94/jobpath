@@ -12777,3 +12777,45 @@ input[type="number"] {
   font-size: 13px;
   color: #0066ff;
 }
+/* Skeleton Base */
+.skeleton {
+  background: #e2e2e2;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer Effect */
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150px;
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(90deg, transparent, #ffffff70, transparent);
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}
+
+/* Specific Shapes */
+.skeleton-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.skeleton-title {
+  width: 60%;
+  height: 14px;
+}
+
+.skeleton-text {
+  width: 40%;
+  height: 12px;
+}
