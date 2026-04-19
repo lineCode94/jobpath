@@ -240,3 +240,4 @@ html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
 [dir="rtl"] .nav-btn.btn-next i.fas.fa-arrow-right {
     transform: rotate(180deg)!important;
 }
+.form-job-list{direction: ltr!important;}
