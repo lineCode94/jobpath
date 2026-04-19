@@ -355,7 +355,7 @@ renderSkeleton();
     renderPagination(data.pagination);
   });
   // skeleton loading
-  function renderSkeleton(count = 6) {
+  function renderSkeleton(count = 10) {
     container.innerHTML = "";
 
     for (let i = 0; i < count; i++) {
