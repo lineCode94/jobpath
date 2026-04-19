@@ -244,38 +244,57 @@ function getSalaries() {
 }
 
   /* ================= RENDER JOBS ================= */
-  function renderJobs(jobs) {
-    container.innerHTML = "";
+ function renderJobs(jobs) {
+   container.innerHTML = "";
 
-    jobs.forEach((job) => {
-      const title = lang === "ar" ? job.titleAR : job.titleEN;
-      const company = lang === "ar" ? job.companyName : job.companyNameEN;
-      const location = lang === "ar" ? job.locationAR : job.locationEN;
-      const type = lang === "ar" ? job.employmentType : job.employmentTypeEN;
+   jobs.forEach((job) => {
+     const title = lang === "ar" ? job.titleAR : job.titleEN;
+     const company = lang === "ar" ? job.companyName : job.companyNameEN;
+     const location = lang === "ar" ? job.locationAR : job.locationEN;
+     const type = lang === "ar" ? job.employmentType : job.employmentTypeEN;
+ 
+     container.innerHTML += `
+      <div class="col-lg-12 col-xxl-6">
+        <div 
+          class="rts__job__card__big style__gradient d-flex gap-4 align-items-center job-card"
+          data-job-id="${job.jobId}"
+        >
+          <div class="company__icon">
+        
+            <img src="assets/img/home-1/company/google.svg">
+          </div>
 
-      container.innerHTML += `
-        <div class="col-lg-12 col-xxl-6">
-          <div class="rts__job__card__big style__gradient d-flex gap-4 align-items-center">
-            <div class="company__icon">
-              <img src="assets/img/home-1/company/google.svg">
-            </div>
+          <div class="job__meta d-flex flex-column gap-2">
+            <a class="job__title h6 mb-0">
+              ${title} - ${company}
+            </a>
 
-            <div class="job__meta d-flex flex-column gap-2">
-              <a class="job__title h6 mb-0">
-                ${title} - ${company}
-              </a>
-
-              <div class="d-flex gap-3 flex-wrap mb-2">
-                <div>${location || "-"}</div>
-                <div>${type || "-"}</div>
-              </div>
+            <div class="d-flex gap-3 flex-wrap mb-2">
+              <div>${location || "-"}</div>
+              <div>${type || "-"}</div>
             </div>
           </div>
         </div>
-      `;
-    });
-  }
+      </div>
+    `;
+   });
 
+   // 👇 السطر الجديد فقط
+   activateCardClicks();
+ }
+function activateCardClicks() {
+  document.querySelectorAll(".job-card").forEach((card) => {
+    card.style.cursor = "pointer";
+
+    card.addEventListener("click", () => {
+      const jobId = card.getAttribute("data-job-id");
+ 
+      const lang = localStorage.getItem("lang") || "en";
+
+      window.location.href = `job-details.html?id=${jobId}&lang=${lang}`;
+    });
+  });
+}
   /* ================= PAGINATION ================= */
   function renderPagination({ page, totalPages }) {
     currentPage = page;
