@@ -241,3 +241,6 @@ html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
     transform: rotate(180deg)!important;
 }
 .form-job-list{direction: ltr!important;}
+.rt-chevron-left{transform: rotate(180deg)!important;
+}
+.rt-chevron-right{transform: rotate(180deg)!important;
