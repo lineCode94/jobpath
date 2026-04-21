@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JobzAI LinkedIn Profile Enhancer</title>
+  <style>
+    :root{
+      --bg:#f6fbf7;
+      --bg-soft:#eef8f0;
+      --card:#ffffff;
+      --line:#d8eadb;
+      --text:#163126;
+      --muted:#5f7c6d;
+      --primary:#2f9e62;
+      --primary-soft:#e5f7ed;
+      --accent:#76c893;
+      --chip:#edf8f1;
+      --shadow:0 16px 40px rgba(24, 78, 48, 0.10);
+      --radius:24px;
+      --radius-sm:16px;
+      --max:1320px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:Inter, "Segoe UI", Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(118,200,147,.16), transparent 28%),
+        linear-gradient(180deg, #f8fcf8 0%, #eef8f0 100%);
+      min-height:100vh;
+    }
+    body[dir="rtl"]{font-family:"Cairo","Segoe UI",Tahoma,Arial,sans-serif}
+
+    .container{width:min(calc(100% - 28px), var(--max)); margin:0 auto;}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background:rgba(248,252,248,.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:18px 0; flex-wrap:wrap;
+    }
+    .brand{display:flex; align-items:center; gap:14px}
+    .brand-mark{
+      width:50px;height:50px;border-radius:18px;display:grid;place-items:center;
+      background:linear-gradient(135deg, var(--primary), var(--accent));
+      color:#fff;font-weight:900;box-shadow:var(--shadow)
+    }
+    .brand h1{margin:0 0 4px;font-size:20px;font-weight:800}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap}
+    .toolbar select,.toolbar button{
+      height:44px;border-radius:14px;border:1px solid var(--line);
+      background:#fff;color:var(--text);padding:0 16px;cursor:pointer;
+      font-weight:700;
+    }
+    .toolbar .primary{
+      background:linear-gradient(135deg, var(--primary), #4fb477);
+      color:#fff;border:none;
+    }
+
+    .hero{padding:34px 0 18px}
+    .hero-card{
+      background:linear-gradient(180deg, #ffffff, #f9fdf9);
+      border:1px solid var(--line); border-radius:30px; box-shadow:var(--shadow);
+      padding:30px; overflow:hidden; position:relative;
+    }
+    .hero-card:before{
+      content:""; position:absolute; right:-80px; top:-60px; width:240px; height:240px;
+      border-radius:50%; background:radial-gradient(circle, rgba(118,200,147,.25), transparent 65%);
+    }
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+      background:var(--primary-soft); color:var(--primary); border:1px solid #cfe8d7;
+      font-size:12px; font-weight:800; margin-bottom:16px;
+    }
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}
+    .hero h2{margin:0 0 12px;font-size:34px;line-height:1.15;max-width:780px}
+    .hero .lead{margin:0 0 22px;color:var(--muted);line-height:1.9;font-size:15px;max-width:830px}
+    .headline-box{
+      border-radius:22px; padding:18px; background:var(--primary-soft); border:1px solid #d5efde;
+    }
+    .headline-label{color:var(--primary);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+    .headline-value{font-size:25px;font-weight:800;line-height:1.5}
+
+    .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .quick-card{
+      background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;min-height:104px;
+    }
+    .quick-card .label{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:800}
+    .quick-card .value{font-size:14px;line-height:1.8;font-weight:700}
+
+    .layout{padding:20px 0 48px;display:grid;grid-template-columns:280px 1fr;gap:20px}
+    .sidebar{
+      position:sticky;top:92px;align-self:start;background:#fff;border:1px solid var(--line);
+      border-radius:24px;padding:20px;box-shadow:var(--shadow);
+    }
+    .sidebar h3{margin:0 0 14px;font-size:16px}
+    .nav{display:flex;flex-direction:column;gap:8px}
+    .nav a{
+      text-decoration:none;color:var(--text);padding:12px 14px;border-radius:14px;
+      background:#f8fcf8;border:1px solid transparent;font-size:14px;transition:.18s ease;
+    }
+    .nav a:hover,.nav a.active{background:var(--primary-soft);border-color:#cde7d6;transform:translateY(-1px)}
+    .copy-panel{
+      margin-top:18px;padding:16px;border-radius:18px;background:var(--bg-soft);
+      border:1px solid var(--line);
+    }
+    .copy-panel p{margin:0 0 14px;color:var(--muted);line-height:1.8;font-size:13px}
+    .copy-panel button{
+      width:100%;height:42px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--primary),#58b67e);
+      color:#fff;font-weight:800;cursor:pointer;
+    }
+
+    .main{display:grid;gap:18px}
+    .section{
+      scroll-margin-top:94px;background:#fff;border:1px solid var(--line);
+      border-radius:26px;box-shadow:var(--shadow);padding:24px;
+    }
+    .section-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+    .section-title{margin:0;font-size:23px;font-weight:800}
+    .section-subtitle{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.8}
+    .section-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .ghost-btn{
+      height:40px;border:none;border-radius:12px;padding:0 14px;background:#f8fcf8;
+      border:1px solid var(--line);color:var(--text);cursor:pointer;font-weight:800;
+    }
+
+    .content-grid-2{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:16px}
+    .card{border-radius:20px;padding:18px;background:#fbfefb;border:1px solid var(--line);min-height:100px}
+    .card h4{margin:0 0 10px;font-size:15px}
+    .text{color:var(--text);line-height:1.9;font-size:15px;white-space:pre-line}
+
+    .chip-wrap{display:flex;flex-wrap:wrap;gap:10px}
+    .chip{
+      display:inline-flex;align-items:center;padding:10px 12px;border-radius:999px;
+      background:var(--chip);color:var(--text);border:1px solid var(--line);font-size:13px;font-weight:800;
+    }
+
+    .item-list{display:grid;gap:14px}
+    .item{border-radius:20px;padding:18px;background:#fbfefb;border:1px solid var(--line)}
+    .item-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+    .item-title{margin:0;font-size:17px;font-weight:800}
+    .item-sub{color:var(--muted);font-size:13px;font-weight:800;margin-top:4px}
+    .meta-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+    .meta-pill{padding:10px 12px;border-radius:14px;background:var(--bg-soft);border:1px solid var(--line);font-size:13px;color:var(--muted)}
+    .footer-note{margin-top:12px;color:var(--muted);font-size:13px;line-height:1.8}
+
+    @media (max-width:1180px){
+      .layout{grid-template-columns:1fr}
+      .sidebar{position:relative;top:0}
+    }
+    @media (max-width:980px){
+      .hero-grid,.content-grid-2,.quick-grid,.meta-row{grid-template-columns:1fr}
+      .hero h2{font-size:29px}
+      .headline-value{font-size:22px}
+    }
+    @media (max-width:640px){
+      .container{width:min(calc(100% - 18px), var(--max))}
+      .hero-card,.section,.sidebar{padding:18px}
+      .toolbar{width:100%}
+      .toolbar select,.toolbar button,.section-actions .ghost-btn{width:100%}
+    }
+  </style>
+</head>
+<body dir="ltr">
+   <header class="rts__section rts__header absolute__header">
+      <div class="container-none">
+        <div class="rts__menu__background">
+          <div class="row">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="rts__logo">
+                <a href="index.html">
+                  <img
+                    class="logo__image"
+                    src="assets/img/logo/jobs-ai-logo-02.png"
+                    width="160"
+                    height="40"
+                    alt="logo"
+                  />
+                </a>
+              </div>
+              <div
+                class="rts__menu d-flex gap-5 gap-lg-4 gap-xl-5 align-items-center"
+              >
+                <div class="navigation d-none d-lg-block">
+                  <nav class="navigation__menu" id="offcanvas__menu">
+                    <ul class="list-unstyled">
+                      <li class="navigation__menu--item">
+                        <a
+                          href="index.html"
+                          class="navigation__menu--item__link"
+                          data-en="Home"
+                          data-ar="الرئيسية"
+                          >Home</a
+                        >
+                      </li>
+
+                      <li class="navigation__menu--item">
+                        <a
+                          class="navigation__menu--item__link"
+                          href="pricing.html"
+                          data-en="Pricing"
+                          data-ar="الأشتراكات"
+                          >Pricing</a
+                        >
+                      </li>
+
+       <li class="navigation__menu--item">
+                        <a              
+                          class="atsMenuItem navigation__menu--item__link"
+                          href="ATS-main-page.html"
+                          data-en="Smart Hiring"
+                          data-ar="التوظيف الذكى"
+                          >Smart Hiring</a
+                        >
+                      </li>
+                            <li class="navigation__menu--item">
+                        <a              
+                          class="atsMenuItem navigation__menu--item__link"
+                          href=" job-list.html"
+                          data-en="Job List"
+                          data-ar=" قائمة الوظائف "
+                          >Job List</a
+                        >
+                      </li>
+                      <li class="navigation__menu--item has-child has-arrow">
+                        <a
+                          href="#"
+                          class="navigation__menu--item__link"
+                          data-en="Policies & Support"
+                          data-ar="السياسات والدعم"
+                          >Policies & Support</a
+                        >
+                        <ul class="submenu sub__style" role="menu">
+                          <li role="menuitem">
+                            <a
+                              href="about.html"
+                              data-en="About"
+                              data-ar="من نحن"
+                              >About</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="privacy.html"
+                              data-en="Privacy"
+                              data-ar="الخصوصية"
+                              >Privacy</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="faq.html"
+                              data-en="Faq"
+                              data-ar="الأسئلة الشائعة"
+                              >Faq</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a href="tos.html" data-en="Tos" data-ar="الشروط"
+                              >Tos</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="contact-us.html"
+                              data-en="Contact us"
+                              data-ar="اتصل بنا"
+                              >Contact us</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li class="navigation__menu--item">
+                        <a
+                          href="blogs.html"
+                          class="navigation__menu--item__link"
+                          data-en="Blog"
+                          data-ar="المدونة"
+                          >Blog</a
+                        >
+                      </li>
+                      <li id="profileMenu" class="profile-menu navigation__menu--item">
+                        <a
+                          href="profile.html"
+                          class="navigation__menu--item__link "
+                          data-en="User Profile"
+                          data-ar="الملف الشخصي"
+                          id="userName"
+                          >User Profile</a
+                        >
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+
+          <div class="header__right__btn d-flex gap-3 align-items-center">
+  
+  <!-- Login -->
+  <a
+    href="#"
+    id="login"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Login Button"
+    data-bs-toggle="modal"
+    data-bs-target="#loginModal"
+  >
+    <i class="fa-regular fa-user"></i>
+    <span id="authText" data-en="Sign In" data-ar="تسجيل الدخول">Sign In</span>
+  </a>
+
+  <!-- Logout -->
+  <a
+    href="#"
+    id="logout"
+    class="small__btn log-toggle d-sm-flex no__fill__btn border-6 font-xs"
+    aria-label="Logout Button"
+    data-bs-toggle="modal"
+    data-bs-target="#logoutModal"
+  >
+    <i class="fal fa-sign-out"></i>
+    <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span>
+  </a>
+
+
+ <!-- Language -->
+  <a
+    style="cursor: pointer"
+    id="lang-btn"
+    class="small__btn d-sm-flex no__fill__btn border-6 font-xs"
+  >
+    <i class="fa-solid fa-globe d-none d-sm-block"></i>
+    <span >الأنجليزية</span>
+  </a>
+
+  <!-- Hamburger Menu -->
+  <button
+    class="d-md-block d-lg-none"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvas"
+    aria-controls="offcanvas"
+  >
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  <div class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="eyebrow" id="eyebrow">LinkedIn-ready output</div>
+
+        <div class="hero-grid">
+          <div>
+            <h2 id="heroTitle">Professional sections the user can copy and paste directly into LinkedIn</h2>
+            <p class="lead" id="heroLead">This page displays only the polished LinkedIn profile sections in Arabic or English. It is designed for fast review, easy copy, and direct manual paste into LinkedIn.</p>
+
+            <div class="headline-box">
+              <div class="headline-label" id="headlineLabel">Headline</div>
+              <div class="headline-value" id="headlineValue"></div>
+            </div>
+          </div>
+
+          <div class="quick-grid">
+            <div class="quick-card">
+              <div class="label" id="qp1Label">Current Position</div>
+              <div class="value" id="qp1Value"></div>
+            </div>
+            <div class="quick-card">
+              <div class="label" id="qp2Label">Location</div>
+              <div class="value" id="qp2Value"></div>
+            </div>
+            <div class="quick-card">
+              <div class="label" id="qp3Label">Industry</div>
+              <div class="value" id="qp3Value"></div>
+            </div>
+            <div class="quick-card">
+              <div class="label" id="qp4Label">Education</div>
+              <div class="value" id="qp4Value"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <h3 id="sidebarTitle">Sections</h3>
+          <nav class="nav" id="sideNav">
+            <a href="#profile-intro" class="active">Profile Intro</a>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#featured">Featured</a>
+            <a href="#skills">Skills</a>
+            <a href="#education">Education</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#projects">Projects</a>
+          </nav>
+
+          <div class="copy-panel">
+            <p id="copyPanelText">Switch the language, review the content, then copy a single section or copy all sections at once.</p>
+            <button id="copyAllBtnSide">Copy All Sections</button>
+          </div>
+        </aside>
+
+        <main class="main">
+          <section class="section" id="profile-intro">
+            <div class="section-header">
+              <div>
+                <h3 class="section-title" id="profileIntroTitle">Profile Intro</h3>
+                <p class="section-subtitle" id="profileIntroSubtitle">Main LinkedIn intro fields prepared clearly for direct copy and paste.</p>
+              </div>
+              <div class="section-actions">
+                <button class="ghost-btn copy-section" data-copy="profileIntro">Copy Section</button>
+              </div>
+            </div>
+            <div class="content-grid-2" id="profileIntroGrid"></div>
+          </section>
+
+          <section class="section" id="about">
+            <div class="section-header">
+              <div>
+                <h3 class="section-title" id="aboutTitle">About</h3>
+                <p class="section-subtitle" id="aboutSubtitle">One polished professional summary ready for LinkedIn.</p>
+              </div>
+              <div class="section-actions">
+                <button class="ghost-btn copy-section" data-copy="about">Copy Section</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="text" id="aboutContent"></div>
+            </div>
+          </section>
+
+          <section class="section" id="experience">
+            <div class="section-header">
+              <div>
+                <h3 class="section-title" id="experienceTitle">Experience</h3>
+                <p class="section-subtitle" id="experienceSubtitle">Each role is rewritten professionally and ready to paste into LinkedIn.</p>
+              </div>
+              <div class="section-actions">
+                <button class="ghost-btn copy-section" data-copy="experience">Copy Section</button>
+              </div>
+            </div>
+            <div class="item-list" id="experienceList"></div>
+          </section>
+
+          <section class="section" id="featured">
+            <div class="section-header">
+              <div>
+                <h3 class="section-title" id="featuredTitle">Featured</h3>
+                <p class="section-subtitle" id="featuredSubtitle">Suggested featured items such as a resume, GitHub, portfolio, or project link.</p>
+              </div>
+              <div class="section-actions">
+                <button class="ghost-btn copy-section" data-copy="featured">Copy Section</button>
+              </div>
+            </div>
+            <div class="item-list" id="featuredList"></div>
+          </section>
+
+          <section class="section" id="skills">
+            <div class="section-header">
+              <div>
+                <h3 class="section-title" id="skillsTitle">Skills</h3>
+                <p class="section-subtitle" id="skillsSubtitle">Professionally ordered skills prepared for LinkedIn Skills.</p>
+              </div>
+              <div class="section-actions">
+                <button class="ghost-btn copy-section" data-copy="skills">Copy Section</button>
+              </div>
+            </div>
+            <div class="card"><div class="chip-wrap" id="skillsList"></div></div>
+          </section>
+
+          <section class="section" id="education">
+            <div class="section-header">
+              <div>
+                <h3 class="section-title" id="educationTitle">Education</h3>
+                <p class="section-subtitle" id="educationSubtitle">Clean education wording formatted for LinkedIn profile entry.</p>
+              </div>
+              <div class="section-actions">
+                <button class="ghost-btn copy-section" data-copy="education">Copy Section</button>
+              </div>
+            </div>
+            <div class="item-list" id="educationList"></div>
+          </section>
+
+          <section class="section" id="certifications">
+            <div class="section-header">
+              <div>
+                <h3 class="section-title" id="certificationsTitle">Certifications</h3>
+                <p class="section-subtitle" id="certificationsSubtitle">Ready-to-paste certification entries in a clean professional style.</p>
+              </div>
+              <div class="section-actions">
+                <button class="ghost-btn copy-section" data-copy="certifications">Copy Section</button>
+              </div>
+            </div>
+            <div class="item-list" id="certificationsList"></div>
+          </section>
+
+          <section class="section" id="projects">
+            <div class="section-header">
+              <div>
+                <h3 class="section-title" id="projectsTitle">Projects</h3>
+                <p class="section-subtitle" id="projectsSubtitle">LinkedIn-ready project entries with concise professional wording.</p>
+              </div>
+              <div class="section-actions">
+                <button class="ghost-btn copy-section" data-copy="projects">Copy Section</button>
+              </div>
+            </div>
+            <div class="item-list" id="projectsList"></div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const resultData = {"success": true, "requestId": "lnkopt_20260412_0001", "languageMode": "bilingual", "sourceType": "cv_or_summary", "generatedAtUtc": "2026-04-12T09:45:00Z", "provider": "openai", "model": "gpt-5.4", "candidateProfile": {"fullName": {"ar": "رامي مصطفى", "en": "Ramy Mostafa"}, "primaryLanguage": "ar", "secondaryLanguage": "en", "targetRole": {"ar": "مطور .NET أول / مهندس تكامل أنظمة", "en": "Senior .NET Developer / Systems Integration Engineer"}}, "profileIntro": {"ar": {"headline": "مطور .NET أول | تكامل الأنظمة وواجهات API | SQL Server | حلول مؤسسية واتصالات رقمية", "currentPosition": "المدير التنفيذي - Gharra Telecom", "educationDisplayLine": "بكالوريوس علوم الحاسب", "location": "الرياض، المملكة العربية السعودية", "industry": "تطوير البرمجيات وحلول الاتصالات والخدمات الرقمية", "contactInfoWording": "يفضل استخدام بريد إلكتروني مهني ورابط موقع شخصي أو GitHub إذا كان متاحًا.", "openToWorkOrServices": "مفتوح للأدوار المتعلقة بتطوير الأنظمة الخلفية، تكامل الأنظمة، حلول .NET المؤسسية، والخدمات التقنية الاستشارية."}, "en": {"headline": "Senior .NET Developer | API Integration | SQL Server | Enterprise Software & Digital Telecom Solutions", "currentPosition": "Executive Manager - Gharra Telecom", "educationDisplayLine": "Bachelor’s Degree in Computer Science", "location": "Riyadh, Saudi Arabia", "industry": "Software Development, Telecom Solutions, and Digital Services", "contactInfoWording": "Use a professional email address and add a personal website or GitHub link if available.", "openToWorkOrServices": "Open to backend engineering, systems integration, enterprise .NET solution roles, and technical consulting engagements."}}, "about": {"ar": {"content": "مطور .NET محترف يتمتع بخبرة قوية في بناء الأنظمة المؤسسية، تكامل واجهات البرمجة، تطوير خدمات Windows، وإدارة قواعد البيانات باستخدام SQL Server. أمتلك خبرة عملية في حلول الاتصالات والخدمات الرقمية مع تركيز واضح على الاعتمادية، القابلية للتوسع، وتحسين جودة التكامل بين الأنظمة الداخلية والخارجية. أسعى دائمًا إلى تقديم حلول تقنية مستقرة وفعالة تدعم أهداف العمل وتُحسن الأداء التشغيلي."}, "en": {"content": "Results-driven .NET professional with strong experience in enterprise system development, API integration, Windows Services, and SQL Server-based platforms. Proven background in telecom and digital service solutions, with a clear focus on reliability, scalability, and improving integration quality across internal and external systems. Committed to delivering stable, business-aligned technical solutions that enhance operational performance and long-term maintainability."}}, "experience": {"ar": [{"order": 1, "jobTitle": "المدير التنفيذي", "companyName": "Gharra Telecom", "employmentPeriod": "2018 - حتى الآن", "location": "الرياض، السعودية", "linkedinReadyContent": "قيادة المبادرات التقنية والإشراف على تطوير الأنظمة والخدمات الرقمية، مع التركيز على تكامل الأنظمة، تحسين الاعتمادية التشغيلية، ودعم حلول قابلة للتوسع تخدم احتياجات الأعمال وقطاع الاتصالات. شمل الدور متابعة جودة التنفيذ التقني، دعم تكامل الخدمات مع الأنظمة الخارجية، وتحسين كفاءة العمليات التقنية بما يضمن استقرار المنصات والخدمات.", "highlightBullets": ["الإشراف على تطوير حلول برمجية تخدم خدمات الاتصالات والرسائل الرقمية.", "تحسين جودة التكامل بين الأنظمة الداخلية والخارجية ودعم استقرار الخدمات.", "المساهمة في تقديم حلول تقنية قابلة للتوسع وموجهة لاحتياجات العمل."]}, {"order": 2, "jobTitle": "مطور .NET", "companyName": "شركة حلول رقمية", "employmentPeriod": "2010 - 2018", "location": "الرياض، السعودية", "linkedinReadyContent": "تطوير تطبيقات وخدمات خلفية باستخدام .NET وSQL Server، وتنفيذ تكاملات مع واجهات برمجة تطبيقات خارجية، والعمل على تحسين الأداء، تسجيل العمليات، واستقرار النظام. تركز العمل على بناء حلول عملية وقابلة للصيانة لدعم متطلبات تشغيلية وتجارية متنوعة.", "highlightBullets": ["تطوير خدمات وتطبيقات خلفية باستخدام C# وASP.NET.", "تنفيذ تكاملات احترافية مع APIs خارجية وأنظمة طرف ثالث.", "تحسين الأداء التشغيلي ومعالجة الأخطاء وتسجيل الأحداث بشكل منظم."]}], "en": [{"order": 1, "jobTitle": "Executive Manager", "companyName": "Gharra Telecom", "employmentPeriod": "2018 - Present", "location": "Riyadh, Saudi Arabia", "linkedinReadyContent": "Led technical initiatives and supervised the development of software systems and digital services, with a strong focus on systems integration, operational reliability, and scalable solution delivery for business and telecom needs. The role included overseeing implementation quality, supporting service integration with external platforms, and improving technical operations to maintain stable and efficient service environments.", "highlightBullets": ["Supervised software solutions supporting telecom and digital messaging services.", "Improved integration quality across internal and external systems and supported service stability.", "Contributed to scalable, business-oriented technical solutions aligned with operational goals."]}, {"order": 2, "jobTitle": ".NET Developer", "companyName": "Digital Solutions Company", "employmentPeriod": "2010 - 2018", "location": "Riyadh, Saudi Arabia", "linkedinReadyContent": "Developed backend applications and services using .NET and SQL Server, implemented external API integrations, and worked on improving performance, logging, and system stability. The role focused on delivering maintainable and practical technical solutions for a range of operational and business requirements.", "highlightBullets": ["Built backend services and applications using C# and ASP.NET.", "Implemented professional integrations with external APIs and third-party systems.", "Improved operational performance, error handling, and structured logging."]}]}, "featured": {"ar": [{"order": 1, "title": "السيرة الذاتية الاحترافية", "type": "document", "description": "أضف نسخة PDF محدثة من سيرتك الذاتية لتسهيل مراجعة خبرتك التقنية والمسار المهني بسرعة من قبل مسؤولي التوظيف."}, {"order": 2, "title": "مشروع منصة رسائل مؤسسية", "type": "project", "description": "أضف رابطًا أو عرضًا مختصرًا لمشروعك في تطوير منصة رسائل أو نظام تكامل يوضح خبرتك العملية في الحلول المؤسسية."}, {"order": 3, "title": "GitHub أو موقع شخصي", "type": "link", "description": "أضف رابط GitHub أو موقعًا شخصيًا إذا كان لديك أمثلة واضحة على الكود أو المشاريع أو الملفات التقنية."}], "en": [{"order": 1, "title": "Professional Resume", "type": "document", "description": "Add an updated PDF version of your resume so recruiters can quickly review your technical background and career progression."}, {"order": 2, "title": "Enterprise Messaging Platform Project", "type": "project", "description": "Add a short presentation, document, or link to your messaging platform or integration project to showcase hands-on enterprise solution experience."}, {"order": 3, "title": "GitHub or Personal Website", "type": "link", "description": "Add a GitHub profile or personal site if you have clear examples of code, projects, or technical work samples."}]}, "skills": {"ar": {"items": ["C#", ".NET Framework", ".NET Core", "ASP.NET", "SQL Server", "REST APIs", "System Integration", "Windows Services", "Enterprise Applications", "SOAP Services", "IIS Administration", "API Design"]}, "en": {"items": ["C#", ".NET Framework", ".NET Core", "ASP.NET", "SQL Server", "REST APIs", "System Integration", "Windows Services", "Enterprise Applications", "SOAP Services", "IIS Administration", "API Design"]}}, "education": {"ar": [{"order": 1, "degree": "بكالوريوس علوم الحاسب", "institution": "جامعة القاهرة", "graduationYear": "1997", "linkedinReadyContent": "بكالوريوس علوم الحاسب - جامعة القاهرة - 1997"}], "en": [{"order": 1, "degree": "Bachelor’s Degree in Computer Science", "institution": "Cairo University", "graduationYear": "1997", "linkedinReadyContent": "Bachelor’s Degree in Computer Science - Cairo University - 1997"}]}, "certifications": {"ar": [{"order": 1, "name": "شهادة تطوير برمجيات متقدمة", "issuer": "جهة تدريب معتمدة", "issueYear": "2022", "linkedinReadyContent": "شهادة تطوير برمجيات متقدمة - جهة تدريب معتمدة - 2022"}], "en": [{"order": 1, "name": "Advanced Software Development Certification", "issuer": "Accredited Training Provider", "issueYear": "2022", "linkedinReadyContent": "Advanced Software Development Certification - Accredited Training Provider - 2022"}]}, "projects": {"ar": [{"order": 1, "title": "منصة رسائل مؤسسية", "linkedinReadyContent": "تطوير منصة احترافية لإرسال الرسائل ومعالجة الطلبات والتكامل مع مزودي خدمات الاتصالات بشكل موثوق وقابل للتوسع، مع دعم جودة التشغيل وتسجيل العمليات وتحسين الاستقرار."}, {"order": 2, "title": "نظام إدارة طلبات وتكامل API", "linkedinReadyContent": "تصميم وتنفيذ نظام خلفي لمعالجة الطلبات وتكامل واجهات برمجة متعددة، مع تحسينات واضحة في الأداء، القابلية للصيانة، واستقرار العمليات."}], "en": [{"order": 1, "title": "Enterprise Messaging Platform", "linkedinReadyContent": "Built a professional platform for message delivery, request processing, and telecom provider integration with strong reliability, scalability, structured logging, and operational stability."}, {"order": 2, "title": "Request Management and API Integration System", "linkedinReadyContent": "Designed and implemented a backend system for request processing and multi-API integration, with clear improvements in maintainability, performance, and operational stability."}]}};
+    const ui = {
+      en: {
+        brandTitle: "JobzAI LinkedIn Profile Enhancer",
+        brandSubtitle: "Professional LinkedIn-ready sections generated from CV data",
+        eyebrow: "LinkedIn-ready output",
+        heroTitle: "Professional sections the user can copy and paste directly into LinkedIn",
+        heroLead: "This page displays only the polished LinkedIn profile sections in Arabic or English. It is designed for fast review, easy copy, and direct manual paste into LinkedIn.",
+        headlineLabel: "Headline",
+        qp1Label: "Current Position",
+        qp2Label: "Location",
+        qp3Label: "Industry",
+        qp4Label: "Education",
+        sidebarTitle: "Sections",
+        copyPanelText: "Switch the language, review the content, then copy a single section or copy all sections at once.",
+        copyAll: "Copy All Sections",
+        copySection: "Copy Section",
+        nav: ["Profile Intro","About","Experience","Featured","Skills","Education","Certifications","Projects"],
+        profileIntroTitle: "Profile Intro",
+        profileIntroSubtitle: "Main LinkedIn intro fields prepared clearly for direct copy and paste.",
+        aboutTitle: "About",
+        aboutSubtitle: "One polished professional summary ready for LinkedIn.",
+        experienceTitle: "Experience",
+        experienceSubtitle: "Each role is rewritten professionally and ready to paste into LinkedIn.",
+        featuredTitle: "Featured",
+        featuredSubtitle: "Suggested featured items such as a resume, GitHub, portfolio, or project link.",
+        skillsTitle: "Skills",
+        skillsSubtitle: "Professionally ordered skills prepared for LinkedIn Skills.",
+        educationTitle: "Education",
+        educationSubtitle: "Clean education wording formatted for LinkedIn profile entry.",
+        certificationsTitle: "Certifications",
+        certificationsSubtitle: "Ready-to-paste certification entries in a clean professional style.",
+        projectsTitle: "Projects",
+        projectsSubtitle: "LinkedIn-ready project entries with concise professional wording.",
+        profileIntroLabels: {
+          headline: "Headline",
+          currentPosition: "Current Position",
+          educationDisplayLine: "Education Display Line",
+          location: "Location",
+          industry: "Industry",
+          contactInfoWording: "Contact Info Wording",
+          openToWorkOrServices: "Open To Work / Services"
+        }
+      },
+      ar: {
+        brandTitle: "JobzAI لتحسين ملف لينكدإن",
+        brandSubtitle: "أقسام احترافية جاهزة للينكدإن تم توليدها من بيانات السيرة الذاتية",
+        eyebrow: "مخرجات جاهزة للينكدإن",
+        heroTitle: "أقسام احترافية يمكن للمستخدم نسخها ولصقها مباشرة في لينكدإن",
+        heroLead: "تعرض هذه الصفحة فقط الأقسام المصاغة باحتراف لملف لينكدإن بالعربية أو الإنجليزية، وهي مصممة للمراجعة السريعة والنسخ المباشر واللصق اليدوي في لينكدإن.",
+        headlineLabel: "العنوان المهني",
+        qp1Label: "المنصب الحالي",
+        qp2Label: "الموقع",
+        qp3Label: "المجال",
+        qp4Label: "التعليم",
+        sidebarTitle: "الأقسام",
+        copyPanelText: "غيّر اللغة، راجع المحتوى، ثم انسخ قسمًا واحدًا أو انسخ جميع الأقسام مرة واحدة.",
+        copyAll: "نسخ جميع الأقسام",
+        copySection: "نسخ القسم",
+        nav: ["مقدمة الملف","نبذة About","الخبرات","Featured","المهارات","التعليم","الشهادات","المشاريع"],
+        profileIntroTitle: "مقدمة الملف",
+        profileIntroSubtitle: "أهم حقول مقدمة لينكدإن مرتبة بوضوح لنسخها ولصقها مباشرة.",
+        aboutTitle: "نبذة About",
+        aboutSubtitle: "نبذة مهنية واحدة مصاغة باحتراف وجاهزة للإضافة في لينكدإن.",
+        experienceTitle: "الخبرات",
+        experienceSubtitle: "كل وظيفة معاد صياغتها بشكل احترافي وجاهزة للإضافة في لينكدإن.",
+        featuredTitle: "Featured",
+        featuredSubtitle: "عناصر مقترحة لإضافتها في Featured مثل السيرة الذاتية أو GitHub أو المعرض أو رابط مشروع.",
+        skillsTitle: "المهارات",
+        skillsSubtitle: "مهارات مرتبة بشكل احترافي وجاهزة لقسم Skills في لينكدإن.",
+        educationTitle: "التعليم",
+        educationSubtitle: "صياغة تعليمية واضحة ومنسقة لإضافتها في ملف لينكدإن.",
+        certificationsTitle: "الشهادات",
+        certificationsSubtitle: "مدخلات شهادات جاهزة للصق ومصاغة بأسلوب مهني واضح.",
+        projectsTitle: "المشاريع",
+        projectsSubtitle: "مشاريع بصياغة احترافية ومختصرة وجاهزة للإضافة في لينكدإن.",
+        profileIntroLabels: {
+          headline: "العنوان المهني",
+          currentPosition: "المنصب الحالي",
+          educationDisplayLine: "سطر التعليم",
+          location: "الموقع",
+          industry: "المجال",
+          contactInfoWording: "صياغة معلومات التواصل",
+          openToWorkOrServices: "صياغة Open to Work / الخدمات"
+        }
+      }
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const langSelect = $("languageSelect");
+    const copyAllBtn = $("copyAllBtn");
+    const copyAllBtnSide = $("copyAllBtnSide");
+
+    function setText(id, value) {
+      const el = $(id);
+      if (el) el.textContent = value ?? "";
+    }
+
+    function copyText(text) {
+      return navigator.clipboard.writeText(text).catch(() => {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+      });
+    }
+
+    function formatProfileIntroForCopy(d, lang) {
+      const labels = ui[lang].profileIntroLabels;
+      return [
+        `${labels.headline}: ${d.headline}`,
+        `${labels.currentPosition}: ${d.currentPosition}`,
+        `${labels.educationDisplayLine}: ${d.educationDisplayLine}`,
+        `${labels.location}: ${d.location}`,
+        `${labels.industry}: ${d.industry}`,
+        `${labels.contactInfoWording}: ${d.contactInfoWording}`,
+        `${labels.openToWorkOrServices}: ${d.openToWorkOrServices}`
+      ].join("\n\n");
+    }
+
+    function getAllSectionsText(lang) {
+      const d = resultData;
+      return [
+        `=== ${ui[lang].nav[0]} ===\n${formatProfileIntroForCopy(d.profileIntro[lang], lang)}`,
+        `=== ${ui[lang].nav[1]} ===\n${d.about[lang].content}`,
+        `=== ${ui[lang].nav[2]} ===\n` + d.experience[lang].map(x => `${x.jobTitle} - ${x.companyName}\n${x.linkedinReadyContent}`).join("\n\n"),
+        `=== ${ui[lang].nav[3]} ===\n` + d.featured[lang].map(x => `${x.title}\n${x.description}`).join("\n\n"),
+        `=== ${ui[lang].nav[4]} ===\n` + d.skills[lang].items.join(", "),
+        `=== ${ui[lang].nav[5]} ===\n` + d.education[lang].map(x => x.linkedinReadyContent).join("\n\n"),
+        `=== ${ui[lang].nav[6]} ===\n` + d.certifications[lang].map(x => x.linkedinReadyContent).join("\n\n"),
+        `=== ${ui[lang].nav[7]} ===\n` + d.projects[lang].map(x => `${x.title}\n${x.linkedinReadyContent}`).join("\n\n")
+      ].join("\n\n");
+    }
+
+    function renderProfileIntro(lang) {
+      const d = resultData.profileIntro[lang];
+      const labels = ui[lang].profileIntroLabels;
+      setText("headlineValue", d.headline);
+      setText("qp1Value", d.currentPosition);
+      setText("qp2Value", d.location);
+      setText("qp3Value", d.industry);
+      setText("qp4Value", d.educationDisplayLine);
+
+      const grid = $("profileIntroGrid");
+      grid.innerHTML = "";
+      [
+        ["headline", labels.headline],
+        ["currentPosition", labels.currentPosition],
+        ["educationDisplayLine", labels.educationDisplayLine],
+        ["location", labels.location],
+        ["industry", labels.industry],
+        ["contactInfoWording", labels.contactInfoWording],
+        ["openToWorkOrServices", labels.openToWorkOrServices]
+      ].forEach(([key, label]) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<h4>${label}</h4><div class="text">${d[key] || ""}</div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderAbout(lang) {
+      $("aboutContent").textContent = resultData.about[lang].content || "";
+    }
+
+    function renderExperience(lang) {
+      const list = $("experienceList");
+      list.innerHTML = "";
+      (resultData.experience[lang] || []).forEach((item, idx) => {
+        const meta = `
+          <div class="meta-row">
+            <div class="meta-pill">${item.employmentPeriod || ""}</div>
+            <div class="meta-pill">${item.location || ""}</div>
+            <div class="meta-pill">#${item.order}</div>
+          </div>`;
+        const bullets = (item.highlightBullets || []).map(b => `<li>${b}</li>`).join("");
+        const box = document.createElement("div");
+        box.className = "item";
+        box.innerHTML = `
+          <div class="item-head">
+            <div>
+              <h4 class="item-title">${item.jobTitle || ""}</h4>
+              <div class="item-sub">${item.companyName || ""}</div>
+            </div>
+            <button class="ghost-btn" data-item-copy="experience" data-index="${idx}">${ui[lang].copySection}</button>
+          </div>
+          <div class="text">${item.linkedinReadyContent || ""}</div>
+          ${meta}
+          <div class="footer-note">${(item.highlightBullets || []).join(" • ")}</div>
+        `;
+        list.appendChild(box);
+      });
+    }
+
+    function renderFeatured(lang) {
+      const list = $("featuredList");
+      list.innerHTML = "";
+      (resultData.featured[lang] || []).forEach((item, idx) => {
+        const box = document.createElement("div");
+        box.className = "item";
+        box.innerHTML = `
+          <div class="item-head">
+            <div>
+              <h4 class="item-title">${item.title || ""}</h4>
+              <div class="item-sub">${item.type || ""}</div>
+            </div>
+            <button class="ghost-btn" data-item-copy="featured" data-index="${idx}">${ui[lang].copySection}</button>
+          </div>
+          <div class="text">${item.description || ""}</div>
+        `;
+        list.appendChild(box);
+      });
+    }
+
+    function renderSkills(lang) {
+      const wrap = $("skillsList");
+      wrap.innerHTML = "";
+      (resultData.skills[lang].items || []).forEach(skill => {
+        const chip = document.createElement("span");
+        chip.className = "chip";
+        chip.textContent = skill;
+        wrap.appendChild(chip);
+      });
+    }
+
+    function renderEducation(lang) {
+      const list = $("educationList");
+      list.innerHTML = "";
+      (resultData.education[lang] || []).forEach((item, idx) => {
+        const box = document.createElement("div");
+        box.className = "item";
+        box.innerHTML = `
+          <div class="item-head">
+            <div>
+              <h4 class="item-title">${item.degree || ""}</h4>
+              <div class="item-sub">${item.institution || ""}</div>
+            </div>
+            <button class="ghost-btn" data-item-copy="education" data-index="${idx}">${ui[lang].copySection}</button>
+          </div>
+          <div class="text">${item.linkedinReadyContent || ""}</div>
+          <div class="footer-note">${item.graduationYear ? "Year: " + item.graduationYear : ""}</div>
+        `;
+        list.appendChild(box);
+      });
+    }
+
+    function renderCertifications(lang) {
+      const list = $("certificationsList");
+      list.innerHTML = "";
+      (resultData.certifications[lang] || []).forEach((item, idx) => {
+        const box = document.createElement("div");
+        box.className = "item";
+        box.innerHTML = `
+          <div class="item-head">
+            <div>
+              <h4 class="item-title">${item.name || ""}</h4>
+              <div class="item-sub">${item.issuer || ""}</div>
+            </div>
+            <button class="ghost-btn" data-item-copy="certifications" data-index="${idx}">${ui[lang].copySection}</button>
+          </div>
+          <div class="text">${item.linkedinReadyContent || ""}</div>
+          <div class="footer-note">${item.issueYear ? "Year: " + item.issueYear : ""}</div>
+        `;
+        list.appendChild(box);
+      });
+    }
+
+    function renderProjects(lang) {
+      const list = $("projectsList");
+      list.innerHTML = "";
+      (resultData.projects[lang] || []).forEach((item, idx) => {
+        const box = document.createElement("div");
+        box.className = "item";
+        box.innerHTML = `
+          <div class="item-head">
+            <div>
+              <h4 class="item-title">${item.title || ""}</h4>
+            </div>
+            <button class="ghost-btn" data-item-copy="projects" data-index="${idx}">${ui[lang].copySection}</button>
+          </div>
+          <div class="text">${item.linkedinReadyContent || ""}</div>
+        `;
+        list.appendChild(box);
+      });
+    }
+
+    function renderUiText(lang) {
+      const t = ui[lang];
+      ["brandTitle","brandSubtitle","eyebrow","heroTitle","heroLead","headlineLabel","qp1Label","qp2Label","qp3Label","qp4Label","sidebarTitle","copyPanelText","profileIntroTitle","profileIntroSubtitle","aboutTitle","aboutSubtitle","experienceTitle","experienceSubtitle","featuredTitle","featuredSubtitle","skillsTitle","skillsSubtitle","educationTitle","educationSubtitle","certificationsTitle","certificationsSubtitle","projectsTitle","projectsSubtitle"].forEach(id => setText(id, t[id]));
+      copyAllBtn.textContent = t.copyAll;
+      copyAllBtnSide.textContent = t.copyAll;
+      document.querySelectorAll(".copy-section").forEach(btn => btn.textContent = t.copySection);
+      document.querySelectorAll("#sideNav a").forEach((a, i) => a.textContent = t.nav[i] || a.textContent);
+    }
+
+    function bindItemCopyButtons(lang) {
+      document.querySelectorAll("[data-item-copy]").forEach(btn => {
+        btn.onclick = async () => {
+          const type = btn.getAttribute("data-item-copy");
+          const index = Number(btn.getAttribute("data-index"));
+          let text = "";
+          if (type === "experience") {
+            const item = resultData.experience[lang][index];
+            text = `${item.jobTitle} - ${item.companyName}\n${item.linkedinReadyContent}`;
+          } else if (type === "featured") {
+            const item = resultData.featured[lang][index];
+            text = `${item.title}\n${item.description}`;
+          } else if (type === "education") {
+            text = resultData.education[lang][index].linkedinReadyContent;
+          } else if (type === "certifications") {
+            text = resultData.certifications[lang][index].linkedinReadyContent;
+          } else if (type === "projects") {
+            const item = resultData.projects[lang][index];
+            text = `${item.title}\n${item.linkedinReadyContent}`;
+          }
+          await copyText(text);
+          const original = ui[lang].copySection;
+          btn.textContent = lang === "ar" ? "تم النسخ" : "Copied";
+          setTimeout(() => btn.textContent = original, 1200);
+        };
+      });
+    }
+
+    async function handleCopyAll() {
+      const lang = langSelect.value;
+      await copyText(getAllSectionsText(lang));
+      const original = ui[lang].copyAll;
+      copyAllBtn.textContent = lang === "ar" ? "تم النسخ" : "Copied";
+      copyAllBtnSide.textContent = lang === "ar" ? "تم النسخ" : "Copied";
+      setTimeout(() => {
+        copyAllBtn.textContent = original;
+        copyAllBtnSide.textContent = original;
+      }, 1200);
+    }
+
+    function render(lang) {
+      document.body.dir = lang === "ar" ? "rtl" : "ltr";
+      document.documentElement.lang = lang;
+      renderUiText(lang);
+      renderProfileIntro(lang);
+      renderAbout(lang);
+      renderExperience(lang);
+      renderFeatured(lang);
+      renderSkills(lang);
+      renderEducation(lang);
+      renderCertifications(lang);
+      renderProjects(lang);
+      bindItemCopyButtons(lang);
+    }
+
+    document.querySelectorAll(".copy-section").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const lang = langSelect.value;
+        const type = btn.getAttribute("data-copy");
+        let text = "";
+        if (type === "profileIntro") text = formatProfileIntroForCopy(resultData.profileIntro[lang], lang);
+        else if (type === "about") text = resultData.about[lang].content;
+        else if (type === "experience") text = resultData.experience[lang].map(x => `${x.jobTitle} - ${x.companyName}\n${x.linkedinReadyContent}`).join("\n\n");
+        else if (type === "featured") text = resultData.featured[lang].map(x => `${x.title}\n${x.description}`).join("\n\n");
+        else if (type === "skills") text = resultData.skills[lang].items.join(", ");
+        else if (type === "education") text = resultData.education[lang].map(x => x.linkedinReadyContent).join("\n\n");
+        else if (type === "certifications") text = resultData.certifications[lang].map(x => x.linkedinReadyContent).join("\n\n");
+        else if (type === "projects") text = resultData.projects[lang].map(x => `${x.title}\n${x.linkedinReadyContent}`).join("\n\n");
+        await copyText(text);
+        const original = ui[lang].copySection;
+        btn.textContent = lang === "ar" ? "تم النسخ" : "Copied";
+        setTimeout(() => btn.textContent = original, 1200);
+      });
+    });
+
+    copyAllBtn.addEventListener("click", handleCopyAll);
+    copyAllBtnSide.addEventListener("click", handleCopyAll);
+    langSelect.addEventListener("change", e => render(e.target.value));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          document.querySelectorAll("#sideNav a").forEach(a => a.classList.remove("active"));
+          const link = document.querySelector(`#sideNav a[href="#${entry.target.id}"]`);
+          if (link) link.classList.add("active");
+        }
+      });
+    }, {rootMargin:"-20% 0px -60% 0px", threshold:0});
+
+    document.querySelectorAll(".section").forEach(sec => observer.observe(sec));
+    render("en");
+  </script>
+</body>
+</html>

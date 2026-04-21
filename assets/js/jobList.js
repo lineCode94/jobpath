@@ -1,11 +1,30 @@
 import api from "./api.js";
 
+import { getUserDetails } from "./api.js";
+
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("jobsContainer");
   const paginationEl = document.querySelector(".pagination-list");
   const form = document.querySelector(".job__search__section form");
   const tags = document.getElementById("tags");
+async function isLoggedIn() {
+  try {
+    await getUserDetails(); // cookie auto sent
+    return true;
+  } catch {
+    return false;
+  }
+}
+function openLoginModal() {
+  const modalEl = document.getElementById("loginModal");
+  if (!modalEl) {
+    console.error("❌ Login modal not found");
+    return;
+  }
 
+  const modal = new bootstrap.Modal(modalEl);
+  modal.show();
+}
   if (!container || !paginationEl || !form) return;
 
   let lang = localStorage.getItem("lang") || "en";
@@ -286,10 +305,22 @@ function activateCardClicks() {
   document.querySelectorAll(".job-card").forEach((card) => {
     card.style.cursor = "pointer";
 
-    card.addEventListener("click", () => {
+    card.addEventListener("click",async () => {
       const jobId = card.getAttribute("data-job-id");
  
       const lang = localStorage.getItem("lang") || "en";
+
+     const loggedIn = await isLoggedIn();
+
+      if (!loggedIn) {
+        openLoginModal();
+
+        localStorage.setItem(
+          "redirectAfterLogin",
+          `job-details.html?id=${jobId}&lang=${lang}`,
+        );
+        return;
+      }
 
       window.location.href = `job-details.html?id=${jobId}&lang=${lang}`;
     });
@@ -313,7 +344,7 @@ function activateCardClicks() {
     for (let i = 1; i <= end; i++) {
       paginationEl.innerHTML += `
         <li>
-          <a href="#" class="${i === page ? "active" : ""}" data-page="${i}">
+          <a href="#" class="${i === page ? "active-pagnation" : ""}" data-page="${i}">
             ${i}
           </a>
         </li>
