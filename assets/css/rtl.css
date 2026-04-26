@@ -243,4 +243,11 @@ html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
 .form-job-list{direction: ltr!important;}
 .rt-chevron-left{transform: rotate(180deg)!important;
 }
-.rt-chevron-right{transform: rotate(180deg)!important;
+.rt-chevron-right{transform: rotate(180deg)!important}
+
+  .missing-item-title{
+    text-align: right;
+  }
+  .missing-item-description{
+    text-align: right;
+  }

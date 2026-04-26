@@ -95,7 +95,7 @@
 </head>
 <body>
     <!-- header area -->
-    <header class="rts__section rts__header absolute__header">
+      <header class="rts__section rts__header absolute__header">
       <div class="container-none">
         <div class="rts__menu__background">
           <div class="row">
@@ -137,14 +137,36 @@
                         >
                       </li>
 
-       <li class="navigation__menu--item">
-                        <a              
-                          class="atsMenuItem navigation__menu--item__link"
-                          href="ATS-main-page.html"
+      
+                         <li class="navigation__menu--item has-child has-arrow">
+                        <a
+                          href="#"
+                          class="navigation__menu--item__link"
                           data-en="Smart Hiring"
                           data-ar="التوظيف الذكى"
                           >Smart Hiring</a
                         >
+                        <ul class="submenu sub__style" role="menu">
+                         
+                          <li role="menuitem">
+                            <a
+                              href="linkedInEnhancer-1.html"
+                              data-en="Linked In Enhancer"
+                              data-ar="تحسين لينكد ان"
+                              >Linked In Enhancer</a
+                            >
+                          </li>
+                          <li role="menuitem">
+                            <a
+                              href="ATS-main-page.html"
+                              data-en="  ATS "
+                              data-ar=" خدمات السيرة الذاتية"
+                              >ATS</a
+                            >
+                          </li>
+                          
+                          
+                        </ul>
                       </li>
                             <li class="navigation__menu--item">
                         <a              
@@ -288,32 +310,51 @@
 <!-- header area end -->
     <!-- breadcrumb area -->
     <div class="rts__section breadcrumb__background">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 position-relative d-flex justify-content-between align-items-center">
-                <div class="breadcrumb__area max-content breadcrumb__padding z-2">
-                    <h1 class="breadcrumb-title h3 mb-3">Job List</h1>
-                    <nav>
-                        <ul class="breadcrumb m-0 lh-1">
-                          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                          <li class="breadcrumb-item  " aria-current="page">Job List</li>
-                        </ul>
-                    </nav>                  
-                </div>
-                <div class="breadcrumb__area__shape d-flex gap-4 justify-content-end align-items-center">
-                    <div class="shape__one common">
-                        <img src="assets/img/breadcrumb/shape-1.svg" alt="">
-                    </div>
-                    <div class="shape__two common">
-                        <img src="assets/img/breadcrumb/shape-2.svg" alt="">
-                    </div>
-                    <div class="shape__three common">
-                        <img src="assets/img/breadcrumb/shape-3.svg" alt="">
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-lg-12 position-relative d-flex justify-content-between align-items-center"
+      >
+        <div class="breadcrumb__area max-content breadcrumb__padding z-2">
+          <h1
+            class="breadcrumb-title h3 mb-3"
+            data-en="Job List"
+            data-ar="            قائمة الوظائف"
+          >
+          Job List
+          </h1>
+          <nav>
+            <ul class="breadcrumb m-0 lh-1">
+              <li class="breadcrumb-item">
+                <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+              </li>
+              <li
+                class="breadcrumb-item active"
+                aria-current="page"
+                data-en="Job List "
+                data-ar="قائمة الوظائف"
+              >
+              Job List
+              </li>
+            </ul>
+          </nav>
         </div>
+        <div
+          class="breadcrumb__area__shape d-flex gap-4 justify-content-end align-items-center"
+        >
+          <div class="shape__one common">
+            <img src="assets/img/breadcrumb/shape-1.svg" alt="" />
+          </div>
+          <div class="shape__two common">
+            <img src="assets/img/breadcrumb/shape-2.svg" alt="" />
+          </div>
+          <div class="shape__three common">
+            <img src="assets/img/breadcrumb/shape-3.svg" alt="" />
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
     <!-- breadcrumb area end -->
 

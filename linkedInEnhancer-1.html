@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
  
@@ -89,13 +89,13 @@
  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareerCV - Professional CV Platform</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Your Profile - CareerCV</title>
+  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -110,7 +110,7 @@
             --white: #FFFFFF;
             --shadow: 0 4px 20px rgba(16, 185, 129, 0.1);
             --transition: all 0.3s ease;
-            --error: #EF4444;
+            --linkedin: #34a853;
             --warning: #F59E0B;
         }
 
@@ -237,13 +237,13 @@
                 left: 0;
                 right: 0;
                 height: 6px;
-                background: linear-gradient(90deg, var(--error), var(--warning));
+                background: var(--linkedin);
             }
 
         .error-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, var(--error), var(--warning));
+            background: linear-gradient(135deg, var(--linkedin), var(--warning));
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -318,7 +318,7 @@
         .missing-item-icon {
             width: 40px;
             height: 40px;
-            background: var(--error);
+            background: var(--linkedin);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -574,7 +574,15 @@
         .fade-in {
             animation: fadeInUp 0.6s ease forwards;
         }
-        
+        .cv-option.active {
+  border: 2px solid #10B981;
+  background: #ECFDF5;
+  transform: scale(1.02);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
     </style>
 </head>
 <body dir="ltr">
@@ -760,131 +768,131 @@
       </div>
     </header>
 
-    <main class="container">
-        <div class="main-content">
-            <!-- Error Container -->
-            <div class="error-container fade-in">
-                <div class="error-icon">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
+<main class="container">
+  <div class="main-content">
 
-                <h2 class="error-title" data-en="Complete Your Profile" data-ar="أكمل ملفك الشخصي">
-                    Complete Your Profile
-                </h2>
+    <div class="error-container fade-in">
 
-                <p class="error-description" data-en="Before starting the ATS optimization process, please complete the following required items:" data-ar="قبل بدء عملية تحسين أنظمة التتبع (ATS)، يرجى إكمال العناصر المطلوبة التالية:">
-                    Before starting the ATS optimization process, please complete the following required items:
-                </p>
+      <h2 class="error-title"
+          data-en="LinkedIn Enhancer"
+          data-ar="تحسين لينكد">
+        LinkedIn Enhancer
+      </h2>
 
-                <ul class="missing-items">
-                    <li class="missing-item">
-                        <div class="missing-item-icon">
-                            <i class="fas fa-bullseye"></i>
-                        </div>
-                        <div class="missing-item-content">
-                            <h4 class="missing-item-title" data-en="Target Job Title" data-ar="المسمى الوظيفي المستهدف">
-                                Target Job Title
-                            </h4>
-                            <p class="missing-item-description" data-en="Specify the job position you are targeting for ATS optimization" data-ar="حدد المسمى الوظيفي الذي تستهدفه لتحسين أنظمة التتبع">
-                                Specify the job position you are targeting for ATS optimization
-                            </p>
-                            <button id="openJobTitleBtn" class="primary-btn">
-  <i class="fas fa-bullseye"></i>
-  <span>Set Job Title</span>
-</button>
+      <p class="error-description"
+         data-en="Choose how you want to provide your CV"
+         data-ar="اختر طريقة إدخال السيرة الذاتية">
+        Choose how you want to provide your CV
+      </p>
 
-                        </div>
-                    </li>
+      <ul class="missing-items ">
 
-                    <li class="missing-item">
-                        <div class="missing-item-icon">
-                            <i class="fas fa-file-upload"></i>
-                        </div>
-                        <div class="missing-item-content">
-                            <h4 class="missing-item-title" data-en="CV/Resume Upload" data-ar="تحميل السيرة الذاتية">
-                                CV/Resume Upload
-                            </h4>
-                            <p class="missing-item-description" data-en="Upload your current CV or resume for ATS analysis and optimization" data-ar="قم بتحميل سيرتك الذاتية الحالية لتحليل وتحسين أنظمة التتبع">
-                                Upload your current CV or resume for ATS analysis and optimization
-                            </p>
-                            <button id="uploadCvBtn" class="primary-btn ">
-  <i class="fas fa-file-upload"></i>
-  <span   >Upload CV</span>
-</button>
+        <!-- 🔥 OPTION 1: Upload -->
+        <li class="missing-item cv-option" data-type="upload">
+          <div class="missing-item-icon">
+            <i class="fas fa-file-upload"></i>
+          </div>
 
-<input
-  type="file"
-  id="cvUploadInput"
-  accept=".pdf,.doc,.docx"
-  hidden
-/>
+          <div class="missing-item-content">
+            <h4 class="missing-item-title"
+                data-en="Upload CV"
+                data-ar="رفع السيرة الذاتية">
+              Upload CV
+            </h4>
 
-                        </div>
-                    </li>
-                </ul>
+            <p class="missing-item-description"
+               data-en="Upload your CV file for processing"
+               data-ar="قم برفع السيرة الذاتية">
+              Upload your CV file for processing
+            </p>
 
-                <div class="action-buttons">
-                    <a href="profile.html" class="primary-btn">
-                        <i class="fas fa-user-edit"></i>
-                        <span data-en="Complete Profile" data-ar="أكمل الملف الشخصي">
-                            Complete Profile
-                        </span>
-                    </a>
+            <button data-en=" Upload Cv" data-ar="رفع السيرة الذاتية" id="uploadCvBtn" class="primary-btn">
+              <i class="fas fa-file-upload"></i>
+              <span>Upload CV</span>
+              
+            </button>
 
+            <input
+              type="file"
+              id="cvUploadInput"
+              accept=".pdf,.doc,.docx"
+              hidden
+            />
 
-                    <button onclick="goBack()" class="secondary-btn">
-                        <i class="fas fa-arrow-left"></i>
-                        <span data-en="Go Back" data-ar="العودة">
-                            Go Back
-                        </span>
-                    </button>
-                    
-                </div>
-            </div>
+           <p id="uploadedCvName" style="margin-top:5px; font-size:13px; "></p>
+          </div>
+        </li>
 
-            <!-- Progress Section -->
-             
+        <!-- 🔥 OPTION 2: Existing -->
+        <li class="missing-item cv-option" data-type="existing">
+          <div class="missing-item-icon">
+            <i class="fas fa-database"></i>
+          </div>
 
-            <!-- Quick Tips -->
-            <div class="progress-section fade-in" style="animation-delay: 0.4s; margin-top: 2rem;">
-                <h3 style="margin-bottom: 1.5rem; color: var(--dark-text);" data-en="Quick Tips for Better Results" data-ar="نصائح سريعة لنتائج أفضل">
-                    Quick Tips for Better Results
-                </h3>
+          <div class="missing-item-content">
+            <h4 class="missing-item-title"
+                data-en="Use Saved CV"
+                data-ar="استخدام السيرة المحفوظة">
+              Use Saved CV
+            </h4>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
-                    <div style="text-align: left;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                            <i class="fas fa-lightbulb" style="color: var(--accent); font-size: 1.2rem;"></i>
-                            <span style="font-weight: 600;" data-en="Be Specific" data-ar="كن محدداً">Be Specific</span>
-                        </div>
-                        <p style="color: var(--light-text); font-size: 0.95rem;" data-en="Use exact job titles from job descriptions" data-ar="استخدم المسميات الوظيفية الدقيقة من وصف الوظيفة">
-                            Use exact job titles from job descriptions
-                        </p>
-                    </div>
+            <p class="missing-item-description"
+               data-en="Use your CV saved in your profile"
+               data-ar="استخدم السيرة الذاتية الموجودة في حسابك">
+              Use your CV saved in your profile
+            </p>
 
-                    <div style="text-align: left;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                            <i class="fas fa-file-alt" style="color: var(--accent); font-size: 1.2rem;"></i>
-                            <span style="font-weight: 600;" data-en="Format Matters" data-ar="التنسيق مهم">Format Matters</span>
-                        </div>
-                        <p style="color: var(--light-text); font-size: 0.95rem;" data-en="Upload PDF or DOCX for best ATS compatibility" data-ar="قم بتحميل PDF أو DOCX لأفضل توافق مع أنظمة التتبع">
-                            Upload PDF or DOCX for best ATS compatibility
-                        </p>
-                    </div>
+            <button data-en="Use Existing CV" data-ar="استخدام السيرة المحفوظة" id="useExistingBtn" class="primary-btn">
+              Use Existing CV
+            </button>
+            <p id="existingCvName" style="margin-top:5px; font-size:13px; color:#555;"></p>
+          </div>
+        </li>
 
-                    <div style="text-align: left;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                            <i class="fas fa-chart-line" style="color: var(--accent); font-size: 1.2rem;"></i>
-                            <span style="font-weight: 600;" data-en="Keywords" data-ar="الكلمات المفتاحية">Keywords</span>
-                        </div>
-                        <p style="color: var(--light-text); font-size: 0.95rem;" data-en="Include industry-specific keywords in your profile" data-ar="أضف كلمات مفتاحية خاصة بالصناعة في ملفك الشخصي">
-                            Include industry-specific keywords in your profile
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+        <!-- 🔥 OPTION 3: Paste -->
+        <li class="missing-item cv-option" data-type="paste">
+          <div class="missing-item-icon">
+            <i class="fas fa-paste"></i>
+          </div>
+
+          <div class="missing-item-content">
+            <h4 class="missing-item-title"
+                data-en="Paste CV Text"
+                data-ar="لصق السيرة الذاتية">
+              Paste CV Text
+            </h4>
+
+            <p class="missing-item-description"
+               data-en="Copy and paste your CV manually"
+               data-ar="قم بلصق السيرة الذاتية">
+              Copy and paste your CV manually
+            </p>
+
+            <textarea
+              id="cvText"
+              style="width:100%; padding:10px; margin-top:10px;"
+              placeholder="Paste your CV here..."
+            ></textarea>
+          </div>
+        </li>
+
+      </ul>
+
+      <!-- ACTIONS -->
+      <div class="action-buttons">
+
+        <button style="text-align: center; width: 50%; font-size: 20px; display: flex; justify-content: center;" data-en="Continue" data-ar="متابعة"  id="continueBtn" class="primary-btn " disabled>
+          Continue
+        </button>
+
+       
+
+      </div>
+
+    </div>
+
+  </div>
+</main>
 
   <div data-include="layout/footer.html"></div>
 <!-- job title modal -->
@@ -1389,7 +1397,7 @@
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="assets/js/plugins.min.js"></script>
 
-<script type="module" src="assets/js/atsEror.js"></script>
+<script type="module" src="assets/js/cvLinked.js"></script>
     <script type="module" src="assets/js/login.js"></script>
 
     <script defer type="module" src="assets/js/main.js"></script>

@@ -177,4 +177,11 @@ export const subscribeNewsletter = (payload) =>
 export const getJobs = (page = 1, limit = 9) => {
   return api.get(`/jobs/public?page=${page}&limit=${limit}&lang=en`);
 };
+//=================== linked in enhancer =====================
+export const linkedinOptimizer = (formData) =>
+  api.post("/linkedin-optimizer", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 export default api;
