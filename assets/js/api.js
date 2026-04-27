@@ -178,6 +178,15 @@ export const getJobs = (page = 1, limit = 9) => {
   return api.get(`/jobs/public?page=${page}&limit=${limit}&lang=en`);
 };
 //=================== linked in enhancer =====================
+export async function getLatestLinkedinData() {
+  try {
+    const res = await api.get("/linkedin-optimizer/latest");
+    return res.data;
+  } catch (err) {
+    console.error("Error fetching LinkedIn data:", err);
+    throw err;
+  }
+}
 export const linkedinOptimizer = (formData) =>
   api.post("/linkedin-optimizer", formData, {
     headers: {

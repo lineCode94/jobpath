@@ -3,7 +3,6 @@ import { getUserDetails, uploadCv, linkedinOptimizer } from "./api.js";
 document.addEventListener("DOMContentLoaded", async () => {
   const uploadCvBtn = document.getElementById("uploadCvBtn");
   const cvInput = document.getElementById("cvUploadInput");
-
   const useExistingBtn = document.getElementById("useExistingBtn");
   const pasteTextArea = document.getElementById("cvText");
   const continueBtn = document.getElementById("continueBtn");
@@ -11,45 +10,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   const uploadedCvNameEl = document.getElementById("uploadedCvName");
   const existingCvNameEl = document.getElementById("existingCvName");
 
+  const skeleton = document.getElementById("pageSkeleton");
+  const content = document.getElementById("pageContent");
+
   const optionCards = document.querySelectorAll(".cv-option");
-  const existingCard = document.getElementById("existingCard");
 
-  const loader = document.getElementById("pageLoader");
-  const mainContent = document.getElementById("mainContent");
-
-  let selectedOption = null;
   let user = null;
   let uploadedFile = null;
+  let selectedOption = null;
   let hasExistingCv = false;
 
-  /* ================= ACTIVE CARD ================= */
-  function setActiveOption(type) {
-    selectedOption = type;
+  const originalBtnHTML = continueBtn.innerHTML;
 
-    optionCards.forEach((card) => {
-      card.classList.remove("active");
-
-      if (card.dataset.type === type) {
-        card.classList.add("active");
-      }
-    });
+  /* ================= LOADING BUTTON ================= */
+  function setLoading(state) {
+    if (state) {
+      continueBtn.disabled = true;
+      continueBtn.innerHTML = `
+        <span class="spinner-border spinner-border-sm me-2"></span>
+        Processing...
+      `;
+    } else {
+      continueBtn.disabled = false;
+      continueBtn.innerHTML = originalBtnHTML;
+    }
   }
 
-  /* ================= CARD CLICK ================= */
-  optionCards.forEach((card) => {
-    card.addEventListener("click", () => {
-      if (card.classList.contains("disabled")) return;
-
-      const type = card.dataset.type;
-      setActiveOption(type);
-
-      if (type === "upload") uploadCvBtn.click();
-      if (type === "existing") useExistingBtn.click();
-      if (type === "paste") pasteTextArea.focus();
-    });
-  });
-
-  /* ================= LOAD USER ================= */
+  /* ================= LOAD USER WITH SKELETON ================= */
   try {
     const res = await getUserDetails();
     user = res?.data?.currentUser || res?.currentUser;
@@ -60,156 +47,144 @@ document.addEventListener("DOMContentLoaded", async () => {
       existingCvNameEl.textContent = `Saved CV: ${fileName}`;
     } else {
       hasExistingCv = false;
-      existingCvNameEl.textContent = "No CV uploaded yet";
-
-      // disable existing option
-      existingCard?.classList.add("disabled");
+      existingCvNameEl.textContent = "No CV uploaded";
       useExistingBtn.disabled = true;
+
+      const existingCard = document.getElementById("existingCard");
+      existingCard?.classList.add("disabled");
     }
   } catch (e) {
-    console.error("Failed to load user:", e);
+    console.error(e);
+  } finally {
+    skeleton.classList.add("fade-out");
+
+    setTimeout(() => {
+      skeleton.style.display = "none";
+      content.style.display = "block";
+      content.classList.add("fade-in");
+    }, 300);
   }
 
-  // 🔥 hide loader & show page
-  loader && (loader.style.display = "none");
-  mainContent && (mainContent.style.display = "block");
+  /* ================= ACTIVE CARD ================= */
+  function setActive(type) {
+    selectedOption = type;
 
-  /* ================= RESET ================= */
-  function resetSelections(type) {
-    if (type !== "upload") {
-      uploadedFile = null;
-      uploadedCvNameEl.textContent = "";
-    }
+    optionCards.forEach((card) => {
+      card.classList.remove("active");
+      if (card.dataset.type === type) {
+        card.classList.add("active");
+      }
+    });
 
-    if (type !== "existing" && user?.cvPath) {
-      const fileName = user.cvPath.split("/").pop();
-      existingCvNameEl.textContent = `Saved CV: ${fileName}`;
-    }
-
-    if (type !== "paste") {
-      pasteTextArea.value = "";
-    }
+    updateContinueState();
   }
 
-  /* ================= OPTION 1: UPLOAD ================= */
+  /* ================= CLICK CARDS ================= */
+  optionCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const type = card.dataset.type;
 
-  uploadCvBtn?.addEventListener("click", (e) => {
-    e.stopPropagation(); // 🔥 FIX double open
+      if (type === "upload") uploadCvBtn.click();
+      if (type === "existing") useExistingBtn.click();
+      if (type === "paste") pasteTextArea.focus();
+    });
+  });
+
+  /* ================= UPLOAD ================= */
+  uploadCvBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
     cvInput.click();
   });
 
-  cvInput?.addEventListener("click", (e) => {
-    e.stopPropagation();
-  });
-
-  cvInput?.addEventListener("change", async () => {
+  cvInput.addEventListener("change", async () => {
     if (!cvInput.files.length) return;
 
-    resetSelections("upload");
-    setActiveOption("upload");
-
     uploadedFile = cvInput.files[0];
+    setActive("upload");
 
     uploadedCvNameEl.textContent = `Uploaded: ${uploadedFile.name}`;
-
-    updateContinueState();
 
     const fd = new FormData();
     fd.append("cv", uploadedFile);
 
     try {
       await uploadCv(fd);
-      showToast("CV uploaded successfully", "success");
-    } catch (err) {
-      console.error(err);
-      showToast("Failed to upload CV", "danger");
+      showToast("Uploaded successfully");
+    } catch {
+      showToast("Upload failed", "danger");
     }
   });
 
-  /* ================= OPTION 2: EXISTING ================= */
-
-  useExistingBtn?.addEventListener("click", (e) => {
-    e.stopPropagation();
-
+  /* ================= EXISTING ================= */
+  useExistingBtn.addEventListener("click", () => {
     if (!hasExistingCv) return;
 
-    resetSelections("existing");
-    setActiveOption("existing");
-
     uploadedFile = "existing";
+    setActive("existing");
 
     const fileName = user.cvPath.split("/").pop();
     existingCvNameEl.textContent = `Using: ${fileName}`;
-
-    updateContinueState();
-
-    showToast("Using your saved CV", "success");
   });
 
-  /* ================= OPTION 3: PASTE ================= */
+  /* ================= PASTE ================= */
+  pasteTextArea.addEventListener("focus", () => {
+    uploadedFile = null;
+    setActive("paste");
+  });
+
+  pasteTextArea.addEventListener("input", updateContinueState);
 
   function getPastedText() {
-    return pasteTextArea?.value.trim();
+    return pasteTextArea.value.trim();
   }
 
-  pasteTextArea?.addEventListener("focus", () => {
-    resetSelections("paste");
-    setActiveOption("paste");
-    uploadedFile = null;
-  });
-
-  pasteTextArea?.addEventListener("input", () => {
-    updateContinueState();
-  });
-
-  /* ================= CONTINUE BUTTON STATE ================= */
-
+  /* ================= CONTINUE ENABLE ================= */
   function updateContinueState() {
-    let isValid = false;
+    let valid = false;
 
-    if (selectedOption === "upload" && uploadedFile) {
-      isValid = true;
-    } else if (selectedOption === "existing" && hasExistingCv) {
-      isValid = true;
-    } else if (selectedOption === "paste" && getPastedText()) {
-      isValid = true;
-    }
+    if (selectedOption === "upload" && uploadedFile) valid = true;
+    if (selectedOption === "existing" && hasExistingCv) valid = true;
+    if (selectedOption === "paste" && getPastedText()) valid = true;
 
-    continueBtn.disabled = !isValid;
+    continueBtn.disabled = !valid;
 
-    continueBtn.style.opacity = isValid ? "1" : "0.5";
-    continueBtn.style.cursor = isValid ? "pointer" : "not-allowed";
+    continueBtn.style.opacity = valid ? "1" : "0.5";
+    continueBtn.style.cursor = valid ? "pointer" : "not-allowed";
   }
+
+  continueBtn.disabled = true;
 
   /* ================= CONTINUE ================= */
-
-  continueBtn?.addEventListener("click", async () => {
+  continueBtn.addEventListener("click", async () => {
     const fd = new FormData();
 
+    // 🔥 START LOADING
+    setLoading(true);
+
     try {
-      if (selectedOption === "upload" && uploadedFile) {
+      if (selectedOption === "upload") {
         fd.append("file", uploadedFile);
       } else if (selectedOption === "existing") {
-        fd.append("existingCV", user.cvPath);
-      } else if (selectedOption === "paste") {
-        fd.append("pastedText", getPastedText());
+        fd.append("existingCV", true);
       } else {
-        showToast("Please complete your selection", "danger");
-        return;
+        fd.append("pastedText", getPastedText());
       }
 
       const res = await linkedinOptimizer(fd);
 
       localStorage.setItem("linkedinData", JSON.stringify(res.data.data));
 
-      showToast("CV processed successfully 🚀", "success");
+      showToast("Processing done 🚀");
 
       setTimeout(() => {
         window.location.href = "linkedInEnhancer-2.html";
       }, 1000);
     } catch (err) {
       console.error(err);
-      showToast("Failed to process CV", "danger");
+      showToast("Failed", "danger");
+
+      // 🔥 RESET ON ERROR
+      setLoading(false);
     }
   });
 });
@@ -219,20 +194,12 @@ function showToast(message, type = "success") {
   const toastContainer = document.getElementById("toastContainer");
   if (!toastContainer) return;
 
-  const toastEl = document.createElement("div");
-  toastEl.className = `toast align-items-center text-bg-${type} border-0`;
+  const el = document.createElement("div");
+  el.className = `toast text-bg-${type} border-0`;
+  el.innerHTML = `<div class="toast-body">${message}</div>`;
 
-  toastEl.innerHTML = `
-    <div class="d-flex">
-      <div class="toast-body">${message}</div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-    </div>
-  `;
+  toastContainer.appendChild(el);
+  new bootstrap.Toast(el).show();
 
-  toastContainer.appendChild(toastEl);
-
-  const bsToast = new bootstrap.Toast(toastEl, { delay: 3000 });
-  bsToast.show();
-
-  toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove());
+  el.addEventListener("hidden.bs.toast", () => el.remove());
 }
