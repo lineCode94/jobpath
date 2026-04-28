@@ -114,25 +114,10 @@
             --warning: #F59E0B;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+ 
+        
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--background);
-            color: var(--dark-text);
-            line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-            body[dir="rtl"] {
-                font-family: 'Cairo', sans-serif;
-                text-align: right;
-            }
+       
 
         .container {
             max-width: 1200px;
@@ -1341,205 +1326,24 @@ button:disabled {
     <button type="button" class="rts__back__top" id="rts-back-to-top">
       <i class="fas fa-arrow-up"></i>
     </button>
-<!-- 
-    <script>
-        // Bilingual support
-        let currentLang = 'en';
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            const isRTL = lang === 'ar';
-            document.body.dir = isRTL ? 'rtl' : 'ltr';
-            document.body.style.textAlign = isRTL ? 'right' : 'left';
-
-            // Update language buttons
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // Update all elements with data attributes
-            document.querySelectorAll('[data-en]').forEach(element => {
-                if (lang === 'en') {
-                    element.textContent = element.getAttribute('data-en');
-                } else {
-                    element.textContent = element.getAttribute('data-ar');
-                }
-            });
-
-            // Update text alignment for specific elements
-            document.querySelectorAll('.missing-item-content, .progress-step').forEach(element => {
-                element.style.textAlign = isRTL ? 'right' : 'left';
-            });
-        }
-
-        // Navigation functions
-        function goBack() {
-            window.history.back();
-        }
-
-        // Simulate progress animation
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animate progress bar
-            setTimeout(() => {
-                const progressFill = document.querySelector('.progress-fill');
-                progressFill.style.width = '40%';
-            }, 500);
-
-            // Add animation to missing items
-            const missingItems = document.querySelectorAll('.missing-item');
-            missingItems.forEach((item, index) => {
-                item.style.animationDelay = `${index * 0.1}s`;
-                item.classList.add('fade-in');
-            });
-        });
-
-        // Simulate auto-complete suggestion
-        function suggestJobTitles() {
-            const suggestions = currentLang === 'en'
-                ? ['Senior Software Engineer', 'Product Manager', 'Data Analyst', 'Marketing Director', 'UX Designer']
-                : ['مهندس برمجيات أول', 'مدير منتج', 'محلل بيانات', 'مدير تسويق', 'مصمم تجربة مستخدم'];
-
-            alert(currentLang === 'en'
-                ? 'Suggested job titles:\n' + suggestions.join('\n')
-                : 'المسميات الوظيفية المقترحة:\n' + suggestions.join('\n'));
-        }
-
-        // Quick upload function
-        function quickUpload() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.pdf,.doc,.docx,.txt';
-
-            input.onchange = function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    // Show success message
-                    showNotification(currentLang === 'en'
-                        ? `File "${file.name}" uploaded successfully! Please update your profile to save changes.`
-                        : `تم تحميل الملف "${file.name}" بنجاح! يرجى تحديث ملفك الشخصي لحفظ التغييرات.`);
-                }
-            };
-
-            input.click();
-        }
-
-        // Notification system
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                ${currentLang === 'ar' ? 'left: 20px;' : 'right: 20px;'}
-                background: var(--primary);
-                color: white;
-                padding: 12px 24px;
-                border-radius: 10px;
-                box-shadow: var(--shadow);
-                z-index: 10000;
-                animation: ${currentLang === 'ar' ? 'slideInLeft' : 'slideInRight'} 0.3s ease;
-                max-width: 400px;
-                text-align: ${currentLang === 'ar' ? 'right' : 'left'};
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.style.animation = `${currentLang === 'ar' ? 'slideOutLeft' : 'slideOutRight'} 0.3s ease forwards`;
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-
-        // Add animation styles
-        const animationStyles = document.createElement('style');
-        animationStyles.textContent = `
-            @keyframes slideInRight {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOutRight {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-            @keyframes slideInLeft {
-                from { transform: translateX(-100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOutLeft {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(-100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(animationStyles);
-
-        // Add quick action buttons dynamically
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add quick action to first missing item
-            const firstMissingItem = document.querySelector('.missing-item:nth-child(1)');
-            if (firstMissingItem) {
-                const quickAction = document.createElement('button');
-                quickAction.innerHTML = currentLang === 'en'
-                    ? '<i class="fas fa-lightbulb"></i> Suggest Titles'
-                    : '<i class="fas fa-lightbulb"></i> اقتراح عناوين';
-                quickAction.style.cssText = `
-                    background: var(--accent);
-                    color: white;
-                    border: none;
-                    padding: 8px 16px;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    font-size: 0.9rem;
-                    margin-top: 8px;
-                    display: flex;
-                    align-items: center;
-                    gap: 6px;
-                    transition: var(--transition);
-                `;
-                quickAction.onclick = suggestJobTitles;
-                quickAction.onmouseenter = function() { this.style.transform = 'scale(1.05)'; };
-                quickAction.onmouseleave = function() { this.style.transform = 'scale(1)'; };
-
-                const contentDiv = firstMissingItem.querySelector('.missing-item-content');
-                contentDiv.appendChild(quickAction);
-            }
-
-            // Add quick action to second missing item
-            const secondMissingItem = document.querySelector('.missing-item:nth-child(2)');
-            if (secondMissingItem) {
-                const quickAction = document.createElement('button');
-                quickAction.innerHTML = currentLang === 'en'
-                    ? '<i class="fas fa-upload"></i> Quick Upload'
-                    : '<i class="fas fa-upload"></i> تحميل سريع';
-                quickAction.style.cssText = `
-                    background: var(--accent);
-                    color: white;
-                    border: none;
-                    padding: 8px 16px;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    font-size: 0.9rem;
-                    margin-top: 8px;
-                    display: flex;
-                    align-items: center;
-                    gap: 6px;
-                    transition: var(--transition);
-                `;
-                quickAction.onclick = quickUpload;
-                quickAction.onmouseenter = function() { this.style.transform = 'scale(1.05)'; };
-                quickAction.onmouseleave = function() { this.style.transform = 'scale(1)'; };
-
-                const contentDiv = secondMissingItem.querySelector('.missing-item-content');
-                contentDiv.appendChild(quickAction);
-            }
-        });
-    </script> -->
+ 
 <!-- allscripts -->
+<script>
+  document.getElementById('sendOtpBtn').addEventListener('click', function() {
+    const otpSection = document.getElementById('otpSection');
+    otpSection.classList.remove('d-none');
+    this.textContent = 'Verify OTP';
+  });
+</script>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="assets/js/plugins.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="module" src="assets/js/cvLinked.js"></script>
-    <script type="module" src="assets/js/login.js"></script>
-
-    <script defer type="module" src="assets/js/main.js"></script>
+<script type ="module" src="assets/js/login.js"></script>
+<script type="module" src="assets/js/newsletter.js"></script>
+<script   src="assets/js/main.js"></script>
 </body>
 </html>
