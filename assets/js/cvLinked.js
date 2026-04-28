@@ -1,6 +1,7 @@
 import { getUserDetails, uploadCv, linkedinOptimizer } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+
   const uploadCvBtn = document.getElementById("uploadCvBtn");
   const cvInput = document.getElementById("cvUploadInput");
   const useExistingBtn = document.getElementById("useExistingBtn");
@@ -21,6 +22,55 @@ document.addEventListener("DOMContentLoaded", async () => {
   let hasExistingCv = false;
 
   const originalBtnHTML = continueBtn.innerHTML;
+  //gard user auth  
+  /* ================= AUTH GUARD ================= */
+let isAuthenticated = false;
+
+try {
+  const res = await getUserDetails();
+  user = res?.data?.currentUser || res?.currentUser;
+
+  if (!user) throw new Error("Not logged in");
+
+  isAuthenticated = true;
+} catch (e) {
+  console.warn("User not authenticated");
+
+  // ❌ امنع ظهور الصفحة
+ content.innerHTML = `
+  <div style="text-align:center; height:100vh; margin-top:100px;">
+    <h3>Please login to use this feature</h3>
+  </div>
+`;
+  // skeleton.style.display = "none";
+
+  // 🔥 افتح login modal
+const loginModalEl = document.getElementById("loginModal");
+
+if (loginModalEl) {
+  const modal = new bootstrap.Modal(loginModalEl);
+  modal.show();
+
+  // ✅ لما المودال يقفل
+  loginModalEl.addEventListener("hidden.bs.modal", async () => {
+    try {
+      const res = await getUserDetails();
+      const newUser = res?.data?.currentUser || res?.currentUser;
+
+      if (newUser) {
+        // 🔥 اليوزر عمل login → اعمل reload
+        window.location.reload();
+      }
+    } catch {
+      // لسه مش عامل login → سيبه زي ما هو
+    }
+  });
+}
+
+  showToast("Please login first", "danger");
+
+  return; // ⛔ وقف تنفيذ باقي الكود
+}
 
   /* ================= LOADING BUTTON ================= */
   function setLoading(state) {
@@ -38,8 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* ================= LOAD USER WITH SKELETON ================= */
   try {
-    const res = await getUserDetails();
-    user = res?.data?.currentUser || res?.currentUser;
+    
 
     if (user?.cvPath) {
       hasExistingCv = true;
