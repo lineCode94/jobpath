@@ -90,6 +90,9 @@ function renderUI(logged) {
     const logged = await isLoggedIn();
     authState.loggedIn = logged;
     renderUI(logged);
+
+    // 🔥 show بعد ما نحدد الحالة
+    document.getElementById("authButtons").style.visibility = "visible";
   }
 
   function forceLoginUI() {

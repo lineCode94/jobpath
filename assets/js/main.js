@@ -732,5 +732,5 @@ document.addEventListener("DOMContentLoaded", () => {
     profileMenu.style.display = "block";
   }
 });
-// =================newsletter =================
+// ================= sekeleton =================
 
